@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="indexClassifyId" id="gTV-IL-0wX" customClass="IndexClassifyCollectionViewCell" customModule="ddjdConsumer" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="79" height="90"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="79" height="90"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="classify_promotions" translatesAutoresizingMaskIntoConstraints="NO" id="Bcv-vH-y32">
+                        <rect key="frame" x="13.5" y="9" width="52.5" height="52.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="52.5" id="AiX-lb-dD7"/>
+                            <constraint firstAttribute="height" constant="52.5" id="Dcl-tV-1oO"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwB-M8-Fsv">
+                        <rect key="frame" x="0.0" y="66.5" width="79" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="9fg-bB-iwq"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Bcv-vH-y32" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="9" id="D99-oo-3HH"/>
+                <constraint firstAttribute="trailing" secondItem="cwB-M8-Fsv" secondAttribute="trailing" id="RMG-re-qic"/>
+                <constraint firstItem="cwB-M8-Fsv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Zx3-GZ-r5L"/>
+                <constraint firstItem="cwB-M8-Fsv" firstAttribute="top" secondItem="Bcv-vH-y32" secondAttribute="bottom" constant="5" id="qHa-Bm-DHm"/>
+                <constraint firstItem="Bcv-vH-y32" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="r1H-dE-oQa"/>
+            </constraints>
+            <size key="customSize" width="79" height="96"/>
+            <connections>
+                <outlet property="classifyImg" destination="Bcv-vH-y32" id="paP-m5-oq8"/>
+                <outlet property="imgHeight" destination="Dcl-tV-1oO" id="dnI-a9-ltn"/>
+                <outlet property="imgWidth" destination="AiX-lb-dD7" id="ASE-bH-BU8"/>
+                <outlet property="lblName" destination="cwB-M8-Fsv" id="fBJ-BD-b1M"/>
+            </connections>
+            <point key="canvasLocation" x="-460" y="-283"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="classify_promotions" width="75" height="75"/>
+    </resources>
+</document>

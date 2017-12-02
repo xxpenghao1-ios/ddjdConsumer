@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="GoodClassifyTableViewCellId" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoodClassifyTableViewCellId" rowHeight="74" id="KGk-i7-Jjw" customClass="GoodClassifyTableViewCell" customModule="ddjdConsumer" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="73.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMz-li-GKw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="73.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.19997704029999999" green="0.2000165284" blue="0.1999686658" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selected_classify" translatesAutoresizingMaskIntoConstraints="NO" id="f2F-zr-ZfW">
+                        <rect key="frame" x="0.0" y="0.0" width="8" height="73.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="8" id="SyS-HH-uhJ"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="uMz-li-GKw" secondAttribute="bottom" id="Ik3-cG-mLx"/>
+                    <constraint firstItem="f2F-zr-ZfW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Rrd-Cu-9iY"/>
+                    <constraint firstAttribute="bottom" secondItem="f2F-zr-ZfW" secondAttribute="bottom" id="UCV-PL-itV"/>
+                    <constraint firstAttribute="trailing" secondItem="uMz-li-GKw" secondAttribute="trailing" id="c9c-4J-vaB"/>
+                    <constraint firstItem="uMz-li-GKw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="itk-Of-qEs"/>
+                    <constraint firstItem="f2F-zr-ZfW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="luK-Gb-0Lh"/>
+                    <constraint firstItem="uMz-li-GKw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xfB-Tb-F6s"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblName" destination="uMz-li-GKw" id="uQF-KB-iTK"/>
+                <outlet property="selectedImg" destination="f2F-zr-ZfW" id="jJe-TY-lak"/>
+            </connections>
+            <point key="canvasLocation" x="-473" y="-143"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="selected_classify" width="8" height="58"/>
+    </resources>
+</document>

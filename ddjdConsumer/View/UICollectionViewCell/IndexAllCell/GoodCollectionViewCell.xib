@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="goodCollectionViewCellId" reuseIdentifier="goodCollectionViewCellId" id="gTV-IL-0wX" customClass="GoodCollectionViewCell" customModule="ddjdConsumer" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="221" height="236"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="221" height="236"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="WMS-Fu-d8o">
+                        <rect key="frame" x="0.0" y="0.0" width="221" height="150"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="150" id="Ac2-Un-vIx"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKz-mc-QvQ">
+                        <rect key="frame" x="10" y="155" width="201" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="2xf-kf-DtF"/>
+                        </constraints>
+                        <string key="text">马里奥早餐面包 1*200g 原味
+送早餐奶*1</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.19997704029083252" green="0.20001652836799622" blue="0.19996866583824158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥4.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x10-va-f0k">
+                        <rect key="frame" x="10" y="200" width="45" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Y4j-6V-fbf"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="bSj-tx-JBJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_car" translatesAutoresizingMaskIntoConstraints="NO" id="a87-Kp-p7s">
+                        <rect key="frame" x="186" y="195" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="4Qd-Ht-6v7"/>
+                            <constraint firstAttribute="height" constant="25" id="pty-eh-3Nx"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="销量100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAa-q3-u8D">
+                        <rect key="frame" x="60" y="200" width="45.5" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="1Tg-no-x0F"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="IFf-Jm-Gkn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="TAa-q3-u8D" firstAttribute="top" secondItem="KKz-mc-QvQ" secondAttribute="bottom" constant="5" id="82n-8N-MAK"/>
+                <constraint firstAttribute="trailing" secondItem="KKz-mc-QvQ" secondAttribute="trailing" constant="10" id="8fs-wI-Dr1"/>
+                <constraint firstItem="x10-va-f0k" firstAttribute="top" secondItem="KKz-mc-QvQ" secondAttribute="bottom" constant="5" id="BfX-uf-55Y"/>
+                <constraint firstItem="x10-va-f0k" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="F94-22-Ovu"/>
+                <constraint firstItem="WMS-Fu-d8o" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="J9F-bf-AzF"/>
+                <constraint firstItem="TAa-q3-u8D" firstAttribute="leading" secondItem="x10-va-f0k" secondAttribute="trailing" constant="5" id="QeQ-8f-S69"/>
+                <constraint firstItem="a87-Kp-p7s" firstAttribute="top" secondItem="KKz-mc-QvQ" secondAttribute="bottom" id="T5Y-W4-YKq"/>
+                <constraint firstItem="KKz-mc-QvQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="V3z-8O-Omd"/>
+                <constraint firstAttribute="trailing" secondItem="a87-Kp-p7s" secondAttribute="trailing" constant="10" id="YPM-TU-SHY"/>
+                <constraint firstItem="WMS-Fu-d8o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wdJ-dW-SLp"/>
+                <constraint firstItem="KKz-mc-QvQ" firstAttribute="top" secondItem="WMS-Fu-d8o" secondAttribute="bottom" constant="5" id="y2f-71-3Vh"/>
+                <constraint firstAttribute="trailing" secondItem="WMS-Fu-d8o" secondAttribute="trailing" id="yZ6-FQ-4IE"/>
+            </constraints>
+            <size key="customSize" width="221" height="236"/>
+            <connections>
+                <outlet property="addCar" destination="a87-Kp-p7s" id="puV-Kj-YCO"/>
+                <outlet property="goodImg" destination="WMS-Fu-d8o" id="n6U-yd-wa3"/>
+                <outlet property="goodImgHeight" destination="Ac2-Un-vIx" id="5aD-L9-wdr"/>
+                <outlet property="lblGoodName" destination="KKz-mc-QvQ" id="3Of-Q0-u4f"/>
+                <outlet property="lblPrice" destination="x10-va-f0k" id="t34-bh-vm6"/>
+                <outlet property="lblSales" destination="TAa-q3-u8D" id="fQR-Uo-dnY"/>
+            </connections>
+            <point key="canvasLocation" x="-619" y="2"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="Image" width="186" height="187"/>
+        <image name="add_car" width="64" height="64"/>
+    </resources>
+</document>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="GoodClassifyCollectionViewCellId" reuseIdentifier="GoodClassifyCollectionViewCellId" id="gTV-IL-0wX" customClass="GoodClassifyCollectionViewCell" customModule="ddjdConsumer" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="90" height="110"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="good_defualt" translatesAutoresizingMaskIntoConstraints="NO" id="MoN-gu-phr">
+                        <rect key="frame" x="15" y="0.0" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="MoN-gu-phr" secondAttribute="height" multiplier="10:10" id="TqL-rk-xXi"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAm-bh-SQv">
+                        <rect key="frame" x="0.0" y="62" width="90" height="0.0"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="3Vl-nr-V8e"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="MoN-gu-phr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="3Mz-bS-8o5"/>
+                <constraint firstItem="gAm-bh-SQv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8sh-1P-rpt"/>
+                <constraint firstItem="gAm-bh-SQv" firstAttribute="top" secondItem="MoN-gu-phr" secondAttribute="bottom" constant="2" id="Q9b-xX-TG3"/>
+                <constraint firstAttribute="trailing" secondItem="gAm-bh-SQv" secondAttribute="trailing" id="WFL-Rg-NJv"/>
+                <constraint firstAttribute="trailing" secondItem="MoN-gu-phr" secondAttribute="trailing" constant="15" id="iPw-D6-Idl"/>
+                <constraint firstItem="MoN-gu-phr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="uiU-Wb-H3Q"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="90" height="110"/>
+            <connections>
+                <outlet property="img" destination="MoN-gu-phr" id="21R-7D-8QG"/>
+                <outlet property="lblName" destination="gAm-bh-SQv" id="o0e-sv-uTB"/>
+            </connections>
+            <point key="canvasLocation" x="-502" y="-118"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="good_defualt" width="285" height="285"/>
+    </resources>
+</document>

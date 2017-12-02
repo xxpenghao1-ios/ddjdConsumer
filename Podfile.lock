@@ -1,0 +1,80 @@
+PODS:
+  - Alamofire (4.5.1)
+  - BaiduMapKit (3.4.0)
+  - BaiduMobStat (4.6.3)
+  - IQKeyboardManagerSwift (5.0.3)
+  - JCore (1.1.5)
+  - JNDropDownMenu (0.1.6)
+  - JPush (3.0.6):
+    - JCore (~> 1.1.1)
+  - Kingfisher (4.1.0)
+  - KMNavigationBarTransition (1.1.1)
+  - MJRefresh (3.1.14)
+  - Moya (9.0.0):
+    - Moya/Core (= 9.0.0)
+  - Moya/Core (9.0.0):
+    - Alamofire (~> 4.1)
+    - Result (~> 3.0)
+  - ObjectMapper (3.0.0)
+  - Onboard (2.3.1)
+  - RealReachability (1.1.9):
+    - RealReachability/Connection (= 1.1.9)
+    - RealReachability/Ping (= 1.1.9)
+  - RealReachability/Connection (1.1.9)
+  - RealReachability/Ping (1.1.9)
+  - Result (3.2.4)
+  - Siren (3.0.1)
+  - SnapKit (4.0.0)
+  - SVProgressHUD (2.2.1)
+  - SwiftyJSON (3.1.4)
+  - WechatOpenSDK (1.8.0)
+  - WMPageController (2.4.3)
+
+DEPENDENCIES:
+  - Alamofire
+  - BaiduMapKit
+  - BaiduMobStat
+  - IQKeyboardManagerSwift
+  - JNDropDownMenu
+  - JPush
+  - Kingfisher
+  - KMNavigationBarTransition
+  - MJRefresh
+  - Moya
+  - ObjectMapper
+  - Onboard
+  - RealReachability
+  - Result
+  - Siren
+  - SnapKit
+  - SVProgressHUD
+  - SwiftyJSON
+  - WechatOpenSDK
+  - WMPageController
+
+SPEC CHECKSUMS:
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  BaiduMapKit: 0a5e5e0b1e3fd8dc5aceb40ab9b89e52e1d13df9
+  BaiduMobStat: 0b90ece449274a310d2c37eec949c6da3602a995
+  IQKeyboardManagerSwift: e257e513744cf32123eca7061272acea0246fc83
+  JCore: 9bd9c770c877c583d98b90a68792b8361974c231
+  JNDropDownMenu: 5f24544b002e01289818d1c56d56ae2de11cb931
+  JPush: c41be50eb1a574a66aeb68d237f00a4ec6ec3a82
+  Kingfisher: f14df8cbe576bf55f211fa589e9869bceb4ea87d
+  KMNavigationBarTransition: 79715a1aeb07a7b0aae45e7e4b02d29db1ea8107
+  MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
+  Moya: cf5e6ee93af526532f92614004b8ad2ea60fd845
+  ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
+  Onboard: b6871f25ac753175b2ab9a362fb2feb26a81a311
+  RealReachability: a8c483900986a0f3305733961effbfbb00637a02
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  Siren: 1fe6c89c268bb5abe684120142e2ad3e7fb0ca1a
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
+  WMPageController: 4c7f2c636675a71aea5eecf8fdc07a0ce86954e3
+
+PODFILE CHECKSUM: f0436facfbd1732f7f0f1214b200ec6fd0cc1e8d
+
+COCOAPODS: 1.4.0.beta.1
