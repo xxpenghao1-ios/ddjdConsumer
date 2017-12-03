@@ -11,7 +11,7 @@ import ObjectMapper
 //会员
 class MemberEntity:Mappable{
     var memberId:Int? //‘会员id’,
-    var nickName:String? //‘会员名’,
+    var nickName:String? //‘昵称’,
     var account:String? //‘账号’,
     var password:String?//‘密码’,
     var realName:String? //‘真实姓名’,

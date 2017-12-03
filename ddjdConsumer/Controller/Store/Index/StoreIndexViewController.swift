@@ -64,7 +64,7 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
             let vc=self.storyboardPushView(type:.store, storyboardId:"OtherSettingsVC") as! OtherSettingsViewController
             self.navigationController?.pushViewController(vc, animated:true)
         }else{
-            let vc=GoodUploadViewController()
+            let vc=UIStoryboard(name:storyboardType.store.rawValue, bundle:nil).instantiateViewController(withIdentifier:"GoodUploadVC") as! GoodUploadViewController;
             self.navigationController?.pushViewController(vc, animated:true)
         }
     }

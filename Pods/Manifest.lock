@@ -27,6 +27,7 @@ PODS:
   - SnapKit (4.0.0)
   - SVProgressHUD (2.2.1)
   - SwiftyJSON (3.1.4)
+  - TZImagePickerController (1.9.3)
   - WechatOpenSDK (1.8.0)
   - WMPageController (2.4.3)
 
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - SnapKit
   - SVProgressHUD
   - SwiftyJSON
+  - TZImagePickerController
   - WechatOpenSDK
   - WMPageController
 
@@ -72,9 +74,10 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  TZImagePickerController: 079ab986018c22793462e531045a75e366b18252
   WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
   WMPageController: 4c7f2c636675a71aea5eecf8fdc07a0ce86954e3
 
-PODFILE CHECKSUM: f0436facfbd1732f7f0f1214b200ec6fd0cc1e8d
+PODFILE CHECKSUM: b3f567c3de7fec870cf6cb2f90eae5b4ef103ed8
 
 COCOAPODS: 1.4.0.beta.1

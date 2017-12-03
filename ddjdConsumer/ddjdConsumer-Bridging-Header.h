@@ -24,6 +24,8 @@
 /// 重写导航栏返回事件
 #import "UIViewController+BackButtonHandler.h"
 
+///引入照片选择
+
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>//引入base相关所有的头文件
 #import <BaiduMapAPI_Map/BMKMapComponent.h>//引入地图功能所有的头文件
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>//引入检索功能所有的头文件

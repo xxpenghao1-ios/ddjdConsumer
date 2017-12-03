@@ -74,6 +74,9 @@
 		6395DE4F1F5D431F008149DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6395DE4E1F5D431F008149DD /* Assets.xcassets */; };
 		6395DE521F5D431F008149DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6395DE501F5D431F008149DD /* LaunchScreen.storyboard */; };
 		6395DE681F5D431F008149DD /* ddjdConsumerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6395DE671F5D431F008149DD /* ddjdConsumerUITests.swift */; };
+		63A30C1E1FD275F8007E6D9F /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A30C1D1FD275F8007E6D9F /* FeedbackViewController.swift */; };
+		63A30C221FD2920C007E6D9F /* FeedbackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A30C201FD2920C007E6D9F /* FeedbackCollectionViewCell.swift */; };
+		63A30C231FD2920C007E6D9F /* FeedbackCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A30C211FD2920C007E6D9F /* FeedbackCollectionViewCell.xib */; };
 		63A6C53B1FCC01840041F012 /* OrderListPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A6C53A1FCC01840041F012 /* OrderListPageController.swift */; };
 		63AB90221F66739B0070AEED /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB90211F66739B0070AEED /* BaseViewController.swift */; };
 		63BB8BC01FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BB8BBF1FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift */; };
@@ -90,6 +93,28 @@
 		63D82E041FAA0C6B00EFE576 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D82E031FAA0C6B00EFE576 /* Array.swift */; };
 		63D9CACA1FB92DC700414BC7 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9CAC91FB92DC700414BC7 /* MyViewController.swift */; };
 		63E1A3B71FC8098B008AAD72 /* OrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1A3B61FC8098B008AAD72 /* OrderListViewController.swift */; };
+		63E8B2711FD3D05B003FCF1E /* FormBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2591FD3D05B003FCF1E /* FormBaseCell.swift */; };
+		63E8B2721FD3D05B003FCF1E /* FormTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B25A1FD3D05B003FCF1E /* FormTitleCell.swift */; };
+		63E8B2731FD3D05B003FCF1E /* FormValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B25B1FD3D05B003FCF1E /* FormValueCell.swift */; };
+		63E8B2741FD3D05C003FCF1E /* FormButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B25C1FD3D05B003FCF1E /* FormButtonCell.swift */; };
+		63E8B2751FD3D05C003FCF1E /* FormCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B25D1FD3D05B003FCF1E /* FormCheckCell.swift */; };
+		63E8B2761FD3D05C003FCF1E /* FormDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B25E1FD3D05B003FCF1E /* FormDateCell.swift */; };
+		63E8B2771FD3D05C003FCF1E /* FormLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B25F1FD3D05B003FCF1E /* FormLabelCell.swift */; };
+		63E8B2781FD3D05C003FCF1E /* FormPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2601FD3D05B003FCF1E /* FormPickerCell.swift */; };
+		63E8B2791FD3D05C003FCF1E /* FormSegmentedControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2611FD3D05B003FCF1E /* FormSegmentedControlCell.swift */; };
+		63E8B27A1FD3D05C003FCF1E /* FormSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2621FD3D05B003FCF1E /* FormSelectorCell.swift */; };
+		63E8B27B1FD3D05C003FCF1E /* FormSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2631FD3D05B003FCF1E /* FormSliderCell.swift */; };
+		63E8B27C1FD3D05C003FCF1E /* FormStepperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2641FD3D05B003FCF1E /* FormStepperCell.swift */; };
+		63E8B27D1FD3D05C003FCF1E /* FormSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2651FD3D05B003FCF1E /* FormSwitchCell.swift */; };
+		63E8B27E1FD3D05C003FCF1E /* FormTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2661FD3D05B003FCF1E /* FormTextFieldCell.swift */; };
+		63E8B27F1FD3D05C003FCF1E /* FormTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2671FD3D05B003FCF1E /* FormTextViewCell.swift */; };
+		63E8B2801FD3D05C003FCF1E /* FormOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2691FD3D05B003FCF1E /* FormOptionsViewController.swift */; };
+		63E8B2811FD3D05C003FCF1E /* FormSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B26A1FD3D05B003FCF1E /* FormSelector.swift */; };
+		63E8B2821FD3D05C003FCF1E /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B26B1FD3D05B003FCF1E /* FormViewController.swift */; };
+		63E8B2831FD3D05C003FCF1E /* FormDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B26D1FD3D05B003FCF1E /* FormDescriptor.swift */; };
+		63E8B2841FD3D05C003FCF1E /* FormRowDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B26E1FD3D05B003FCF1E /* FormRowDescriptor.swift */; };
+		63E8B2851FD3D05C003FCF1E /* FormSectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B26F1FD3D05B003FCF1E /* FormSectionDescriptor.swift */; };
+		63E8B2861FD3D05C003FCF1E /* FormErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2701FD3D05B003FCF1E /* FormErrorType.swift */; };
 		63EDE88A1F74EC77002C9983 /* GoodEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EDE8891F74EC77002C9983 /* GoodEntity.swift */; };
 		63F18E2D1FB9BF0B009C6E44 /* UpdateAddAddressInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F18E2C1FB9BF0B009C6E44 /* UpdateAddAddressInfoViewController.swift */; };
 		63F18E2F1FB9C354009C6E44 /* ShippAddressEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F18E2E1FB9C354009C6E44 /* ShippAddressEntity.swift */; };
@@ -238,6 +263,9 @@
 		6395DE671F5D431F008149DD /* ddjdConsumerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ddjdConsumerUITests.swift; sourceTree = "<group>"; };
 		6395DE691F5D431F008149DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6395DE751F5D436F008149DD /* ddjdConsumer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ddjdConsumer-Bridging-Header.h"; sourceTree = "<group>"; };
+		63A30C1D1FD275F8007E6D9F /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		63A30C201FD2920C007E6D9F /* FeedbackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCollectionViewCell.swift; sourceTree = "<group>"; };
+		63A30C211FD2920C007E6D9F /* FeedbackCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackCollectionViewCell.xib; sourceTree = "<group>"; };
 		63A6C53A1FCC01840041F012 /* OrderListPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListPageController.swift; sourceTree = "<group>"; };
 		63AB90211F66739B0070AEED /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		63BB8BBF1FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreBindWxOrAlipayNetWork.swift; sourceTree = "<group>"; };
@@ -254,6 +282,28 @@
 		63D82E031FAA0C6B00EFE576 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		63D9CAC91FB92DC700414BC7 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		63E1A3B61FC8098B008AAD72 /* OrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListViewController.swift; sourceTree = "<group>"; };
+		63E8B2591FD3D05B003FCF1E /* FormBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormBaseCell.swift; sourceTree = "<group>"; };
+		63E8B25A1FD3D05B003FCF1E /* FormTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormTitleCell.swift; sourceTree = "<group>"; };
+		63E8B25B1FD3D05B003FCF1E /* FormValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormValueCell.swift; sourceTree = "<group>"; };
+		63E8B25C1FD3D05B003FCF1E /* FormButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormButtonCell.swift; sourceTree = "<group>"; };
+		63E8B25D1FD3D05B003FCF1E /* FormCheckCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormCheckCell.swift; sourceTree = "<group>"; };
+		63E8B25E1FD3D05B003FCF1E /* FormDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormDateCell.swift; sourceTree = "<group>"; };
+		63E8B25F1FD3D05B003FCF1E /* FormLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormLabelCell.swift; sourceTree = "<group>"; };
+		63E8B2601FD3D05B003FCF1E /* FormPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormPickerCell.swift; sourceTree = "<group>"; };
+		63E8B2611FD3D05B003FCF1E /* FormSegmentedControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSegmentedControlCell.swift; sourceTree = "<group>"; };
+		63E8B2621FD3D05B003FCF1E /* FormSelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSelectorCell.swift; sourceTree = "<group>"; };
+		63E8B2631FD3D05B003FCF1E /* FormSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSliderCell.swift; sourceTree = "<group>"; };
+		63E8B2641FD3D05B003FCF1E /* FormStepperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormStepperCell.swift; sourceTree = "<group>"; };
+		63E8B2651FD3D05B003FCF1E /* FormSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSwitchCell.swift; sourceTree = "<group>"; };
+		63E8B2661FD3D05B003FCF1E /* FormTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormTextFieldCell.swift; sourceTree = "<group>"; };
+		63E8B2671FD3D05B003FCF1E /* FormTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormTextViewCell.swift; sourceTree = "<group>"; };
+		63E8B2691FD3D05B003FCF1E /* FormOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormOptionsViewController.swift; sourceTree = "<group>"; };
+		63E8B26A1FD3D05B003FCF1E /* FormSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSelector.swift; sourceTree = "<group>"; };
+		63E8B26B1FD3D05B003FCF1E /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		63E8B26D1FD3D05B003FCF1E /* FormDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormDescriptor.swift; sourceTree = "<group>"; };
+		63E8B26E1FD3D05B003FCF1E /* FormRowDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormRowDescriptor.swift; sourceTree = "<group>"; };
+		63E8B26F1FD3D05B003FCF1E /* FormSectionDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSectionDescriptor.swift; sourceTree = "<group>"; };
+		63E8B2701FD3D05B003FCF1E /* FormErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormErrorType.swift; sourceTree = "<group>"; };
 		63EDE8891F74EC77002C9983 /* GoodEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodEntity.swift; sourceTree = "<group>"; };
 		63F18E2C1FB9BF0B009C6E44 /* UpdateAddAddressInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAddAddressInfoViewController.swift; sourceTree = "<group>"; };
 		63F18E2E1FB9C354009C6E44 /* ShippAddressEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippAddressEntity.swift; sourceTree = "<group>"; };
@@ -515,6 +565,7 @@
 		636925B11F5FFE01007EFDB7 /* ThirdPartyFramworks */ = {
 			isa = PBXGroup;
 			children = (
+				63E8B2561FD3D05B003FCF1E /* SwiftForms */,
 				63FCB5C31FC27AE6005B96D8 /* UIViewController-BackButtonHandler-master */,
 				63FBDB371FBA7C0600F0507F /* UITextView+Placeholder */,
 				6352B9831FB97DA80019010D /* UIButton+Badge */,
@@ -585,6 +636,7 @@
 		6374F3641F67E72B006551CE /* UICollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				63A30C1F1FD28F85007E6D9F /* MyAllCell */,
 				632655281FC1A68900559E66 /* StoreIndexCell */,
 				63F6E7D31FB7ECC0009411E6 /* GoodClassifyCell */,
 				6374F3651F67E75F006551CE /* IndexAllCell */,
@@ -729,6 +781,15 @@
 			path = ddjdConsumerUITests;
 			sourceTree = "<group>";
 		};
+		63A30C1F1FD28F85007E6D9F /* MyAllCell */ = {
+			isa = PBXGroup;
+			children = (
+				63A30C201FD2920C007E6D9F /* FeedbackCollectionViewCell.swift */,
+				63A30C211FD2920C007E6D9F /* FeedbackCollectionViewCell.xib */,
+			);
+			path = MyAllCell;
+			sourceTree = "<group>";
+		};
 		63AB90201F6673890070AEED /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -806,6 +867,7 @@
 				63D9CAC91FB92DC700414BC7 /* MyViewController.swift */,
 				6352B9871FB9809A0019010D /* MyInformationViewController.swift */,
 				630000971FBC59CF0038FAA4 /* SettingViewController.swift */,
+				63A30C1D1FD275F8007E6D9F /* FeedbackViewController.swift */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -829,6 +891,67 @@
 				63F3DB741FCCF62E00CEAF24 /* OrderDetailsViewController.swift */,
 			);
 			path = Order;
+			sourceTree = "<group>";
+		};
+		63E8B2561FD3D05B003FCF1E /* SwiftForms */ = {
+			isa = PBXGroup;
+			children = (
+				63E8B2571FD3D05B003FCF1E /* cells */,
+				63E8B2681FD3D05B003FCF1E /* controllers */,
+				63E8B26C1FD3D05B003FCF1E /* descriptors */,
+				63E8B2701FD3D05B003FCF1E /* FormErrorType.swift */,
+			);
+			path = SwiftForms;
+			sourceTree = "<group>";
+		};
+		63E8B2571FD3D05B003FCF1E /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				63E8B2581FD3D05B003FCF1E /* base */,
+				63E8B25C1FD3D05B003FCF1E /* FormButtonCell.swift */,
+				63E8B25D1FD3D05B003FCF1E /* FormCheckCell.swift */,
+				63E8B25E1FD3D05B003FCF1E /* FormDateCell.swift */,
+				63E8B25F1FD3D05B003FCF1E /* FormLabelCell.swift */,
+				63E8B2601FD3D05B003FCF1E /* FormPickerCell.swift */,
+				63E8B2611FD3D05B003FCF1E /* FormSegmentedControlCell.swift */,
+				63E8B2621FD3D05B003FCF1E /* FormSelectorCell.swift */,
+				63E8B2631FD3D05B003FCF1E /* FormSliderCell.swift */,
+				63E8B2641FD3D05B003FCF1E /* FormStepperCell.swift */,
+				63E8B2651FD3D05B003FCF1E /* FormSwitchCell.swift */,
+				63E8B2661FD3D05B003FCF1E /* FormTextFieldCell.swift */,
+				63E8B2671FD3D05B003FCF1E /* FormTextViewCell.swift */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
+		63E8B2581FD3D05B003FCF1E /* base */ = {
+			isa = PBXGroup;
+			children = (
+				63E8B2591FD3D05B003FCF1E /* FormBaseCell.swift */,
+				63E8B25A1FD3D05B003FCF1E /* FormTitleCell.swift */,
+				63E8B25B1FD3D05B003FCF1E /* FormValueCell.swift */,
+			);
+			path = base;
+			sourceTree = "<group>";
+		};
+		63E8B2681FD3D05B003FCF1E /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				63E8B2691FD3D05B003FCF1E /* FormOptionsViewController.swift */,
+				63E8B26A1FD3D05B003FCF1E /* FormSelector.swift */,
+				63E8B26B1FD3D05B003FCF1E /* FormViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		63E8B26C1FD3D05B003FCF1E /* descriptors */ = {
+			isa = PBXGroup;
+			children = (
+				63E8B26D1FD3D05B003FCF1E /* FormDescriptor.swift */,
+				63E8B26E1FD3D05B003FCF1E /* FormRowDescriptor.swift */,
+				63E8B26F1FD3D05B003FCF1E /* FormSectionDescriptor.swift */,
+			);
+			path = descriptors;
 			sourceTree = "<group>";
 		};
 		63F6E7CE1FB7E252009411E6 /* GoodsClassification */ = {
@@ -1120,6 +1243,7 @@
 				63F6E7D71FB7ED0C009411E6 /* GoodClassifyCollectionViewCell.xib in Resources */,
 				6395DE521F5D431F008149DD /* LaunchScreen.storyboard in Resources */,
 				6374F3691F67E7DA006551CE /* IndexClassifyCollectionViewCell.xib in Resources */,
+				63A30C231FD2920C007E6D9F /* FeedbackCollectionViewCell.xib in Resources */,
 				6394F6361FAAFEA000D1795A /* CarTableViewCell.xib in Resources */,
 				63CC8E991FC06A45005C5FB6 /* NewsTableViewCell.xib in Resources */,
 				6395DE4F1F5D431F008149DD /* Assets.xcassets in Resources */,
@@ -1218,6 +1342,7 @@
 				"${BUILT_PRODUCTS_DIR}/Siren/Siren.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
 				"${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1237,6 +1362,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Siren.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WMPageController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1251,24 +1377,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63E8B2751FD3D05C003FCF1E /* FormCheckCell.swift in Sources */,
 				63F6E7D21FB7E738009411E6 /* GoodscategoryEntity.swift in Sources */,
+				63E8B2861FD3D05C003FCF1E /* FormErrorType.swift in Sources */,
 				63F18E2F1FB9C354009C6E44 /* ShippAddressEntity.swift in Sources */,
 				631F29D71F622DF400E46C19 /* ShoppingCartNetWork.swift in Sources */,
+				63E8B2731FD3D05B003FCF1E /* FormValueCell.swift in Sources */,
 				637DD61D1F69203200D1BDD7 /* GoodCollectionViewCell.swift in Sources */,
 				6395DE4A1F5D431E008149DD /* ViewController.swift in Sources */,
 				630000981FBC59CF0038FAA4 /* SettingViewController.swift in Sources */,
 				63506DCD1F6A13D000DDBB15 /* UICollectionViewFlowLayout.swift in Sources */,
+				63E8B27E1FD3D05C003FCF1E /* FormTextFieldCell.swift in Sources */,
 				63741CD31F7897F500946979 /* WRCycleCell.swift in Sources */,
+				63E8B2741FD3D05C003FCF1E /* FormButtonCell.swift in Sources */,
 				6300009A1FBC63A70038FAA4 /* OrderConfirmViewController.swift in Sources */,
 				6316BAEE1FA95BD500D91BA1 /* publicView.swift in Sources */,
 				63D9CACA1FB92DC700414BC7 /* MyViewController.swift in Sources */,
 				630538EC1FC509FF00FA290B /* SelectedRegionViewController.swift in Sources */,
 				631F29D91F622E0B00E46C19 /* MyNetWork.swift in Sources */,
 				6374F3681F67E7DA006551CE /* IndexClassifyCollectionViewCell.swift in Sources */,
+				63E8B2811FD3D05C003FCF1E /* FormSelector.swift in Sources */,
 				6326552B1FC1A6B200559E66 /* StoreIndexCollectionViewCell.swift in Sources */,
 				63CC3D3D1FC2CBED00BDD724 /* GoodUploadViewController.swift in Sources */,
 				63F6E7D01FB7E298009411E6 /* GoodsClassificationViewController.swift in Sources */,
+				63E8B2851FD3D05C003FCF1E /* FormSectionDescriptor.swift in Sources */,
 				6352B9861FB97DA90019010D /* UIButton+Badge.m in Sources */,
+				63E8B27A1FD3D05C003FCF1E /* FormSelectorCell.swift in Sources */,
 				633AC4651FCE7EEA009278D0 /* StoreInfoNetWork.swift in Sources */,
 				6349FAF51FBBE58F00873C50 /* GoodNetWork.swift in Sources */,
 				63F6E7DB1FB7FA30009411E6 /* GoodClassifyTableViewCell.swift in Sources */,
@@ -1279,24 +1413,30 @@
 				6331FD001FA876A700D850EC /* SearchViewController.swift in Sources */,
 				63F9EF0E1F6761C30038B05D /* ConsumerTabBarViewController.swift in Sources */,
 				63D82E021FA9FB1500EFE576 /* String.swift in Sources */,
+				63E8B2711FD3D05B003FCF1E /* FormBaseCell.swift in Sources */,
 				631F29D51F622DCB00E46C19 /* GoodsClassificationNetWork.swift in Sources */,
 				63FEDA0D1FC5A11E000EF4DF /* poiTableViewCell.swift in Sources */,
 				63351D641FB69EE2004B12A3 /* ReistrViewController.swift in Sources */,
 				63CC8E981FC06A45005C5FB6 /* NewsTableViewCell.swift in Sources */,
 				63BB8BC01FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift in Sources */,
+				63E8B27B1FD3D05C003FCF1E /* FormSliderCell.swift in Sources */,
+				63E8B2801FD3D05C003FCF1E /* FormOptionsViewController.swift in Sources */,
 				63E1A3B71FC8098B008AAD72 /* OrderListViewController.swift in Sources */,
 				63924F3D1FB99A90007872F6 /* AddressListTableViewCell.swift in Sources */,
+				63E8B27D1FD3D05C003FCF1E /* FormSwitchCell.swift in Sources */,
 				630EABD21FC6A49A003ED429 /* APAuthInfo.m in Sources */,
 				63AB90221F66739B0070AEED /* BaseViewController.swift in Sources */,
 				6316BAF21FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m in Sources */,
 				63FDDC451FD0F1F9001CD97E /* PoiSearchAddressViewController.swift in Sources */,
 				63F9C9231FAB5D0900A3732D /* SpecialPriceListViewController.swift in Sources */,
+				63E8B2831FD3D05C003FCF1E /* FormDescriptor.swift in Sources */,
 				63F3DB751FCCF62E00CEAF24 /* OrderDetailsViewController.swift in Sources */,
 				63F6E7D61FB7ED0C009411E6 /* GoodClassifyCollectionViewCell.swift in Sources */,
 				63FFD9D81F613E2C00B56B89 /* PublicUtility.swift in Sources */,
 				63F9C91B1FAB3E5500A3732D /* SpecialPriceTableViewCell.swift in Sources */,
 				63CC8E941FC068D8005C5FB6 /* MyNewsViewController.swift in Sources */,
 				63A6C53B1FCC01840041F012 /* OrderListPageController.swift in Sources */,
+				63E8B2821FD3D05C003FCF1E /* FormViewController.swift in Sources */,
 				6394F6301FAAC9C900D1795A /* MJRefresh.swift in Sources */,
 				6302E6F31FCB96270009A018 /* UILabel.swift in Sources */,
 				63351D581FB590F1004B12A3 /* WXApiManager.swift in Sources */,
@@ -1315,6 +1455,7 @@
 				63BB8BC51FC67A53003BB38D /* OtherSettingsViewController.swift in Sources */,
 				633AC4691FCE9406009278D0 /* PriceComputationsUtil.swift in Sources */,
 				63FA108C1FC05E0B009B6CB2 /* Image.swift in Sources */,
+				63E8B2781FD3D05C003FCF1E /* FormPickerCell.swift in Sources */,
 				63351D601FB5CC93004B12A3 /* PayNetWork.swift in Sources */,
 				63F9EF101F67620C0038B05D /* StoreTabBarViewController.swift in Sources */,
 				63FA108F1FC0629B009B6CB2 /* MyCollectGoodViewController.swift in Sources */,
@@ -1326,23 +1467,32 @@
 				63FFD9D51F61270B00B56B89 /* BaseNetWork.swift in Sources */,
 				63741CCB1F7683CC00946979 /* PHTransitionFromFirstToSecond.swift in Sources */,
 				63741CD51F7897F500946979 /* WRProxy.swift in Sources */,
+				63A30C1E1FD275F8007E6D9F /* FeedbackViewController.swift in Sources */,
 				637D6ED41F66357F006E90F1 /* IndexViewController.swift in Sources */,
+				63E8B2721FD3D05B003FCF1E /* FormTitleCell.swift in Sources */,
 				6394F6351FAAFEA000D1795A /* CarTableViewCell.swift in Sources */,
 				63F38B441FAAAC0800DB0FAA /* GoodListViewController.swift in Sources */,
 				63FDDC481FD14826001CD97E /* PurchaseHistoryViewController.swift in Sources */,
+				63E8B2841FD3D05C003FCF1E /* FormRowDescriptor.swift in Sources */,
 				63351D551FB5799B004B12A3 /* UIButton.swift in Sources */,
+				63E8B2761FD3D05C003FCF1E /* FormDateCell.swift in Sources */,
 				63F18E2D1FB9BF0B009C6E44 /* UpdateAddAddressInfoViewController.swift in Sources */,
 				63FA10891FC05BA2009B6CB2 /* OrderConfirmTableViewCell.swift in Sources */,
 				63BB8BC81FC69070003BB38D /* AliSdkManager.swift in Sources */,
 				63741CD41F7897F500946979 /* WRCycleScrollView.swift in Sources */,
 				63F7C1191FCA5B0400C74544 /* OrderListTableViewCell.swift in Sources */,
+				63E8B27F1FD3D05C003FCF1E /* FormTextViewCell.swift in Sources */,
 				63741CCE1F7685DA00946979 /* GoodSpecialPromotionsDetailsViewController.swift in Sources */,
 				63F7C11C1FCA5FB900C74544 /* OrderEntity.swift in Sources */,
+				63A30C221FD2920C007E6D9F /* FeedbackCollectionViewCell.swift in Sources */,
 				638C53EC1FB72197006DDBED /* MemberEntity.swift in Sources */,
 				63351D5A1FB59943004B12A3 /* AlertViewController.swift in Sources */,
+				63E8B2791FD3D05C003FCF1E /* FormSegmentedControlCell.swift in Sources */,
 				630538EA1FC508F500FA290B /* RegionEntity.swift in Sources */,
 				6395DE481F5D431E008149DD /* AppDelegate.swift in Sources */,
 				63D82E041FAA0C6B00EFE576 /* Array.swift in Sources */,
+				63E8B27C1FD3D05C003FCF1E /* FormStepperCell.swift in Sources */,
+				63E8B2771FD3D05C003FCF1E /* FormLabelCell.swift in Sources */,
 				63F9C9211FAB5C0200A3732D /* SpecialPriceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

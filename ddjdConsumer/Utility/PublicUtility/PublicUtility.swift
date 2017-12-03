@@ -27,10 +27,10 @@ import UIKit
 //app公用常量
 
 ///图片请求路径
-let urlImg="http://192.168.199.173";
+let urlImg="http://cs.houjue.me";
 ///cs.houjue.me
 ///数据请求路径
-let url="http://192.168.199.173";
+let url="http://cs.houjue.me";
 
 
 

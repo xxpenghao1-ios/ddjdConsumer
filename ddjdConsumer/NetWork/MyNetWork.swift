@@ -30,6 +30,8 @@ public enum MyApi{
     case pendingPaymentSubmit(orderId:Int,memberId:Int,platform:Int,payType:Int)
     //查询会员信息
     case getMember(memberId:Int)
+    //修改头像和名称
+    case updateHeadportraiturl(memberId:Int,headportraiturl:String?,nickName:String?)
 }
 extension MyApi:TargetType{
     public var baseURL: URL {
@@ -58,6 +60,9 @@ extension MyApi:TargetType{
             return "/front/shopAddress/setDefault"
         case .getMember(_):
             return "/front/member/getMember"
+        case .updateHeadportraiturl(_,_,_):
+            return "/front/member/updateHeadportraiturl"
+            
         }
     }
     
@@ -65,7 +70,7 @@ extension MyApi:TargetType{
         switch self {
         case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_):
             return .get
-        case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_):
+        case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_):
             return .post
         }
     }
@@ -99,6 +104,12 @@ extension MyApi:TargetType{
             return .requestParameters(parameters:["memberId":memberId,"shippAddressId":shippAddressId], encoding: URLEncoding.default)
         case let .getMember(memberId):
             return .requestParameters(parameters:["memberId":memberId], encoding: URLEncoding.default)
+        case let .updateHeadportraiturl(memberId, headportraiturl, nickName):
+            if headportraiturl != nil{
+                return .requestParameters(parameters:["memberId":memberId,"headportraiturl":headportraiturl!], encoding: URLEncoding.default)
+            }else{
+                return .requestParameters(parameters:["memberId":memberId,"nickName":nickName!], encoding: URLEncoding.default)
+            }
         }
     }
     

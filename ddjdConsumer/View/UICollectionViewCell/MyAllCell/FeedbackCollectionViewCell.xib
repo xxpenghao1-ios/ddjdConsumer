@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="FeedbackCollectionViewCellId" reuseIdentifier="FeedbackCollectionViewCellId" id="gTV-IL-0wX" customClass="FeedbackCollectionViewCell" customModule="ddjdConsumer" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="121" height="115"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="121" height="115"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FOe-Ej-EIC">
+                        <rect key="frame" x="0.0" y="0.0" width="121" height="115"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oSE-JK-p2v">
+                        <rect key="frame" x="101" y="0.0" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="4dv-QU-cPe"/>
+                            <constraint firstAttribute="height" constant="20" id="F7f-v2-QYH"/>
+                        </constraints>
+                        <state key="normal" image="photo_delete"/>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="FOe-Ej-EIC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="2gj-Vd-L6Y"/>
+                <constraint firstItem="oSE-JK-p2v" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="EPA-zf-obn"/>
+                <constraint firstAttribute="bottom" secondItem="FOe-Ej-EIC" secondAttribute="bottom" id="VYD-VM-NMb"/>
+                <constraint firstAttribute="trailing" secondItem="oSE-JK-p2v" secondAttribute="trailing" id="cpt-5q-rEb"/>
+                <constraint firstItem="FOe-Ej-EIC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="trR-jS-9qO"/>
+                <constraint firstAttribute="trailing" secondItem="FOe-Ej-EIC" secondAttribute="trailing" id="u4N-io-obw"/>
+            </constraints>
+            <size key="customSize" width="121" height="115"/>
+            <connections>
+                <outlet property="delImg" destination="oSE-JK-p2v" id="D0A-sE-vqV"/>
+                <outlet property="img" destination="FOe-Ej-EIC" id="Ve8-qU-Yr1"/>
+            </connections>
+            <point key="canvasLocation" x="-560" y="-82"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="photo_delete" width="26" height="26"/>
+    </resources>
+</document>

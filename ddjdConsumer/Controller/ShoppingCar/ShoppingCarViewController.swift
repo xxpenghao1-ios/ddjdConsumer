@@ -64,6 +64,12 @@ extension ShoppingCarViewController{
         
         lblSendPrice.text="\(sendPrice)元起送"
     }
+    private func showClearCarRightBarButtonItem(){
+        self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(title:"清空", style: UIBarButtonItemStyle.done, target:self, action: #selector(clearCar))
+    }
+    private func hideClearCarRightBarButtonItem(){
+        self.navigationItem.rightBarButtonItem=nil
+    }
 }
 // MARK: - table协议
 extension ShoppingCarViewController:UITableViewDelegate,UITableViewDataSource{
@@ -113,6 +119,12 @@ extension ShoppingCarViewController:UITableViewDelegate,UITableViewDataSource{
 }
 //点击事件
 extension ShoppingCarViewController{
+    //清空购物车
+    @objc private func clearCar(){
+        UIAlertController.showAlertYesNo(self, title:"", message:"确认清空所有商品吗?", cancelButtonTitle:"取消", okButtonTitle:"确认") { (action) in
+            self.clearAllCar()
+        }
+    }
     //是否全选
     @objc private func isArrSelected(sender:UIButton){
         if sender.isSelected{//如果等于选中
@@ -148,6 +160,21 @@ extension ShoppingCarViewController{
 }
 ///网络请求
 extension ShoppingCarViewController{
+    ///清空购物车
+    private func clearAllCar(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.clearCar(memberId:MEMBERID), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.showSVProgressHUD(status:"清空成功", type: HUD.success)
+                self.arr.removeAll()
+                self.table.reloadData()
+            }else{
+                self.showSVProgressHUD(status:"清空失败", type: HUD.error)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
     //查询购物车商品
     private func getCarGoodList(pageSize:Int,pageNumber:Int){
         self.showSVProgressHUD(status:"正在加载中...", type:HUD.textClear)
@@ -159,8 +186,10 @@ extension ShoppingCarViewController{
             }
             if self.arr.count == 0{
                 self.bottomView.isHidden=true
+                self.hideClearCarRightBarButtonItem()
             }else{
                 self.bottomView.isHidden=false
+                self.showClearCarRightBarButtonItem()
                 if self.isAllSelected(){//判断是否全选
                     self.btnAllChecked.isSelected=true
                 }else{
@@ -265,6 +294,7 @@ extension ShoppingCarViewController{
                     self.queryCarSumMoney()
                     if self.arr.count == 0{//删除完毕后刷新下table
                         self.bottomView.isHidden=true
+                        self.hideClearCarRightBarButtonItem()
                         self.table.reloadData()
                     }
                 }

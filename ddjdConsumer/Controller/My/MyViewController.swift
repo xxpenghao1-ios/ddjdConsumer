@@ -30,6 +30,8 @@ class MyViewController:BaseViewController{
     private var paymentPendingOrderCount=0
     //待收货订单数量
     private var forTheGoodsOrderCount=0
+    //待发货订单数量
+    private var toSendTheGoodsOrderCount=0
     //用于header背景拉伸效果
     private var topView:UIView!
     ///保存会员信息
@@ -170,11 +172,12 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
         return 50
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if memberEntity?.storeFlag == 1{//如果是店铺
-            return nameArr.count
-        }else{
-            return nameArr.count-1
-        }
+//        if memberEntity?.storeFlag == 1{//如果是店铺
+//            return nameArr.count
+//        }else{
+//            return nameArr.count-1
+//        }
+        return nameArr.count
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //取消选中效果颜色
@@ -195,6 +198,10 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
         case 3:
             let vc=self.storyboardPushView(type:.my, storyboardId:"PurchaseHistoryVC") as! PurchaseHistoryViewController
             self.pushVC(vc: vc)
+            break
+        case 4:
+            let vc=self.storyboardPushView(type:.my, storyboardId:"FeedbackVC") as! FeedbackViewController
+            self.pushVC(vc:vc)
             break
         case 6:
             let vc=self.storyboardPushView(type:.store, storyboardId:"StoreIndexVC") as! StoreIndexViewController
@@ -299,6 +306,7 @@ extension MyViewController{
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryOrderNum(memberId:MEMBERID), successClosure: { (json) in
             self.forTheGoodsOrderCount=json["daishou"].intValue
             self.paymentPendingOrderCount=json["daifu"].intValue
+            self.toSendTheGoodsOrderCount=json["daifa"].intValue
             self.orderCollection.reloadData()
         }) { (error) in
             

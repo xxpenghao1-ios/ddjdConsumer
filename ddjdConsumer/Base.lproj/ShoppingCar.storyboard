@@ -508,7 +508,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="买家留言:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dy5-uK-zDO">
                                             <rect key="frame" x="15.000000000000004" y="101" width="61.333333333333343" height="17"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="Bnh-g0-bDb"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Bnh-g0-bDb"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="zrg-I3-WS0"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
