@@ -86,6 +86,16 @@
                             <constraint firstAttribute="height" constant="10" id="hnx-wo-tGd"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置默认地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jx-d5-e14">
+                        <rect key="frame" x="65" y="110" width="80" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="XgI-pj-Ew6"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="kvm-cn-nzf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="Y0g-xo-I0d" secondAttribute="bottom" constant="7.5" id="0Pi-gc-Alh"/>
@@ -98,6 +108,8 @@
                     <constraint firstAttribute="bottom" secondItem="eZH-tk-6Vb" secondAttribute="bottom" constant="40" id="A9I-V1-Xv8"/>
                     <constraint firstAttribute="trailing" secondItem="9i8-Ev-t9T" secondAttribute="trailing" constant="15" id="G1J-Td-jHh"/>
                     <constraint firstAttribute="trailing" secondItem="EKD-LD-4eb" secondAttribute="trailing" constant="15" id="H5t-Wy-78G"/>
+                    <constraint firstItem="6jx-d5-e14" firstAttribute="leading" secondItem="Y0g-xo-I0d" secondAttribute="trailing" constant="10" id="HUU-v2-qr9"/>
+                    <constraint firstItem="6jx-d5-e14" firstAttribute="top" secondItem="eZH-tk-6Vb" secondAttribute="bottom" constant="10" id="NeL-0H-LO5"/>
                     <constraint firstAttribute="trailing" secondItem="vtd-8P-KbA" secondAttribute="trailing" id="OT5-VI-2Af"/>
                     <constraint firstAttribute="trailing" secondItem="eZH-tk-6Vb" secondAttribute="trailing" id="PH5-hQ-zsD"/>
                     <constraint firstItem="Y0g-xo-I0d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="PK8-Xo-8z5"/>

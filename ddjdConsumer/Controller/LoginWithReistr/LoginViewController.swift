@@ -53,7 +53,7 @@ extension LoginViewController{
         txtMemberName.layer.borderWidth=0.5
         txtMemberName.layer.cornerRadius=5
         txtMemberName.adjustsFontSizeToFitWidth=true;
-        let userAccount=userDefaults.object(forKey:"userAccount") as? String
+        let userAccount=userDefaults.object(forKey:"account") as? String
         if userAccount != nil{
             txtMemberName.text=userAccount
         }
@@ -118,12 +118,17 @@ extension LoginViewController{
             let success=json["success"].stringValue
             if success == "success"{
                 let memberEntity=self.jsonMappingEntity(entity:MemberEntity(), object:json["member"].object)
-                userDefaults.set(memberEntity!.memberId!, forKey:"memberId")
-                userDefaults.set(memberEntity!.bindstoreId!, forKey:"bindstoreId")
+                userDefaults.set(memberEntity!.memberId, forKey:"memberId")
+                userDefaults.set(memberEntity!.account, forKey:"account")
                 userDefaults.synchronize()
                 self.dismissHUD {
-                    //跳转到主页面
-                    app.jumpToIndexVC()
+                    if memberEntity!.bindstoreId != nil{//如果用户绑定了店铺
+                        //跳转到主页面
+                        app.jumpToIndexVC()
+                    }else{
+                        let vc=self.storyboardPushView(type:.loginWithRegistr, storyboardId:"BindStoreVC") as! BindStoreViewController
+                        self.navigationController?.pushViewController(vc, animated:true)
+                    }
                 }
             }else if success == "flagError"{
                 self.showSVProgressHUD(status:"您已经被禁止登录了", type: HUD.info)

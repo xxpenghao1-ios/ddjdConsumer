@@ -13,7 +13,7 @@ public enum StoreGoodApi{
     //商品上传
     case storeUploadGoodsInfo(goodsCode:String,storeId:Int,goodsName:String,goodsUnit:String,goodsLift:Int,goodUcode:String,fCategoryId:Int,sCategoryId:Int,tCategoryId:Int,goodsPic:String,goodsPrice:String,goodsFlag:Int,stock:Int,remark:String,weight:Int,brand:String,goodsMixed:String)
     //图片上传
-    case start(filePath:String)
+    case start(filePath:String,pathName:String)
     
     
 }
@@ -26,14 +26,14 @@ extension StoreGoodApi:TargetType{
         switch self {
         case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_):
             return "/front/storeUploadGoods/storeUploadGoodsInfo"
-        case .start(_):
+        case .start(_,_):
             return "/upload/start"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_):
+        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_):
             return .post
         }
     }
@@ -45,9 +45,9 @@ extension StoreGoodApi:TargetType{
         switch self {
         case let .storeUploadGoodsInfo(goodsCode, storeId, goodsName, goodsUnit, goodsLift, goodUcode, fCategoryId, sCategoryId, tCategoryId, goodsPic, goodsPrice, goodsFlag, stock, remark, weight,brand, goodsMixed):
             return .requestParameters(parameters:[:], encoding:URLEncoding.default)
-        case let .start(filePath):
+        case let .start(filePath,pathName):
             let imgData = MultipartFormData(provider: MultipartFormData.FormDataProvider.file(Foundation.URL(fileURLWithPath:filePath)),name:"file")
-            let urlParameters = ["path":"goodsImages"]
+            let urlParameters = ["path":pathName]
             return .uploadCompositeMultipart([imgData],urlParameters: urlParameters)
         }
     }

@@ -165,6 +165,9 @@ extension PoiSearchAddressViewController:BMKPoiSearchDelegate,BMKLocationService
             
         }
         reloadData()
+        if addressArr.count > 0{
+            self.table.scrollToRow(at: IndexPath.init(row:0, section:0), at: UITableViewScrollPosition.none, animated:true)
+        }
     }
     func didUpdate(_ userLocation: BMKUserLocation!) {
         pt=CLLocationCoordinate2D.init(latitude:userLocation.location.coordinate.latitude, longitude: userLocation.location.coordinate.longitude)

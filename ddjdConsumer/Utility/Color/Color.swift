@@ -36,6 +36,10 @@ extension UIColor{
     class func cellBorderColor() -> UIColor{
         return UIColor(red:222/255, green:223/255, blue:225/255, alpha:1)
     }
+    //导航栏底部边线颜色
+    class func navLineColor() -> UIColor{
+        return UIColor.RGBFromHexColor(hexString:"e5e5e5")
+    }
     //底部抢单视图颜色
     class func orderBottom() -> UIColor{
         return UIColor(red:32/255, green:32/255, blue:32/255, alpha: 1.0);

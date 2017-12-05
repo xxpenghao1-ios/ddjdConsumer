@@ -30,6 +30,7 @@ class MyCollectGoodViewController:BaseViewController{
             self.pageNumber+=1
             self.getCollectGoodList(pageSize:10, pageNumber:self.pageNumber)
         })
+        table.mj_footer.isHidden=true
     }
 }
 

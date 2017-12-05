@@ -35,6 +35,7 @@ class OrderListViewController:BaseViewController{
             self.pageNumber+=1
             self.getOrderList(pageSize:10, pageNumber:self.pageNumber, orderStatus: self.orderStatus!, isRefresh:false)
         })
+        table.mj_footer.isHidden=true
         //接收通知刷新页面
         NotificationCenter.default.addObserver(self, selector:#selector(updateOrderList), name: notificationOrderListrefresh, object:nil)
     }

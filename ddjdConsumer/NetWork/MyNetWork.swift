@@ -32,6 +32,15 @@ public enum MyApi{
     case getMember(memberId:Int)
     //修改头像和名称
     case updateHeadportraiturl(memberId:Int,headportraiturl:String?,nickName:String?)
+    //绑定店铺
+    case bindStore(memberId:Int,bindstoreId:Int)
+    //解绑店铺
+    case unBindStore(memberId:Int)
+    //修改密码
+    case updatePwd(memberId:Int,oldpassword:String,password:String)
+    //问题或意见接口
+    case saveQuestionsorsuggestions(memberId:Int,questionsOrSuggestionsType:Int,questionsOrSuggestionsText:String,questionsOrSuggestionsPic:String)
+
 }
 extension MyApi:TargetType{
     public var baseURL: URL {
@@ -62,6 +71,14 @@ extension MyApi:TargetType{
             return "/front/member/getMember"
         case .updateHeadportraiturl(_,_,_):
             return "/front/member/updateHeadportraiturl"
+        case .bindStore(_,_):
+            return "/front/member/bindStore"
+        case .unBindStore(_):
+            return "/front/member/unBindStore"
+        case .updatePwd(_,_,_):
+            return "/front/member/updatePwd"
+        case .saveQuestionsorsuggestions(_,_,_,_):
+            return "/front/questionsOrSuggestions/saveQuestionsorsuggestions"
             
         }
     }
@@ -70,7 +87,7 @@ extension MyApi:TargetType{
         switch self {
         case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_):
             return .get
-        case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_):
+        case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_),.bindStore(_,_),.unBindStore(_),.updatePwd(_,_,_),.saveQuestionsorsuggestions(_,_,_,_):
             return .post
         }
     }
@@ -110,6 +127,14 @@ extension MyApi:TargetType{
             }else{
                 return .requestParameters(parameters:["memberId":memberId,"nickName":nickName!], encoding: URLEncoding.default)
             }
+        case let .bindStore(memberId, bindstoreId):
+            return .requestParameters(parameters:["memberId":memberId,"bindstoreId":bindstoreId], encoding: URLEncoding.default)
+        case let .unBindStore(memberId):
+            return .requestParameters(parameters:["memberId":memberId], encoding: URLEncoding.default)
+        case let .updatePwd(memberId, oldpassword, password):
+            return .requestParameters(parameters:["memberId":memberId,"oldpassword":oldpassword,"password":password], encoding: URLEncoding.default)
+        case let .saveQuestionsorsuggestions(memberId, questionsOrSuggestionsType, questionsOrSuggestionsText, questionsOrSuggestionsPic):
+            return .requestParameters(parameters:["memberId":memberId,"questionsOrSuggestionsType":questionsOrSuggestionsType,"questionsOrSuggestionsText":questionsOrSuggestionsText,"questionsOrSuggestionsPic":questionsOrSuggestionsPic], encoding: URLEncoding.default)
         }
     }
     

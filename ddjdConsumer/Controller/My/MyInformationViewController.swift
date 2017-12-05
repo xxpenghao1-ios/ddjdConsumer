@@ -31,10 +31,13 @@ class MyInformationViewController:BaseViewController{
 }
 extension MyInformationViewController{
     private func updateHeadportraiturl(headportraiturl:String?,nickName:String?){
+        self.showSVProgressHUD(status:"正在修改...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.updateHeadportraiturl(memberId:MEMBERID, headportraiturl: headportraiturl, nickName: nickName), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"修改成功", type: HUD.success)
+                self.memberInfo!.nickName=nickName
+                self.table.reloadData()
             }else{
                 self.showSVProgressHUD(status:"修改失败", type: HUD.error)
             }
@@ -55,51 +58,68 @@ extension MyInformationViewController:UITableViewDelegate,UITableViewDataSource{
         cell!.accessoryType = .disclosureIndicator
         cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:15)
         if indexPath.row == 0{
-            cell!.textLabel!.text="更换头像"
-            memberImg=UIImageView(frame:CGRect(x:boundsWidth-80, y:10, width:40, height:40))
-            memberInfo!.headportraiturl=memberInfo!.headportraiturl ?? ""
-            memberImg.kf.setImage(with:URL(string:urlImg+memberInfo!.headportraiturl!), placeholder:UIImage(named:memberDefualtImg), options:[.transition(ImageTransition.fade(1))])
-            memberImg.clipsToBounds=true
-            memberImg.layer.cornerRadius=20
-            cell!.contentView.addSubview(memberImg)
-        }else{
             cell!.textLabel!.text="昵称"
             cell!.detailTextLabel!.text=memberInfo!.nickName
-            
+        }else if indexPath.row == 1{
+            cell!.textLabel!.text="修改密码"
         }
+        
         return cell!
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0{
-            return 60
-        }
         return 50
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //取消选中效果颜色
+        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0{
-            let vc=TZImagePickerController.init(maxImagesCount:1, columnNumber:4, delegate:nil,pushPhotoPickerVc:true)
-            //隐藏原图按钮
-            vc?.allowPickingOriginalPhoto=false
-            //用户不能选择视频
-            vc?.allowPickingVideo=false
-            vc?.showSelectBtn = false;
-            
-            //允许圆形剪裁
-            vc?.needCircleCrop = true
-            // 设置竖屏下的裁剪尺寸
-            let widthHeight = self.view.tz_width - 2 * 30;
-            let top = (self.view.tz_height - widthHeight) / 2;
-            vc!.cropRect = CGRect.init(x:30, y:top, width: widthHeight, height: widthHeight)
-            vc?.didFinishPickingPhotosHandle={ (photos,assets,isSelectOriginalPhoto) in
-                
-            }
-            self.present(vc!, animated:true, completion:nil)
+            showUpdateNickName()
         }else{
-            
+            let vc=storyboardPushView(type:.my, storyboardId:"UpdatePasswordVC") as! UpdatePasswordViewController
+            self.navigationController?.pushViewController(vc, animated:true)
         }
     }
 }
-
+extension MyInformationViewController{
+    ///修改昵称
+    private func showUpdateNickName(){
+        let alertController = UIAlertController(title:"", message:"修改昵称", preferredStyle: UIAlertControllerStyle.alert);
+        alertController.addTextField {
+            (textField: UITextField!) -> Void in
+            textField.keyboardType=UIKeyboardType.default
+            textField.placeholder="请输入昵称"
+            NotificationCenter.default.addObserver(self, selector: #selector(self.alertTextFieldDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: textField)
+        }
+        //确定
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default,handler:{ Void in
+            let text=(alertController.textFields?.first)! as UITextField
+            self.updateHeadportraiturl(headportraiturl:nil, nickName:text.text)
+        })
+        //取消
+        let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        okAction.isEnabled = false
+        self.present(alertController, animated: true, completion: nil)
+    }
+    //检测输入框的字符是否大于库存数量 是解锁确定按钮
+    @objc func alertTextFieldDidChange(_ notification: Notification){
+        let alertController = self.presentedViewController as! UIAlertController?
+        if (alertController != nil) {
+            let text = (alertController!.textFields?.first)! as UITextField
+            let okAction = alertController!.actions.last! as UIAlertAction
+            if text.text != nil && text.text! != ""{
+                if text.text!.count > 0{
+                    okAction.isEnabled = true
+                }else{
+                    okAction.isEnabled=false
+                }
+            }else{
+                okAction.isEnabled=false
+            }
+        }
+    }
+}

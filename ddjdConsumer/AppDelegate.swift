@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //加载设置
         loadSetting(launchOptions:launchOptions)
-        if MEMBERID == -1{//如果没有会员信息加载登录页面
+        if MEMBERID == -1 || BINDSTOREID == -1{//如果没有会员信息加载登录页面 || 或者会员没有绑定店铺
             self.jumpToLoginVC()
         }else{//加载主页面
             self.jumpToIndexVC()

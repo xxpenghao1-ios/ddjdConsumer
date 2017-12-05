@@ -28,6 +28,8 @@ class FeedbackViewController:BaseViewController{
     @IBOutlet weak var btnOthers: UIButton!
     //图片数组
     private var imgArr=[UIImage]()
+    //问题类型
+    private var questionsOrSuggestionsType:Int?
     private var selectedAssets=NSMutableArray()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,15 +50,23 @@ extension FeedbackViewController{
         
         btnGNjy.layer.borderWidth=1
         btnGNjy.layer.borderColor=UIColor.applicationMainColor().cgColor
+        btnGNjy.addTarget(self, action:#selector(selectedBtn),for: UIControlEvents.touchUpInside)
+        btnGNjy.tag=1
         
         btnGMwt.layer.borderWidth=1
         btnGMwt.layer.borderColor=UIColor.applicationMainColor().cgColor
+        btnGMwt.addTarget(self, action:#selector(selectedBtn),for: UIControlEvents.touchUpInside)
+        btnGMwt.tag=2
         
         btnGoodWt.layer.borderWidth=1
         btnGoodWt.layer.borderColor=UIColor.applicationMainColor().cgColor
+        btnGoodWt.addTarget(self, action:#selector(selectedBtn),for: UIControlEvents.touchUpInside)
+        btnGoodWt.tag=3
         
         btnOthers.layer.borderWidth=1
         btnOthers.layer.borderColor=UIColor.applicationMainColor().cgColor
+        btnOthers.addTarget(self, action:#selector(selectedBtn),for: UIControlEvents.touchUpInside)
+        btnOthers.tag=4
         
         let flowLayout = UICollectionViewFlowLayout.init()
         flowLayout.itemSize=CGSize(width:(boundsWidth-70)/4, height:(boundsWidth-70)/4)
@@ -68,6 +78,80 @@ extension FeedbackViewController{
         imgCollection.isScrollEnabled=false
         imgCollection.register(UINib(nibName:"FeedbackCollectionViewCell", bundle: nil), forCellWithReuseIdentifier:"FeedbackCollectionViewCellId")
         imgCollectionHeight.constant=(boundsWidth-60)/4
+        
+        btnSubmit.addTarget(self, action:#selector(submit), for: UIControlEvents.touchUpInside)
+    }
+    @objc private func selectedBtn(sender:UIButton){
+        for(view) in self.view.subviews{
+            if view.isKind(of:UIButton.classForCoder()){
+                let btn=view as! UIButton
+                btn.backgroundColor=UIColor.white
+                btn.setTitleColor(UIColor.applicationMainColor(), for: UIControlState.normal)
+            }
+        }
+        sender.backgroundColor=UIColor.applicationMainColor()
+        sender.setTitleColor(UIColor.white,for:UIControlState.normal)
+        questionsOrSuggestionsType=sender.tag
+    }
+    @objc private func submit(){
+        
+        let str=txtStr.text
+        if str == nil || str!.count == 0{
+            self.showSVProgressHUD(status:"问题与描述不能为空", type: HUD.info)
+            return
+        }
+        self.showSVProgressHUD(status:"正在提交...", type: HUD.textClear)
+        var questionsOrSuggestionsPic=""
+        if imgArr.count > 0{//如果有值
+            let group=DispatchGroup()
+            /// 创建一个并行队列(传入 DISPATCH_QUEUE_SERIAL 或 NIL 表示创建串行队列。传入 DISPATCH_QUEUE_CONCURRENT 表示创建并行队列.)
+            let queue = DispatchQueue(label: "com.gcd-group.www",attributes: DispatchQueue.Attributes.concurrent);
+            for i in 0..<imgArr.count{
+                ///进入组
+                group.enter()
+                queue.async(group:group,execute:{
+                    // 保存图片至本地
+                    let filePath=UIImage.saveImage(self.imgArr[i], newSize: CGSize(width:boundsWidth, height:boundsHeight), percent:1)
+                    PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.start(filePath:filePath, pathName:"returnMsg"), successClosure: { (json) in
+                        let success=json["success"].stringValue
+                        if success == "success"{
+                            let path=json["path"].stringValue
+                            questionsOrSuggestionsPic+=path+","
+                        }
+                        //离开组
+                        group.leave()
+                    }, failClosure: { (error) in
+                        self.showSVProgressHUD(status:error!, type: HUD.error)
+                        //离开组
+                        group.leave()
+                        return
+                    })
+                })
+            }
+            ///执行完毕
+            group.notify(queue:queue, execute: {
+                let index=questionsOrSuggestionsPic.index(questionsOrSuggestionsPic.endIndex, offsetBy: -1)
+                questionsOrSuggestionsPic=String(questionsOrSuggestionsPic[..<index])
+                print(questionsOrSuggestionsPic)
+                self.save(questionsOrSuggestionsPic:questionsOrSuggestionsPic, str: str!)
+            })
+        }else{
+            self.save(questionsOrSuggestionsPic:questionsOrSuggestionsPic, str: str!)
+        }
+    }
+    private func save(questionsOrSuggestionsPic:String,str:String){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.saveQuestionsorsuggestions(memberId:MEMBERID, questionsOrSuggestionsType:self.questionsOrSuggestionsType ?? 0, questionsOrSuggestionsText:str,questionsOrSuggestionsPic:questionsOrSuggestionsPic), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.showSVProgressHUD(status:"提交成功,我们会尽快核实", type: HUD.success)
+                deleteUploadImgFile()
+                self.navigationController?.popViewController(animated:true)
+            }else{
+                self.showSVProgressHUD(status:"提交失败", type: HUD.error)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
     }
 }
 extension FeedbackViewController:UICollectionViewDelegate,UICollectionViewDataSource{
@@ -119,15 +203,6 @@ extension FeedbackViewController:TZImagePickerControllerDelegate{
         if self.selectedAssets.count > 0{
             vc?.selectedAssets=self.selectedAssets
         }
-        //        vc?.showSelectBtn = false;
-        //        //允许图片剪裁
-        //        vc?.allowCrop = true;
-        //        //允许圆形剪裁
-        ////        vc?.needCircleCrop = true
-        //        // 设置竖屏下的裁剪尺寸
-        //        let widthHeight = self.view.tz_width - 2 * 30;
-        //        let top = (self.view.tz_height - widthHeight) / 2;
-        //        vc!.cropRect = CGRect.init(x:30, y:top, width: widthHeight, height: widthHeight)
         self.present(vc!, animated:true, completion:nil)
     }
     //预览照片

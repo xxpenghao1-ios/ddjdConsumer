@@ -10,6 +10,7 @@ import Foundation
 import ObjectMapper
 ///店铺信息
 class StoreEntity:Mappable{
+    var storeId:Int?
     ///‘店铺名称’
     var storeName:String?
     ///‘店主名字’,
@@ -28,7 +29,7 @@ class StoreEntity:Mappable{
 //    cityText varchar(30) DEFAULT NULL COMMENT ‘城市名’,
 //    countyId int(11) DEFAULT NULL COMMENT ‘区县Id’,
 //    countyText varchar(30) DEFAULT NULL COMMENT ‘区县名’,
-//    address varchar(255) DEFAULT NULL COMMENT ‘详细地址’,
+    var address:String? //‘详细地址’,
     /// ‘店铺二维码’,
     var storeQRcode:String?
     ///‘配送范围（Km）’,
@@ -54,12 +55,14 @@ class StoreEntity:Mappable{
         mapping(map:map)
     }
     func mapping(map: Map) {
+        storeId <- map["storeId"]
         storeName <- map["storeName"]
         ownerName <- map["ownerName"]
         tel <- map["tel"]
         applyRemark <- map["applyRemark"]
         state <- map["state"]
         ctime <- map["ctime"]
+        address <- map["address"]
         storeQRcode <- map["storeQRcode"]
         distributionScope <- map["distributionScope"]
         lowestMoney <- map["lowestMoney"]

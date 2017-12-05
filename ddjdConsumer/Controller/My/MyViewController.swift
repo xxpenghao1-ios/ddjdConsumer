@@ -32,6 +32,7 @@ class MyViewController:BaseViewController{
     private var forTheGoodsOrderCount=0
     //待发货订单数量
     private var toSendTheGoodsOrderCount=0
+    private var navBarHairlineImageView:UIImageView?
     //用于header背景拉伸效果
     private var topView:UIView!
     ///保存会员信息
@@ -43,17 +44,14 @@ class MyViewController:BaseViewController{
                 }else{//如果没有显示会员账号
                     lblMemberName.text=newValue!.account
                 }
-                //显示会员图像
-                newValue!.headportraiturl=newValue!.headportraiturl ?? ""
-                memberImg.kf.setImage(with:URL(string:urlImg+newValue!.headportraiturl!), placeholder:UIImage(named:memberDefualtImg), options:[.transition(ImageTransition.fade(1))])
             }
         }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUpNavColor()
         getMember()
         queryOrderNum()
-        setUpNavColor()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -62,6 +60,7 @@ class MyViewController:BaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor=UIColor.viewBackgroundColor()
+        navBarHairlineImageView=self.findNavLineImageViewOn(self.navigationController!.navigationBar)
         setUpView()
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -95,19 +94,19 @@ extension MyViewController{
     }
     //设置导航栏颜色
     private func setUpNavColor(){
+        //改掉导航栏黑线颜色
+        self.navigationController?.navigationBar.shadowImage=UIImage.imageFromColor(UIColor.applicationMainColor())
         self.navigationController?.navigationBar.barTintColor=UIColor.applicationMainColor()
         self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.white, forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
         self.navigationController?.navigationBar.tintColor=UIColor.white
-        //隐藏分割线
-        self.findNavLineImageViewOn(self.navigationController!.navigationBar)?.isHidden=true
     }
     //恢复导航栏颜色
     private func reinstateNavColor(){
+        //恢复导航栏黑线颜色
+        self.navigationController?.navigationBar.shadowImage=nil
         self.navigationController?.navigationBar.tintColor=UIColor.applicationMainColor()
         self.navigationController?.navigationBar.barTintColor=UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.applicationMainColor(), forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
-        //显示分割线
-        self.findNavLineImageViewOn(self.navigationController!.navigationBar)?.isHidden=false
     }
     //table头部
     private func setHeaderView() -> UIView{
@@ -172,12 +171,11 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
         return 50
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if memberEntity?.storeFlag == 1{//如果是店铺
-//            return nameArr.count
-//        }else{
-//            return nameArr.count-1
-//        }
-        return nameArr.count
+        if memberEntity?.storeFlag == 1{//如果是店铺
+            return nameArr.count
+        }else{
+            return nameArr.count-1
+        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //取消选中效果颜色
@@ -185,6 +183,7 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
         switch  indexPath.row{
         case 0:
             let vc=self.storyboardPushView(type:.my, storyboardId:"MyInformationVC") as! MyInformationViewController
+            vc.memberInfo=memberEntity
             self.pushVC(vc:vc)
             break
         case 1:
@@ -202,6 +201,13 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
         case 4:
             let vc=self.storyboardPushView(type:.my, storyboardId:"FeedbackVC") as! FeedbackViewController
             self.pushVC(vc:vc)
+            break
+        case 5:
+            var storeName=userDefaults.object(forKey:"storeName") as? String
+            storeName=storeName ?? ""
+            UIAlertController.showAlertYesNo(self, title:"", message:"解除绑定后将会需要重新登录并绑定门店,您确定要与[\(storeName!)]解除绑定?", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
+                self.unBindStore()
+            })
             break
         case 6:
             let vc=self.storyboardPushView(type:.store, storyboardId:"StoreIndexVC") as! StoreIndexViewController
@@ -319,6 +325,28 @@ extension MyViewController{
             self.table.reloadData()
         }) { (error) in
             
+        }
+    }
+    ///解绑店铺
+    private func unBindStore(){
+        self.showSVProgressHUD(status:"正在解除绑定...", type: HUD.textClear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.unBindStore(memberId:MEMBERID), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.showSVProgressHUD(status:"成功解除绑定", type: HUD.success)
+                userDefaults.removeObject(forKey:"memberId")
+                userDefaults.synchronize()
+                app.jumpToLoginVC()
+            }else if success == "noBind"{//会员没有绑定店铺，不需要解绑 这里我们也提示解绑成功
+                self.showSVProgressHUD(status:"成功解除绑定", type: HUD.success)
+                userDefaults.removeObject(forKey:"memberId")
+                userDefaults.synchronize()
+                app.jumpToLoginVC()
+            }else{
+                self.showSVProgressHUD(status:"解绑失败", type: HUD.error)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
 }

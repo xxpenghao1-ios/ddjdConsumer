@@ -42,6 +42,7 @@
 		633AC4671FCE8497009278D0 /* StoreEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633AC4661FCE8497009278D0 /* StoreEntity.swift */; };
 		633AC4691FCE9406009278D0 /* PriceComputationsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633AC4681FCE9405009278D0 /* PriceComputationsUtil.swift */; };
 		633C0B7B1FBBCE410054C215 /* GoodDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C0B7A1FBBCE410054C215 /* GoodDetailsViewController.swift */; };
+		633F39BF1FD62EDF00484E81 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F39BE1FD62EDF00484E81 /* UpdatePasswordViewController.swift */; };
 		6341B9BA1FD159710074787F /* Store.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6341B9B61FD159700074787F /* Store.storyboard */; };
 		6341B9BB1FD159710074787F /* LoginWithRegistr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6341B9B81FD159700074787F /* LoginWithRegistr.storyboard */; };
 		6343A9A91FBA95FD004BC9D3 /* AdvertisingEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6343A9A81FBA95FD004BC9D3 /* AdvertisingEntity.swift */; };
@@ -77,6 +78,7 @@
 		63A30C1E1FD275F8007E6D9F /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A30C1D1FD275F8007E6D9F /* FeedbackViewController.swift */; };
 		63A30C221FD2920C007E6D9F /* FeedbackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A30C201FD2920C007E6D9F /* FeedbackCollectionViewCell.swift */; };
 		63A30C231FD2920C007E6D9F /* FeedbackCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A30C211FD2920C007E6D9F /* FeedbackCollectionViewCell.xib */; };
+		63A3D9041FD5156D00649AA9 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 63A3D9031FD5156D00649AA9 /* mapapi.bundle */; };
 		63A6C53B1FCC01840041F012 /* OrderListPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A6C53A1FCC01840041F012 /* OrderListPageController.swift */; };
 		63AB90221F66739B0070AEED /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB90211F66739B0070AEED /* BaseViewController.swift */; };
 		63BB8BC01FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BB8BBF1FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift */; };
@@ -155,6 +157,10 @@
 		63FA10931FC06394009B6CB2 /* MyCollectGoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA10911FC06394009B6CB2 /* MyCollectGoodTableViewCell.swift */; };
 		63FA10941FC06394009B6CB2 /* MyCollectGoodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63FA10921FC06394009B6CB2 /* MyCollectGoodTableViewCell.xib */; };
 		63FBDB3A1FBA7C0600F0507F /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FBDB391FBA7C0600F0507F /* UITextView+Placeholder.m */; };
+		63FC07791FD4DDC900C24DF9 /* BindStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FC07781FD4DDC900C24DF9 /* BindStoreViewController.swift */; };
+		63FC077B1FD4F1ED00C24DF9 /* BindStoreListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FC077A1FD4F1ED00C24DF9 /* BindStoreListViewController.swift */; };
+		63FC077F1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FC077D1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift */; };
+		63FC07801FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63FC077E1FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib */; };
 		63FCB5C61FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCB5C51FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m */; };
 		63FD9B461FBD341800BEE45F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FD9B451FBD340F00BEE45F /* CoreData.framework */; };
 		63FDDC451FD0F1F9001CD97E /* PoiSearchAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FDDC441FD0F1F9001CD97E /* PoiSearchAddressViewController.swift */; };
@@ -221,6 +227,7 @@
 		633AC4661FCE8497009278D0 /* StoreEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEntity.swift; sourceTree = "<group>"; };
 		633AC4681FCE9405009278D0 /* PriceComputationsUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceComputationsUtil.swift; sourceTree = "<group>"; };
 		633C0B7A1FBBCE410054C215 /* GoodDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodDetailsViewController.swift; sourceTree = "<group>"; };
+		633F39BE1FD62EDF00484E81 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		6341B9B71FD159700074787F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Store.storyboard; sourceTree = "<group>"; };
 		6341B9B91FD159700074787F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LoginWithRegistr.storyboard; sourceTree = "<group>"; };
 		6343A9A81FBA95FD004BC9D3 /* AdvertisingEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisingEntity.swift; sourceTree = "<group>"; };
@@ -266,6 +273,7 @@
 		63A30C1D1FD275F8007E6D9F /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		63A30C201FD2920C007E6D9F /* FeedbackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A30C211FD2920C007E6D9F /* FeedbackCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackCollectionViewCell.xib; sourceTree = "<group>"; };
+		63A3D9031FD5156D00649AA9 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = Pods/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle; sourceTree = SOURCE_ROOT; };
 		63A6C53A1FCC01840041F012 /* OrderListPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListPageController.swift; sourceTree = "<group>"; };
 		63AB90211F66739B0070AEED /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		63BB8BBF1FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreBindWxOrAlipayNetWork.swift; sourceTree = "<group>"; };
@@ -346,6 +354,10 @@
 		63FA10921FC06394009B6CB2 /* MyCollectGoodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectGoodTableViewCell.xib; sourceTree = "<group>"; };
 		63FBDB381FBA7C0600F0507F /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		63FBDB391FBA7C0600F0507F /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
+		63FC07781FD4DDC900C24DF9 /* BindStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindStoreViewController.swift; sourceTree = "<group>"; };
+		63FC077A1FD4F1ED00C24DF9 /* BindStoreListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindStoreListViewController.swift; sourceTree = "<group>"; };
+		63FC077D1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindStoreListTableViewCell.swift; sourceTree = "<group>"; };
+		63FC077E1FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BindStoreListTableViewCell.xib; sourceTree = "<group>"; };
 		63FCB5C41FC27AE6005B96D8 /* UIViewController+BackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackButtonHandler.h"; sourceTree = "<group>"; };
 		63FCB5C51FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackButtonHandler.m"; sourceTree = "<group>"; };
 		63FD9B451FBD340F00BEE45F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -532,6 +544,7 @@
 		636925AE1F5FFE01007EFDB7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				63FC07771FD4DD9800C24DF9 /* BindStore */,
 				632655241FC19C0200559E66 /* Store */,
 				63D9CAC81FB92DB500414BC7 /* My */,
 				63F6E7CE1FB7E252009411E6 /* GoodsClassification */,
@@ -746,6 +759,7 @@
 		6395DE461F5D431E008149DD /* ddjdConsumer */ = {
 			isa = PBXGroup;
 			children = (
+				63A3D9021FD513C400649AA9 /* Resources */,
 				63FFD9D31F6126F400B56B89 /* NetWork */,
 				63AB902E1F66879E0070AEED /* storyboard */,
 				636925AE1F5FFE01007EFDB7 /* Controller */,
@@ -788,6 +802,14 @@
 				63A30C211FD2920C007E6D9F /* FeedbackCollectionViewCell.xib */,
 			);
 			path = MyAllCell;
+			sourceTree = "<group>";
+		};
+		63A3D9021FD513C400649AA9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63A3D9031FD5156D00649AA9 /* mapapi.bundle */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		63AB90201F6673890070AEED /* BaseViewController */ = {
@@ -868,6 +890,7 @@
 				6352B9871FB9809A0019010D /* MyInformationViewController.swift */,
 				630000971FBC59CF0038FAA4 /* SettingViewController.swift */,
 				63A30C1D1FD275F8007E6D9F /* FeedbackViewController.swift */,
+				633F39BE1FD62EDF00484E81 /* UpdatePasswordViewController.swift */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -1002,6 +1025,7 @@
 		63F9C9161FAB3DE300A3732D /* UITableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				63FC077C1FD4F36600C24DF9 /* BindStoreListCell */,
 				63D9CACB1FB93DAD00414BC7 /* MyCell */,
 				63F6E7D81FB7FA0F009411E6 /* GoodClassifyCell */,
 				6394F6321FAAFE6F00D1795A /* CarCell */,
@@ -1061,6 +1085,24 @@
 				63FBDB391FBA7C0600F0507F /* UITextView+Placeholder.m */,
 			);
 			path = "UITextView+Placeholder";
+			sourceTree = "<group>";
+		};
+		63FC07771FD4DD9800C24DF9 /* BindStore */ = {
+			isa = PBXGroup;
+			children = (
+				63FC07781FD4DDC900C24DF9 /* BindStoreViewController.swift */,
+				63FC077A1FD4F1ED00C24DF9 /* BindStoreListViewController.swift */,
+			);
+			path = BindStore;
+			sourceTree = "<group>";
+		};
+		63FC077C1FD4F36600C24DF9 /* BindStoreListCell */ = {
+			isa = PBXGroup;
+			children = (
+				63FC077D1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift */,
+				63FC077E1FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib */,
+			);
+			path = BindStoreListCell;
 			sourceTree = "<group>";
 		};
 		63FCB5C31FC27AE6005B96D8 /* UIViewController-BackButtonHandler-master */ = {
@@ -1255,6 +1297,8 @@
 				63F9EF131F6763290038B05D /* Index.storyboard in Resources */,
 				63BB8BCB1FC6908D003BB38D /* AlipaySDK.bundle in Resources */,
 				63924F3E1FB99A90007872F6 /* AddressListTableViewCell.xib in Resources */,
+				63A3D9041FD5156D00649AA9 /* mapapi.bundle in Resources */,
+				63FC07801FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib in Resources */,
 				63FEDA0E1FC5A11E000EF4DF /* poiTableViewCell.xib in Resources */,
 				63FA108A1FC05BA2009B6CB2 /* OrderConfirmTableViewCell.xib in Resources */,
 				6326552C1FC1A6B200559E66 /* StoreIndexCollectionViewCell.xib in Resources */,
@@ -1400,6 +1444,7 @@
 				6326552B1FC1A6B200559E66 /* StoreIndexCollectionViewCell.swift in Sources */,
 				63CC3D3D1FC2CBED00BDD724 /* GoodUploadViewController.swift in Sources */,
 				63F6E7D01FB7E298009411E6 /* GoodsClassificationViewController.swift in Sources */,
+				63FC077B1FD4F1ED00C24DF9 /* BindStoreListViewController.swift in Sources */,
 				63E8B2851FD3D05C003FCF1E /* FormSectionDescriptor.swift in Sources */,
 				6352B9861FB97DA90019010D /* UIButton+Badge.m in Sources */,
 				63E8B27A1FD3D05C003FCF1E /* FormSelectorCell.swift in Sources */,
@@ -1416,6 +1461,7 @@
 				63E8B2711FD3D05B003FCF1E /* FormBaseCell.swift in Sources */,
 				631F29D51F622DCB00E46C19 /* GoodsClassificationNetWork.swift in Sources */,
 				63FEDA0D1FC5A11E000EF4DF /* poiTableViewCell.swift in Sources */,
+				63FC077F1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift in Sources */,
 				63351D641FB69EE2004B12A3 /* ReistrViewController.swift in Sources */,
 				63CC8E981FC06A45005C5FB6 /* NewsTableViewCell.swift in Sources */,
 				63BB8BC01FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift in Sources */,
@@ -1429,6 +1475,7 @@
 				6316BAF21FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m in Sources */,
 				63FDDC451FD0F1F9001CD97E /* PoiSearchAddressViewController.swift in Sources */,
 				63F9C9231FAB5D0900A3732D /* SpecialPriceListViewController.swift in Sources */,
+				633F39BF1FD62EDF00484E81 /* UpdatePasswordViewController.swift in Sources */,
 				63E8B2831FD3D05C003FCF1E /* FormDescriptor.swift in Sources */,
 				63F3DB751FCCF62E00CEAF24 /* OrderDetailsViewController.swift in Sources */,
 				63F6E7D61FB7ED0C009411E6 /* GoodClassifyCollectionViewCell.swift in Sources */,
@@ -1486,6 +1533,7 @@
 				63F7C11C1FCA5FB900C74544 /* OrderEntity.swift in Sources */,
 				63A30C221FD2920C007E6D9F /* FeedbackCollectionViewCell.swift in Sources */,
 				638C53EC1FB72197006DDBED /* MemberEntity.swift in Sources */,
+				63FC07791FD4DDC900C24DF9 /* BindStoreViewController.swift in Sources */,
 				63351D5A1FB59943004B12A3 /* AlertViewController.swift in Sources */,
 				63E8B2791FD3D05C003FCF1E /* FormSegmentedControlCell.swift in Sources */,
 				630538EA1FC508F500FA290B /* RegionEntity.swift in Sources */,

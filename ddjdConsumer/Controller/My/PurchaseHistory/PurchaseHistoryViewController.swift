@@ -26,6 +26,7 @@ class PurchaseHistoryViewController:BaseViewController{
             self.pageNumber+=1
             self.getGoodsOfBuyed(pageSize:10, pageNumber:self.pageNumber)
         })
+        table.mj_footer.isHidden=true
     }
 }
 extension PurchaseHistoryViewController{

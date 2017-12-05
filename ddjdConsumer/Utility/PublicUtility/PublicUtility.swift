@@ -27,10 +27,10 @@ import UIKit
 //app公用常量
 
 ///图片请求路径
-let urlImg="http://cs.houjue.me";
+let urlImg="http://192.168.199.173";
 ///cs.houjue.me
 ///数据请求路径
-let url="http://cs.houjue.me";
+let url="http://192.168.199.173";
 
 
 
@@ -82,7 +82,13 @@ func storyboardViewController(type:storyboardType,withIdentifier:String) -> UIVi
 func getXibClass(name:String,owner:Any?) -> Any?{
    return Bundle.main.loadNibNamed(name,owner:owner,options:nil)?.last
 }
-
+///删除上传图片img
+func deleteUploadImgFile(){
+    // 获取沙盒目录 删除缓存图片
+    let myDirectory = NSHomeDirectory() + "/Documents/myImgages"
+    let fileManager = FileManager.default
+    try? fileManager.removeItem(atPath:myDirectory)
+}
 extension CGFloat{
     /// ps字体大小转ios字体大小
     static func pxTurnPt(px:Int) -> CGFloat{

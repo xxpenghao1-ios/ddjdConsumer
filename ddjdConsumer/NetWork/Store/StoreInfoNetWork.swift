@@ -11,7 +11,9 @@ import Moya
 ///店铺信息
 public enum StoreInfoApi{
     ///查询店铺信息
-    case queryStoreById(storeId:Int)
+    case queryStoreById(bindstoreId:Int)
+    ///查询消费者选中位置可配送到位的店铺传0
+    case queryStoreForLocation(distributionScope:Int,lat:Double,lon:Double)
 }
 extension StoreInfoApi:TargetType{
     public var baseURL: URL {
@@ -22,12 +24,14 @@ extension StoreInfoApi:TargetType{
         switch self {
         case .queryStoreById(_):
             return "/front/store/queryStoreById"
+        case .queryStoreForLocation(_,_,_):
+            return "/front/location/queryStoreForLocation"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .queryStoreById(_):
+        case .queryStoreById(_),.queryStoreForLocation(_,_,_):
             return .get
         }
     }
@@ -38,8 +42,10 @@ extension StoreInfoApi:TargetType{
     
     public var task: Task {
         switch self {
-        case let .queryStoreById(storeId):
-            return .requestParameters(parameters:["storeId":storeId], encoding: URLEncoding.default)
+        case let .queryStoreById(bindstoreId):
+            return .requestParameters(parameters:["bindstoreId":bindstoreId], encoding: URLEncoding.default)
+        case let .queryStoreForLocation(distributionScope,lat,lon):
+            return .requestParameters(parameters:["distributionScope":distributionScope,"lat":lat,"lon":lon], encoding: URLEncoding.default)
         }
     }
     

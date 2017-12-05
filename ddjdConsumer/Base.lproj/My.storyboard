@@ -325,6 +325,10 @@
                                                     <color key="titleColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <state key="selected" title="功能建议">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QeA-S9-4IT">
                                                 <rect key="frame" x="120" y="0.0" width="80" height="35"/>
@@ -426,6 +430,81 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yAd-47-I1N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-658.39999999999998" y="2524.8768472906404"/>
+        </scene>
+        <!--Update Password View Controller-->
+        <scene sceneID="KJQ-2R-d0T">
+            <objects>
+                <viewController storyboardIdentifier="UpdatePasswordVC" id="OeD-yf-0dS" customClass="UpdatePasswordViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DZA-Rd-Sgt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入原密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C4B-c9-sNe">
+                                <rect key="frame" x="40" y="64" width="295" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Rne-s1-lSx"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入新密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pX6-Hd-WJO">
+                                <rect key="frame" x="40" y="124" width="295" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="AgT-P1-Ff8"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请重复输入新密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zb8-v7-MOr">
+                                <rect key="frame" x="40" y="184" width="295" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Wgu-8g-0UD"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOU-cc-MRH">
+                                <rect key="frame" x="40" y="249" width="295" height="40"/>
+                                <color key="backgroundColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="BRl-93-SXS"/>
+                                </constraints>
+                                <state key="normal" title="完成">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="n5K-R2-W5m" firstAttribute="trailing" secondItem="ZOU-cc-MRH" secondAttribute="trailing" constant="40" id="1du-h0-k3M"/>
+                            <constraint firstItem="pX6-Hd-WJO" firstAttribute="leading" secondItem="n5K-R2-W5m" secondAttribute="leading" constant="40" id="6ho-IL-Lg5"/>
+                            <constraint firstItem="Zb8-v7-MOr" firstAttribute="leading" secondItem="n5K-R2-W5m" secondAttribute="leading" constant="40" id="8Wk-SI-B4r"/>
+                            <constraint firstItem="n5K-R2-W5m" firstAttribute="trailing" secondItem="Zb8-v7-MOr" secondAttribute="trailing" constant="40" id="PKx-EF-Vvf"/>
+                            <constraint firstItem="n5K-R2-W5m" firstAttribute="trailing" secondItem="pX6-Hd-WJO" secondAttribute="trailing" constant="40" id="Snh-yS-dH2"/>
+                            <constraint firstItem="pX6-Hd-WJO" firstAttribute="top" secondItem="C4B-c9-sNe" secondAttribute="bottom" constant="15" id="Sp7-4R-8pg"/>
+                            <constraint firstItem="Zb8-v7-MOr" firstAttribute="top" secondItem="pX6-Hd-WJO" secondAttribute="bottom" constant="15" id="U92-0P-qqS"/>
+                            <constraint firstItem="C4B-c9-sNe" firstAttribute="leading" secondItem="n5K-R2-W5m" secondAttribute="leading" constant="40" id="UAn-VO-01W"/>
+                            <constraint firstItem="ZOU-cc-MRH" firstAttribute="leading" secondItem="n5K-R2-W5m" secondAttribute="leading" constant="40" id="ZIH-tB-hJb"/>
+                            <constraint firstItem="C4B-c9-sNe" firstAttribute="top" secondItem="n5K-R2-W5m" secondAttribute="top" constant="20" id="j54-BE-p7Z"/>
+                            <constraint firstItem="ZOU-cc-MRH" firstAttribute="top" secondItem="Zb8-v7-MOr" secondAttribute="bottom" constant="20" id="nGR-3g-7aF"/>
+                            <constraint firstItem="n5K-R2-W5m" firstAttribute="trailing" secondItem="C4B-c9-sNe" secondAttribute="trailing" constant="40" id="nS9-XQ-R1v"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="n5K-R2-W5m"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnSubmit" destination="ZOU-cc-MRH" id="8w0-2Z-3ui"/>
+                        <outlet property="txtNewPwd" destination="pX6-Hd-WJO" id="LFY-TA-gUe"/>
+                        <outlet property="txtNewPwds" destination="Zb8-v7-MOr" id="ad0-9J-xzt"/>
+                        <outlet property="txtOldPwd" destination="C4B-c9-sNe" id="nUw-Y1-HbR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0k1-kW-WVz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4" y="2525"/>
         </scene>
         <!--My Collect Good View Controller-->
         <scene sceneID="Qix-Cx-xMh">
@@ -699,6 +778,7 @@
                         <viewLayoutGuide key="safeArea" id="Xw8-8d-SaQ"/>
                     </view>
                     <connections>
+                        <outlet property="btnSubmit" destination="Rap-Yz-MsD" id="bW9-j6-bTF"/>
                         <outlet property="isDefault" destination="khr-3C-BWn" id="Yfs-qW-uG0"/>
                         <outlet property="lblAddress" destination="xMn-4Q-fWB" id="9uD-s1-HAo"/>
                         <outlet property="txtDetailsAddress" destination="xgd-G6-78S" id="kDU-z5-Lo3"/>

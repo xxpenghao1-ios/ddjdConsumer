@@ -226,7 +226,6 @@ extension SelectedRegionViewController:BMKMapViewDelegate,BMKLocationServiceDele
     ///返回检索位置
     func onGetReverseGeoCodeResult(_ searcher: BMKGeoCodeSearch!, result: BMKReverseGeoCodeResult!, errorCode error: BMKSearchErrorCode) {
         if error.rawValue == BMK_SEARCH_NO_ERROR.rawValue{//检索结果正常返回
-
             addressArr.removeAll()
             for i in 0..<result.poiList.count{
                 let poi=result.poiList[i] as! BMKPoiInfo

@@ -17,8 +17,6 @@ class SearchViewController:BaseViewController{
     private var collectionView:UICollectionView!
     //搜索框
     private var txtSearch:UITextField!
-    //热门搜索
-    private var hotArr=["酒",""]
     //历史搜索
     private var arr=[String]()
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +52,7 @@ extension SearchViewController{
 //        flowLayout.itemSize=CGSize(width:60, height:35)
         flowLayout.minimumLineSpacing = 5;//每个相邻layout的上下
         flowLayout.minimumInteritemSpacing = 5;//每个相邻layout的左右
-        flowLayout.sectionInset=UIEdgeInsets(top:0,left:15, bottom:15, right:15)
+        flowLayout.sectionInset=UIEdgeInsets(top:0,left:5,bottom:15, right:5)
         collectionView=UICollectionView(frame:self.view.bounds, collectionViewLayout: flowLayout)
         collectionView.emptyDataSetSource=self
         collectionView.emptyDataSetDelegate=self
@@ -64,6 +62,7 @@ extension SearchViewController{
         collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier:"SearchCollectionViewCellId")
         self.view.addSubview(collectionView)
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier:"HeaderView")
+        self.setEmptyDataSetInfo(text:"还木有搜索记录")
         updateCollectionView()
     }
     ///设置导航栏
@@ -122,30 +121,18 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
                 }
                 cell.contentView.isHidden=false
             }
-        }else{
-            if hotArr.count > 0{
-                let str=hotArr[indexPath.row]
-                cell.updateCell(str:str)
-                if str == ""{
-                   cell.contentView.isHidden=true
-                }
-            }
         }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0{
-            if arr.count > 0{//如果有历史搜索记录 数组加1 方便加一个清除全部按钮
-                return arr.count+1
-            }else{
-                return 0
-            }
+        if arr.count > 0{//如果有历史搜索记录 数组加1 方便加一个清除全部按钮
+            return arr.count+1
         }else{
-            return hotArr.count
+            return 0
         }
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -155,13 +142,6 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
             }else{
                 //跳转到商品列表
                 self.pushGoodListVC(str:arr[indexPath.row])
-            }
-            self.view.endEditing(true)
-        }else{
-            let str=hotArr[indexPath.row]
-            if str != ""{
-                //跳转到商品列表
-                self.pushGoodListVC(str:str)
             }
         }
     }
@@ -178,11 +158,7 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
                 lblTitle?.frame=CGRect(x:15, y:15, width:200, height:20)
                 reusableView.addSubview(lblTitle!)
             }
-            if indexPath.section == 0{
-                    lblTitle?.text="历史搜索"
-            }else{
-                lblTitle?.text="热门搜索"
-            }
+            lblTitle?.text="热门搜索"
             
         }
         return reusableView
@@ -191,10 +167,6 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0{
             if arr.count > 0{
-                return CGSize(width:boundsWidth,height:50)
-            }
-        }else{
-            if hotArr.count > 0{
                 return CGSize(width:boundsWidth,height:50)
             }
         }
@@ -232,7 +204,6 @@ extension SearchViewController:UITextFieldDelegate{
                 //跳转到商品列表
                 self.pushGoodListVC(str:txtSearch.text!.check())
                 txtSearch.text=nil
-                self.view.endEditing(true)
             }
         }else{
             self.showSVProgressHUD(status: "搜索条件不能为空", type: HUD.info)
@@ -263,6 +234,7 @@ extension SearchViewController:UITextFieldDelegate{
     }
     //跳转到商品列表页面
     private func pushGoodListVC(str:String){
+        txtSearch.resignFirstResponder()
         //跳转到商品列表
         let vc=GoodListViewController()
         vc.name=str
