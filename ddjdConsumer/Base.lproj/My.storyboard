@@ -422,8 +422,10 @@
                         <outlet property="btnGoodWt" destination="cL7-6R-wXg" id="Uyp-j8-0xy"/>
                         <outlet property="btnOthers" destination="fed-L1-sKo" id="xhP-yg-RqX"/>
                         <outlet property="btnSubmit" destination="Ytx-G1-n0E" id="a05-zZ-gaF"/>
+                        <outlet property="btnSumsView" destination="pIM-Os-9tv" id="B84-bQ-MMi"/>
                         <outlet property="imgCollection" destination="nJ1-kH-l7x" id="6nE-xc-Wj1"/>
                         <outlet property="imgCollectionHeight" destination="yui-lQ-yiV" id="U5f-Bu-aCl"/>
+                        <outlet property="scrollView" destination="UuB-zV-cBp" id="V1I-ot-fal"/>
                         <outlet property="txtStr" destination="dEu-RC-bWv" id="PE9-TQ-N6m"/>
                     </connections>
                 </viewController>

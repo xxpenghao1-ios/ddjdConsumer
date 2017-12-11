@@ -41,6 +41,11 @@ open class FormLabelCell: FormValueCell {
         super.update()
         
         titleLabel.text = rowDescriptor?.title
-        valueLabel.text = rowDescriptor?.configuration.cell.placeholder
+        if rowDescriptor?.value as? String != nil{
+            valueLabel.text=rowDescriptor?.value as? String
+            valueLabel.textColor=UIColor.color333()
+        }else{
+            valueLabel.text = rowDescriptor?.configuration.cell.placeholder
+        }
     }
 }

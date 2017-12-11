@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-let updateCarBadgeValue=NSNotification.Name(rawValue: "postBadgeValue")
 /// 消费者tabbar
 class ConsumerTabBarViewController:UITabBarController{
     var shoppingCarViewController=storyboardViewController(type:.shoppingCar, withIdentifier:"ShoppingCarId") as! UINavigationController

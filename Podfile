@@ -25,5 +25,6 @@ target ‘ddjdConsumer’ do
     pod 'KMNavigationBarTransition' #一个用来统一管理导航栏转场以及当 push 或者 pop 的时候使动画效果更加顺滑的通用库，并且同时支持竖屏和横屏。你不用为这个库写一行代码，所有的改变都悄然发生。
     pod 'JNDropDownMenu' #对页面排序
     pod 'TZImagePickerController' #选择图片
+    pod 'SQLite.swift', '~> 0.11.4' #数据库操作
 end
 

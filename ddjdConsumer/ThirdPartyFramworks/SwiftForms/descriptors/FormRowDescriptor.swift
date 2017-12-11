@@ -39,6 +39,7 @@ public final class FormRowDescriptor {
         case slider
         case multipleSelector
         case multilineText
+        case uploadImg
     }
     
     public struct CellConfiguration {
@@ -67,12 +68,14 @@ public final class FormRowDescriptor {
         public var controllerClass:         AnyClass?
         public var options:                 [AnyObject]
         public var optionTitleClosure:      ((AnyObject) -> String)?
+        public var selectImgClosure: ((UIImageView) -> UIImage)?
         public var allowsMultipleSelection: Bool
         
         public init() {
             controllerClass = nil
             options = []
             optionTitleClosure = nil
+            selectImgClosure = nil
             allowsMultipleSelection = false
         }
     }

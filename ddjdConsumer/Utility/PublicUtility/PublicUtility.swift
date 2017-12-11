@@ -27,11 +27,10 @@ import UIKit
 //app公用常量
 
 ///图片请求路径
-let urlImg="http://192.168.199.173";
+let urlImg="http://cs.houjue.me";
 ///cs.houjue.me
 ///数据请求路径
-let url="http://192.168.199.173";
-
+let url="http://cs.houjue.me";
 
 
 /// 屏幕宽
@@ -63,12 +62,23 @@ let slide_default="good_defualt"
 
 let app=UIApplication.shared.delegate as! AppDelegate
 //会员id
-let MEMBERID=userDefaults.object(forKey:"memberId") as? Int ?? -1
+var MEMBERID:Int{
+    get{
+        return userDefaults.object(forKey:"memberId") as? Int ?? -1
+    }
+}
 //会员绑定店铺id
-let BINDSTOREID=userDefaults.object(forKey:"bindstoreId") as? Int ?? -1
+var BINDSTOREID:Int{
+    get{
+        return userDefaults.object(forKey:"bindstoreId") as? Int ?? -1
+    }
+}
 //店铺id
-let STOREID=userDefaults.object(forKey:"storeId") as? Int ?? -1
-
+var STOREID:Int{
+    get{
+        return userDefaults.object(forKey:"storeId") as? Int ?? -1
+    }
+}
 ///storyboard页面
 ///
 /// - Parameters:
@@ -84,10 +94,12 @@ func getXibClass(name:String,owner:Any?) -> Any?{
 }
 ///删除上传图片img
 func deleteUploadImgFile(){
-    // 获取沙盒目录 删除缓存图片
-    let myDirectory = NSHomeDirectory() + "/Documents/myImgages"
     let fileManager = FileManager.default
-    try? fileManager.removeItem(atPath:myDirectory)
+    let myDirectory = NSHomeDirectory() + "/Documents/myImgages"
+    let fileArray = fileManager.subpaths(atPath: myDirectory)
+    for fn in fileArray!{
+        try! fileManager.removeItem(atPath: myDirectory + "/\(fn)")
+    }
 }
 extension CGFloat{
     /// ps字体大小转ios字体大小

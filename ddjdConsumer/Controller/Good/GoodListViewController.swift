@@ -268,7 +268,7 @@ extension GoodListViewController{
     func searchGood(pageSize:Int,pageNumber:Int,goodsName:String){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: GoodApi.searchGood(memberId:MEMBERID, pageSize:pageSize, pageNumber: pageNumber, bindstoreId:BINDSTOREID, goodsName: goodsName, priceFlag:priceFlag, salesCountFlag:salesCountFlag), successClosure: { (json) in
             print("商品=\(json)")
-            for(_,value) in json["list"]{
+            for(_,value) in json["goodsList"]["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:value.object)
                 self.goodArr.append(entity!)
             }
@@ -286,7 +286,7 @@ extension GoodListViewController{
     //根据3级分类查询商品
     func goodListByCategoryId(pageSize:Int,pageNumber:Int){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.goodListByCategoryId(memberId:MEMBERID, pageSize: pageSize, pageNumber: pageNumber, bindstoreId:BINDSTOREID, tCategoryId:tCategoryId!, priceFlag: priceFlag,salesCountFlag:salesCountFlag), successClosure: { (json) in
-            for(_,value) in json["list"]{
+            for(_,value) in json["goodsList"]["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:value.object)
                 self.goodArr.append(entity!)
             }

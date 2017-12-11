@@ -91,11 +91,14 @@ extension GoodsClassificationViewController{
             for(_,value) in json{
                 var arr2=[GoodscategoryEntity]()
                 let entity=self.jsonMappingEntity(entity:GoodscategoryEntity.init(), object: value.object)
+                entity?.goodsCategoryPid=9999
                 for(_,value2) in value["list"]{
                     var arr3=[GoodscategoryEntity]()
                     let entity2=self.jsonMappingEntity(entity:GoodscategoryEntity.init(), object: value2.object)
+                    entity2?.goodsCategoryPid=entity!.goodsCategoryId
                     for(_,value3) in value2["list"]{
                         let entity3=self.jsonMappingEntity(entity:GoodscategoryEntity.init(), object: value3.object)
+                        entity3?.goodsCategoryPid=entity2!.goodsCategoryId
                         arr3.append(entity3!)
                     }
                     entity2!.arr2=arr3

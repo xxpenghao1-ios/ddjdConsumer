@@ -133,7 +133,7 @@ extension OrderConfirmViewController{
         payTableView.tag=100
         payTableView.isScrollEnabled=false
         payTableView.layer.cornerRadius=5
-        payTableView.separatorColor=UIColor.gray
+        payTableView.separatorColor=UIColor.lightGray
         payView.addSubview(payTableView)
         payView.isHidden=true
     }
@@ -318,7 +318,7 @@ extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
             view.addSubview(cancelImgView)
             
             let borderView=UIView(frame: CGRect.init(x:0, y:49.5, width:boundsWidth-40, height:0.5))
-            borderView.backgroundColor=UIColor.gray
+            borderView.backgroundColor=UIColor.lightGray
             view.addSubview(borderView)
             return view
         }else{

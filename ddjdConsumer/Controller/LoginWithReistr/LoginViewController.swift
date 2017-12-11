@@ -116,10 +116,13 @@ extension LoginViewController{
         self.showSVProgressHUD(status:"登录中...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.memberLogin(account:memberName!, password: password!), successClosure: { (json) in
             let success=json["success"].stringValue
+            print(json)
             if success == "success"{
                 let memberEntity=self.jsonMappingEntity(entity:MemberEntity(), object:json["member"].object)
                 userDefaults.set(memberEntity!.memberId, forKey:"memberId")
                 userDefaults.set(memberEntity!.account, forKey:"account")
+                userDefaults.set(memberEntity!.storeId, forKey:"storeId")
+                userDefaults.set(memberEntity!.bindstoreId, forKey:"bindstoreId")
                 userDefaults.synchronize()
                 self.dismissHUD {
                     if memberEntity!.bindstoreId != nil{//如果用户绑定了店铺
@@ -134,6 +137,8 @@ extension LoginViewController{
                 self.showSVProgressHUD(status:"您已经被禁止登录了", type: HUD.info)
             }else if success == "fail"{
                 self.showSVProgressHUD(status:"账号密码错误", type: HUD.error)
+            }else if success == "notExist"{
+                self.showSVProgressHUD(status:"账号不存在", type: HUD.error)
             }else{
                 self.showSVProgressHUD(status:"登录失败", type:HUD.error)
             }

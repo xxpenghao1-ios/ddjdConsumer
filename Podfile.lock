@@ -25,6 +25,9 @@ PODS:
   - Result (3.2.4)
   - Siren (3.0.1)
   - SnapKit (4.0.0)
+  - SQLite.swift (0.11.4):
+    - SQLite.swift/standard (= 0.11.4)
+  - SQLite.swift/standard (0.11.4)
   - SVProgressHUD (2.2.1)
   - SwiftyJSON (3.1.4)
   - TZImagePickerController (1.9.3)
@@ -48,6 +51,7 @@ DEPENDENCIES:
   - Result
   - Siren
   - SnapKit
+  - SQLite.swift (~> 0.11.4)
   - SVProgressHUD
   - SwiftyJSON
   - TZImagePickerController
@@ -72,12 +76,13 @@ SPEC CHECKSUMS:
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   Siren: 1fe6c89c268bb5abe684120142e2ad3e7fb0ca1a
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SQLite.swift: 3e3bee21da701b5b9f87c4a672cb54f233505692
   SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TZImagePickerController: 079ab986018c22793462e531045a75e366b18252
   WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
   WMPageController: 4c7f2c636675a71aea5eecf8fdc07a0ce86954e3
 
-PODFILE CHECKSUM: b3f567c3de7fec870cf6cb2f90eae5b4ef103ed8
+PODFILE CHECKSUM: b9f0a73c66a492a8df6d0f057a4fdba88d869afd
 
 COCOAPODS: 1.4.0.beta.1

@@ -1,25 +1,19 @@
 //
-//  GoodEntity.swift
+//  GoodUploadEntity.swift
 //  ddjdConsumer
 //
-//  Created by hao peng on 2017/9/22.
+//  Created by hao peng on 2017/12/7.
 //  Copyright © 2017年 zltx. All rights reserved.
 //
 
 import Foundation
 import ObjectMapper
-
-//// 这个枚举包含所有图片的状态
-//public enum MovieRecordState {
-//    case new, downloaded, filtered, failed
-//}
-/// 商品entity
-class GoodEntity:Mappable{
+class GoodUploadEntity:Mappable {
     var goodsId:Int?
     var goodsName:String? //‘商品名称’,
     var goodsUnit:String? //‘商品单位’,
     var goodsMixed:String? //‘商品配料’,
-    var goodsLift:Int? //‘保质期（天）’,
+    var goodsLift:String? //‘保质期（天）’,
     var goodsCode:String? //‘商品条码’,
     var remark:String?  //‘商品描述富文本描述’,
     var fCategoryId:Int? //‘一级分类(关联商品分类的一个Id)’,
@@ -35,10 +29,11 @@ class GoodEntity:Mappable{
     var cityId:Int? //
     var countyId:Int? //
     var countyText:String? //
-    var goodsPrice:Double? //‘商品价格；参考价’,
+    var goodsPrice:String? //‘商品价格；参考价’,
     var weight:String? //‘重量’,
     var brand:String? // ‘商品品牌’,
-    var stock:Int? //库存
+    var stock:String? //线上库存
+    var offlineStock:String? //线下库存
     var salesCount:Int? //销量
     var collectionStatu:Bool? //是否收藏  true收藏了 false 没有
     var storeAndGoodsId:Int? //店铺商品id
@@ -77,6 +72,7 @@ class GoodEntity:Mappable{
         weight <- map["weight"]
         brand <- map["brand"]
         stock <- map["stock"]
+        offlineStock <- map["offlineStock"]
         salesCount <- map["salesCount"]
         collectionStatu <- map["collectionStatu"]
         storeAndGoodsId <- map["storeAndGoodsId"]

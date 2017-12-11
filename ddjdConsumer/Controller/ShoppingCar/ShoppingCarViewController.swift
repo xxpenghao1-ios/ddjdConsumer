@@ -167,7 +167,10 @@ extension ShoppingCarViewController{
             if success == "success"{
                 self.showSVProgressHUD(status:"清空成功", type: HUD.success)
                 self.arr.removeAll()
+                self.bottomView.isHidden=true
+                self.hideClearCarRightBarButtonItem()
                 self.table.reloadData()
+                self.queryCarSumMoney()
             }else{
                 self.showSVProgressHUD(status:"清空失败", type: HUD.error)
             }
@@ -195,21 +198,23 @@ extension ShoppingCarViewController{
                 }else{
                     self.btnAllChecked.isSelected=false
                 }
-                self.queryCarSumMoney()
             }
+            self.queryCarSumMoney()
             //显示空购物车提示信息
             self.setDisplay(isDisplay:true)
             self.table.reloadData()
             self.dismissHUD()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
+            //显示空购物车提示信息
+            self.setDisplay(isDisplay:true)
         }
     }
     ///查询购物车总价格
     private func queryCarSumMoney(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.queryCarSumMoney(memberId:MEMBERID), successClosure: { (json) in
             self.sumPrice=json["sumPrice"].stringValue
-            if Double(self.sumPrice)! > Double(self.sendPrice){//判断是否大于起送金额
+            if Double(self.sumPrice)! >= Double(self.sendPrice){//判断是否大于起送金额
                 self.btnClearing.enable() //可以点击
             }else{
                 self.btnClearing.disable() //不可点击

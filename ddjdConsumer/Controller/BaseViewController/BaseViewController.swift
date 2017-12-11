@@ -26,6 +26,7 @@ public enum storyboardType:String{
     case loginWithRegistr="LoginWithRegistr"
     case main="Main"
     case store="Store"
+    case storeGood="StoreGood"
 }
 /// 基类
 class BaseViewController:UIViewController{

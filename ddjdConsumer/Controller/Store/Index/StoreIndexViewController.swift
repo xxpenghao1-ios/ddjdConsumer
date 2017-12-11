@@ -31,8 +31,8 @@ extension StoreIndexViewController{
         self.navigationController?.navigationBar.barTintColor=UIColor.applicationMainColor()
         self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.white, forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
         self.navigationController?.navigationBar.tintColor=UIColor.white
-        //隐藏分割线
-        self.findNavLineImageViewOn(self.navigationController!.navigationBar)?.isHidden=true
+        //改掉导航栏黑线颜色
+        self.navigationController?.navigationBar.shadowImage=UIImage.imageFromColor(UIColor.applicationMainColor())
     }
     private func setUpView(){
         collection.layer.cornerRadius=10
@@ -64,7 +64,7 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
             let vc=self.storyboardPushView(type:.store, storyboardId:"OtherSettingsVC") as! OtherSettingsViewController
             self.navigationController?.pushViewController(vc, animated:true)
         }else{
-            let vc=UIStoryboard(name:storyboardType.store.rawValue, bundle:nil).instantiateViewController(withIdentifier:"GoodUploadVC") as! GoodUploadViewController;
+            let vc=PageStoreGoodListViewController()
             self.navigationController?.pushViewController(vc, animated:true)
         }
     }

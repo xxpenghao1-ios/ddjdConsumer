@@ -14,6 +14,10 @@ class FeedbackViewController:BaseViewController{
     @IBOutlet weak var txtStr: UITextView!
     //图片集合
     @IBOutlet weak var imgCollection: UICollectionView!
+    //滑动容器
+    @IBOutlet weak var scrollView: UIScrollView!
+    ///4个按钮view
+    @IBOutlet weak var btnSumsView: UIView!
     //图片集合高度
     @IBOutlet weak var imgCollectionHeight: NSLayoutConstraint!
     //提交按钮
@@ -30,6 +34,7 @@ class FeedbackViewController:BaseViewController{
     private var imgArr=[UIImage]()
     //问题类型
     private var questionsOrSuggestionsType:Int?
+    
     private var selectedAssets=NSMutableArray()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,8 +87,8 @@ extension FeedbackViewController{
         btnSubmit.addTarget(self, action:#selector(submit), for: UIControlEvents.touchUpInside)
     }
     @objc private func selectedBtn(sender:UIButton){
-        for(view) in self.view.subviews{
-            if view.isKind(of:UIButton.classForCoder()){
+        for(view) in self.btnSumsView.subviews{
+            if view is UIButton{
                 let btn=view as! UIButton
                 btn.backgroundColor=UIColor.white
                 btn.setTitleColor(UIColor.applicationMainColor(), for: UIControlState.normal)
@@ -132,7 +137,6 @@ extension FeedbackViewController{
             group.notify(queue:queue, execute: {
                 let index=questionsOrSuggestionsPic.index(questionsOrSuggestionsPic.endIndex, offsetBy: -1)
                 questionsOrSuggestionsPic=String(questionsOrSuggestionsPic[..<index])
-                print(questionsOrSuggestionsPic)
                 self.save(questionsOrSuggestionsPic:questionsOrSuggestionsPic, str: str!)
             })
         }else{
@@ -144,7 +148,6 @@ extension FeedbackViewController{
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"提交成功,我们会尽快核实", type: HUD.success)
-                deleteUploadImgFile()
                 self.navigationController?.popViewController(animated:true)
             }else{
                 self.showSVProgressHUD(status:"提交失败", type: HUD.error)
@@ -152,6 +155,8 @@ extension FeedbackViewController{
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
+        //删除本地图片
+        deleteUploadImgFile()
     }
 }
 extension FeedbackViewController:UICollectionViewDelegate,UICollectionViewDataSource{

@@ -11,6 +11,7 @@ import UIKit
 open class FormViewController : UITableViewController {
     
     private static var __once: () = {
+            FormViewController.defaultCellClasses[.uploadImg] = GoodUploadImgTableViewCell.self
             FormViewController.defaultCellClasses[.text] = FormTextFieldCell.self
             FormViewController.defaultCellClasses[.label] = FormLabelCell.self
             FormViewController.defaultCellClasses[.number] = FormTextFieldCell.self
@@ -175,7 +176,9 @@ open class FormViewController : UITableViewController {
     open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let rowDescriptor = formRowDescriptorAtIndexPath(indexPath)
-        
+        if rowDescriptor.type == .uploadImg{
+            return 100
+        }
         if let formBaseCellClass = formBaseCellClassFromRowDescriptor(rowDescriptor) {
             return formBaseCellClass.formRowCellHeight()
         }
