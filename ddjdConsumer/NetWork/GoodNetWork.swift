@@ -24,6 +24,7 @@ public enum GoodApi{
     case getAllCollection(memberId:Int,pageSize:Int,pageNumber:Int)
     ///历史购买
     case getGoodsOfBuyed(memberId:Int,pageSize:Int,pageNumber:Int)
+    
 }
 extension GoodApi:TargetType{
     public var headers: [String : String]? {

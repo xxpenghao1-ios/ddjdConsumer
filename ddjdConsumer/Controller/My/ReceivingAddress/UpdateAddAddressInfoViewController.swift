@@ -87,6 +87,7 @@ class UpdateAddAddressInfoViewController:BaseViewController{
             self.showSVProgressHUD(status:"正在保存...", type: HUD.textClear)
             PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: MyApi.saveShippAddress(lat:"\(poiEntity!.lat!)", lon:"\(poiEntity!.lon!)", address:address!, detailAddress:detailsAddress!,shippName:name!, phoneNumber:tel!, memberId: MEMBERID, shippAddressId:entity?.shippAddressId, defaultFlag:defaultFlag), successClosure: { (json) in
                 let success=json["success"].stringValue
+                print(json)
                 if success == "success"{
                     self.showSVProgressHUD(status:"保存成功", type: HUD.success)
                     self.navigationController?.popViewController(animated:true)

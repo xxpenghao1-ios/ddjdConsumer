@@ -254,6 +254,9 @@ extension MyViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         if indexPath.item == 1{
             let badge=paymentPendingOrderCount > 0 ? "\(paymentPendingOrderCount)" : ""
             btnBadge!.badgeValue=badge
+        }else if indexPath.item == 2{
+            let badge=toSendTheGoodsOrderCount > 0 ? "\(toSendTheGoodsOrderCount)" : ""
+            btnBadge!.badgeValue=badge
         }else if indexPath.item == 3{
             let badge=forTheGoodsOrderCount > 0 ? "\(forTheGoodsOrderCount)" : ""
             btnBadge!.badgeValue=badge
@@ -310,6 +313,7 @@ extension MyViewController{
     ///查询待付和待收订单数量
     private func queryOrderNum(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryOrderNum(memberId:MEMBERID), successClosure: { (json) in
+            print(json)
             self.forTheGoodsOrderCount=json["daishou"].intValue
             self.paymentPendingOrderCount=json["daifu"].intValue
             self.toSendTheGoodsOrderCount=json["daifa"].intValue

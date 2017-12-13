@@ -193,13 +193,22 @@
                                 <rect key="frame" x="0.0" y="89" width="375" height="689"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="return_top" translatesAutoresizingMaskIntoConstraints="NO" id="HRI-dD-ePP">
+                                <rect key="frame" x="325" y="723" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="eNo-Lg-BvK"/>
+                                    <constraint firstAttribute="width" constant="45" id="o76-hS-xYi"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ZEw-W6-Ofz" firstAttribute="top" secondItem="cQ3-j2-HI0" secondAttribute="bottom" id="7da-Tz-rt2"/>
+                            <constraint firstItem="VGo-1S-Zff" firstAttribute="trailing" secondItem="HRI-dD-ePP" secondAttribute="trailing" constant="5" id="HE8-Rs-HDL"/>
                             <constraint firstItem="VGo-1S-Zff" firstAttribute="trailing" secondItem="ZEw-W6-Ofz" secondAttribute="trailing" id="IZu-4g-Bca"/>
                             <constraint firstItem="VGo-1S-Zff" firstAttribute="trailing" secondItem="cQ3-j2-HI0" secondAttribute="trailing" id="Omg-mn-yh2"/>
                             <constraint firstItem="cQ3-j2-HI0" firstAttribute="top" secondItem="VGo-1S-Zff" secondAttribute="top" id="V5I-Wv-qYp"/>
+                            <constraint firstItem="VGo-1S-Zff" firstAttribute="bottom" secondItem="HRI-dD-ePP" secondAttribute="bottom" constant="10" id="gDY-bF-bvH"/>
                             <constraint firstItem="cQ3-j2-HI0" firstAttribute="leading" secondItem="VGo-1S-Zff" secondAttribute="leading" id="jKC-UU-CAO"/>
                             <constraint firstItem="VGo-1S-Zff" firstAttribute="bottom" secondItem="ZEw-W6-Ofz" secondAttribute="bottom" id="qBh-68-Sno"/>
                             <constraint firstItem="ZEw-W6-Ofz" firstAttribute="leading" secondItem="VGo-1S-Zff" secondAttribute="leading" id="y9Z-tN-Iy7"/>
@@ -209,6 +218,7 @@
                     <connections>
                         <outlet property="btnAll" destination="VYL-FO-YR8" id="4Cq-pf-uM5"/>
                         <outlet property="btnScreening" destination="qEL-YP-zYA" id="ItL-iQ-Uwt"/>
+                        <outlet property="returnImg" destination="HRI-dD-ePP" id="VBB-Mv-3A9"/>
                         <outlet property="table" destination="ZEw-W6-Ofz" id="IJp-qM-k10"/>
                     </connections>
                 </viewController>
@@ -216,8 +226,27 @@
             </objects>
             <point key="canvasLocation" x="-4404" y="479"/>
         </scene>
+        <!--Update Store Good Detail View Controller-->
+        <scene sceneID="Jnk-D2-10S">
+            <objects>
+                <tableViewController storyboardIdentifier="UpdateStoreGoodDetailVC" id="fiB-Xu-u3p" customClass="UpdateStoreGoodDetailViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Apv-ju-aik">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="fiB-Xu-u3p" id="wiv-pj-xaa"/>
+                            <outlet property="delegate" destination="fiB-Xu-u3p" id="yZt-nV-1DU"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GRM-0t-BtB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3781" y="478"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="return_top" width="250" height="250"/>
         <image name="scan_code" width="27" height="27"/>
     </resources>
 </document>

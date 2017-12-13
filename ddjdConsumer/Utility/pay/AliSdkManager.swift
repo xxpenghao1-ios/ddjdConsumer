@@ -16,6 +16,10 @@ class AliPayManager:NSObject{
     fileprivate var paySuccessClosure: (() -> Void)?
     // 支付失败的闭包
     fileprivate var payFailClosure: (() -> Void)?
+    ///登录成功的闭包
+    fileprivate var loginSuccessClosure:((_ auth_code:String) -> Void)?
+    ///登录失败的闭包
+    fileprivate var loginFailClosure:(() -> Void)?
     // 外部用这个方法调起支付支付
     func payAlertController(_ sender: UIViewController,
                             request:String,
@@ -29,23 +33,16 @@ class AliPayManager:NSObject{
         AlipaySDK.defaultService().payOrder(request, fromScheme:"phddjdconsumer",callback:nil)
     }
     //外部用这个方法调起支付宝登录
-    func login(_ sender:BaseViewController,paySuccess: @escaping () -> Void,
-               payFail:@escaping () -> Void){
+    func login(_ sender:BaseViewController,withInfo:String,loginSuccess: @escaping (_ str:String) -> Void,loginFail:@escaping () -> Void){
         // sender 是调用这个方法的控制器，
         // 用于提示用户微信支付结果，可以根据自己需求是否要此参数。
         self.sender = sender
-        self.paySuccessClosure = paySuccess
-        self.payFailClosure = payFail
-        let info=APAuthInfo()
-        info.appID="2017091808793438"
-        info.pid="2088421507440403"
-        print(info.description)
-        
-        AlipaySDK.defaultService().auth_V2(withInfo:"sign=kXgKtixGhHeg4GmfNFjhG7t1sZn6rYW75DlqsCTY6%2BWU97s95dNRahATY9PB2I0iYRNssiOQ0SCk2s%2BHogGIWJE6Yqd8jz2n3JKxCKiA4NMhXxTOVB5cpJJpYfyvFs6ne3i2CTpdDgzL6cQMkDn827E2JoiqWu16oGUsY6GEx%2BgBmx9Ee9XkCpdKjB1ASzD%2Fe0OZLxn3m2vrFQqtOv7%2FJlblJyZAY17Gc2G%2FpFO7vJtV8%2B8Kxip0CzKHNstzuZmBqb6QxiYUKt3IiEBjMZaWrX%2B19K7cBtzIpEAn2eaZ6jun6i2s%2FG0xm1uvQb1ZiHAOFkzUwRwtPHNkUnYmSI0lJA%3D%3D&biz_type=openservice&scope=kuaijie&product_id=APP_FAST_LOGIN&auth_type=AUTHACCOUNT&apiname=com.alipay.account.auth&sign_type=RSA&app_id=2017091808793438&pid=2088421507440403&method=alipay.open.auth.sdk.code.get&app_name=mc&target_id=1", fromScheme:"phddjdconsumer", callback:nil)
+        self.loginSuccessClosure = loginSuccess
+        self.loginFailClosure = loginFail
+        AlipaySDK.defaultService().auth_V2(withInfo:withInfo, fromScheme:"phddjdconsumer", callback:nil)
     }
     ///授权回调
     func showAuth_V2Result(result:NSDictionary){
-        print(result)
         //        9000    请求处理成功
         //        4000    系统异常
         //        6001    用户中途取消
@@ -64,8 +61,6 @@ class AliPayManager:NSObject{
             break
         case "9000":
             returnMsg = "授权成功"
-            let r=result["result"] as! String
-            print(r)
             break
         default:
             returnMsg = "系统异常"
@@ -73,10 +68,11 @@ class AliPayManager:NSObject{
         }
         UIAlertController.showAlertYes(sender, title: "授权结果", message: returnMsg, okButtonTitle:"确定", okHandler: { (alert) in
             if returnCode == "9000" {
-                self.paySuccessClosure?()
+                let r=result["result"] as! String
+                self.loginSuccessClosure?(r)
                 
             }else{
-                self.payFailClosure?()
+                self.loginFailClosure?()
             }
         })
     }

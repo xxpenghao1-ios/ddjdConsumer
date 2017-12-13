@@ -27,6 +27,7 @@ public enum storyboardType:String{
     case main="Main"
     case store="Store"
     case storeGood="StoreGood"
+    case storeOrder="StoreOrder"
 }
 /// 基类
 class BaseViewController:UIViewController{
@@ -98,7 +99,7 @@ extension BaseViewController{
     func storyboardPushView(type:storyboardType,storyboardId:String) -> UIViewController{
         //先拿到main文件
         let storyboard=UIStoryboard(name:type.rawValue, bundle:nil);
-        let vc=storyboard.instantiateViewController(withIdentifier: storyboardId) as UIViewController;
+        let vc=storyboard.instantiateViewController(withIdentifier: storyboardId)
         return vc
     }
 }

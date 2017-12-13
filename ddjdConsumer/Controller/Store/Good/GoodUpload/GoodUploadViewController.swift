@@ -39,7 +39,7 @@ class GoodUploadViewController:FormViewController{
         goodEntity=goodEntity ?? GoodUploadEntity()
         self.title="商品上传"
         self.loadForm()
-        NotificationCenter.default.addObserver(self, selector:#selector(updateCategory), name: NSNotificationNameCategorySelection, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(updateCategory), name: notificationNameCategorySelection, object:nil)
     }
     ///更新分类信息
     @objc private func updateCategory(not:Notification){
@@ -64,30 +64,28 @@ extension GoodUploadViewController{
     private func loadForm(){
         let form = FormDescriptor()
         let section1 = FormSectionDescriptor(headerTitle:"商品基本信息", footerTitle: nil)
-        var row = FormRowDescriptor(tag: Static.goodsCodeTag, type:.text, title: "商品条形码:")
+        var row = FormRowDescriptor(tag: Static.goodsCodeTag, type:.label, title: "商品条形码:")
         row.value=goodEntity!.goodsCode as AnyObject
         section1.rows.append(row)
         
         row=FormRowDescriptor(tag: Static.goodsNameTag, type: .text, title: "商品名称:")
         row.value=goodEntity!.goodsName as AnyObject
         row.configuration.cell.placeholder="请输入商品名称"
-        row.configuration.cell.appearance = ["textField.textAlignment" : NSTextAlignment.left.rawValue as AnyObject]
-        
         section1.rows.append(row)
         
         row=FormRowDescriptor(tag: Static.goodsUnitTag, type: .text, title: "商品单位:")
         row.value=goodEntity!.goodsUnit as AnyObject
-        row.configuration.cell.appearance = ["textField.placeholder" : "例如:包,瓶,厅,把,千克等" as AnyObject, "textField.textAlignment" : NSTextAlignment.left.rawValue as AnyObject]
+        row.configuration.cell.placeholder="例如:包,瓶,厅,把,千克等"
         section1.rows.append(row)
         
         row=FormRowDescriptor(tag: Static.goodUcodeTag, type: .text, title: "商品规格:")
         row.value=goodEntity!.goodUcode as AnyObject
-        row.configuration.cell.appearance = ["textField.placeholder" : "例如:1*500g,1*200ml等" as AnyObject, "textField.textAlignment" : NSTextAlignment.left.rawValue as AnyObject]
+        row.configuration.cell.placeholder="例如:1*500g,1*200ml等"
         section1.rows.append(row)
         
         row=FormRowDescriptor(tag: Static.goodsPriceTag, type: .decimal, title: "商品价格:")
         row.value=goodEntity!.storeGoodsPrice as AnyObject
-        row.configuration.cell.appearance = ["textField.placeholder" : "请输入商品价格" as AnyObject, "textField.textAlignment" : NSTextAlignment.left.rawValue as AnyObject]
+        row.configuration.cell.placeholder="请输入商品价格"
         section1.rows.append(row)
         
         row=FormRowDescriptor(tag: Static.categoryTag, type: .label, title:"商品分类:")
@@ -103,47 +101,46 @@ extension GoodUploadViewController{
         
         row=FormRowDescriptor(tag: Static.goodsLiftTag, type: .number, title: "商品保质期:")
         row.value=goodEntity!.goodsLift as AnyObject
-        row.configuration.cell.appearance = ["textField.placeholder" : "请输入商品保质期(天)" as AnyObject, "textField.textAlignment" : NSTextAlignment.left.rawValue as AnyObject]
+        row.configuration.cell.placeholder="请输入商品保质期(天)"
         section2.rows.append(row)
         
         row=FormRowDescriptor(tag: Static.stockTag, type: .number, title: "商品线上库存:")
         row.value=goodEntity!.stock as AnyObject
-        row.configuration.cell.appearance = ["textField.placeholder" :"请输入商品线上库存" as AnyObject, "textField.textAlignment" : NSTextAlignment.left.rawValue as AnyObject]
+        row.configuration.cell.placeholder="请输入商品线上库存"
         section2.rows.append(row)
         
         row=FormRowDescriptor(tag: Static.offlineStockTag, type: .number, title: "商品线下库存:")
         row.value=goodEntity!.stock as AnyObject
-        row.configuration.cell.appearance = ["textField.placeholder" :"请输入商品线下库存" as AnyObject, "textField.textAlignment" : NSTextAlignment.left.rawValue as AnyObject]
+        row.configuration.cell.placeholder="请输入商品线下库存"
         section2.rows.append(row)
         
         row = FormRowDescriptor(tag: Static.goodsFlagTag, type: .segmentedControl, title: "商品状态")
-        row.configuration.selection.options = ([1, 2] as [Int]) as [AnyObject]
+        row.configuration.selection.options = ([0, 1] as [Int]) as [AnyObject]
         row.configuration.selection.optionTitleClosure = { value in
             guard let option = value as? Int else { return "" }
             switch option {
-            case 1:
+            case 0:
                 return "上架"
-            case 2:
+            case 1:
                 return "下架"
             default:
                 return ""
             }
         }
+        row.value=0 as AnyObject
         row.configuration.cell.appearance = ["titleLabel.font" : UIFont.systemFont(ofSize: 14),"segmentedControl.tintColor":UIColor.applicationMainColor()]
-        row.configuration.cell.appearance["segmentedControl.selectedSegmentIndex"] = 0 as AnyObject
-        row.value=1 as AnyObject
         section2.rows.append(row)
         
         let section3 = FormSectionDescriptor(headerTitle:"商品选填信息", footerTitle: nil)
         
         row=FormRowDescriptor(tag:Static.brandTag, type: .text, title: "商品品牌:")
         row.value=goodEntity!.brand as AnyObject
-        row.configuration.cell.appearance = ["textField.placeholder" :"请输入商品的品牌(选填)" as AnyObject, "textField.textAlignment" : NSTextAlignment.left.rawValue as AnyObject]
+        row.configuration.cell.placeholder="请输入商品的品牌(选填)"
         section3.rows.append(row)
         
         row=FormRowDescriptor(tag: Static.goodsMixedTag, type: .text, title: "商品配料:")
         row.value=goodEntity!.goodsMixed as AnyObject
-        row.configuration.cell.appearance = ["textField.placeholder" :"请输入商品配料(选填)" as AnyObject, "textField.textAlignment" : NSTextAlignment.left.rawValue as AnyObject]
+        row.configuration.cell.placeholder="请输入商品配料(选填)"
         section3.rows.append(row)
         
         let section4 = FormSectionDescriptor(headerTitle:"商品展示图片", footerTitle: nil)
@@ -247,16 +244,15 @@ extension GoodUploadViewController{
         self.uploadGoodImg(img:image!)
     }
     private func uploadGood(goodsPic:String){
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.storeUploadGoodsInfo(goodsCode:goodEntity!.goodsCode!, storeId:STOREID, goodsName: goodEntity!.goodsName!, goodsUnit:goodEntity!.goodsUnit!, goodsLift: Int(goodEntity!.goodsLift!)!,goodUcode:goodEntity!.goodUcode!, fCategoryId:goodEntity!.fCategoryId ?? 0, sCategoryId: goodEntity!.sCategoryId ?? 0, tCategoryId:goodEntity!.tCategoryId ?? 0, goodsPic:goodsPic,goodsPrice:"\(goodEntity!.goodsPrice!)", goodsFlag:goodEntity!.goodsFlag!,stock:Int(goodEntity!.stock!) ?? 0,remark:nil, weight:nil,brand:goodEntity!.brand,goodsMixed:goodEntity!.goodsMixed,offlineStock:Int(goodEntity!.offlineStock!) ?? 0), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.storeUploadGoodsInfo(goodsCode:goodEntity!.goodsCode!, storeId:STOREID, goodsName: goodEntity!.goodsName!, goodsUnit:goodEntity!.goodsUnit!, goodsLift: Int(goodEntity!.goodsLift!)!,goodUcode:goodEntity!.goodUcode!, fCategoryId:goodEntity!.fCategoryId ?? 0, sCategoryId: goodEntity!.sCategoryId ?? 0, tCategoryId:goodEntity!.tCategoryId ?? 0, goodsPic:goodsPic,goodsPrice:"\(goodEntity!.goodsPrice!)", goodsFlag:goodEntity!.goodsFlag!+1,stock:Int(goodEntity!.stock!) ?? 0,remark:nil, weight:nil,brand:goodEntity!.brand,goodsMixed:goodEntity!.goodsMixed,offlineStock:Int(goodEntity!.offlineStock!) ?? 0), successClosure: { (json) in
             let success = json["success"].stringValue
             if success == "success"{
                 SVProgressHUD.dismiss()
-                UIAlertController.showAlertYesNo(self, title:"", message:"商品上传到商品库成功，并成功分配到店铺自己的商品库", cancelButtonTitle:"返回", okButtonTitle:"去看看", okHandler: { (action) in
-                    
-                },cancelHandler: { (action) in
-                    self.navigationController?.popToViewController(self.navigationController!.viewControllers[1], animated:true)
+                UIAlertController.showAlertYes(self, title:"", message:"商品上传到商品库成功，并成功分配到店铺自己的商品库", okButtonTitle:"确定", okHandler: { (action) in
+                    self.navigationController?.popViewController(animated:true)
                 })
-
+                ///通知列表刷新页面
+                NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
             }else if success == "exist"{
                 self.showInfo(withStatus:"条码已存在,不能再添加此条码")
             }else{

@@ -53,6 +53,7 @@ open class FormSegmentedControlCell: FormBaseCell {
         guard let value = rowDescriptor?.value else { return }
         guard let options = rowDescriptor?.configuration.selection.options , !options.isEmpty else { return }
         
+//        segmentedControl.selectedSegmentIndex = value as! Int
         var idx = 0
         for optionValue in options {
             if optionValue === value {

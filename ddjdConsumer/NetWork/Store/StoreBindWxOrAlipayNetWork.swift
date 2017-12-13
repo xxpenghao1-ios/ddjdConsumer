@@ -12,6 +12,10 @@ import Moya
 public enum StoreBindWxOrAlipayApi{
     //查询店铺是否绑定微信或者支付宝 ，并返回相应的基本信息
     case queryStoreBindWxOrAliStatu(storeId:Int)
+    ///店铺绑定支付宝 绑定前先验证手机号
+    case updateStoreBindAli(storeId:Int,auth_code:String)
+    ///获取支付宝授权参数 调起支付宝授权所需的请求参数
+    case query_ali_AuthParams(storeId:Int)
 }
 extension StoreBindWxOrAlipayApi:TargetType{
     public var baseURL: URL {
@@ -21,14 +25,20 @@ extension StoreBindWxOrAlipayApi:TargetType{
     public var path: String {
         switch self {
         case .queryStoreBindWxOrAliStatu(_):
-            return "front/wxOrAli/queryStoreBindWxOrAliStatu"
+            return "/front/wxOrAli/queryStoreBindWxOrAliStatu"
+        case .updateStoreBindAli(_,_):
+            return "/front/wxOrAli/updateStoreBindAli"
+        case .query_ali_AuthParams(_):
+            return "/front/queryCommInfo/query_ali_AuthParams"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .queryStoreBindWxOrAliStatu(_):
+        case .queryStoreBindWxOrAliStatu(_),.query_ali_AuthParams(_):
             return .get
+        case .updateStoreBindAli(_,_):
+            return .post
         }
     }
     
@@ -39,6 +49,10 @@ extension StoreBindWxOrAlipayApi:TargetType{
         switch self {
         case let .queryStoreBindWxOrAliStatu(storeId):
             return .requestParameters(parameters:["storeId":storeId], encoding:URLEncoding.default)
+        case let .updateStoreBindAli(storeId, auth_code):
+            return .requestParameters(parameters:["storeId":storeId,"auth_code":auth_code], encoding: URLEncoding.default)
+        case let .query_ali_AuthParams(storeId):
+            return .requestParameters(parameters:["storeId":storeId], encoding: URLEncoding.default)
         }
     }
     

@@ -65,12 +65,20 @@ class VerifyThatTheBarcodeExistsViewController:BaseViewController{
             let exist=json["exist"].bool
             if exist != nil{
                 if exist!{ //店铺已拥有
+                    let goodEnity=self.jsonMappingEntity(entity:GoodEntity.init(), object:json["querySag"].object)
                     UIAlertController.showAlertYesNo(self, title:"", message:"该商品已经在您的商品库了", cancelButtonTitle:"不去", okButtonTitle:"去看看", okHandler: { (action) in
-                        
+                        let vc=self.storyboardPushView(type:.storeGood, storyboardId:"UpdateStoreGoodDetailVC") as! UpdateStoreGoodDetailViewController
+                        vc.goodEntity=goodEnity
+                        self.navigationController?.pushViewController(vc, animated: true)
                     })
-                }else{
-                    let entity=self.jsonMappingEntity(entity:GoodUploadEntity.init(), object:json["queryGoodsInfo"].object)
-                    self.pushGoodUploadVC(entity:entity)
+                }else{//店铺未拥有 商品库存在
+                    let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:json["queryGoodsInfo"].object)
+                    let vc=self.storyboardPushView(type:.storeGood, storyboardId:"UpdateStoreGoodDetailVC") as! UpdateStoreGoodDetailViewController
+                    ///默认上架状态
+                    entity?.goodsFlag=1
+                    vc.goodEntity=entity
+                    vc.flag=1
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         }) { (error) in

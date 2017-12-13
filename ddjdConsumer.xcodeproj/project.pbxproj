@@ -69,6 +69,7 @@
 		63924F391FB991DC007872F6 /* AddressListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63924F381FB991DC007872F6 /* AddressListViewController.swift */; };
 		63924F3D1FB99A90007872F6 /* AddressListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63924F3B1FB99A90007872F6 /* AddressListTableViewCell.swift */; };
 		63924F3E1FB99A90007872F6 /* AddressListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63924F3C1FB99A90007872F6 /* AddressListTableViewCell.xib */; };
+		639455731FDFD67500434616 /* StoreOrderNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639455721FDFD67500434616 /* StoreOrderNetWork.swift */; };
 		6394F6301FAAC9C900D1795A /* MJRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6394F62F1FAAC9C900D1795A /* MJRefresh.swift */; };
 		6394F6351FAAFEA000D1795A /* CarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6394F6331FAAFEA000D1795A /* CarTableViewCell.swift */; };
 		6394F6361FAAFEA000D1795A /* CarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6394F6341FAAFEA000D1795A /* CarTableViewCell.xib */; };
@@ -139,6 +140,8 @@
 		63F4B1161F6FB2BB00BBDD84 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F4B1151F6FB2BB00BBDD84 /* UIKit.framework */; };
 		63F4B11A1F6FB2D900BBDD84 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F4B1191F6FB2D900BBDD84 /* CFNetwork.framework */; };
 		63F4B11C1F6FB2E800BBDD84 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F4B11B1F6FB2E800BBDD84 /* CoreMotion.framework */; };
+		63F558D31FE1076100BF0CF5 /* BindWxAndAliViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F558D21FE1076100BF0CF5 /* BindWxAndAliViewController.swift */; };
+		63F558D51FE10E8300BF0CF5 /* BindWxAndAliDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F558D41FE10E8300BF0CF5 /* BindWxAndAliDetailViewController.swift */; };
 		63F6E7D01FB7E298009411E6 /* GoodsClassificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F6E7CF1FB7E298009411E6 /* GoodsClassificationViewController.swift */; };
 		63F6E7D21FB7E738009411E6 /* GoodscategoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F6E7D11FB7E738009411E6 /* GoodscategoryEntity.swift */; };
 		63F6E7D61FB7ED0C009411E6 /* GoodClassifyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F6E7D41FB7ED0C009411E6 /* GoodClassifyCollectionViewCell.swift */; };
@@ -150,6 +153,7 @@
 		63F7C11C1FCA5FB900C74544 /* OrderEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F7C11B1FCA5FB900C74544 /* OrderEntity.swift */; };
 		63F941C41FD8EA70007BB96A /* CategorySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F941C31FD8EA70007BB96A /* CategorySelectionViewController.swift */; };
 		63F941C61FD90525007BB96A /* NSNotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F941C51FD90525007BB96A /* NSNotificationName.swift */; };
+		63F9C8D01FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C8CF1FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift */; };
 		63F9C91B1FAB3E5500A3732D /* SpecialPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C9191FAB3E5500A3732D /* SpecialPriceTableViewCell.swift */; };
 		63F9C91C1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F9C91A1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib */; };
 		63F9C9211FAB5C0200A3732D /* SpecialPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C9201FAB5C0200A3732D /* SpecialPriceViewController.swift */; };
@@ -182,6 +186,9 @@
 		63FC077F1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FC077D1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift */; };
 		63FC07801FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63FC077E1FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib */; };
 		63FCB5C61FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCB5C51FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m */; };
+		63FD229B1FE0B23F001CF142 /* PageStoreOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD229A1FE0B23F001CF142 /* PageStoreOrderListViewController.swift */; };
+		63FD229D1FE0B33E001CF142 /* StoreOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD229C1FE0B33E001CF142 /* StoreOrderListViewController.swift */; };
+		63FD229F1FE0B3F0001CF142 /* StoreOrder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63FD229E1FE0B3F0001CF142 /* StoreOrder.storyboard */; };
 		63FD9B461FBD341800BEE45F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FD9B451FBD340F00BEE45F /* CoreData.framework */; };
 		63FDDC451FD0F1F9001CD97E /* PoiSearchAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FDDC441FD0F1F9001CD97E /* PoiSearchAddressViewController.swift */; };
 		63FDDC481FD14826001CD97E /* PurchaseHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FDDC471FD14826001CD97E /* PurchaseHistoryViewController.swift */; };
@@ -276,6 +283,7 @@
 		63924F381FB991DC007872F6 /* AddressListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressListViewController.swift; sourceTree = "<group>"; };
 		63924F3B1FB99A90007872F6 /* AddressListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressListTableViewCell.swift; sourceTree = "<group>"; };
 		63924F3C1FB99A90007872F6 /* AddressListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressListTableViewCell.xib; sourceTree = "<group>"; };
+		639455721FDFD67500434616 /* StoreOrderNetWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOrderNetWork.swift; sourceTree = "<group>"; };
 		6394F62F1FAAC9C900D1795A /* MJRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJRefresh.swift; sourceTree = "<group>"; };
 		6394F6331FAAFEA000D1795A /* CarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarTableViewCell.swift; sourceTree = "<group>"; };
 		6394F6341FAAFEA000D1795A /* CarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarTableViewCell.xib; sourceTree = "<group>"; };
@@ -355,6 +363,8 @@
 		63F4B1171F6FB2CD00BBDD84 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63F4B1191F6FB2D900BBDD84 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		63F4B11B1F6FB2E800BBDD84 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		63F558D21FE1076100BF0CF5 /* BindWxAndAliViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindWxAndAliViewController.swift; sourceTree = "<group>"; };
+		63F558D41FE10E8300BF0CF5 /* BindWxAndAliDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindWxAndAliDetailViewController.swift; sourceTree = "<group>"; };
 		63F6E7CF1FB7E298009411E6 /* GoodsClassificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsClassificationViewController.swift; sourceTree = "<group>"; };
 		63F6E7D11FB7E738009411E6 /* GoodscategoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodscategoryEntity.swift; sourceTree = "<group>"; };
 		63F6E7D41FB7ED0C009411E6 /* GoodClassifyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodClassifyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -366,6 +376,7 @@
 		63F7C11B1FCA5FB900C74544 /* OrderEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEntity.swift; sourceTree = "<group>"; };
 		63F941C31FD8EA70007BB96A /* CategorySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionViewController.swift; sourceTree = "<group>"; };
 		63F941C51FD90525007BB96A /* NSNotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationName.swift; sourceTree = "<group>"; };
+		63F9C8CF1FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStoreGoodDetailViewController.swift; sourceTree = "<group>"; };
 		63F9C9191FAB3E5500A3732D /* SpecialPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialPriceTableViewCell.swift; sourceTree = "<group>"; };
 		63F9C91A1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpecialPriceTableViewCell.xib; sourceTree = "<group>"; };
 		63F9C9201FAB5C0200A3732D /* SpecialPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialPriceViewController.swift; sourceTree = "<group>"; };
@@ -400,6 +411,9 @@
 		63FC077E1FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BindStoreListTableViewCell.xib; sourceTree = "<group>"; };
 		63FCB5C41FC27AE6005B96D8 /* UIViewController+BackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackButtonHandler.h"; sourceTree = "<group>"; };
 		63FCB5C51FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackButtonHandler.m"; sourceTree = "<group>"; };
+		63FD229A1FE0B23F001CF142 /* PageStoreOrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStoreOrderListViewController.swift; sourceTree = "<group>"; };
+		63FD229C1FE0B33E001CF142 /* StoreOrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOrderListViewController.swift; sourceTree = "<group>"; };
+		63FD229E1FE0B3F0001CF142 /* StoreOrder.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StoreOrder.storyboard; sourceTree = "<group>"; };
 		63FD9B451FBD340F00BEE45F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		63FDDC441FD0F1F9001CD97E /* PoiSearchAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiSearchAddressViewController.swift; sourceTree = "<group>"; };
 		63FDDC471FD14826001CD97E /* PurchaseHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseHistoryViewController.swift; sourceTree = "<group>"; };
@@ -510,6 +524,7 @@
 		632655241FC19C0200559E66 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				63FD22991FE0B21A001CF142 /* Order */,
 				63BB8BC11FC67A22003BB38D /* OtherSettings */,
 				63CC3D391FC2CBAE00BDD724 /* Good */,
 				632655251FC19C0F00559E66 /* Index */,
@@ -539,6 +554,7 @@
 			children = (
 				632B57F31FDA3B00008CE639 /* PageStoreGoodListViewController.swift */,
 				632B57F51FDA3C0A008CE639 /* StoreGoodListViewController.swift */,
+				63F9C8CF1FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift */,
 			);
 			path = GoodList;
 			sourceTree = "<group>";
@@ -883,6 +899,7 @@
 				63F9EF191F6774100038B05D /* My.storyboard */,
 				631595851F67797C000355C6 /* ShoppingCar.storyboard */,
 				63CCF5671FD7E84500D120A8 /* StoreGood.storyboard */,
+				63FD229E1FE0B3F0001CF142 /* StoreOrder.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -890,6 +907,7 @@
 		63BB8BC11FC67A22003BB38D /* OtherSettings */ = {
 			isa = PBXGroup;
 			children = (
+				63F558D11FE105B000BF0CF5 /* BindWxAndAli */,
 				63BB8BC41FC67A53003BB38D /* OtherSettingsViewController.swift */,
 			);
 			path = OtherSettings;
@@ -910,6 +928,7 @@
 				63CC3D3F1FC2CC4F00BDD724 /* StoreGoodNetWork.swift */,
 				63BB8BBF1FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift */,
 				633AC4641FCE7EEA009278D0 /* StoreInfoNetWork.swift */,
+				639455721FDFD67500434616 /* StoreOrderNetWork.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1039,6 +1058,15 @@
 				63E8B26F1FD3D05B003FCF1E /* FormSectionDescriptor.swift */,
 			);
 			path = descriptors;
+			sourceTree = "<group>";
+		};
+		63F558D11FE105B000BF0CF5 /* BindWxAndAli */ = {
+			isa = PBXGroup;
+			children = (
+				63F558D21FE1076100BF0CF5 /* BindWxAndAliViewController.swift */,
+				63F558D41FE10E8300BF0CF5 /* BindWxAndAliDetailViewController.swift */,
+			);
+			path = BindWxAndAli;
 			sourceTree = "<group>";
 		};
 		63F6E7CE1FB7E252009411E6 /* GoodsClassification */ = {
@@ -1221,6 +1249,15 @@
 			path = "UIViewController-BackButtonHandler-master";
 			sourceTree = "<group>";
 		};
+		63FD22991FE0B21A001CF142 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				63FD229A1FE0B23F001CF142 /* PageStoreOrderListViewController.swift */,
+				63FD229C1FE0B33E001CF142 /* StoreOrderListViewController.swift */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
 		63FDDC461FD1480C001CD97E /* PurchaseHistory */ = {
 			isa = PBXGroup;
 			children = (
@@ -1391,6 +1428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F6E7D71FB7ED0C009411E6 /* GoodClassifyCollectionViewCell.xib in Resources */,
+				63FD229F1FE0B3F0001CF142 /* StoreOrder.storyboard in Resources */,
 				6395DE521F5D431F008149DD /* LaunchScreen.storyboard in Resources */,
 				6374F3691F67E7DA006551CE /* IndexClassifyCollectionViewCell.xib in Resources */,
 				63A30C231FD2920C007E6D9F /* FeedbackCollectionViewCell.xib in Resources */,
@@ -1545,6 +1583,7 @@
 				637DD61D1F69203200D1BDD7 /* GoodCollectionViewCell.swift in Sources */,
 				6395DE4A1F5D431E008149DD /* ViewController.swift in Sources */,
 				630000981FBC59CF0038FAA4 /* SettingViewController.swift in Sources */,
+				63FD229D1FE0B33E001CF142 /* StoreOrderListViewController.swift in Sources */,
 				63506DCD1F6A13D000DDBB15 /* UICollectionViewFlowLayout.swift in Sources */,
 				63CCF5661FD7E7A600D120A8 /* VerifyThatTheBarcodeExistsViewController.swift in Sources */,
 				63E8B27E1FD3D05C003FCF1E /* FormTextFieldCell.swift in Sources */,
@@ -1579,8 +1618,10 @@
 				63E8B2711FD3D05B003FCF1E /* FormBaseCell.swift in Sources */,
 				631F29D51F622DCB00E46C19 /* GoodsClassificationNetWork.swift in Sources */,
 				63FEDA0D1FC5A11E000EF4DF /* poiTableViewCell.swift in Sources */,
+				639455731FDFD67500434616 /* StoreOrderNetWork.swift in Sources */,
 				63FC077F1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift in Sources */,
 				63351D641FB69EE2004B12A3 /* ReistrViewController.swift in Sources */,
+				63FD229B1FE0B23F001CF142 /* PageStoreOrderListViewController.swift in Sources */,
 				63CC8E981FC06A45005C5FB6 /* NewsTableViewCell.swift in Sources */,
 				63BB8BC01FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift in Sources */,
 				63E8B27B1FD3D05C003FCF1E /* FormSliderCell.swift in Sources */,
@@ -1591,6 +1632,7 @@
 				630EABD21FC6A49A003ED429 /* APAuthInfo.m in Sources */,
 				63AB90221F66739B0070AEED /* BaseViewController.swift in Sources */,
 				6316BAF21FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m in Sources */,
+				63F558D31FE1076100BF0CF5 /* BindWxAndAliViewController.swift in Sources */,
 				63FDDC451FD0F1F9001CD97E /* PoiSearchAddressViewController.swift in Sources */,
 				63F9C9231FAB5D0900A3732D /* SpecialPriceListViewController.swift in Sources */,
 				633F39BF1FD62EDF00484E81 /* UpdatePasswordViewController.swift in Sources */,
@@ -1625,6 +1667,7 @@
 				63FA108C1FC05E0B009B6CB2 /* Image.swift in Sources */,
 				63E8B2781FD3D05C003FCF1E /* FormPickerCell.swift in Sources */,
 				63FACAEF1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift in Sources */,
+				63F9C8D01FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift in Sources */,
 				63351D601FB5CC93004B12A3 /* PayNetWork.swift in Sources */,
 				63F9EF101F67620C0038B05D /* StoreTabBarViewController.swift in Sources */,
 				63FA108F1FC0629B009B6CB2 /* MyCollectGoodViewController.swift in Sources */,
@@ -1649,6 +1692,7 @@
 				63FDDC481FD14826001CD97E /* PurchaseHistoryViewController.swift in Sources */,
 				63E8B2841FD3D05C003FCF1E /* FormRowDescriptor.swift in Sources */,
 				63351D551FB5799B004B12A3 /* UIButton.swift in Sources */,
+				63F558D51FE10E8300BF0CF5 /* BindWxAndAliDetailViewController.swift in Sources */,
 				63E8B2761FD3D05C003FCF1E /* FormDateCell.swift in Sources */,
 				63F18E2D1FB9BF0B009C6E44 /* UpdateAddAddressInfoViewController.swift in Sources */,
 				63FA10891FC05BA2009B6CB2 /* OrderConfirmTableViewCell.swift in Sources */,

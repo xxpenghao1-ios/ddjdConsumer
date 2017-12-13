@@ -38,7 +38,8 @@ class GoodEntity:Mappable{
     var goodsPrice:Double? //‘商品价格；参考价’,
     var weight:String? //‘重量’,
     var brand:String? // ‘商品品牌’,
-    var stock:Int? //库存
+    var stock:Int? //线上库存
+    var offlineStock:Int? //线下库存
     var salesCount:Int? //销量
     var collectionStatu:Bool? //是否收藏  true收藏了 false 没有
     var storeAndGoodsId:Int? //店铺商品id
@@ -77,6 +78,7 @@ class GoodEntity:Mappable{
         weight <- map["weight"]
         brand <- map["brand"]
         stock <- map["stock"]
+        offlineStock <- map["offlineStock"]
         salesCount <- map["salesCount"]
         collectionStatu <- map["collectionStatu"]
         storeAndGoodsId <- map["storeAndGoodsId"]

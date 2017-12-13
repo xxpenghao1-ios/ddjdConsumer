@@ -7,9 +7,14 @@
 //
 
 import Foundation
-//通知名称常量
+///刷新消费者订单信息
 let notificationOrderListrefresh=NSNotification.Name(rawValue:"orderListrefresh")
+///刷新店铺订单信息
+let notificationStoreOrderListrefresh=NSNotification.Name(rawValue:"StoreOrderListrefresh")
 ///分类选择
-let NSNotificationNameCategorySelection=NSNotification.Name.init("CategorySelection")
+let notificationNameCategorySelection=NSNotification.Name.init("CategorySelection")
 ///更新购物车角标
 let updateCarBadgeValue=NSNotification.Name(rawValue: "postBadgeValue")
+///更新店铺商品列表
+let  notificationNameUpdateStoreGoodList=NSNotification.Name(rawValue:"UpdateStoreGoodList")
+

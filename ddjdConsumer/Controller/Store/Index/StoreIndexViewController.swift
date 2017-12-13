@@ -60,11 +60,21 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
         return 8
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == 7{
-            let vc=self.storyboardPushView(type:.store, storyboardId:"OtherSettingsVC") as! OtherSettingsViewController
-            self.navigationController?.pushViewController(vc, animated:true)
+        let wxBindStatu=userDefaults.object(forKey:"wxBindStatu") as? Bool
+        let aliBindStatu=userDefaults.object(forKey:"aliBindStatu") as? Bool
+        if aliBindStatu == true{//如果微信或者支付宝都绑定了
+            if indexPath.item == 1{
+                let vc=PageStoreOrderListViewController()
+                self.navigationController?.pushViewController(vc, animated:true)
+            }else if indexPath.item == 7{
+                let vc=self.storyboardPushView(type:.store, storyboardId:"OtherSettingsVC") as! OtherSettingsViewController
+                self.navigationController?.pushViewController(vc, animated:true)
+            }else{
+                let vc=PageStoreGoodListViewController()
+                self.navigationController?.pushViewController(vc, animated:true)
+            }
         }else{
-            let vc=PageStoreGoodListViewController()
+            let vc=self.storyboardPushView(type:.store, storyboardId:"BindWxAndAliVC") as! BindWxAndAliViewController
             self.navigationController?.pushViewController(vc, animated:true)
         }
     }

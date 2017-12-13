@@ -22,7 +22,11 @@ class ShoppingCarViewController:BaseViewController{
     //结算
     @IBOutlet weak var btnClearing: UIButton!
     ///起送价格
-    let sendPrice=userDefaults.object(forKey:"lowestMoney") as? Int ?? 0
+    var sendPrice:Int{
+        get{
+            return userDefaults.object(forKey:"lowestMoney") as? Int ?? 0
+        }
+    }
     //保存数据源
     private var arr=[GoodEntity]()
     ///保存总价格

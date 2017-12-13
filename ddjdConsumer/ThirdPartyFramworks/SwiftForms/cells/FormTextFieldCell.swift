@@ -32,7 +32,7 @@ open class FormTextFieldCell: FormBaseCell {
         titleLabel.font = UIFont.systemFont(ofSize:14)
         titleLabel.textColor=UIColor.color333()
         textField.font = UIFont.systemFont(ofSize:14)
-        
+        textField.textAlignment = .left
         contentView.addSubview(titleLabel)
         contentView.addSubview(textField)
         
@@ -57,10 +57,6 @@ open class FormTextFieldCell: FormBaseCell {
         titleLabel.text = rowDescriptor?.title
         textField.text = rowDescriptor?.value as? String
         textField.placeholder = rowDescriptor?.configuration.cell.placeholder
-        if rowDescriptor?.tag == "goodsCode"{
-            textField.isEnabled=false
-            textField.textColor=UIColor.color999()
-        }
         textField.isSecureTextEntry = false
         textField.clearButtonMode = .whileEditing
         

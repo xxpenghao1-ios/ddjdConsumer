@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 //确认订单cell
 class OrderConfirmTableViewCell: UITableViewCell {
     //商品名称
@@ -29,7 +30,7 @@ class OrderConfirmTableViewCell: UITableViewCell {
         entity.storeGoodsPrice=entity.storeGoodsPrice ?? 0.0
         lblGoodPrice.text="￥\(entity.storeGoodsPrice!)"
         entity.goodsPic=entity.goodsPic ?? ""
-//        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

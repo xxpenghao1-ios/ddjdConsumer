@@ -14,9 +14,7 @@ open class FormLabelCell: FormValueCell {
     
     override open func configure() {
         super.configure()
-        
-        accessoryType = .disclosureIndicator
-        
+        accessoryType = .none
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -39,13 +37,16 @@ open class FormLabelCell: FormValueCell {
     }
     override open func update() {
         super.update()
-        
         titleLabel.text = rowDescriptor?.title
         if rowDescriptor?.value as? String != nil{
             valueLabel.text=rowDescriptor?.value as? String
-            valueLabel.textColor=UIColor.color333()
+            valueLabel.textColor=UIColor.color666()
         }else{
             valueLabel.text = rowDescriptor?.configuration.cell.placeholder
+        }
+        if rowDescriptor?.tag == "category"{
+            accessoryType = .disclosureIndicator
+            valueLabel.textColor=UIColor.color333()
         }
     }
 }

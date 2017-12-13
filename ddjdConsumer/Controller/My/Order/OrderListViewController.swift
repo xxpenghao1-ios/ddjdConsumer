@@ -159,7 +159,7 @@ extension OrderListViewController{
             bottomBorderView!.tag=999
             view.contentView.addSubview(bottomBorderView!)
         }
-        orderSN!.text="订单号:\(entity.orderSN!)"
+        orderSN!.text="订单号:\(entity.orderSN ?? "")"
         if entity.orderStatus == 1{
             name?.text="待付款"
         }else if entity.orderStatus == 2{
@@ -374,6 +374,7 @@ extension OrderListViewController{
     private func orderConfirmTheGoods(orderId:Int){
         self.showSVProgressHUD(status:"正在加载中...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: CarApi.updateMemberOrderInfoStatusThe4(orderId:orderId, memberId:MEMBERID), successClosure: { (json) in
+            print(json)
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"收货成功", type: HUD.success)

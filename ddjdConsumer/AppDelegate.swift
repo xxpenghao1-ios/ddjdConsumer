@@ -10,7 +10,6 @@ import UIKit
 import Siren
 import SVProgressHUD
 import IQKeyboardManagerSwift
-import ObjectMapper
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate{
     var window: UIWindow?
@@ -99,34 +98,8 @@ extension AppDelegate{
         setupSiren()
         //向微信终端程序注册第三方应用
         WXApi.registerApp(WX_APPID)
-        ///获取分类信息
-        refreshClassificationData()
-        
-    }
-    ///刷新分类数据
-    private func refreshClassificationData(){
-        GoodClassificationDB.shared.deleteArrEntity()
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodsClassifiationApi.queryGoodsCateGoryList(), successClosure: { (json) in
-            //放到异步线程中操作
-            DispatchQueue.global().async(execute: {
-                for(_,value) in json{
-                    let entity=Mapper<GoodscategoryEntity>().map(JSONObject:value.object)
-                    entity?.goodsCategoryPid=9999
-                    for(_,value2) in value["list"]{
-                        let entity2=Mapper<GoodscategoryEntity>().map(JSONObject:value2.object)
-                        entity2?.goodsCategoryPid=entity!.goodsCategoryId
-                        GoodClassificationDB.shared.insertEntity(entity:entity2!)
-                        for(_,value3) in value2["list"]{
-                            let entity3=Mapper<GoodscategoryEntity>().map(JSONObject:value3.object)
-                            entity3?.goodsCategoryPid=entity2!.goodsCategoryId
-                            GoodClassificationDB.shared.insertEntity(entity:entity3!)
-                        }
-                    }
-                    GoodClassificationDB.shared.insertEntity(entity:entity!)
-                }
-            })
-        }) { (error) in
-        }
+        ///刷新分类信息
+        GoodClassificationDB.shared.refreshClassificationData()
     }
 }
 ///百度地图

@@ -136,7 +136,7 @@ class CategorySelectionViewController:BaseViewController,UITableViewDataSource,U
             self.selectedIndexPath=indexPath
             let alert=UIAlertController(title:"分类选择",message:self.selected3Category, preferredStyle: UIAlertControllerStyle.alert)
             let ok=UIAlertAction(title:"确定", style: UIAlertActionStyle.default, handler:{ Void in
-                NotificationCenter.default.post(name:NSNotificationNameCategorySelection, object:nil, userInfo:["str":self.selected3Category ?? "","tCategoryId":self.tCategoryId ?? 0,"sCategoryId":self.sCategoryId ?? 0,"fCategoryId":self.fCategoryId ?? 0])
+                NotificationCenter.default.post(name:notificationNameCategorySelection, object:nil, userInfo:["str":self.selected3Category ?? "","tCategoryId":self.tCategoryId ?? 0,"sCategoryId":self.sCategoryId ?? 0,"fCategoryId":self.fCategoryId ?? 0])
                 self.dismiss(animated: true, completion:nil)
                 
             })

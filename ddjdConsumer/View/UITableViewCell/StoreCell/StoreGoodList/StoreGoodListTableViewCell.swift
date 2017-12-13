@@ -23,7 +23,7 @@ class StoreGoodListTableViewCell: UITableViewCell {
     ///商品销量
     @IBOutlet weak var lblSalesCount: UILabel!
     ///商品上下架
-    @IBOutlet weak var scGoodsFlag: UISegmentedControl!
+    @IBOutlet weak var lblGoodsFlag: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -35,6 +35,7 @@ class StoreGoodListTableViewCell: UITableViewCell {
         lblStock.text="库存:\(entity.stock ?? 0)"
         lblSalesCount.text="销量\(entity.salesCount ?? 0)"
         lblStoreGoodsPrice.text="￥\(entity.storeGoodsPrice ?? 0.0)"
+        lblGoodsFlag.text=entity.goodsFlag == 1 ? "已上架" : "已下架"
         entity.goodsPic=entity.goodsPic ?? ""
         goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
     }

@@ -18,6 +18,14 @@ public enum StoreGoodApi{
     case queryGoodsCodeIsExist(goodsCode:String,storeId:Int)
     //店铺查询自己的商品
     case queryStoreAndGoodsList(storeId:Int,goodsFlag:Int,pageNumber:Int,pageSize:Int,tCategoryId:Int?)
+    //店铺商品上下架
+    case updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int)
+    //修改店铺信息
+    case updateGoodsByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int?,storeGoodsPrice:String?,stock:String?,offlineStock:String?)
+    //查询店铺商品详情
+    case queryStoreAndGoodsDetail(storeAndGoodsId:Int,storeId:Int)
+    ///分配到店铺商品库 单个商品
+    case addGoodsInfoGoToStoreAndGoods_detail(storeId:Int,goodsId:Int,storeGoodsPrice:String,goodsFlag:Int,stock:Int,offlineStock:Int)
     
     
     
@@ -37,14 +45,22 @@ extension StoreGoodApi:TargetType{
             return "/front/storeUploadGoods/queryGoodsCodeIsExist"
         case .queryStoreAndGoodsList(_,_,_,_,_):
             return "/front/storeAndGoods/queryStoreAndGoodsList"
+        case .updateGoodsFlagByStoreAndGoodsId(_,_):
+            return "/front/storeAndGoods/updateGoodsFlagByStoreAndGoodsId"
+        case .updateGoodsByStoreAndGoodsId(_,_,_,_,_):
+            return "/front/storeAndGoods/updateGoodsByStoreAndGoodsId"
+        case .queryStoreAndGoodsDetail(_,_):
+            return "/front/storeAndGoods/queryStoreAndGoodsDetail"
+        case .addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_):
+            return "//front/storeAndGoods/addGoodsInfoGoToStoreAndGoods_detail"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_):
+        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_):
             return .post
-        case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_):
+        case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_),.queryStoreAndGoodsDetail(_,_):
             return .get
         }
     }
@@ -68,6 +84,15 @@ extension StoreGoodApi:TargetType{
             }else{
                 return .requestParameters(parameters:["storeId":storeId,"goodsFlag":goodsFlag,"pageNumber":pageNumber,"pageSize":pageSize,"tCategoryId":tCategoryId!],encoding:URLEncoding.default)
             }
+        case let .updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId, goodsFlag):
+            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"goodsFlag":goodsFlag], encoding: URLEncoding.default)
+        case let .updateGoodsByStoreAndGoodsId(storeAndGoodsId, goodsFlag, storeGoodsPrice, stock, offlineStock):
+            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"goodsFlag":goodsFlag ?? "","storeGoodsPrice":storeGoodsPrice ?? "","stock":stock ?? "","offlineStock":offlineStock ?? ""], encoding: URLEncoding.default)
+        case let .queryStoreAndGoodsDetail(storeAndGoodsId, storeId):
+            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId], encoding: URLEncoding.default)
+        case let .addGoodsInfoGoToStoreAndGoods_detail(storeId, goodsId, storeGoodsPrice, goodsFlag, stock, offlineStock):
+            
+            return .requestParameters(parameters: ["storeId":storeId,"goodsId":goodsId,"storeGoodsPrice":storeGoodsPrice,"goodsFlag":goodsFlag,"stock":stock,"offlineStock":offlineStock], encoding:URLEncoding.default)
         }
         
     }
