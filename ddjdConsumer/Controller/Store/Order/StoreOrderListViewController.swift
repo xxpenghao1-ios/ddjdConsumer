@@ -179,6 +179,7 @@ extension StoreOrderListViewController{
             let entity=orderArr[section]
             let vc=self.storyboardPushView(type:.shoppingCar, storyboardId:"OrderDetailsVC") as! OrderDetailsViewController
             vc.orderId=entity.orderId
+            vc.storeFlag=1
             self.navigationController?.pushViewController(vc, animated:true)
         }
     }

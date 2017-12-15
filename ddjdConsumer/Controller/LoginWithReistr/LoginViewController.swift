@@ -45,6 +45,7 @@ extension LoginViewController{
         //默认禁用登录按钮
         btnLogin.disable()
         btnLogin.addTarget(self, action:#selector(submit), for: .touchUpInside)
+        btnForgotPassword.addTarget(self,action:#selector(pushForgotPassword), for: UIControlEvents.touchUpInside)
         
     }
     //账号输入框
@@ -145,6 +146,12 @@ extension LoginViewController{
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
+    }
+    ///跳转到忘记密码页面
+    @objc private func pushForgotPassword(){
+        let vc=self.storyboardPushView(type:.loginWithRegistr, storyboardId:"ReistrVC") as! ReistrViewController
+        vc.passwordFlag=1
+        self.navigationController?.pushViewController(vc, animated:true)
     }
 }
 // MARK: - 验证登录按钮是否可以点击

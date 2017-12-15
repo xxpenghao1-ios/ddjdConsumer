@@ -14,6 +14,10 @@ public enum StoreInfoApi{
     case queryStoreById(bindstoreId:Int)
     ///查询消费者选中位置可配送到位的店铺传0
     case queryStoreForLocation(distributionScope:Int,lat:Double,lon:Double)
+    ///查询年月日的总金额和店铺总金额
+    case queryStoreTurnover(storeId:Int)
+    ///查询店铺收入明细（转账明细）记录
+    case queryStoreTransferaccountsrecord(storeId:Int,pageNumber:Int,pageSize:Int,queryStatu:Int)
 }
 extension StoreInfoApi:TargetType{
     public var baseURL: URL {
@@ -26,12 +30,16 @@ extension StoreInfoApi:TargetType{
             return "/front/store/queryStoreById"
         case .queryStoreForLocation(_,_,_):
             return "/front/location/queryStoreForLocation"
+        case .queryStoreTurnover(_):
+            return "/front/storeStatistics/queryStoreTurnover"
+        case .queryStoreTransferaccountsrecord(_,_,_,_):
+            return "/front/storeStatistics/queryStoreTransferaccountsrecord"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .queryStoreById(_),.queryStoreForLocation(_,_,_):
+        case .queryStoreById(_),.queryStoreForLocation(_,_,_),.queryStoreTurnover(_),.queryStoreTransferaccountsrecord(_,_,_,_):
             return .get
         }
     }
@@ -46,6 +54,10 @@ extension StoreInfoApi:TargetType{
             return .requestParameters(parameters:["bindstoreId":bindstoreId], encoding: URLEncoding.default)
         case let .queryStoreForLocation(distributionScope,lat,lon):
             return .requestParameters(parameters:["distributionScope":distributionScope,"lat":lat,"lon":lon], encoding: URLEncoding.default)
+        case let .queryStoreTurnover(storeId):
+            return .requestParameters(parameters:["storeId":storeId], encoding: URLEncoding.default)
+        case let .queryStoreTransferaccountsrecord(storeId, pageNumber, pageSize, queryStatu):
+            return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"queryStatu":queryStatu], encoding: URLEncoding.default)
         }
     }
     

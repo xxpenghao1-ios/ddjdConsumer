@@ -26,5 +26,6 @@ target ‘ddjdConsumer’ do
     pod 'JNDropDownMenu' #对页面排序
     pod 'TZImagePickerController' #选择图片
     pod 'SQLite.swift', '~> 0.11.4' #数据库操作
+    pod 'Charts' #图表
 end
 

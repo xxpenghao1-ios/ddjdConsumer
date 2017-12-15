@@ -2,6 +2,9 @@ PODS:
   - Alamofire (4.5.1)
   - BaiduMapKit (3.4.0)
   - BaiduMobStat (4.6.3)
+  - Charts (3.0.4):
+    - Charts/Core (= 3.0.4)
+  - Charts/Core (3.0.4)
   - IQKeyboardManagerSwift (5.0.3)
   - JCore (1.1.5)
   - JNDropDownMenu (0.1.6)
@@ -38,6 +41,7 @@ DEPENDENCIES:
   - Alamofire
   - BaiduMapKit
   - BaiduMobStat
+  - Charts
   - IQKeyboardManagerSwift
   - JNDropDownMenu
   - JPush
@@ -62,6 +66,7 @@ SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   BaiduMapKit: 0a5e5e0b1e3fd8dc5aceb40ab9b89e52e1d13df9
   BaiduMobStat: 0b90ece449274a310d2c37eec949c6da3602a995
+  Charts: 0705898046257443f0afbbc3179f4b67507b6e48
   IQKeyboardManagerSwift: e257e513744cf32123eca7061272acea0246fc83
   JCore: 9bd9c770c877c583d98b90a68792b8361974c231
   JNDropDownMenu: 5f24544b002e01289818d1c56d56ae2de11cb931
@@ -83,6 +88,6 @@ SPEC CHECKSUMS:
   WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
   WMPageController: 4c7f2c636675a71aea5eecf8fdc07a0ce86954e3
 
-PODFILE CHECKSUM: b9f0a73c66a492a8df6d0f057a4fdba88d869afd
+PODFILE CHECKSUM: 5c6a1dbfc33b2b3ce7d9cff6884a3833df26dafe
 
 COCOAPODS: 1.4.0.beta.1

@@ -13,6 +13,8 @@ class OrderDetailsViewController:BaseViewController{
     var orderId:Int?
     //接收订单状态
     var orderState:String?
+    //店铺订单标识 如果不为空 查询店铺订单
+    var storeFlag:Int?
     @IBOutlet weak var table: UITableView!
     ///收货人
     @IBOutlet weak var lblShippName: UILabel!
@@ -105,7 +107,11 @@ class OrderDetailsViewController:BaseViewController{
         self.title="订单详情"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         setUpView()
-        getOrderDetails()
+        if storeFlag == nil{
+            getOrderDetails()
+        }else{
+            getStoreOrderDetails()
+        }
     }
     //修改table尾部高度
     override func viewDidLayoutSubviews() {
@@ -210,6 +216,7 @@ extension OrderDetailsViewController:UITableViewDelegate,UITableViewDataSource{
 
 ///网络请求
 extension OrderDetailsViewController{
+    ///查询消费者订单
     private func getOrderDetails(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryOrderById(orderId:orderId ?? 0), successClosure: { (json) in
             for(_,value) in json["goods"]{
@@ -217,6 +224,21 @@ extension OrderDetailsViewController{
                 self.goodArr.append(entity!)
             }
             self.orderEntity=self.jsonMappingEntity(entity:OrderDetailsEntity.init(), object:json["order"].object)
+            self.setLoadingState(isLoading:false)
+            self.table.reloadData()
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type:HUD.error)
+            self.navigationController?.popViewController(animated:true)
+        }
+    }
+    ///查询店铺订单详情
+    private func getStoreOrderDetails(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreOrderApi.queryStoreOrderInfoDetails(orderId:orderId ?? 0), successClosure: { (json) in
+            for(_,value) in json["orderInfoGoodsListDetails"]{
+                let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
+                self.goodArr.append(entity!)
+            }
+            self.orderEntity=self.jsonMappingEntity(entity:OrderDetailsEntity.init(), object:json["orderInfoDetails"].object)
             self.setLoadingState(isLoading:false)
             self.table.reloadData()
         }) { (error) in

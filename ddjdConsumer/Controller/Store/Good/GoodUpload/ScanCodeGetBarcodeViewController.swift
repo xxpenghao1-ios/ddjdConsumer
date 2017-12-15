@@ -7,12 +7,25 @@
 //
 
 import Foundation
-///扫码获取条形码
+import AVFoundation
+///扫码获取条形码 或2二维码
 class ScanCodeGetBarcodeViewController:LBXScanViewController,LBXScanViewControllerDelegate{
+    ///有值获取二维码 否则条形码
+    var flag:Int?
     var codeInfoClosure:((_ code:String?) -> Void)?
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpNavColor()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title="获取条形码"
+        if flag == nil{
+            self.title="获取条形码"
+            self.arrayCodeType=[AVMetadataObject.ObjectType.ean13,AVMetadataObject.ObjectType.ean8,AVMetadataObject.ObjectType.code128,AVMetadataObject.ObjectType.code39,AVMetadataObject.ObjectType.code93]
+        }else{
+            self.title="获取二维码"
+            self.arrayCodeType=[AVMetadataObject.ObjectType.qr]
+        }
         //设置扫码区域参数
         var style = LBXScanViewStyle()
         style.centerUpOffset = 44;
@@ -30,14 +43,20 @@ class ScanCodeGetBarcodeViewController:LBXScanViewController,LBXScanViewControll
     }
     ///扫码结果返回
     func scanFinished(scanResult: LBXScanResult, error: String?) {
-        
         if scanResult.strBarCodeType != nil{
             if scanResult.strBarCodeType! == "org.iso.QRCode"{//判断是否是二维码
-//                code(scanResult.strScanned!)
+                self.codeInfoClosure?(scanResult.strScanned)
             }else{
                 self.codeInfoClosure?(scanResult.strScanned)
-                self.navigationController?.popViewController(animated:true)
             }
         }
+        self.navigationController?.popViewController(animated:true)
+    }
+    //设置导航栏颜色
+    private func setUpNavColor(){
+        self.navigationController?.navigationBar.barTintColor=UIColor.applicationMainColor()
+        self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.white, forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
+        self.navigationController?.navigationBar.tintColor=UIColor.white
+        self.navigationController?.navigationBar.shadowImage=UIImage.imageFromColor(UIColor.applicationMainColor())
     }
 }

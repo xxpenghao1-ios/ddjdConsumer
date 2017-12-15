@@ -178,38 +178,12 @@ extension OrderConfirmViewController{
         }
         self.showPayView()
     }
-    //下单 payType 1微信支付 2支付宝
-    private func payOrder(payType:Int){
-        self.showSVProgressHUD(status:"请稍后...", type: HUD.textClear)
-        let payMessage=txtMessage.text ?? ""
-        let moblieSumPrice=PriceComputationsUtil.decimalNumberWithString(multiplierValue: sumPrice!, multiplicandValue:"\(deliveryFee)", type: ComputationsType.addition, position:2)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.saveOrder(memberId:MEMBERID, shipaddressId:addressEntity!.shippAddressId!, platform:2, payType:payType, moblieSumPrice:moblieSumPrice,payMessage:payMessage), successClosure: { (json) in
-            print(json)
-            let success=json["success"].stringValue
-            if success == "success"{
-                self.dismissHUD {
-                    let orderString=json["charge"]["orderString"].stringValue
-                    AliPayManager.shared.payAlertController(self, request:orderString, paySuccess: {
-                        
-                    }, payFail: {
-
-                    })
-                }
-            }else if success == "orderRepeat"{
-                self.dismissHUD {
-                    UIAlertController.showAlertYesNo(self, title:"", message:"您存在待付款订单,请先支付", cancelButtonTitle:"取消", okButtonTitle:"去付款", okHandler: { (action) in
-
-                    })
-                }
-            }else if success == "underStock"{
-                let goodsName=json["goodsName"].stringValue
-                self.showSVProgressHUD(status:goodsName+"库存不足", type: HUD.info)
-            }else{
-                self.showSVProgressHUD(status:"下单失败", type: HUD.error)
-            }
-        }) { (error) in
-            self.showSVProgressHUD(status:error!, type: HUD.error)
-        }
+    ///跳转到订单列表
+    private func pushOrderList(orderStatus:Int){
+        let vc=OrderListPageController()
+        vc.orderStatus=orderStatus
+        vc.popFlag=1
+        self.navigationController?.pushViewController(vc, animated:true)
     }
 }
 ///网络请求
@@ -236,6 +210,67 @@ extension OrderConfirmViewController{
             }else{
                 //隐藏添加收货地址
                 self.hideAddAddressView()
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+    //下单 payType 1微信支付 2支付宝
+    private func payOrder(payType:Int){
+        self.showSVProgressHUD(status:"请稍后...", type: HUD.textClear)
+        let payMessage=txtMessage.text ?? ""
+        let moblieSumPrice=PriceComputationsUtil.decimalNumberWithString(multiplierValue: sumPrice!, multiplicandValue:"\(deliveryFee)", type: ComputationsType.addition, position:2)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.saveOrder(memberId:MEMBERID, shipaddressId:addressEntity!.shippAddressId!, platform:2, payType:payType, moblieSumPrice:moblieSumPrice,payMessage:payMessage), successClosure: { (json) in
+            print(json)
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.dismissHUD {
+                    if payType == 1{
+                        let charge=json["charge"]
+                        let req=PayReq()
+                        req.timeStamp=charge["timestamp"].uInt32Value
+                        req.partnerId=charge["partnerid"].stringValue
+                        req.package=charge["package"].stringValue
+                        req.nonceStr=charge["noncestr"].stringValue
+                        req.sign=charge["sign"].stringValue
+                        req.prepayId=charge["prepayid"].stringValue
+                        WXApiManager.shared.payAlertController(self, request: req, paySuccess: {
+                            UIAlertController.showAlertYesNo(self, title:"", message:"下单成功,我们尽快帮您送货上门", cancelButtonTitle: "返回", okButtonTitle:"查看订单", okHandler: { (action) in
+                                self.pushOrderList(orderStatus:2)
+                            }, cancelHandler: { (action) in
+                                self.navigationController?.popViewController(animated:true)
+                            })
+                        }, payFail: {
+                            self.showSVProgressHUD(status:"支付失败", type: HUD.error)
+                            self.navigationController?.popViewController(animated:true)
+                        })
+                    }else if payType == 2{
+                        let orderString=json["charge"]["orderString"].stringValue
+                        AliPayManager.shared.payAlertController(self, request:orderString, paySuccess: {
+                            UIAlertController.showAlertYesNo(self, title:"", message:"下单成功,我们尽快帮您送货上门", cancelButtonTitle: "返回", okButtonTitle:"查看订单", okHandler: { (action) in
+                                self.pushOrderList(orderStatus:2)
+                            }, cancelHandler: { (action) in
+                                self.navigationController?.popViewController(animated:true)
+                            })
+                        }, payFail: {
+                            self.showSVProgressHUD(status:"支付失败", type: HUD.error)
+                            self.navigationController?.popViewController(animated:true)
+                        })
+                    }
+                }
+            }else if success == "orderRepeat"{
+                self.dismissHUD {
+                    UIAlertController.showAlertYesNo(self, title:"", message:"您存在待付款订单,请先支付", cancelButtonTitle: "返回", okButtonTitle:"去付款", okHandler: { (action) in
+                        self.pushOrderList(orderStatus:1)
+                    }, cancelHandler: { (action) in
+                        self.navigationController?.popViewController(animated:true)
+                    })
+                }
+            }else if success == "underStock"{
+                let goodsName=json["goodsName"].stringValue
+                self.showSVProgressHUD(status:goodsName+"库存不足", type: HUD.info)
+            }else{
+                self.showSVProgressHUD(status:"下单失败", type: HUD.error)
             }
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)

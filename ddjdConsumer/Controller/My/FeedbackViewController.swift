@@ -105,6 +105,10 @@ extension FeedbackViewController{
             self.showSVProgressHUD(status:"问题与描述不能为空", type: HUD.info)
             return
         }
+        if questionsOrSuggestionsType == nil {
+            self.showSVProgressHUD(status:"请选择问题类别", type: HUD.info)
+            return
+        }
         self.showSVProgressHUD(status:"正在提交...", type: HUD.textClear)
         var questionsOrSuggestionsPic=""
         if imgArr.count > 0{//如果有值

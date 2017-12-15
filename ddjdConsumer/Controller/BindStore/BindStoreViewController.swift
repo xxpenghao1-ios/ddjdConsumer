@@ -38,7 +38,6 @@ class BindStoreViewController:BaseViewController{
         self.navigationController?.navigationBar.barTintColor=UIColor.applicationMainColor()
         self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.white, forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
         self.navigationController?.navigationBar.tintColor=UIColor.white
-        //恢复导航栏黑线颜色
         self.navigationController?.navigationBar.shadowImage=UIImage.imageFromColor(UIColor.applicationMainColor())
     }
     //恢复导航栏颜色
@@ -51,7 +50,17 @@ class BindStoreViewController:BaseViewController{
     }
     ///扫码绑定店铺
     @objc private func sweepCodeBindStore(){
-        
+        let vc=ScanCodeGetBarcodeViewController()
+        vc.flag=1
+        vc.codeInfoClosure={ (str) in
+            if str != nil{
+                let arr=str!.components(separatedBy:"_")
+                if arr.count > 2{
+                    self.bindStore(bindstoreId:Int(arr[2])!)
+                }
+            }
+        }
+        self.navigationController?.pushViewController(vc, animated:true)
     }
     ///搜索绑定店铺
     @objc private func searchBindStore(){
@@ -59,5 +68,21 @@ class BindStoreViewController:BaseViewController{
         vc.bindStoreFlag=1
         vc.flag=1
         self.navigationController?.pushViewController(vc, animated:true)
+    }
+    private func bindStore(bindstoreId:Int){
+        self.showSVProgressHUD(status:"正在绑定...", type: HUD.textClear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.bindStore(memberId:MEMBERID,bindstoreId:bindstoreId), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.showSVProgressHUD(status:"绑定成功", type: HUD.success)
+                userDefaults.set(bindstoreId,forKey:"bindstoreId")
+                userDefaults.synchronize()
+                app.jumpToIndexVC()
+            }else{
+                self.showSVProgressHUD(status:"绑定失败", type: HUD.error)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
     }
 }

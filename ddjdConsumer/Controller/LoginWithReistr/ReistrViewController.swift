@@ -9,6 +9,8 @@
 import Foundation
 //注册页面
 class ReistrViewController:BaseViewController{
+    ///如果不等于空 找回密码
+    var passwordFlag:Int?
     //会员账号
     @IBOutlet weak var txtMemberName: UITextField!
     //验证码
@@ -32,6 +34,10 @@ class ReistrViewController:BaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        if passwordFlag != nil{
+            self.title="忘记密码"
+            btnReistr.setTitle("设置", for: UIControlState.normal)
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -55,9 +61,10 @@ extension ReistrViewController{
         btnReistr.layer.borderColor=UIColor.applicationMainColor().cgColor
         btnReistr.layer.borderWidth=1
         btnReistr.layer.cornerRadius=5
-        //默认注册登录按钮
+       
         btnReistr.disable()
-        btnLogin.addTarget(self, action:#selector(submit), for: .touchUpInside)
+        btnReistr.addTarget(self, action: #selector(submit), for: UIControlEvents.touchUpInside)
+        btnLogin.addTarget(self, action:#selector(popLogin), for: .touchUpInside)
     }
 
     //账号输入框
@@ -156,17 +163,34 @@ extension ReistrViewController{
         if password!.count < 6{
             self.showSVProgressHUD(status:"密码最少6位", type: HUD.info)
         }
-        self.showSVProgressHUD(status:"正在注册...", type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.reg(account:memberName!, password: password!), successClosure: { (json) in
-            let success=json["success"].stringValue
-            if success == "success"{
-                self.showSVProgressHUD(status:"注册成功", type: HUD.success)
-                self.navigationController?.popViewController(animated:true)
-            }else{
-                self.showSVProgressHUD(status:"注册失败", type: HUD.error)
+        if passwordFlag == nil{
+            self.showSVProgressHUD(status:"正在注册...", type: HUD.textClear)
+            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.reg(account:memberName!, password: password!), successClosure: { (json) in
+                let success=json["success"].stringValue
+                if success == "success"{
+                    self.showSVProgressHUD(status:"注册成功", type: HUD.success)
+                    self.navigationController?.popViewController(animated:true)
+                }else{
+                    self.showSVProgressHUD(status:"注册失败", type: HUD.error)
+                }
+            }) { (error) in
+                self.showSVProgressHUD(status:error!, type: HUD.error)
             }
-        }) { (error) in
-            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }else{
+            self.showSVProgressHUD(status:"正在提交...", type: HUD.textClear)
+            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.fingPwd(account:memberName!, password:password!), successClosure: { (json) in
+                let success=json["success"].stringValue
+                if success == "success"{
+                    self.showSVProgressHUD(status:"设置成功", type: HUD.success)
+                    self.navigationController?.popViewController(animated:true)
+                }else if success == "notExist"{
+                    self.showSVProgressHUD(status:"账号不存在", type: HUD.error)
+                }else{
+                    self.showSVProgressHUD(status:"设置失败", type: HUD.error)
+                }
+            }, failClosure: { (error) in
+                self.showSVProgressHUD(status:error!, type: HUD.error)
+            })
         }
         
     }
@@ -182,20 +206,28 @@ extension ReistrViewController{
             return
         }
         self.showSVProgressHUD(status:"正在获取验证码...", type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: LoginWithRegistrApi.duanxinValidate(account:memberName!, flag:1), successClosure: { (json) in
+        let flag=passwordFlag==nil ? 1:2
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: LoginWithRegistrApi.duanxinValidate(account:memberName!,flag:flag), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
+                self.dismissHUD()
                 self.code=json["randCode"].stringValue
                 //开始倒计时
                 self.startTimer()
-            }else if success == "exist"{
+            }else if success == "exist"{//注册时才会返回
                 self.showSVProgressHUD(status:"该账号已存在", type: .info)
+            }else if success == "notExist"{// 忘记密码时才会返回
+                self.showSVProgressHUD(status:"账号不存在", type: .info)
             }else{
                 self.showSVProgressHUD(status:"获取验证码失败", type: .error)
             }
         }, failClosure: { (error) in
             self.showSVProgressHUD(status:error!, type: .error)
         })
+    }
+    ///返回登录页面
+    @objc private func popLogin(){
+        self.navigationController?.popViewController(animated:true)
     }
 }
 //倒计时

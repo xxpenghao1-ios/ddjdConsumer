@@ -84,34 +84,40 @@ class AliPayManager:NSObject{
         //        6001    用户中途取消
         //        6002    网络连接出错
         let returnCode:String = result["resultStatus"] as! String
-        var returnMsg:String = ""
-        switch  returnCode{
-        case "6001":
-            returnMsg = "用户中途取消"
-            break
-        case "6002":
-            returnMsg = "网络连接出错"
-            break
-        case "8000":
-            returnMsg = "正在处理中"
-            break
-        case "4000":
-            returnMsg = "订单支付失败"
-            break
-        case "9000":
-            returnMsg = "支付成功"
-            break
-        default:
-            returnMsg = "订单支付失败"
-            break
+//        var returnMsg:String = ""
+//        switch  returnCode{
+//        case "6001":
+//            returnMsg = "用户中途取消"
+//            break
+//        case "6002":
+//            returnMsg = "网络连接出错"
+//            break
+//        case "8000":
+//            returnMsg = "正在处理中"
+//            break
+//        case "4000":
+//            returnMsg = "订单支付失败"
+//            break
+//        case "9000":
+//            returnMsg = "支付成功"
+//            break
+//        default:
+//            returnMsg = "订单支付失败"
+//            break
+//        }
+//        UIAlertController.showAlertYes(sender, title: "支付结果", message: returnMsg, okButtonTitle:"确定", okHandler: { (alert) in
+//            if returnCode == "9000" {
+//                self.paySuccessClosure?()
+//
+//            }else{
+//                self.payFailClosure?()
+//            }
+//        })
+        if returnCode == "9000" {
+            self.paySuccessClosure?()
+            
+        }else{
+            self.payFailClosure?()
         }
-        UIAlertController.showAlertYes(sender, title: "支付结果", message: returnMsg, okButtonTitle:"确定", okHandler: { (alert) in
-            if returnCode == "9000" {
-                self.paySuccessClosure?()
-                
-            }else{
-                self.payFailClosure?()
-            }
-        })
     }
 }

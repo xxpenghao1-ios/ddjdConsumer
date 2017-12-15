@@ -21,7 +21,10 @@ class WXApiManager:NSObject,WXApiDelegate {
     fileprivate var paySuccessClosure: (() -> Void)?
     // 支付失败的闭包
     fileprivate var payFailClosure: (() -> Void)?
-    
+    //登录成功
+    fileprivate var loginSuccessClosure:((_ code:String) -> Void)?
+    //登录失败
+    fileprivate var loginFailClosure:(() -> Void)?
     // 外部用这个方法调起微信支付
     func payAlertController(_ sender:BaseViewController,
                             request:PayReq,
@@ -37,13 +40,13 @@ class WXApiManager:NSObject,WXApiDelegate {
         }
     }
     //外部用这个方法调起微信登录
-    func login(_ sender:BaseViewController,paySuccess: @escaping () -> Void,
-               payFail:@escaping () -> Void){
+    func login(_ sender:BaseViewController,loginSuccess: @escaping ( _ code:String) -> Void,
+               loginFail:@escaping () -> Void){
         // sender 是调用这个方法的控制器，
         // 用于提示用户微信支付结果，可以根据自己需求是否要此参数。
         self.sender = sender
-        self.paySuccessClosure = paySuccess
-        self.payFailClosure = payFail
+        self.loginSuccessClosure = loginSuccess
+        self.loginFailClosure = loginFail
         if checkWXInstallAndSupport(){
             let req=SendAuthReq()
             req.scope="snsapi_userinfo"
@@ -55,42 +58,55 @@ class WXApiManager:NSObject,WXApiDelegate {
 }
 extension WXApiManager {
     func onResp(_ resp: BaseResp!) {
-        var strMsg: String
+//        var strMsg: String
         if resp is PayResp {//支付
-            switch resp.errCode {
-            case 0:
-                strMsg = "支付结果：成功！"
-                break
-            default:
-                strMsg = "支付结果：失败！retcode = \(resp.errCode), retstr = \(resp.errStr)"
-                break
+//            switch resp.errCode {
+//            case 0:
+//                strMsg = "支付结果：成功！"
+//                break
+//            default:
+//                strMsg = "支付结果：失败！retcode = \(resp.errCode), retstr = \(resp.errStr)"
+//                break
+//            }
+//            UIAlertController.showAlertYes(sender, title:"", message: strMsg, okButtonTitle:"确定", okHandler: { (alert) in
+//                if resp.errCode == 0 {
+//                    self.paySuccessClosure?()
+//
+//                }else{
+//                    self.payFailClosure?()
+//                }
+//            })
+            if resp.errCode == 0 {
+                self.paySuccessClosure?()
+            }else{
+                self.payFailClosure?()
             }
-            UIAlertController.showAlertYes(sender, title:"", message: strMsg, okButtonTitle:"确定", okHandler: { (alert) in
-                if resp.errCode == 0 {
-                    self.paySuccessClosure?()
-                    
-                }else{
-                    self.payFailClosure?()
-                }
-            })
         }else if resp is SendAuthResp{//登录结果
             let authResp = resp as! SendAuthResp
+            var strMsg: String
             if authResp.errCode == 0{
-                //获取access_token
-               self.getAccessToken(code:authResp.code)
+                strMsg="微信授权成功"
             }else{
                 switch authResp.errCode{
                 case -4:
-                    self.sender.showSVProgressHUD(status:"您拒绝使用微信登录", type: HUD.info)
+                    strMsg="您拒绝使用微信登录"
                     break
                 case -2:
-                    self.sender.showSVProgressHUD(status:"您取消了微信登录", type: HUD.info)
+                    strMsg="您取消了微信登录"
                     break
                 default:
-                    self.sender.showSVProgressHUD(status:"微信登录失败", type: HUD.error)
+                    strMsg="微信登录失败"
                     break
                 }
             }
+            UIAlertController.showAlertYes(sender, title: "授权结果", message: strMsg, okButtonTitle:"确定", okHandler: { (alert) in
+                if authResp.errCode == 0 {
+                    self.loginSuccessClosure?(authResp.code)
+                    
+                }else{
+                    self.loginFailClosure?()
+                }
+            })
         }
     }
     //获取凭证

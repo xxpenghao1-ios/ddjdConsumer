@@ -9,13 +9,18 @@
 import Foundation
 //店铺首页
 class StoreIndexViewController:BaseViewController{
-
+    ///总营业额
+    @IBOutlet weak var lblSumPrice: UILabel!
+    ///日营业额
+    @IBOutlet weak var lblTodayPirce: UILabel!
+    
     @IBOutlet weak var collection: UICollectionView!
     private let imgArr=["store_index_good","store_index_order","store_index_xstj","store_index_tj","store_index_cx","store_index_zhmx","store_index_lxkf","store_index_qt"]
     private let strArr=["商品管理","订单管理","销售统计","特价活动","限时促销","账户明细","联系客服","其他设置"]
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpNavColor()
+        queryStoreTurnover()
     }
     
     override func viewDidLoad() {
@@ -62,7 +67,7 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let wxBindStatu=userDefaults.object(forKey:"wxBindStatu") as? Bool
         let aliBindStatu=userDefaults.object(forKey:"aliBindStatu") as? Bool
-        if aliBindStatu == true{//如果微信或者支付宝都绑定了
+        if aliBindStatu == true && wxBindStatu == true{//如果微信或者支付宝都绑定了
             if indexPath.item == 1{
                 let vc=PageStoreOrderListViewController()
                 self.navigationController?.pushViewController(vc, animated:true)
@@ -74,9 +79,23 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
                 self.navigationController?.pushViewController(vc, animated:true)
             }
         }else{
-            let vc=self.storyboardPushView(type:.store, storyboardId:"BindWxAndAliVC") as! BindWxAndAliViewController
-            self.navigationController?.pushViewController(vc, animated:true)
+            UIAlertController.showAlertYes(self, title:"重要提示", message:"您的微信或者支付宝还没有绑定店铺", okButtonTitle:"去绑定", okHandler: { (action) in
+                let vc=self.storyboardPushView(type:.store, storyboardId:"BindWxAndAliVC") as! BindWxAndAliViewController
+                self.navigationController?.pushViewController(vc, animated:true)
+            })
         }
     }
-    
+}
+///网络请求
+extension StoreIndexViewController{
+    ///年月日的总金额和店铺总金额
+    private func queryStoreTurnover(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryStoreTurnover(storeId:STOREID), successClosure: { (json) in
+            print(json)
+            self.lblSumPrice.text=json["sumPrice"].double?.description
+            self.lblTodayPirce.text=json["today"].double?.description
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
 }

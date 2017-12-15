@@ -340,7 +340,7 @@ extension OrderListViewController{
                         //跳转到下一页面
                         self.pageSelectIndexClosure?(2)
                     }, payFail: {
-                        
+                        self.showSVProgressHUD(status:"支付失败", type: HUD.error)
                     })
                 }
             }else if success == "notExist"{

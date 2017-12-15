@@ -12,6 +12,8 @@
 		6302E6F31FCB96270009A018 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6302E6F21FCB96270009A018 /* UILabel.swift */; };
 		630538EA1FC508F500FA290B /* RegionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630538E91FC508F500FA290B /* RegionEntity.swift */; };
 		630538EC1FC509FF00FA290B /* SelectedRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630538EB1FC509FF00FA290B /* SelectedRegionViewController.swift */; };
+		630A59061FE374FD00C2B7E1 /* OrderStatisticsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630A59051FE374FD00C2B7E1 /* OrderStatisticsPageViewController.swift */; };
+		630A59081FE37C5B00C2B7E1 /* OrderStatisticsTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630A59071FE37C5B00C2B7E1 /* OrderStatisticsTextViewController.swift */; };
 		630EABD21FC6A49A003ED429 /* APAuthInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 630EABD11FC6A499003ED429 /* APAuthInfo.m */; };
 		631595871F67797C000355C6 /* ShoppingCar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 631595851F67797C000355C6 /* ShoppingCar.storyboard */; };
 		6315958C1F6791D1000355C6 /* GoodsClassification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6315958A1F6791D1000355C6 /* GoodsClassification.storyboard */; };
@@ -222,6 +224,8 @@
 		6302E6F21FCB96270009A018 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		630538E91FC508F500FA290B /* RegionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionEntity.swift; sourceTree = "<group>"; };
 		630538EB1FC509FF00FA290B /* SelectedRegionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRegionViewController.swift; sourceTree = "<group>"; };
+		630A59051FE374FD00C2B7E1 /* OrderStatisticsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatisticsPageViewController.swift; sourceTree = "<group>"; };
+		630A59071FE37C5B00C2B7E1 /* OrderStatisticsTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatisticsTextViewController.swift; sourceTree = "<group>"; };
 		630EABD01FC6A499003ED429 /* APAuthInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APAuthInfo.h; sourceTree = "<group>"; };
 		630EABD11FC6A499003ED429 /* APAuthInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APAuthInfo.m; sourceTree = "<group>"; };
 		631595861F67797C000355C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ShoppingCar.storyboard; sourceTree = "<group>"; };
@@ -486,6 +490,15 @@
 				67868D33AC531179D5F2EA79 /* Pods_ddjdConsumer.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		630A59041FE3749C00C2B7E1 /* OrderStatistics */ = {
+			isa = PBXGroup;
+			children = (
+				630A59051FE374FD00C2B7E1 /* OrderStatisticsPageViewController.swift */,
+				630A59071FE37C5B00C2B7E1 /* OrderStatisticsTextViewController.swift */,
+			);
+			path = OrderStatistics;
 			sourceTree = "<group>";
 		};
 		6315958D1F679207000355C6 /* Color */ = {
@@ -1252,6 +1265,7 @@
 		63FD22991FE0B21A001CF142 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				630A59041FE3749C00C2B7E1 /* OrderStatistics */,
 				63FD229A1FE0B23F001CF142 /* PageStoreOrderListViewController.swift */,
 				63FD229C1FE0B33E001CF142 /* StoreOrderListViewController.swift */,
 			);
@@ -1521,6 +1535,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ddjdConsumer/Pods-ddjdConsumer-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JNDropDownMenu/JNDropDownMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/KMNavigationBarTransition/KMNavigationBarTransition.framework",
@@ -1542,6 +1557,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JNDropDownMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KMNavigationBarTransition.framework",
@@ -1573,6 +1589,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63E8B2751FD3D05C003FCF1E /* FormCheckCell.swift in Sources */,
+				630A59081FE37C5B00C2B7E1 /* OrderStatisticsTextViewController.swift in Sources */,
 				63FACD291FDA261A007678B8 /* LBXScanWrapper.swift in Sources */,
 				63F6E7D21FB7E738009411E6 /* GoodscategoryEntity.swift in Sources */,
 				632B57F61FDA3C0A008CE639 /* StoreGoodListViewController.swift in Sources */,
@@ -1612,6 +1629,7 @@
 				633AC4671FCE8497009278D0 /* StoreEntity.swift in Sources */,
 				636925B71F5FFEA1007EFDB7 /* JPUSHService.swift in Sources */,
 				6316BAEB1FA95AF200D91BA1 /* SearchCollectionViewCell.swift in Sources */,
+				630A59061FE374FD00C2B7E1 /* OrderStatisticsPageViewController.swift in Sources */,
 				6331FD001FA876A700D850EC /* SearchViewController.swift in Sources */,
 				63F9EF0E1F6761C30038B05D /* ConsumerTabBarViewController.swift in Sources */,
 				63D82E021FA9FB1500EFE576 /* String.swift in Sources */,

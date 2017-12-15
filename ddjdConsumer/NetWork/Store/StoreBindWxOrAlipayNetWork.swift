@@ -16,6 +16,8 @@ public enum StoreBindWxOrAlipayApi{
     case updateStoreBindAli(storeId:Int,auth_code:String)
     ///获取支付宝授权参数 调起支付宝授权所需的请求参数
     case query_ali_AuthParams(storeId:Int)
+    ///店铺绑定微信
+    case updateStoreBindWx(storeId:Int,code:String)
 }
 extension StoreBindWxOrAlipayApi:TargetType{
     public var baseURL: URL {
@@ -30,6 +32,8 @@ extension StoreBindWxOrAlipayApi:TargetType{
             return "/front/wxOrAli/updateStoreBindAli"
         case .query_ali_AuthParams(_):
             return "/front/queryCommInfo/query_ali_AuthParams"
+        case .updateStoreBindWx(_,_):
+            return "/front/wxOrAli/updateStoreBindWx"
         }
     }
     
@@ -37,7 +41,7 @@ extension StoreBindWxOrAlipayApi:TargetType{
         switch self {
         case .queryStoreBindWxOrAliStatu(_),.query_ali_AuthParams(_):
             return .get
-        case .updateStoreBindAli(_,_):
+        case .updateStoreBindAli(_,_),.updateStoreBindWx(_,_):
             return .post
         }
     }
@@ -53,6 +57,8 @@ extension StoreBindWxOrAlipayApi:TargetType{
             return .requestParameters(parameters:["storeId":storeId,"auth_code":auth_code], encoding: URLEncoding.default)
         case let .query_ali_AuthParams(storeId):
             return .requestParameters(parameters:["storeId":storeId], encoding: URLEncoding.default)
+        case let .updateStoreBindWx(storeId, code):
+            return .requestParameters(parameters:["storeId":storeId,"code":code], encoding: URLEncoding.default)
         }
     }
     

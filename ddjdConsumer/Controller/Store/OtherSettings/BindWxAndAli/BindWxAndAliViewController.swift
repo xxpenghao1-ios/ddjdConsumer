@@ -18,6 +18,12 @@ class BindWxAndAliViewController:BaseViewController{
     private var alipayNickName:String?
     ///支付宝图像
     private var alipayAvatar:String?
+    ///微信昵称
+    private var wx_nickname:String?
+    ///微信图像
+    private var wx_headimgurl:String?
+    ///保存获取验证码
+    private var randCode:String?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="收款账号信息"
@@ -61,23 +67,92 @@ extension BindWxAndAliViewController:UITableViewDataSource,UITableViewDelegate{
         tableView.deselectRow(at:indexPath, animated:true)
         if indexPath.row == 0{
             if wxBindStatu{//如果绑定跳转到详情页面
-//                pushDetailVC(imgPic: <#T##String?#>, name: <#T##String?#>)
+                pushDetailVC(imgPic:wx_headimgurl, name:wx_nickname,flag:1)
             }else{//绑定
-                
+                verificationCode(flag:1)
             }
         }else{
             if aliBindStatu{ //如果绑定跳转到详情页面
-                pushDetailVC(imgPic:alipayAvatar, name:alipayNickName)
+                pushDetailVC(imgPic:alipayAvatar, name:alipayNickName,flag:2)
             }else{//绑定
-                query_ali_AuthParams()
+                verificationCode(flag:2)
             }
         }
     }
-    private func pushDetailVC(imgPic:String?,name:String?){
+    private func pushDetailVC(imgPic:String?,name:String?,flag:Int){
         let vc=self.storyboardPushView(type:.store, storyboardId:"BindWxAndAliDetailVC") as! BindWxAndAliDetailViewController
         vc.imgPic=imgPic
         vc.name=name
+        vc.flag=flag
         self.navigationController?.pushViewController(vc, animated:true)
+    }
+    ///验证  1微信 2支付宝
+    private func verificationCode(flag:Int){
+        if randCode == nil{//如果没有输入 发送验证码
+            UIAlertController.showAlertYesNo(self, title:"安全验证", message:"防止账号被其他人绑定,请先获取验证码", cancelButtonTitle:"取消", okButtonTitle:"获取验证码") { (action) in
+                self.sendVerificationCode(flag:flag)
+            }
+        }else{//直接去绑定
+            if flag == 1{//微信
+                WXApiManager.shared.login(self, loginSuccess: { (code) in
+                    self.updateStoreBindWx(code:code)
+                }, loginFail: {
+                    self.showSVProgressHUD(status:"绑定失败", type: HUD.error)
+                })
+            }else{//支付宝
+                self.query_ali_AuthParams()
+            }
+        }
+    }
+    ///1微信 2支付宝
+    private func inputVerificationCode(flag:Int){
+        let alert = UIAlertController(title:"重要提示", message:"如果您取消输入验证码,需要等待1分钟以后才能重新获得验证码", preferredStyle: UIAlertControllerStyle.alert);
+        alert.addTextField(configurationHandler: { (txt) in
+            txt.keyboardType = .numberPad
+            txt.placeholder="请输入验证码"
+            NotificationCenter.default.addObserver(self, selector: #selector(self.alertTextFieldDidChange), name: NSNotification.Name.UITextFieldTextDidChange,object:txt)
+        })
+        //确定
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default,handler:{ Void in
+            let text=(alert.textFields?.first)! as UITextField
+            if text.text != nil{
+                if self.randCode == text.text{
+                    if flag == 1{//微信
+                        WXApiManager.shared.login(self, loginSuccess: { (code) in
+                            self.updateStoreBindWx(code:code)
+                        }, loginFail: {
+                            self.showSVProgressHUD(status:"绑定失败", type: HUD.error)
+                        })
+                    }else{//支付宝
+                        self.query_ali_AuthParams()
+                    }
+                }else{
+                    self.showSVProgressHUD(status:"验证码输入错误", type: HUD.error)
+                    self.inputVerificationCode(flag:flag)
+                }
+            }
+        })
+        let cAction=UIAlertAction(title:"取消", style: UIAlertActionStyle.cancel) { (action) in
+            ///清空验证码
+            self.randCode=nil
+        }
+        alert.addAction(cAction)
+        alert.addAction(okAction)
+        okAction.isEnabled=false
+        self.present(alert, animated: true, completion: nil)
+    }
+    //检测输入框的字符是否大于库存数量 是解锁确定按钮
+    @objc func alertTextFieldDidChange(_ notification: Notification){
+        let alertController = self.presentedViewController as! UIAlertController?
+        if (alertController != nil) {
+            let text = (alertController!.textFields?.first)! as UITextField
+            let okAction = alertController!.actions.last! as UIAlertAction
+            if text.text != nil && text.text!.count > 0 {
+                okAction.isEnabled = true
+            }else{
+                okAction.isEnabled=false
+            }
+        }
     }
 }
 ///网络请求
@@ -93,6 +168,8 @@ extension BindWxAndAliViewController{
                 self.alipayAvatar=json["alipayforstoreInfo"]["alipayAvatar"].string
             }
             if self.wxBindStatu{
+                self.wx_nickname=json["wxforstoreInfo"]["wx_nickname"].string
+                self.wx_headimgurl=json["wxforstoreInfo"]["wx_headimgurl"].string
             }
             self.table.reloadData()
             userDefaults.set(self.wxBindStatu, forKey:"wxBindStatu")
@@ -144,5 +221,41 @@ extension BindWxAndAliViewController{
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
+    ///绑定微信
+    private func updateStoreBindWx(code:String){
+        self.showSVProgressHUD(status:"正在绑定...", type: HUD.textClear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreBindWxOrAlipayApi.updateStoreBindWx(storeId:STOREID, code: code), successClosure: { (json) in
+            print(json)
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.dismissHUD()
+                UIAlertController.showAlertYes(self, title:"绑定成功", message:"您已成功绑定微信账号", okButtonTitle:"知道了")
+                self.queryStoreBindWxOrAliStatu()
+            }else if success == "openIdExist"{
+                self.showSVProgressHUD(status:"此微信已经绑定了其他店铺", type: HUD.error)
+            }else{
+                self.showSVProgressHUD(status:"绑定失败", type: HUD.error)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+    ///发送验证码 1微信 2支付宝
+    private func sendVerificationCode(flag:Int){
+        ///获取账号
+        let account=userDefaults.object(forKey:"account") as? String ?? ""
+        self.showSVProgressHUD(status:"正在获取验证码...", type: HUD.textClear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.duanxinValidate(account:account, flag:3), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.dismissHUD()
+                self.randCode=json["randCode"].stringValue
+                self.inputVerificationCode(flag:flag)
+            }else{
+                self.showSVProgressHUD(status:"获取验证码失败", type: HUD.error)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
 }
-
