@@ -1,16 +1,14 @@
 //
-//  StoreGoodListViewController.swift
+//  GoodPublicLibraryListViewController.swift
 //  ddjdConsumer
 //
-//  Created by hao peng on 2017/12/8.
+//  Created by hao peng on 2017/12/20.
 //  Copyright © 2017年 zltx. All rights reserved.
 //
 
 import Foundation
-///商品列表
-class StoreGoodListViewController:BaseViewController{
-    ///1上架 2下架
-    var goodsFlag:Int?
+///公共商品库list
+class GoodPublicLibraryListViewController:BaseViewController{
     ///数据集合
     private var arr=[GoodEntity]()
     ///选中商品
@@ -36,7 +34,14 @@ class StoreGoodListViewController:BaseViewController{
     @IBOutlet weak var table: UITableView!
     //返回图片
     @IBOutlet weak var returnImg: UIImageView!
-    
+    ///加入门店
+    @IBOutlet weak var btnAddStore: UIButton!
+    ///选择了多少商品
+    @IBOutlet weak var lblSeclectedGoodCount: UILabel!
+    ///商品总数量
+    @IBOutlet weak var lblGoodSumCount: UILabel!
+    ///加入门店view
+    @IBOutlet weak var addStoreView: UIView!
     ///3级分类id  如果为空查全部
     private var tCategoryId:Int?
     ///分类选择
@@ -46,14 +51,18 @@ class StoreGoodListViewController:BaseViewController{
     ///分类选择view
     private var contentPickerView:UIView!
     
-    ///商品操作 遮罩层
-    private var operatingGoodMaskView:UIView!
-    ///商品操作table
-    private var operatingTable:UITableView!
+    ///返回上一页 刷新数据
+    override func navigationShouldPopOnBackButton() -> Bool {
+        NotificationCenter.default.removeObserver(self)
+        ///通知门店商品列表刷新页面
+        NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor=UIColor.viewBackgroundColor()
+        self.title="公共商品库"
         setUpData()
         setUpView()
         self.queryStoreAndGoodsList(pageNumber:self.pageNumber, pageSize:10,isRefresh:true)
@@ -68,6 +77,11 @@ class StoreGoodListViewController:BaseViewController{
         table.mj_footer.isHidden=true
         ///接收通知刷新页面
         NotificationCenter.default.addObserver(self,selector:#selector(updateList), name:notificationNameUpdateStoreGoodList, object:nil)
+        
+    }
+    ///刷新数据
+    @objc private func updateList(not:Notification){
+        self.table.mj_header.beginRefreshing()
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -77,17 +91,10 @@ class StoreGoodListViewController:BaseViewController{
         if pickerMaskView.isHidden == false{//页面退出 隐藏分类选择
             self.hidePickerView()
         }
-        if operatingGoodMaskView.isHidden == false{ //页面退出 隐藏商品操作view
-            self.hideOperatingView()
-        }
-    }
-    ///刷新数据
-    @objc private func updateList(not:Notification){
-        self.table.mj_header.beginRefreshing()
     }
 }
 // MARK: - 滑动协议
-extension StoreGoodListViewController{
+extension GoodPublicLibraryListViewController{
     //监听滑动事件
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 600{//滑动600距离显示返回顶部按钮
@@ -97,10 +104,9 @@ extension StoreGoodListViewController{
         }
     }
 }
-extension StoreGoodListViewController{
+extension GoodPublicLibraryListViewController{
     ///加载页面设置
     private func setUpView(){
-        self.title=goodsFlag!==1 ? "已上架" : "已下架"
         btnAll.addTarget(self, action:#selector(screening), for: UIControlEvents.touchUpInside)
         btnAll.tag=1
         ///默认选中全部
@@ -113,15 +119,26 @@ extension StoreGoodListViewController{
         table.emptyDataSetSource=self
         table.emptyDataSetDelegate=self
         self.setLoadingState(isLoading:true)
-        self.setEmptyDataSetInfo(text:"还没有\(self.title!)商品")
+        self.setEmptyDataSetInfo(text:"平台商品库中已经没有商品可以加入了")
         table.tableFooterView=UIView.init(frame: CGRect.zero)
         
         returnImg.isUserInteractionEnabled=true
         returnImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(returnTop)))
         returnImg.isHidden=true
         
+        btnAddStore.disable()
+        btnAddStore.addTarget(self, action:#selector(allAddStore), for: UIControlEvents.touchUpInside)
         setUpPickerView()
-        setUpOperatingTableView()
+    }
+    ///商品多选加入门店
+    @objc private func allAddStore(){
+        var goodsId:String=""
+        for entity in self.arr{
+            if entity.checkOrCance == 1{
+                goodsId+="\(entity.goodsId!)"+","
+            }
+        }
+        self.addGoodsInfoGoToStoreAndGoods(goodsId:goodsId)
     }
     ///返回顶部
     @objc private func returnTop(){
@@ -147,49 +164,11 @@ extension StoreGoodListViewController{
         self.table.reloadData()
         self.table.mj_footer.endRefreshing()
         self.table.mj_header.endRefreshing()
-    }
-}
-///设置商品操作 (上下架,查看商品信息,加入促销)
-extension StoreGoodListViewController{
-    ///设置商品操作table
-    private func setUpOperatingTableView(){
-        operatingGoodMaskView=UIView(frame:table.bounds)
-        operatingGoodMaskView.backgroundColor = UIColor.init(white:0, alpha:0.5)
-        operatingGoodMaskView.isUserInteractionEnabled=true
-        let gesture=UITapGestureRecognizer(target:self, action:#selector(hideOperatingView))
-        gesture.delegate=self
-        operatingGoodMaskView.addGestureRecognizer(gesture)
-        self.view.addSubview(operatingGoodMaskView)
-        ///默认隐藏
-        operatingGoodMaskView.isHidden=true
-        
-        operatingTable=UITableView(frame: CGRect.init(x:0, y:-150,width: boundsWidth, height:150), style: UITableViewStyle.plain)
-        operatingTable.delegate=self
-        operatingTable.dataSource=self
-        operatingTable.tag=100
-        operatingTable.isScrollEnabled=false
-        operatingGoodMaskView.addSubview(operatingTable)
-    }
-    ///显示
-    private func showOperatingView(){
-        operatingGoodMaskView.isHidden=false
-        UIView.animate(withDuration:0.3, delay:0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.operatingTable.frame=CGRect.init(x:0,y:0, width:boundsWidth,height:150)
-        })
-    }
-    ///隐藏
-    @objc private func hideOperatingView(){
-        UIView.animate(withDuration:0.3, delay:0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.operatingTable.frame=CGRect.init(x:0, y:-150,width:boundsWidth,height:150)
-        }, completion: { (b) in
-            UIView.animate(withDuration:0.1, delay:0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
-                self.operatingGoodMaskView.isHidden=true
-            }, completion: nil)
-        })
+        statisticsSelectedGoodCount()
     }
 }
 ///设置分类相关
-extension StoreGoodListViewController{
+extension GoodPublicLibraryListViewController{
     ///设置分类数据
     private func setUpData(){
         categoryArr=GoodClassificationDB.shared.selectArr(pid:9999)
@@ -292,19 +271,16 @@ extension StoreGoodListViewController{
     }
 }
 ///监听view点击事件
-extension StoreGoodListViewController:UIGestureRecognizerDelegate{
+extension GoodPublicLibraryListViewController:UIGestureRecognizerDelegate{
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if NSStringFromClass((touch.view?.classForCoder)!) == "UITableViewCellContentView"{
-            return false
-        }
-        if touch.view != pickerMaskView && touch.view != operatingGoodMaskView{
             return false
         }
         return true
     }
 }
 /// 分类UIPickerView 相关协议
-extension StoreGoodListViewController:UIPickerViewDelegate,UIPickerViewDataSource{
+extension GoodPublicLibraryListViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 3
     }
@@ -390,122 +366,59 @@ extension StoreGoodListViewController:UIPickerViewDelegate,UIPickerViewDataSourc
     }
 }
 ///table协议
-extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
+extension GoodPublicLibraryListViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView.tag == 100{
-            var cell=tableView.dequeueReusableCell(withIdentifier:"id")
-            if cell == nil{
-                cell=UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier:"id")
-            }
-            cell!.accessoryType = .disclosureIndicator
-            cell!.textLabel!.font=UIFont.systemFont(ofSize:14)
-            if indexPath.row == 0{
-                if goodsFlag! == 1{//如是上架
-                    cell!.textLabel!.text="下架"
-                }else{
-                    cell!.textLabel!.text="上架"
-                }
-            }else if indexPath.row == 1{
-                cell!.textLabel!.text="修改商品信息"
-            }else if indexPath.row == 2{
-                cell!.textLabel!.text="加入促销"
-            }else if indexPath.row == 3{
-                cell!.textLabel!.text="加入首页推荐"
-            }
-            return cell!
-        }else{
-            var cell=tableView.dequeueReusableCell(withIdentifier:"storeGoodListId") as? StoreGoodListTableViewCell
-            if cell == nil{
-                cell=getXibClass(name:"StoreGoodListTableViewCell", owner:self) as? StoreGoodListTableViewCell
-            }
-            if arr.count > 0{
-                let entity=arr[indexPath.row]
-                cell!.updateCell(entity:entity)
-            }
-            return cell!
+        
+        var cell=tableView.dequeueReusableCell(withIdentifier:"id") as? GoodPublicLibraryListTableViewCell
+        if cell == nil{
+            cell=getXibClass(name:"GoodPublicLibraryListTableViewCell", owner:self) as? GoodPublicLibraryListTableViewCell
         }
+        if arr.count > 0{
+            let entity=arr[indexPath.row]
+            cell!.updateCell(entity:entity)
+            cell!.addClosure={
+                UIAlertController.showAlertYesNo(self, title:"温馨提示", message:"加入您商品库后,商品为下架状态", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
+                    self.addGoodsInfoGoToStoreAndGoods(goodsId:"\(entity.goodsId!),")
+                })
+            }
+            cell!.isSelectedGoodClosure={ (checkOrCance) in
+                self.arr[indexPath.row].checkOrCance=checkOrCance
+                self.statisticsSelectedGoodCount()
+            }
+        }
+        return cell!
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView.tag == 100{
-            return 50
-        }
         return 120
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView.tag == 100{
-            return 4
-        }
         return arr.count
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //取消选中效果颜色
         tableView.deselectRow(at: indexPath, animated: true)
-        if tableView.tag == 100{
-            switch indexPath.row{
-            case 0: //商品上下架
-               var message=""
-               if goodsFlag == 1{
-                    message="下架"
-               }else{
-                    message="上架"
-               }
-                UIAlertController.showAlertYesNo(self, title:"", message:"确定\(message)吗?", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
-                    self.updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId: self.selectedGoodEntity?.storeAndGoodsId ?? 0, goodsFlag:self.goodsFlag!==1 ? 2 : 1)
-                })
-                break
-            case 1:
-                let vc=storyboardPushView(type:.storeGood, storyboardId:"UpdateStoreGoodDetailVC") as! UpdateStoreGoodDetailViewController
-                vc.goodEntity=selectedGoodEntity
-                self.navigationController?.pushViewController(vc, animated: true)
-                break
-            case 3:
-                let alert=UIAlertController(title:"提示", message:"确定加入首页推荐区吗?", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addTextField(configurationHandler: { (txt) in
-                    txt.keyboardType = .numberPad
-                    txt.placeholder="请输入排序值(值越小商品显示位置越靠前)"
-                    NotificationCenter.default.addObserver(self, selector: #selector(self.alertTextFieldDidChange), name: NSNotification.Name.UITextFieldTextDidChange,object:txt)
-                })
-                let ok=UIAlertAction(title:"确定", style: UIAlertActionStyle.default, handler: { (action) in
-                    let text=(alert.textFields?.first)! as UITextField
-                    self.addIndexGoods(storeAndGoodsId:self.arr[indexPath.row].storeAndGoodsId ?? 0, sort:Int(text.text!) ?? 0)
-                })
-                let cancel=UIAlertAction(title:"取消", style: UIAlertActionStyle.cancel, handler:nil)
-                alert.addAction(cancel)
-                alert.addAction(ok)
-                self.present(alert, animated:true, completion:nil)
-                break
-            default:break
-            }
-        }else{
-            selectedGoodEntity=arr[indexPath.row]
-            showOperatingView()
-        }
+        let entity=arr[indexPath.row]
+        let vc=self.storyboardPushView(type:.storeGood, storyboardId:"UpdateStoreGoodDetailVC") as! UpdateStoreGoodDetailViewController
+        ///默认上架状态
+        entity.goodsFlag=1
+        vc.goodEntity=entity
+        vc.flag=1
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
-extension StoreGoodListViewController{
-    //检测输入框
-    @objc func alertTextFieldDidChange(_ notification: Notification){
-        let alertController = self.presentedViewController as! UIAlertController?
-        if (alertController != nil) {
-            let text = (alertController!.textFields?.first)! as UITextField
-            let okAction = alertController!.actions.last! as UIAlertAction
-            if text.text != nil && text.text!.count > 0 {
-                okAction.isEnabled = true
-            }else{
-                okAction.isEnabled=false
-            }
-        }
-    }
-    //查询商品
+extension GoodPublicLibraryListViewController{
+    //查询公共商品库
     private func queryStoreAndGoodsList(pageNumber:Int,pageSize:Int,isRefresh:Bool){
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryStoreAndGoodsList(storeId:STOREID, goodsFlag:goodsFlag!, pageNumber: pageNumber, pageSize: pageSize,tCategoryId:tCategoryId), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryGoodsInfoList_store(storeId:STOREID, pageNumber: pageNumber, pageSize: pageSize,goodsName:nil,tCategoryId:tCategoryId), successClosure: { (json) in
+            print(json)
             if isRefresh{
                 self.arr.removeAll()
             }
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:value.object)
-                entity!.goodsFlag=self.goodsFlag
+                entity!.checkOrCance=2
                 self.arr.append(entity!)
             }
             if self.arr.count < json["totalRow"].intValue{
@@ -513,43 +426,46 @@ extension StoreGoodListViewController{
             }else{
                 self.table.mj_footer.isHidden=true
             }
+            self.lblGoodSumCount.text="\(self.arr.count)/\(json["totalRow"].intValue)"
+            if self.arr.count > 0{
+                self.addStoreView.isHidden=false
+            }else{
+                self.addStoreView.isHidden=true
+            }
             self.reloadTable()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
             self.reloadTable()
         }
     }
-    ///商品上下架
-    private func updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int){
-        self.showSVProgressHUD(status:"正在加载...",type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId:storeAndGoodsId, goodsFlag: goodsFlag), successClosure: { (json) in
+    ///单选or多选添加到店铺商品库
+    private func addGoodsInfoGoToStoreAndGoods(goodsId:String){
+        self.showSVProgressHUD(status:"正在添加...",type: HUD.textClear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.addGoodsInfoGoToStoreAndGoods(storeId:STOREID, goodsId:goodsId), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
-                self.showSVProgressHUD(status:"操作成功", type: HUD.success)
+                self.showSVProgressHUD(status:"添加成功", type: HUD.success)
+                self.table.mj_header.beginRefreshing()
             }else{
-                self.showSVProgressHUD(status:"操作失败", type: HUD.error)
+                self.showSVProgressHUD(status:"添加失败", type: HUD.success)
             }
-            self.hideOperatingView()
-            ///通知列表刷新页面
-            NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
-    ///店铺添加首页商品
-    private func addIndexGoods(storeAndGoodsId:Int,sort:Int){
-        self.showSVProgressHUD(status:"正在加载...",type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.addIndexGoods(storeAndGoodsId:storeAndGoodsId , storeId:STOREID, sort:sort), successClosure: { (json) in
-            let success=json["success"].stringValue
-            if success == "success"{
-                
-            }else if success == "exist" {
-                self.showSVProgressHUD(status:"该商品已经在首页推荐区了", type: HUD.info)
-            }else{
-                self.showSVProgressHUD(status:"加入失败", type: HUD.error)
+    ///统计选择商品数量
+    private func statisticsSelectedGoodCount(){
+        var count=0
+        for entity in arr{
+            if entity.checkOrCance == 1{
+                count+=1
             }
-        }) { (error) in
-            self.showSVProgressHUD(status:error!, type: HUD.error)
         }
+        if count > 0{
+            self.btnAddStore.enable()
+        }else{
+            self.btnAddStore.disable()
+        }
+        self.lblSeclectedGoodCount.text="共选择\(count)种商品"
     }
 }

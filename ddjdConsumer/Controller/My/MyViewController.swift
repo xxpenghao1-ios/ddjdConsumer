@@ -19,7 +19,7 @@ class MyViewController:BaseViewController{
     //会员名称
     private var lblMemberName:UILabel!
     //名称数组
-    private let nameArr=["我的信息","地址管理","我的收藏","购买历史","意见反馈","解绑店铺","我的店铺"]
+    private let nameArr=["我的信息","地址管理","我的收藏","购买历史","意见反馈","解绑门店","我的门店"]
     //图片数组
     private let imgArr=["my_info","my_address","my_sc","my_history","my_opinion","my_relieve_store","my_store"]
     //订单名称
@@ -52,6 +52,7 @@ class MyViewController:BaseViewController{
         setUpNavColor()
         getMember()
         queryOrderNum()
+        queryMemberBalanceMoney()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -352,5 +353,20 @@ extension MyViewController{
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
+    }
+    private func queryMemberBalanceMoney(){
+//        let timeFormatter = DateFormatter()
+//        timeFormatter.dateFormat = "yyyy-MM-dd"
+//        let strNowTime = timeFormatter.string(from:Date())
+//        let data=Date().timeIntervalSince1970 * 1000
+//        print(data)
+//        print(Int(data))
+//
+//
+//        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceMoney(timestamp:Int(data).description, token:"137d9eb5d4274c86827189e104dfcab2", publicKey:"ddjdc_request", sign:DDJDCSign.shared.getSign(dic:["timestamp":Int(data).description])), successClosure: { (json) in
+//            print(json)
+//        }) { (error) in
+//            self.showSVProgressHUD(status:error!, type: HUD.error)
+//        }
     }
 }

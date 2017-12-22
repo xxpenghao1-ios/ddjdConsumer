@@ -49,6 +49,7 @@ class GoodEntity:Mappable{
     var shoppingCarId:Int? //购物车id
     var goodsMoney:Double? //订单商品价格
     var goodsCollectionId:Int? //商品收藏Id
+    var indexGoodsId:Int? //不为空就表示该商品已经加入了首页商品
     init(){}
     required init?(map: Map) {
         mapping(map: map)
@@ -88,5 +89,6 @@ class GoodEntity:Mappable{
         shoppingCarId <- map["shoppingCarId"]
         goodsMoney <- map["goodsMoney"]
         goodsCollectionId <- map["goodsCollectionId"]
+        indexGoodsId <- map["indexGoodsId"]
     }
 }

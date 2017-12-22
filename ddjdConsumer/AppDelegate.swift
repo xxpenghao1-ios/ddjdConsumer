@@ -52,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
          版本检查每周执行一次Weekly
          */
         Siren.shared.checkVersion(checkType: .daily)
+        JPUSHService.resetBadge()
+        application.applicationIconBadgeNumber=0;
     }
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -87,7 +89,8 @@ extension AppDelegate{
         //开启极光推送
         PHJPushHelper.setupWithOptions(launchOptions:launchOptions,delegate:self)
         //关闭极光推送打印
-        JPUSHService.setLogOFF()
+//        JPUSHService.setLogOFF()
+        JPUSHService.setDebugMode()
         //百度统计
         BaiduMobStat.default().start(withAppId: "46c2b6d4bb")
         BaiduMobStat.default().enableDebugOn=false

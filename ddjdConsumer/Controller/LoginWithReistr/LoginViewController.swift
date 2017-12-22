@@ -124,8 +124,12 @@ extension LoginViewController{
                 userDefaults.set(memberEntity!.account, forKey:"account")
                 userDefaults.set(memberEntity!.storeId, forKey:"storeId")
                 userDefaults.set(memberEntity!.bindstoreId, forKey:"bindstoreId")
+                userDefaults.set(memberEntity!.token,forKey:"token")
                 userDefaults.synchronize()
                 self.dismissHUD {
+                    //登录成功设置应用程序别名
+                    JPUSHService.setAlias("m_\(memberEntity!.memberId ?? -1)", completion:nil,seq:22)
+                    //登录成功设置应用程序别名
                     if memberEntity!.bindstoreId != nil{//如果用户绑定了店铺
                         //跳转到主页面
                         app.jumpToIndexVC()
@@ -133,6 +137,7 @@ extension LoginViewController{
                         let vc=self.storyboardPushView(type:.loginWithRegistr, storyboardId:"BindStoreVC") as! BindStoreViewController
                         self.navigationController?.pushViewController(vc, animated:true)
                     }
+                    
                 }
             }else if success == "flagError"{
                 self.showSVProgressHUD(status:"您已经被禁止登录了", type: HUD.info)

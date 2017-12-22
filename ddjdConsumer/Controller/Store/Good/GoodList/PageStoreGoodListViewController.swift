@@ -9,12 +9,12 @@
 import Foundation
 import WMPageController
 class PageStoreGoodListViewController:WMPageController {
+    ///默认选中页面 1已上架 2已下架
     var goodsFlag:Int?
     private let titleArr=["已上架","已下架"]
     override func viewDidLoad() {
         setUpMenuView()
         super.viewDidLoad()
-        self.title="我的商品"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target:self, action:#selector(addGood))
     }

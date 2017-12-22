@@ -85,6 +85,8 @@ extension SettingViewController{
         UIAlertController.showAlertYesNo(self, title:"温馨提示", message:"确定退出登录吗?退出登录后将接收不到任何信息", cancelButtonTitle:"取消", okButtonTitle:"确定") { (ation) in
             userDefaults.removeObject(forKey:"memberId")
             userDefaults.synchronize()
+            //设置极光推送 别名为空
+            JPUSHService.setAlias("", completion: nil, seq: 22)
             app.jumpToLoginVC()
         }
     }

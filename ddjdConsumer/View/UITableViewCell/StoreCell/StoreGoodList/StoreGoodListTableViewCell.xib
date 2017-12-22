@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lDw-Hg-1lr">
@@ -95,15 +95,24 @@
                         <color key="textColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="good_tj" translatesAutoresizingMaskIntoConstraints="NO" id="vTY-XY-H4W">
+                        <rect key="frame" x="65" y="15" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="Iid-x8-onq"/>
+                            <constraint firstAttribute="height" constant="40" id="mT1-7I-Pg8"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="OId-2E-zIv" firstAttribute="leading" secondItem="oz6-zW-paO" secondAttribute="trailing" constant="10" id="ADW-hP-sZu"/>
                     <constraint firstItem="lDw-Hg-1lr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="AK8-TS-d4x"/>
                     <constraint firstItem="3nD-tN-Qtm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="BsI-Vw-csX"/>
                     <constraint firstItem="oz6-zW-paO" firstAttribute="bottom" secondItem="Jkh-W4-A9U" secondAttribute="bottom" id="GTQ-s9-6S4"/>
+                    <constraint firstItem="9L8-W0-MME" firstAttribute="leading" secondItem="vTY-XY-H4W" secondAttribute="trailing" constant="5" id="GYw-AD-aer"/>
                     <constraint firstItem="oz6-zW-paO" firstAttribute="leading" secondItem="Jkh-W4-A9U" secondAttribute="trailing" id="OlN-1Y-g7B"/>
                     <constraint firstItem="Jkh-W4-A9U" firstAttribute="leading" secondItem="lDw-Hg-1lr" secondAttribute="trailing" constant="5" id="Tdq-y9-cQd"/>
                     <constraint firstAttribute="bottom" secondItem="3nD-tN-Qtm" secondAttribute="bottom" constant="15.5" id="bib-vn-imv"/>
+                    <constraint firstItem="vTY-XY-H4W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="duE-Ge-1Zv"/>
                     <constraint firstItem="Jkh-W4-A9U" firstAttribute="bottom" secondItem="lDw-Hg-1lr" secondAttribute="bottom" id="eSO-az-h7Z"/>
                     <constraint firstItem="lDw-Hg-1lr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="g7j-OA-GmX"/>
                     <constraint firstItem="OId-2E-zIv" firstAttribute="bottom" secondItem="oz6-zW-paO" secondAttribute="bottom" id="gnc-AT-EPT"/>
@@ -117,6 +126,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="goodImg" destination="lDw-Hg-1lr" id="wOa-D7-CQ6"/>
+                <outlet property="hotGoodImg" destination="vTY-XY-H4W" id="1jP-hq-g49"/>
                 <outlet property="lblGoodName" destination="9L8-W0-MME" id="4rO-Yc-qbA"/>
                 <outlet property="lblGoodsFlag" destination="Kje-Pp-8r4" id="D2Z-Zw-mIO"/>
                 <outlet property="lblGoodsUnit" destination="oz6-zW-paO" id="VtF-uq-gG7"/>
@@ -127,4 +137,7 @@
             <point key="canvasLocation" x="-439" y="-82"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="good_tj" width="64" height="64"/>
+    </resources>
 </document>

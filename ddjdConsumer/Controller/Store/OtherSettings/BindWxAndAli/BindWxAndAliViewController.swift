@@ -141,7 +141,7 @@ extension BindWxAndAliViewController:UITableViewDataSource,UITableViewDelegate{
         okAction.isEnabled=false
         self.present(alert, animated: true, completion: nil)
     }
-    //检测输入框的字符是否大于库存数量 是解锁确定按钮
+    //检测输入框
     @objc func alertTextFieldDidChange(_ notification: Notification){
         let alertController = self.presentedViewController as! UIAlertController?
         if (alertController != nil) {
@@ -202,8 +202,10 @@ extension BindWxAndAliViewController{
     ///获取支付宝授权参数 ； 调起支付宝授权所需的请求参数
     private func query_ali_AuthParams(){
         self.showSVProgressHUD(status:"正在调起支付宝...", type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetString(target:StoreBindWxOrAlipayApi.query_ali_AuthParams(storeId:STOREID), successClosure: { (str) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreBindWxOrAlipayApi.query_ali_AuthParams(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description, dicAny: ["storeId":STOREID])),successClosure: { (json) in
             self.dismissHUD()
+            let str=json["ali_auth_app_login"].stringValue
+            print(json)
             AliPayManager.shared.login(self, withInfo:str, loginSuccess: { (str) in
                 let resultArr=str.components(separatedBy:"&")
                 for(subResult) in resultArr{

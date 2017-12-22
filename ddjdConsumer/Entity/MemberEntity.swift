@@ -21,6 +21,7 @@ class MemberEntity:Mappable{
     var bindstoreId:Int? //‘绑定购买东西时的店铺id’,
     var storeFlag:Int?  //‘是否是店铺的标识 1. 是店铺 2. 不是店铺’,
     var storeId:Int?  //‘storeFlag 为1 时，才处理这个字段，绑定店铺，也就是这个会员是店铺’,
+    var token:String? //用户对外标识； 用户在登录成功后，返回的token字段； 此字段每次登录成功都会重新生成；长度在32位—40位；
     init(){}
     required init?(map: Map) {
         mapping(map:map)
@@ -37,6 +38,7 @@ class MemberEntity:Mappable{
         bindstoreId <- map["bindstoreId"]
         storeFlag <- map["storeFlag"]
         storeId <- map["storeId"]
+        token <- map["token"]
     }
     
 }

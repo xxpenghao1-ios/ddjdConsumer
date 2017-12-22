@@ -21,11 +21,12 @@ class StoreIndexViewController:BaseViewController{
         super.viewWillAppear(animated)
         setUpNavColor()
         queryStoreTurnover()
+        queryStoreBindWxOrAliStatu()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title="店铺首页"
+        self.title="门店首页"
         setUpView()
     }
 }
@@ -68,14 +69,18 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
         let wxBindStatu=userDefaults.object(forKey:"wxBindStatu") as? Bool
         let aliBindStatu=userDefaults.object(forKey:"aliBindStatu") as? Bool
         if aliBindStatu == true && wxBindStatu == true{//如果微信或者支付宝都绑定了
-            if indexPath.item == 1{
+            if indexPath.item == 0{
+                let vc=PageStoreGoodListViewController()
+                self.navigationController?.pushViewController(vc, animated:true)
+            }else if indexPath.item == 1{
                 let vc=PageStoreOrderListViewController()
                 self.navigationController?.pushViewController(vc, animated:true)
             }else if indexPath.item == 7{
                 let vc=self.storyboardPushView(type:.store, storyboardId:"OtherSettingsVC") as! OtherSettingsViewController
                 self.navigationController?.pushViewController(vc, animated:true)
             }else{
-                let vc=PageStoreGoodListViewController()
+                let vc=self.storyboardPushView(type:.storeOrder, storyboardId:"OrderStatisticsTextVC") as! OrderStatisticsTextViewController
+                vc.orderSumPrice=lblSumPrice.text
                 self.navigationController?.pushViewController(vc, animated:true)
             }
         }else{
@@ -94,6 +99,16 @@ extension StoreIndexViewController{
             print(json)
             self.lblSumPrice.text=json["sumPrice"].double?.description
             self.lblTodayPirce.text=json["today"].double?.description
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+    //查询店铺是否绑定微信或者支付宝 ，并返回相应的基本信息
+    private func queryStoreBindWxOrAliStatu(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreBindWxOrAlipayApi.queryStoreBindWxOrAliStatu(storeId:STOREID), successClosure: { (json) in
+            userDefaults.set(json["wxBindStatu"].bool, forKey:"wxBindStatu")
+            userDefaults.set(json["aliBindStatu"].bool, forKey:"aliBindStatu")
+            userDefaults.synchronize()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }

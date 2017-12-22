@@ -26,7 +26,16 @@ public enum StoreGoodApi{
     case queryStoreAndGoodsDetail(storeAndGoodsId:Int,storeId:Int)
     ///分配到店铺商品库 单个商品
     case addGoodsInfoGoToStoreAndGoods_detail(storeId:Int,goodsId:Int,storeGoodsPrice:String,goodsFlag:Int,stock:Int,offlineStock:Int)
-    
+    ///店铺查询公共商品库 ； 不包括当前店铺已经添加的商品
+    case queryGoodsInfoList_store(storeId:Int,pageNumber:Int,pageSize:Int,goodsName:String?,tCategoryId:Int?)
+    ///店铺查询公共商品库商品详情
+    case queryGoodsInfoByGoodsId_store(goodsId:Int)
+    ///店铺选择公共商品库的商品，添加到店铺自己的商品库 ; 列表单选或多选添加，只是单纯的添加到店铺商品库，并没有上架，也没有价格，库存等属性。
+    case addGoodsInfoGoToStoreAndGoods(storeId:Int,goodsId:String)
+    ///店铺添加首页商品 sort
+    case addIndexGoods(storeAndGoodsId:Int,storeId:Int,sort:Int)
+    ///删除首页商品
+    case removeIndexGoods(storeAndGoodsId:Int,storeId:Int)
     
     
 }
@@ -52,15 +61,25 @@ extension StoreGoodApi:TargetType{
         case .queryStoreAndGoodsDetail(_,_):
             return "/front/storeAndGoods/queryStoreAndGoodsDetail"
         case .addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_):
-            return "//front/storeAndGoods/addGoodsInfoGoToStoreAndGoods_detail"
+            return "/front/storeAndGoods/addGoodsInfoGoToStoreAndGoods_detail"
+        case .queryGoodsInfoList_store(_,_,_,_,_):
+            return "/front/storeAndGoods/queryGoodsInfoList_store"
+        case .queryGoodsInfoByGoodsId_store(_):
+            return "/front/storeAndGoods/queryGoodsInfoByGoodsId_store"
+        case .addGoodsInfoGoToStoreAndGoods(_,_):
+            return "/front/storeAndGoods/addGoodsInfoGoToStoreAndGoods"
+        case .addIndexGoods(_,_,_):
+            return "/front/storeAndGoods/addIndexGoods"
+        case .removeIndexGoods(_,_):
+            return "/front/storeAndGoods/removeIndexGoods"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_):
+        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods(_,_),.addIndexGoods(_,_,_),.removeIndexGoods(_,_):
             return .post
-        case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_),.queryStoreAndGoodsDetail(_,_):
+        case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_),.queryStoreAndGoodsDetail(_,_),.queryGoodsInfoList_store(_,_,_,_,_),.queryGoodsInfoByGoodsId_store(_):
             return .get
         }
     }
@@ -93,6 +112,20 @@ extension StoreGoodApi:TargetType{
         case let .addGoodsInfoGoToStoreAndGoods_detail(storeId, goodsId, storeGoodsPrice, goodsFlag, stock, offlineStock):
             
             return .requestParameters(parameters: ["storeId":storeId,"goodsId":goodsId,"storeGoodsPrice":storeGoodsPrice,"goodsFlag":goodsFlag,"stock":stock,"offlineStock":offlineStock], encoding:URLEncoding.default)
+        case let .queryGoodsInfoList_store(storeId, pageNumber, pageSize, goodsName, tCategoryId):
+            if tCategoryId == nil{
+                return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"goodsName":goodsName ?? ""], encoding: URLEncoding.default)
+            }else{
+                return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"goodsName":goodsName ?? "","tCategoryId":tCategoryId!], encoding: URLEncoding.default)
+            }
+        case let .queryGoodsInfoByGoodsId_store(goodsId):
+            return .requestParameters(parameters:["goodsId":goodsId], encoding: URLEncoding.default)
+        case let .addGoodsInfoGoToStoreAndGoods(storeId, goodsId):
+            return .requestParameters(parameters:["storeId":storeId,"goodsId":goodsId], encoding: URLEncoding.default)
+        case let .addIndexGoods(storeAndGoodsId, storeId, sort):
+            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId,"sort":sort],encoding: URLEncoding.default)
+        case let .removeIndexGoods(storeAndGoodsId, storeId):
+            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId],encoding: URLEncoding.default)
         }
         
     }

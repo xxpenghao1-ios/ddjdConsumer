@@ -24,9 +24,12 @@ class StoreGoodListTableViewCell: UITableViewCell {
     @IBOutlet weak var lblSalesCount: UILabel!
     ///商品上下架
     @IBOutlet weak var lblGoodsFlag: UILabel!
+    ///热门推荐图片
+    @IBOutlet weak var hotGoodImg: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        hotGoodImg.isHidden=true
         // Initialization code
     }
     func updateCell(entity:GoodEntity){
@@ -35,9 +38,16 @@ class StoreGoodListTableViewCell: UITableViewCell {
         lblStock.text="库存:\(entity.stock ?? 0)"
         lblSalesCount.text="销量\(entity.salesCount ?? 0)"
         lblStoreGoodsPrice.text="￥\(entity.storeGoodsPrice ?? 0.0)"
-        lblGoodsFlag.text=entity.goodsFlag == 1 ? "已上架" : "已下架"
+        if entity.goodsFlag != nil{
+            lblGoodsFlag.text=entity.goodsFlag == 1 ? "已上架" : "已下架"
+        }
         entity.goodsPic=entity.goodsPic ?? ""
         goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+        if entity.indexGoodsId == nil{
+            hotGoodImg.isHidden=true
+        }else{
+            hotGoodImg.isHidden=false
+        }
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

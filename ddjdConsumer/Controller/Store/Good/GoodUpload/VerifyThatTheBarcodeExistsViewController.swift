@@ -34,6 +34,13 @@ class VerifyThatTheBarcodeExistsViewController:BaseViewController{
         codeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pushScanCodeVC)))
         
         btnSubmit.layer.cornerRadius=20
+        
+        self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(title:"商品库", style: UIBarButtonItemStyle.done, target:self, action:#selector(pushPublicLibraryVC))
+    }
+    ///跳转到公共商品库
+    @objc private func pushPublicLibraryVC(){
+        let vc=self.storyboardPushView(type:.storeGood, storyboardId:"GoodPublicLibraryListVC") as! GoodPublicLibraryListViewController
+        self.navigationController?.pushViewController(vc,animated:true)
     }
     ///跳转到扫码获取条形码页面
     @objc private func pushScanCodeVC(){

@@ -16,8 +16,6 @@ class UpdateStoreGoodDetailViewController:FormViewController{
     var goodEntity:GoodEntity?
     ///如果值 添加到店铺商品库
     var flag:Int?
-    ///更新列表
-    var updateStoreListClosure:(() -> Void)?
     struct Static {
         static let goodsCodeTag = "goodsCode"
         static let goodsNameTag = "goodsName"
@@ -46,6 +44,7 @@ class UpdateStoreGoodDetailViewController:FormViewController{
             self.queryStoreAndGoodsDetail()
             self.title="修改商品信息"
         }else{
+            self.queryGoodsInfoByGoodsId_store()
             self.title="添加商品"
         }
     }
@@ -154,33 +153,50 @@ extension UpdateStoreGoodDetailViewController{
             print(json)
             self.goodEntity=Mapper<GoodEntity>().map(JSONObject:json.object)
             SVProgressHUD.dismiss()
+            self.setFormEntity()
             
-            self.setValue(self.goodEntity!.brand as AnyObject, forTag:Static.brandTag)
-            
-            self.setValue(self.goodEntity!.goodsCategoryName as AnyObject, forTag:Static.flTag)
-            
-            if self.goodEntity!.goodsFlag != nil{
+        }) { (error) in
+            self.showInfo(withStatus:error!)
+        }
+    }
+    ///添加值到table中
+    private func setFormEntity(){
+        self.setValue(self.goodEntity!.brand as AnyObject, forTag:Static.brandTag)
+        
+        self.setValue(self.goodEntity!.goodsCategoryName as AnyObject, forTag:Static.flTag)
+        
+        if self.goodEntity!.goodsFlag != nil{
             self.setValue(self.goodEntity!.goodsFlag! as AnyObject, forTag:Static.goodsFlagTag)
-            }
-            
-            self.setValue(self.goodEntity!.goodsCode as AnyObject, forTag:Static.goodsCodeTag)
-            
-            if self.goodEntity!.goodsLift != nil{
-                self.setValue("\(self.goodEntity!.goodsLift!)" as AnyObject, forTag:Static.goodsLiftTag)
-            }
-            if self.goodEntity!.goodsMixed != nil{
-                self.setValue("\(self.goodEntity!.goodsMixed!)" as AnyObject, forTag:Static.goodsMixedTag)
-            }
-            if self.goodEntity!.offlineStock != nil{
-                self.setValue("\(self.goodEntity!.offlineStock!)" as AnyObject, forTag:Static.offlineStockTag)
-            }
-            self.setValue(self.goodEntity!.goodsUnit as AnyObject, forTag:Static.goodsUnitTag)
-            
-            self.setValue(self.goodEntity!.goodsName as AnyObject, forTag:Static.goodsNameTag)
-            
-            self.setValue(self.goodEntity!.goodUcode as AnyObject, forTag:Static.goodUcodeTag)
-            
-            self.setValue(self.goodEntity!.goodsPic as AnyObject, forTag:Static.uploadImgTag)
+        }
+        
+        self.setValue(self.goodEntity!.goodsCode as AnyObject, forTag:Static.goodsCodeTag)
+        
+        if self.goodEntity!.goodsLift != nil{
+            self.setValue("\(self.goodEntity!.goodsLift!)" as AnyObject, forTag:Static.goodsLiftTag)
+        }
+        if self.goodEntity!.goodsMixed != nil{
+            self.setValue("\(self.goodEntity!.goodsMixed!)" as AnyObject, forTag:Static.goodsMixedTag)
+        }
+        if self.goodEntity!.offlineStock != nil{
+            self.setValue("\(self.goodEntity!.offlineStock!)" as AnyObject, forTag:Static.offlineStockTag)
+        }
+        self.setValue(self.goodEntity!.goodsUnit as AnyObject, forTag:Static.goodsUnitTag)
+        
+        self.setValue(self.goodEntity!.goodsName as AnyObject, forTag:Static.goodsNameTag)
+        
+        self.setValue(self.goodEntity!.goodUcode as AnyObject, forTag:Static.goodUcodeTag)
+        
+        self.setValue(self.goodEntity!.goodsPic as AnyObject, forTag:Static.uploadImgTag)
+    }
+    ///店铺查询公共商品库商品详情
+    private func queryGoodsInfoByGoodsId_store(){
+        SVProgressHUD.show(withStatus:"正在加载...")
+        SVProgressHUD.setDefaultMaskType(.clear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryGoodsInfoByGoodsId_store(goodsId:goodEntity!.goodsId ?? 0), successClosure: { (json) in
+            print(json)
+            self.goodEntity=Mapper<GoodEntity>().map(JSONObject:json.object)
+            SVProgressHUD.dismiss()
+            self.setFormEntity()
         }) { (error) in
             self.showInfo(withStatus:error!)
         }
