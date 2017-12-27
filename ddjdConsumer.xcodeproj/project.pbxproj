@@ -12,6 +12,11 @@
 		6302E6F31FCB96270009A018 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6302E6F21FCB96270009A018 /* UILabel.swift */; };
 		630538EA1FC508F500FA290B /* RegionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630538E91FC508F500FA290B /* RegionEntity.swift */; };
 		630538EC1FC509FF00FA290B /* SelectedRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630538EB1FC509FF00FA290B /* SelectedRegionViewController.swift */; };
+		630594201FF0CD1500FA303B /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6305941F1FF0CD1500FA303B /* AccountDetailsViewController.swift */; };
+		630594241FF0CF3E00FA303B /* AccountDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630594221FF0CF3E00FA303B /* AccountDetailsTableViewCell.swift */; };
+		630594251FF0CF3E00FA303B /* AccountDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630594231FF0CF3E00FA303B /* AccountDetailsTableViewCell.xib */; };
+		630594271FF0D1AA00FA303B /* TransferAccountSrecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630594261FF0D1AA00FA303B /* TransferAccountSrecordEntity.swift */; };
+		630594291FF0F06D00FA303B /* UpdateStoreInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630594281FF0F06D00FA303B /* UpdateStoreInfoViewController.swift */; };
 		630A59061FE374FD00C2B7E1 /* OrderStatisticsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630A59051FE374FD00C2B7E1 /* OrderStatisticsPageViewController.swift */; };
 		630A59081FE37C5B00C2B7E1 /* OrderStatisticsTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630A59071FE37C5B00C2B7E1 /* OrderStatisticsTextViewController.swift */; };
 		630EABD21FC6A49A003ED429 /* APAuthInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 630EABD11FC6A499003ED429 /* APAuthInfo.m */; };
@@ -235,6 +240,11 @@
 		6302E6F21FCB96270009A018 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		630538E91FC508F500FA290B /* RegionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionEntity.swift; sourceTree = "<group>"; };
 		630538EB1FC509FF00FA290B /* SelectedRegionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRegionViewController.swift; sourceTree = "<group>"; };
+		6305941F1FF0CD1500FA303B /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
+		630594221FF0CF3E00FA303B /* AccountDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		630594231FF0CF3E00FA303B /* AccountDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailsTableViewCell.xib; sourceTree = "<group>"; };
+		630594261FF0D1AA00FA303B /* TransferAccountSrecordEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferAccountSrecordEntity.swift; sourceTree = "<group>"; };
+		630594281FF0F06D00FA303B /* UpdateStoreInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStoreInfoViewController.swift; sourceTree = "<group>"; };
 		630A59051FE374FD00C2B7E1 /* OrderStatisticsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatisticsPageViewController.swift; sourceTree = "<group>"; };
 		630A59071FE37C5B00C2B7E1 /* OrderStatisticsTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatisticsTextViewController.swift; sourceTree = "<group>"; };
 		630EABD01FC6A499003ED429 /* APAuthInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APAuthInfo.h; sourceTree = "<group>"; };
@@ -518,6 +528,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6305941C1FF0CC5000FA303B /* AccountDetails */ = {
+			isa = PBXGroup;
+			children = (
+				6305941F1FF0CD1500FA303B /* AccountDetailsViewController.swift */,
+			);
+			path = AccountDetails;
+			sourceTree = "<group>";
+		};
+		630594211FF0CF2A00FA303B /* AccountDetails */ = {
+			isa = PBXGroup;
+			children = (
+				630594221FF0CF3E00FA303B /* AccountDetailsTableViewCell.swift */,
+				630594231FF0CF3E00FA303B /* AccountDetailsTableViewCell.xib */,
+			);
+			path = AccountDetails;
+			sourceTree = "<group>";
+		};
 		630A59041FE3749C00C2B7E1 /* OrderStatistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,6 +590,7 @@
 		632655241FC19C0200559E66 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				6305941C1FF0CC5000FA303B /* AccountDetails */,
 				63FD22991FE0B21A001CF142 /* Order */,
 				63BB8BC11FC67A22003BB38D /* OtherSettings */,
 				63CC3D391FC2CBAE00BDD724 /* Good */,
@@ -716,6 +744,7 @@
 				633AC4661FCE8497009278D0 /* StoreEntity.swift */,
 				63E497041FD93E8200DA0F05 /* GoodUploadEntity.swift */,
 				63395A771FE74FE4005EE80A /* OrderStatisticsEntity.swift */,
+				630594261FF0D1AA00FA303B /* TransferAccountSrecordEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1006,6 +1035,7 @@
 			children = (
 				63F558D11FE105B000BF0CF5 /* BindWxAndAli */,
 				63BB8BC41FC67A53003BB38D /* OtherSettingsViewController.swift */,
+				630594281FF0F06D00FA303B /* UpdateStoreInfoViewController.swift */,
 			);
 			path = OtherSettings;
 			sourceTree = "<group>";
@@ -1296,6 +1326,7 @@
 		63FBCC881FD7846800A461E6 /* StoreCell */ = {
 			isa = PBXGroup;
 			children = (
+				630594211FF0CF2A00FA303B /* AccountDetails */,
 				632D81781FEB5B9600E4A89A /* GoodPublicLibraryList */,
 				63395A791FE752E6005EE80A /* OrderStatistics */,
 				63FACAEC1FDA61920051BA59 /* StoreGoodList */,
@@ -1476,7 +1507,7 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 5A79UN6C3M;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1537,6 +1568,7 @@
 				6395DE4F1F5D431F008149DD /* Assets.xcassets in Resources */,
 				63FA10941FC06394009B6CB2 /* MyCollectGoodTableViewCell.xib in Resources */,
 				6395DE4D1F5D431F008149DD /* Main.storyboard in Resources */,
+				630594251FF0CF3E00FA303B /* AccountDetailsTableViewCell.xib in Resources */,
 				63CCF5681FD7E84500D120A8 /* StoreGood.storyboard in Resources */,
 				6315958C1F6791D1000355C6 /* GoodsClassification.storyboard in Resources */,
 				63F9C91C1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib in Resources */,
@@ -1698,6 +1730,7 @@
 				6316BAEE1FA95BD500D91BA1 /* publicView.swift in Sources */,
 				63D9CACA1FB92DC700414BC7 /* MyViewController.swift in Sources */,
 				630538EC1FC509FF00FA290B /* SelectedRegionViewController.swift in Sources */,
+				630594271FF0D1AA00FA303B /* TransferAccountSrecordEntity.swift in Sources */,
 				631F29D91F622E0B00E46C19 /* MyNetWork.swift in Sources */,
 				6374F3681F67E7DA006551CE /* IndexClassifyCollectionViewCell.swift in Sources */,
 				63E8B2811FD3D05C003FCF1E /* FormSelector.swift in Sources */,
@@ -1758,12 +1791,14 @@
 				6302E6F31FCB96270009A018 /* UILabel.swift in Sources */,
 				63351D581FB590F1004B12A3 /* WXApiManager.swift in Sources */,
 				632655271FC19C2A00559E66 /* StoreIndexViewController.swift in Sources */,
+				630594241FF0CF3E00FA303B /* AccountDetailsTableViewCell.swift in Sources */,
 				6381737D1FAB0ECC001EA0CD /* ShoppingCarViewController.swift in Sources */,
 				63924F391FB991DC007872F6 /* AddressListViewController.swift in Sources */,
 				63395A841FE786A6005EE80A /* NSDate+HooDatePicker.m in Sources */,
 				631595921F67BFC0000355C6 /* BaseNavigationController.swift in Sources */,
 				63FBCC8B1FD7851000A461E6 /* GoodUploadImgTableViewCell.swift in Sources */,
 				6352B9881FB9809A0019010D /* MyInformationViewController.swift in Sources */,
+				630594201FF0CD1500FA303B /* AccountDetailsViewController.swift in Sources */,
 				6315958F1F679216000355C6 /* Color.swift in Sources */,
 				6343A9A91FBA95FD004BC9D3 /* AdvertisingEntity.swift in Sources */,
 				633C0B7B1FBBCE410054C215 /* GoodDetailsViewController.swift in Sources */,
@@ -1826,6 +1861,7 @@
 				63F941C41FD8EA70007BB96A /* CategorySelectionViewController.swift in Sources */,
 				63D82E041FAA0C6B00EFE576 /* Array.swift in Sources */,
 				63E8B27C1FD3D05C003FCF1E /* FormStepperCell.swift in Sources */,
+				630594291FF0F06D00FA303B /* UpdateStoreInfoViewController.swift in Sources */,
 				63E8B2771FD3D05C003FCF1E /* FormLabelCell.swift in Sources */,
 				632B57F41FDA3B00008CE639 /* PageStoreGoodListViewController.swift in Sources */,
 				63F9C9211FAB5C0200A3732D /* SpecialPriceViewController.swift in Sources */,
@@ -2047,9 +2083,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ddjdConsumer/ddjdConsumer.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hao Peng (7BUP6STKZL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hao Peng (7BUP6STKZL)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5A79UN6C3M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2072,8 +2108,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zltx.ddjdConsumer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2bc97c07-0f19-478f-95d8-90d8f9010ae0";
-				PROVISIONING_PROFILE_SPECIFIER = ddjdConsumerProfile;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ddjdConsumer/ddjdConsumer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2087,8 +2123,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ddjdConsumer/ddjdConsumer.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hao Peng (7BUP6STKZL)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5A79UN6C3M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2111,8 +2147,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zltx.ddjdConsumer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2bc97c07-0f19-478f-95d8-90d8f9010ae0";
-				PROVISIONING_PROFILE_SPECIFIER = ddjdConsumerProfile;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ddjdConsumer/ddjdConsumer-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};

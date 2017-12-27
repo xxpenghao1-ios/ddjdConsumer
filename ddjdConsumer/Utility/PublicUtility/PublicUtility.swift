@@ -27,10 +27,10 @@ import UIKit
 //app公用常量
 
 ///图片请求路径
-let urlImg="http://192.168.199.215";
+let urlImg="http://cs.houjue.me";
 ///cs.houjue.me
 ///数据请求路径
-let url="http://192.168.199.215";
+let url="http://cs.houjue.me";
 
 
 /// 屏幕宽
@@ -77,12 +77,6 @@ var BINDSTOREID:Int{
 var STOREID:Int{
     get{
         return userDefaults.object(forKey:"storeId") as? Int ?? -1
-    }
-}
-///用户凭证 每次登陆返回 最新的
-var TOKEN:String{
-    get{
-        return userDefaults.object(forKey:"token") as? String ?? ""
     }
 }
 ///公钥

@@ -140,18 +140,18 @@ extension OrderListViewController{
         
         var orderSN=view.viewWithTag(111) as? UILabel
         if orderSN == nil{
-            orderSN=UILabel(frame:CGRect(x: 15,y: 20,width: 280,height: 20))
+            orderSN=UILabel(frame:CGRect(x:15,y:20,width:boundsWidth-30,height: 20))
             orderSN!.font=UIFont.systemFont(ofSize: 15)
             orderSN!.tag=111
             view.contentView.addSubview(orderSN!)
         }
-        var name=view.viewWithTag(222) as? UILabel
-        if name == nil{
-            name=UILabel.buildLabel(textColor:UIColor.applicationMainColor(), font:15, textAlignment: NSTextAlignment.right)
-            name?.frame=CGRect(x:295,y: 20,width:boundsWidth-310,height: 20)
-            name?.tag=222
-            view.contentView.addSubview(name!)
-        }
+//        var name=view.viewWithTag(222) as? UILabel
+//        if name == nil{
+//            name=UILabel.buildLabel(textColor:UIColor.applicationMainColor(), font:15, textAlignment: NSTextAlignment.right)
+//            name?.frame=CGRect(x:orderSN!.frame.maxX+10,y:20,width:60,height: 20)
+//            name?.tag=222
+//            view.contentView.addSubview(name!)
+//        }
         var bottomBorderView=view.viewWithTag(999)
         if bottomBorderView == nil{
             bottomBorderView=UIView(frame:CGRect(x:0,y:0,width:boundsWidth,height:5))
@@ -160,15 +160,15 @@ extension OrderListViewController{
             view.contentView.addSubview(bottomBorderView!)
         }
         orderSN!.text="订单号:\(entity.orderSN ?? "")"
-        if entity.orderStatus == 1{
-            name?.text="待付款"
-        }else if entity.orderStatus == 2{
-            name?.text="待发货"
-        }else if entity.orderStatus == 3{
-            name?.text="待收货"
-        }else if entity.orderStatus == 4{
-            name?.text="已完成"
-        }
+//        if entity.orderStatus == 1{
+//            name?.text="待付款"
+//        }else if entity.orderStatus == 2{
+//            name?.text="待发货"
+//        }else if entity.orderStatus == 3{
+//            name?.text="待收货"
+//        }else if entity.orderStatus == 4{
+//            name?.text="已完成"
+//        }
         return view
     }
     ///订单cell尾部

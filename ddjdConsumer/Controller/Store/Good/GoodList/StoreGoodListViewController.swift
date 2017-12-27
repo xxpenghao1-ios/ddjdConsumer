@@ -77,8 +77,10 @@ class StoreGoodListViewController:BaseViewController{
         if pickerMaskView.isHidden == false{//页面退出 隐藏分类选择
             self.hidePickerView()
         }
-        if operatingGoodMaskView.isHidden == false{ //页面退出 隐藏商品操作view
-            self.hideOperatingView()
+        if operatingGoodMaskView != nil{
+            if operatingGoodMaskView.isHidden == false{ //页面退出 隐藏商品操作view
+                self.hideOperatingView()
+            }
         }
     }
     ///刷新数据
@@ -110,6 +112,7 @@ extension StoreGoodListViewController{
         
         table.dataSource=self
         table.delegate=self
+        table.tag=100
         table.emptyDataSetSource=self
         table.emptyDataSetDelegate=self
         self.setLoadingState(isLoading:true)
@@ -121,7 +124,6 @@ extension StoreGoodListViewController{
         returnImg.isHidden=true
         
         setUpPickerView()
-        setUpOperatingTableView()
     }
     ///返回顶部
     @objc private func returnTop(){
@@ -151,40 +153,37 @@ extension StoreGoodListViewController{
 }
 ///设置商品操作 (上下架,查看商品信息,加入促销)
 extension StoreGoodListViewController{
-    ///设置商品操作table
-    private func setUpOperatingTableView(){
-        operatingGoodMaskView=UIView(frame:table.bounds)
+    ///显示
+    private func showOperatingView(tag:Int){
+        operatingGoodMaskView=UIView(frame:CGRect.init(x:0,y:0, width:boundsWidth, height:boundsHeight-navHeight-bottomSafetyDistanceHeight))
         operatingGoodMaskView.backgroundColor = UIColor.init(white:0, alpha:0.5)
         operatingGoodMaskView.isUserInteractionEnabled=true
         let gesture=UITapGestureRecognizer(target:self, action:#selector(hideOperatingView))
         gesture.delegate=self
         operatingGoodMaskView.addGestureRecognizer(gesture)
         self.view.addSubview(operatingGoodMaskView)
-        ///默认隐藏
-        operatingGoodMaskView.isHidden=true
-        
-        operatingTable=UITableView(frame: CGRect.init(x:0, y:-150,width: boundsWidth, height:150), style: UITableViewStyle.plain)
+
+        operatingTable=UITableView(frame: CGRect.init(x:0, y:-200,width: boundsWidth, height:200), style: UITableViewStyle.plain)
         operatingTable.delegate=self
         operatingTable.dataSource=self
-        operatingTable.tag=100
+        operatingTable.tag=tag
         operatingTable.isScrollEnabled=false
         operatingGoodMaskView.addSubview(operatingTable)
-    }
-    ///显示
-    private func showOperatingView(){
-        operatingGoodMaskView.isHidden=false
         UIView.animate(withDuration:0.3, delay:0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.operatingTable.frame=CGRect.init(x:0,y:0, width:boundsWidth,height:150)
+            self.operatingTable.frame=CGRect.init(x:0,y:0, width:boundsWidth,height:200)
         })
     }
     ///隐藏
     @objc private func hideOperatingView(){
         UIView.animate(withDuration:0.3, delay:0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.operatingTable.frame=CGRect.init(x:0, y:-150,width:boundsWidth,height:150)
+            self.operatingTable.frame=CGRect.init(x:0, y:-200,width:boundsWidth,height:200)
         }, completion: { (b) in
             UIView.animate(withDuration:0.1, delay:0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
                 self.operatingGoodMaskView.isHidden=true
-            }, completion: nil)
+            }, completion:{ (b) in
+                self.operatingTable.removeFromSuperview()
+                self.operatingGoodMaskView.removeFromSuperview()
+            })
         })
     }
 }
@@ -392,7 +391,7 @@ extension StoreGoodListViewController:UIPickerViewDelegate,UIPickerViewDataSourc
 ///table协议
 extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView.tag == 100{
+        if tableView.tag != 100{
             var cell=tableView.dequeueReusableCell(withIdentifier:"id")
             if cell == nil{
                 cell=UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier:"id")
@@ -410,7 +409,13 @@ extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
             }else if indexPath.row == 2{
                 cell!.textLabel!.text="加入促销"
             }else if indexPath.row == 3{
-                cell!.textLabel!.text="加入首页推荐"
+                if arr.count > 0{
+                    if arr[tableView.tag].indexGoodsId == nil{
+                        cell!.textLabel!.text="加入首页推荐"
+                    }else{
+                        cell!.textLabel!.text="从首页推荐区移除"
+                    }
+                }
             }
             return cell!
         }else{
@@ -426,13 +431,13 @@ extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView.tag == 100{
+        if tableView.tag != 100{
             return 50
         }
         return 120
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView.tag == 100{
+        if tableView.tag != 100{
             return 4
         }
         return arr.count
@@ -440,7 +445,7 @@ extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //取消选中效果颜色
         tableView.deselectRow(at: indexPath, animated: true)
-        if tableView.tag == 100{
+        if tableView.tag != 100{
             switch indexPath.row{
             case 0: //商品上下架
                var message=""
@@ -459,26 +464,32 @@ extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
                 self.navigationController?.pushViewController(vc, animated: true)
                 break
             case 3:
-                let alert=UIAlertController(title:"提示", message:"确定加入首页推荐区吗?", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addTextField(configurationHandler: { (txt) in
-                    txt.keyboardType = .numberPad
-                    txt.placeholder="请输入排序值(值越小商品显示位置越靠前)"
-                    NotificationCenter.default.addObserver(self, selector: #selector(self.alertTextFieldDidChange), name: NSNotification.Name.UITextFieldTextDidChange,object:txt)
-                })
-                let ok=UIAlertAction(title:"确定", style: UIAlertActionStyle.default, handler: { (action) in
-                    let text=(alert.textFields?.first)! as UITextField
-                    self.addIndexGoods(storeAndGoodsId:self.arr[indexPath.row].storeAndGoodsId ?? 0, sort:Int(text.text!) ?? 0)
-                })
-                let cancel=UIAlertAction(title:"取消", style: UIAlertActionStyle.cancel, handler:nil)
-                alert.addAction(cancel)
-                alert.addAction(ok)
-                self.present(alert, animated:true, completion:nil)
+                if self.arr[tableView.tag].indexGoodsId == nil{
+                    let alert=UIAlertController(title:"提示", message:"确定加入首页推荐区吗?", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addTextField(configurationHandler: { (txt) in
+                        txt.keyboardType = .numberPad
+                        txt.placeholder="排序值(值越小显示位置越靠前)"
+                        NotificationCenter.default.addObserver(self, selector: #selector(self.alertTextFieldDidChange), name: NSNotification.Name.UITextFieldTextDidChange,object:txt)
+                    })
+                    let ok=UIAlertAction(title:"确定", style: UIAlertActionStyle.default, handler: { (action) in
+                        let text=(alert.textFields?.first)! as UITextField
+                        self.addIndexGoods(storeAndGoodsId:self.arr[tableView.tag].storeAndGoodsId ?? 0, sort:Int(text.text!) ?? 0,row:tableView.tag)
+                    })
+                    let cancel=UIAlertAction(title:"取消", style: UIAlertActionStyle.cancel, handler:nil)
+                    alert.addAction(cancel)
+                    alert.addAction(ok)
+                    self.present(alert, animated:true, completion:nil)
+                }else{
+                    UIAlertController.showAlertYesNo(self, title:"温馨提示", message:"您确定从首页推荐区移除吗?", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
+                        self.deleteIndexGoods(storeAndGoodsId:self.arr[tableView.tag].storeAndGoodsId ?? 0, row:tableView.tag)
+                    })
+                }
                 break
             default:break
             }
         }else{
             selectedGoodEntity=arr[indexPath.row]
-            showOperatingView()
+            showOperatingView(tag:indexPath.row)
         }
     }
     
@@ -537,16 +548,37 @@ extension StoreGoodListViewController{
         }
     }
     ///店铺添加首页商品
-    private func addIndexGoods(storeAndGoodsId:Int,sort:Int){
-        self.showSVProgressHUD(status:"正在加载...",type: HUD.textClear)
+    private func addIndexGoods(storeAndGoodsId:Int,sort:Int,row:Int){
+        self.showSVProgressHUD(status:"正在加入...",type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.addIndexGoods(storeAndGoodsId:storeAndGoodsId , storeId:STOREID, sort:sort), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
-                
+                self.showSVProgressHUD(status:"加入成功", type: HUD.success)
+                self.arr[row].indexGoodsId=1
+                self.table.reloadRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.none)
+                self.hideOperatingView()
             }else if success == "exist" {
                 self.showSVProgressHUD(status:"该商品已经在首页推荐区了", type: HUD.info)
             }else{
                 self.showSVProgressHUD(status:"加入失败", type: HUD.error)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+    private func deleteIndexGoods(storeAndGoodsId:Int,row:Int){
+        self.showSVProgressHUD(status:"正在移除", type: HUD.textClear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.removeIndexGoods(storeAndGoodsId:storeAndGoodsId, storeId:STOREID), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.showSVProgressHUD(status:"移除成功", type: HUD.success)
+                self.arr[row].indexGoodsId=nil
+                self.table.reloadRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.none)
+                self.hideOperatingView()
+            }else if success == "notExist" {
+                self.showSVProgressHUD(status:"不存在，不是首页热门推荐商品", type: HUD.info)
+            }else{
+                self.showSVProgressHUD(status:"移除失败", type: HUD.error)
             }
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)

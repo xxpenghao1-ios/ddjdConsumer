@@ -40,10 +40,12 @@ public enum MyApi{
     case updatePwd(memberId:Int,oldpassword:String,password:String)
     //问题或意见接口
     case saveQuestionsorsuggestions(memberId:Int,questionsOrSuggestionsType:Int,questionsOrSuggestionsText:String,questionsOrSuggestionsPic:String)
-    //获取会员剩余余额
-    case queryMemberBalanceMoney(timestamp:String,token:String,publicKey:String,sign:String)
+    ///获取会员剩余余额
+    case queryMemberBalanceMoney(parameters:[String:Any])
     ///会员充值  rechargeMoney会员充值的金额；充值金额限制为 最小1元，最大1万元； 正整数 paymentInstrument 会员充值使用的支付工具； 1微信；2支付宝
     case memberRechargeBalance(parameters:[String:Any])
+    ///会员余额记录
+    case queryMemberBalanceRecord(parameters:[String:Any])
 
 }
 extension MyApi:TargetType{
@@ -87,13 +89,15 @@ extension MyApi:TargetType{
             return "/front/memberBalance/queryMemberBalanceMoney"
         case .memberRechargeBalance(_):
             return "/front/memberBalance/memberRechargeBalance"
+        case .queryMemberBalanceRecord(_):
+            return "/front/memberBalance/queryMemberBalanceMoney"
             
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_,_,_,_):
+        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_,_,_,_),.queryMemberBalanceRecord(_):
             return .get
         case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_),.bindStore(_,_),.unBindStore(_),.updatePwd(_,_,_),.saveQuestionsorsuggestions(_,_,_,_),.memberRechargeBalance(_):
             return .post
@@ -146,6 +150,8 @@ extension MyApi:TargetType{
         case let .queryMemberBalanceMoney(timestamp, token, publicKey, sign):
             return .requestParameters(parameters:["timestamp":timestamp,"token":token,"publicKey":publicKey,"sign":sign], encoding: URLEncoding.default)
         case let .memberRechargeBalance(parameters):
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+        case let .queryMemberBalanceRecord(parameters):
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         }
     }

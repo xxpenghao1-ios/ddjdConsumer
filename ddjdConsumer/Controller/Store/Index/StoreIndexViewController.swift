@@ -16,7 +16,7 @@ class StoreIndexViewController:BaseViewController{
     
     @IBOutlet weak var collection: UICollectionView!
     private let imgArr=["store_index_good","store_index_order","store_index_xstj","store_index_tj","store_index_cx","store_index_zhmx","store_index_lxkf","store_index_qt"]
-    private let strArr=["商品管理","订单管理","销售统计","特价活动","限时促销","账户明细","联系客服","其他设置"]
+    private let strArr=["商品管理","订单管理","销售统计","热门推荐","限时促销","账户明细","联系客服","其他设置"]
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpNavColor()
@@ -69,13 +69,21 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
         let wxBindStatu=userDefaults.object(forKey:"wxBindStatu") as? Bool
         let aliBindStatu=userDefaults.object(forKey:"aliBindStatu") as? Bool
         if aliBindStatu == true && wxBindStatu == true{//如果微信或者支付宝都绑定了
-            if indexPath.item == 0{
+            if indexPath.item == 0{//商品管理
                 let vc=PageStoreGoodListViewController()
                 self.navigationController?.pushViewController(vc, animated:true)
-            }else if indexPath.item == 1{
+            }else if indexPath.item == 1{//订单
                 let vc=PageStoreOrderListViewController()
                 self.navigationController?.pushViewController(vc, animated:true)
-            }else if indexPath.item == 7{
+            }else if indexPath.item == 3{//热门推荐商品
+                let vc=self.storyboardPushView(type:.storeGood, storyboardId:"HotGoodListVC") as! HotGoodListViewController
+                self.navigationController?.pushViewController(vc, animated:true)
+            }else if indexPath.item == 5{//账户明细
+                let vc=self.storyboardPushView(type:.store, storyboardId:"AccountDetailsVC") as! AccountDetailsViewController
+                self.navigationController?.pushViewController(vc, animated:true)
+            }else if indexPath.item == 6{//联系客服
+                UIApplication.shared.openURL(Foundation.URL(string :"tel://4008356878")!)
+            }else if indexPath.item == 7{//其他设置
                 let vc=self.storyboardPushView(type:.store, storyboardId:"OtherSettingsVC") as! OtherSettingsViewController
                 self.navigationController?.pushViewController(vc, animated:true)
             }else{

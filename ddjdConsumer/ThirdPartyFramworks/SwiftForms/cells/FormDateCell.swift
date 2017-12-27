@@ -26,6 +26,8 @@ open class FormDateCell: FormValueCell {
         hiddenTextField.isAccessibilityElement = false
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(FormDateCell.valueChanged(_:)), for: .valueChanged)
+        titleLabel.font=UIFont.systemFont(ofSize:14)
+        valueLabel.font=UIFont.systemFont(ofSize:14)
     }
     
     open override func update() {
@@ -84,7 +86,7 @@ open class FormDateCell: FormValueCell {
     // MARK: Actions
     
     @objc internal func valueChanged(_ sender: UIDatePicker) {
-        rowDescriptor?.value = sender.date as AnyObject
+        rowDescriptor?.value = getDateFormatter().string(from: sender.date) as AnyObject
         valueLabel.text = getDateFormatter().string(from: sender.date)
         update()
     }

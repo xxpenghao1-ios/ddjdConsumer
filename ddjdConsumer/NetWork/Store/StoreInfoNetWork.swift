@@ -18,6 +18,8 @@ public enum StoreInfoApi{
     case queryStoreTurnover(storeId:Int)
     ///查询店铺收入明细（转账明细）记录
     case queryStoreTransferaccountsrecord(storeId:Int,pageNumber:Int,pageSize:Int,queryStatu:Int)
+    ///修改店铺信息
+    case updateStoreInfo(storeId:Int,storeMsg:String?,tel:String?,distributionScope:Int?,lowestMoney:Int?,distributionStartTime:String?,distributionEndTime:String?)
 }
 extension StoreInfoApi:TargetType{
     public var baseURL: URL {
@@ -34,6 +36,8 @@ extension StoreInfoApi:TargetType{
             return "/front/storeStatistics/queryStoreTurnover"
         case .queryStoreTransferaccountsrecord(_,_,_,_):
             return "/front/storeStatistics/queryStoreTransferaccountsrecord"
+        case .updateStoreInfo(_,_,_,_,_,_,_):
+            return "/front/storeInfo/updateStoreInfo"
         }
     }
     
@@ -41,6 +45,8 @@ extension StoreInfoApi:TargetType{
         switch self {
         case .queryStoreById(_),.queryStoreForLocation(_,_,_),.queryStoreTurnover(_),.queryStoreTransferaccountsrecord(_,_,_,_):
             return .get
+        case .updateStoreInfo(_,_,_,_,_,_,_):
+            return .post
         }
     }
     
@@ -58,6 +64,28 @@ extension StoreInfoApi:TargetType{
             return .requestParameters(parameters:["storeId":storeId], encoding: URLEncoding.default)
         case let .queryStoreTransferaccountsrecord(storeId, pageNumber, pageSize, queryStatu):
             return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"queryStatu":queryStatu], encoding: URLEncoding.default)
+        case let .updateStoreInfo(storeId, storeMsg, tel, distributionScope, lowestMoney, distributionStartTime, distributionEndTime):
+            var parameters:[String:Any]=[:]
+                parameters["storeId"]=storeId
+            if storeMsg != nil{
+                parameters["storeMsg"]=storeMsg!
+            }
+            if tel != nil{
+                parameters["tel"]=tel!
+            }
+            if distributionScope != nil{
+                parameters["distributionScope"]=distributionScope!
+            }
+            if lowestMoney != nil{
+                parameters["lowestMoney"]=lowestMoney!
+            }
+            if distributionStartTime != nil{
+                parameters["distributionStartTime"]=distributionStartTime!
+            }
+            if distributionEndTime != nil{
+                parameters["distributionEndTime"]=distributionEndTime!
+            }
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         }
     }
     

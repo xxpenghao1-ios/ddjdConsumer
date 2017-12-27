@@ -103,6 +103,7 @@ extension AppDelegate{
         WXApi.registerApp(WX_APPID)
         ///刷新分类信息
         GoodClassificationDB.shared.refreshClassificationData()
+
     }
 }
 ///百度地图

@@ -15,7 +15,7 @@ class DDJDCSign:NSObject{
     ///私钥
     private let ddjdc_privateKey=PRIVATEKEY
     ///凭证
-    private var token=TOKEN
+    private let token=userDefaults.object(forKey:"token") as? String ?? ""
     ///字典 保存需要签名的字段
     private var dic=[String:Any]()
     private override init() {

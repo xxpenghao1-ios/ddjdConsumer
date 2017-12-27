@@ -20,6 +20,8 @@ class OrderDetailsViewController:BaseViewController{
     @IBOutlet weak var lblShippName: UILabel!
     ///收货人电话
     @IBOutlet weak var lblTel: UILabel!
+    ///呼叫消费者
+    @IBOutlet weak var callMemberImg: UIImageView!
     ///收货地址
     @IBOutlet weak var lblAddress: UILabel!
     ///买家留言
@@ -109,6 +111,7 @@ class OrderDetailsViewController:BaseViewController{
         setUpView()
         if storeFlag == nil{
             getOrderDetails()
+            callMemberImg.isHidden=true
         }else{
             getStoreOrderDetails()
         }
@@ -132,6 +135,8 @@ extension OrderDetailsViewController{
         self.table.emptyDataSetSource=self
         self.table.emptyDataSetDelegate=self
         self.table.sectionFooterHeight=0
+        callMemberImg.isUserInteractionEnabled=true
+        callMemberImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(self.callMember)))
     }
 }
 ///table 协议
@@ -160,50 +165,67 @@ extension OrderDetailsViewController:UITableViewDelegate,UITableViewDataSource{
         return 50
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var view=table.dequeueReusableHeaderFooterView(withIdentifier:"HeaderId")
-        if view == nil{
-            view=UITableViewHeaderFooterView(reuseIdentifier:"HeaderId")
-            view?.contentView.backgroundColor=UIColor.white
+        if storeFlag == nil{
+            var view=table.dequeueReusableHeaderFooterView(withIdentifier:"HeaderId")
+            if view == nil{
+                view=UITableViewHeaderFooterView(reuseIdentifier:"HeaderId")
+                view?.contentView.backgroundColor=UIColor.white
+            }
+            var storeImg=view?.viewWithTag(22) as? UIImageView
+            if storeImg == nil{
+                storeImg=UIImageView(frame: CGRect.init(x:15, y:10, width:30,height:30))
+                storeImg!.image=UIImage.init(named:"store_name")
+                storeImg!.tag=22
+                view!.contentView.addSubview(storeImg!)
+            }
+            var lblStoreName=view?.viewWithTag(11) as? UILabel
+            if lblStoreName == nil{
+                lblStoreName=UILabel.buildLabel(textColor:UIColor.color333(), font: 15, textAlignment: NSTextAlignment.left)
+                lblStoreName!.frame=CGRect.init(x:storeImg!.frame.maxX, y:15, width:boundsWidth-125-storeImg!.frame.maxX-5, height:20)
+                lblStoreName!.tag=11
+                view!.contentView.addSubview(lblStoreName!)
+            }
+            var lblStoreTel=view?.viewWithTag(33) as? UILabel
+            if lblStoreTel == nil{
+                lblStoreTel=UILabel.buildLabel(textColor:UIColor.color333(), font:13, textAlignment: NSTextAlignment.right)
+                lblStoreTel!.frame=CGRect.init(x:boundsWidth-105, y:15, width:90, height:20)
+                lblStoreTel!.tag=33
+                view!.contentView.addSubview(lblStoreTel!)
+                
+            }
+            var storeTelImg=view?.viewWithTag(44) as? UIImageView
+            if storeTelImg == nil{
+                storeTelImg=UIImageView(frame: CGRect.init(x:lblStoreTel!.frame.minX-20, y: 15, width:20, height:20))
+                storeTelImg!.tag=44
+                storeTelImg!.image=UIImage.init(named:"order_tel")
+                storeTelImg!.isUserInteractionEnabled=true
+                storeTelImg!.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(callStore)))
+                view!.contentView.addSubview(storeTelImg!)
+            }
+            if orderEntity != nil{
+                lblStoreName!.text=orderEntity!.storeName
+                lblStoreTel!.text=orderEntity!.storeTel
+            }
+            return view
+        }else{
+            var view=table.dequeueReusableHeaderFooterView(withIdentifier:"HeaderGoodId")
+            if view == nil{
+                view=UITableViewHeaderFooterView(reuseIdentifier:"HeaderGoodId")
+                view?.contentView.backgroundColor=UIColor.white
+            }
+            var lblTitle=view?.viewWithTag(88) as? UILabel
+            if lblTitle == nil{
+                lblTitle=UILabel.buildLabel(textColor:UIColor.color333(), font:15, textAlignment: NSTextAlignment.left)
+                lblTitle?.frame=CGRect.init(x:15, y:15, width:200, height:20)
+                lblTitle?.tag=88
+                view?.contentView.addSubview(lblTitle!)
+            }
+            lblTitle?.text="商品列表"
+            return view
         }
-        var storeImg=view?.viewWithTag(22) as? UIImageView
-        if storeImg == nil{
-            storeImg=UIImageView(frame: CGRect.init(x:15, y:10, width:30,height:30))
-            storeImg!.image=UIImage.init(named:"store_name")
-            storeImg!.tag=22
-            view!.contentView.addSubview(storeImg!)
-        }
-        var lblStoreName=view?.viewWithTag(11) as? UILabel
-        if lblStoreName == nil{
-            lblStoreName=UILabel.buildLabel(textColor:UIColor.color333(), font: 15, textAlignment: NSTextAlignment.left)
-            lblStoreName!.frame=CGRect.init(x:storeImg!.frame.maxX, y:15, width:boundsWidth-125-storeImg!.frame.maxX-5, height:20)
-            lblStoreName!.tag=11
-            view!.contentView.addSubview(lblStoreName!)
-        }
-        var lblStoreTel=view?.viewWithTag(33) as? UILabel
-        if lblStoreTel == nil{
-            lblStoreTel=UILabel.buildLabel(textColor:UIColor.color333(), font:13, textAlignment: NSTextAlignment.right)
-            lblStoreTel!.frame=CGRect.init(x:boundsWidth-105, y:15, width:90, height:20)
-            lblStoreTel!.tag=33
-            view!.contentView.addSubview(lblStoreTel!)
-            
-        }
-        var storeTelImg=view?.viewWithTag(44) as? UIImageView
-        if storeTelImg == nil{
-            storeTelImg=UIImageView(frame: CGRect.init(x:lblStoreTel!.frame.minX-20, y: 15, width:20, height:20))
-            storeTelImg!.tag=44
-            storeTelImg!.image=UIImage.init(named:"order_tel")
-            storeTelImg!.isUserInteractionEnabled=true
-            storeTelImg!.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(call)))
-            view!.contentView.addSubview(storeTelImg!)
-        }
-        if orderEntity != nil{
-            lblStoreName!.text=orderEntity!.storeName
-            lblStoreTel!.text=orderEntity!.storeTel
-        }
-        return view
     }
-    ///呼叫
-    @objc private func call(){
+    ///呼叫店铺
+    @objc private func callStore(){
         if orderEntity == nil{
             return
         }
@@ -211,6 +233,16 @@ extension OrderDetailsViewController:UITableViewDelegate,UITableViewDataSource{
             return
         }
         UIApplication.shared.openURL(Foundation.URL(string :"tel://\(orderEntity!.storeTel!)")!)
+    }
+    ///呼叫消费者
+    @objc private func callMember(){
+        if orderEntity == nil{
+            return
+        }
+        if orderEntity!.tel == nil{
+            return
+        }
+        UIApplication.shared.openURL(Foundation.URL(string :"tel://\(orderEntity!.tel!)")!)
     }
 }
 

@@ -42,12 +42,14 @@ class OrderConfirmViewController:BaseViewController{
     //商品总价格
     @IBOutlet weak var lblGoodSumPrice: UILabel!
     //支付方式图片
-    private var payImgArr=["wx","alipay"]
-    private var payTitle=["微信支付","支付宝支付"]
+    private var payImgArr=["wx","alipay","balance_money"]
+    private var payTitle=["微信支付","支付宝支付","余额支付"]
     //支付透明view
     private var payView:UIView!
     //支付table
     private var payTableView:UITableView!
+    ///保存用户余额
+    private var memberBalanceMoney:Double?
     //保存当前地址信息
     private var addressEntity:ShippAddressEntity?{
         willSet{
@@ -67,6 +69,8 @@ class OrderConfirmViewController:BaseViewController{
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        ///获取用户是否有余额
+        queryMemberBalanceMoney()
         if addressEntity == nil{//如果收货地址为空 发送请求
             getAllAddressInfo()
         }
@@ -185,9 +189,22 @@ extension OrderConfirmViewController{
         vc.popFlag=1
         self.navigationController?.pushViewController(vc, animated:true)
     }
+    ///查看订单
+    private func checkOrder(){
+        UIAlertController.showAlertYesNo(self, title:"", message:"下单成功,我们尽快帮您送货上门", cancelButtonTitle: "返回", okButtonTitle:"查看订单", okHandler: { (action) in
+            //通知tab页面更新购物车角标
+            NotificationCenter.default.post(name:updateCarBadgeValue,object:nil)
+            self.pushOrderList(orderStatus:2)
+            
+        }, cancelHandler: { (action) in
+            self.navigationController?.popViewController(animated:true)
+        })
+    }
 }
 ///网络请求
 extension OrderConfirmViewController{
+
+    /// 请求地址信息
     private func getAllAddressInfo(){
         self.addressArr.removeAll()
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.getAllShippaddress(memberId:MEMBERID), successClosure: { (json) in
@@ -235,11 +252,7 @@ extension OrderConfirmViewController{
                         req.sign=charge["sign"].stringValue
                         req.prepayId=charge["prepayid"].stringValue
                         WXApiManager.shared.payAlertController(self, request: req, paySuccess: {
-                            UIAlertController.showAlertYesNo(self, title:"", message:"下单成功,我们尽快帮您送货上门", cancelButtonTitle: "返回", okButtonTitle:"查看订单", okHandler: { (action) in
-                                self.pushOrderList(orderStatus:2)
-                            }, cancelHandler: { (action) in
-                                self.navigationController?.popViewController(animated:true)
-                            })
+                           self.checkOrder()
                         }, payFail: {
                             self.showSVProgressHUD(status:"支付失败", type: HUD.error)
                             self.navigationController?.popViewController(animated:true)
@@ -247,11 +260,7 @@ extension OrderConfirmViewController{
                     }else if payType == 2{
                         let orderString=json["charge"]["orderString"].stringValue
                         AliPayManager.shared.payAlertController(self, request:orderString, paySuccess: {
-                            UIAlertController.showAlertYesNo(self, title:"", message:"下单成功,我们尽快帮您送货上门", cancelButtonTitle: "返回", okButtonTitle:"查看订单", okHandler: { (action) in
-                                self.pushOrderList(orderStatus:2)
-                            }, cancelHandler: { (action) in
-                                self.navigationController?.popViewController(animated:true)
-                            })
+                            self.checkOrder()
                         }, payFail: {
                             self.showSVProgressHUD(status:"支付失败", type: HUD.error)
                             self.navigationController?.popViewController(animated:true)
@@ -276,6 +285,18 @@ extension OrderConfirmViewController{
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
+    ///获取用户余额
+    private func queryMemberBalanceMoney(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceMoney(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description)), successClosure: { (json) in
+            let success=json["success"].string
+            if success == "success"{
+                self.memberBalanceMoney=json["memberBalanceMoney"].double
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+
 }
 extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -285,9 +306,13 @@ extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
                 cell=UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier:"payId")
             }
             cell!.textLabel!.font=UIFont.systemFont(ofSize: 14)
+            cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:13)
             cell!.textLabel!.text=payTitle[indexPath.row]
             cell!.imageView!.image=UIImage.init(named:payImgArr[indexPath.row])?.reSizeImage(reSize: CGSize.init(width:30, height:30))
             cell!.accessoryType = .disclosureIndicator
+            if indexPath.row == 3{
+                cell!.detailTextLabel!.text="96折"
+            }
             return cell!
         }else{
             var cell=table.dequeueReusableCell(withIdentifier:"OrderConfirmTableViewCellId") as? OrderConfirmTableViewCell
@@ -335,7 +360,7 @@ extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
             view.addSubview(lblSelectedPayTitle)
             
             let lblPayPrice=UILabel.buildLabel(textColor:UIColor.color666(), font:13, textAlignment: NSTextAlignment.left)
-            lblPayPrice.text="支付金额:"
+            lblPayPrice.text="订单金额:"
             let lblPayPriceSize=lblPayPrice.text!.textSizeWithFont(font:lblPayPrice.font, constrainedToSize: CGSize.init(width:200, height: 20))
             lblPayPrice.frame=CGRect.init(x:lblSelectedPayTitle.frame.maxX+5, y:15, width:lblPayPriceSize.width, height:20)
             view.addSubview(lblPayPrice)
