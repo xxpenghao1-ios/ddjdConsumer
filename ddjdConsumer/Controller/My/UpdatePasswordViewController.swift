@@ -90,15 +90,15 @@ extension UpdatePasswordViewController{
         let newPwd=txtNewPwd.text
         let newPwds=txtNewPwds.text
         let oldPwd=txtOldPwd.text
-        if oldPwd == nil || oldPwd!.characters.count == 0{
+        if oldPwd == nil || oldPwd!.count == 0{
             self.showSVProgressHUD(status: "请输入原密码", type: HUD.info)
             return
         }
-        if newPwd == nil || newPwd!.characters.count == 0{
+        if newPwd == nil || newPwd!.count == 0{
             self.showSVProgressHUD(status: "新密码不能为空", type: HUD.info)
             return
         }
-        if newPwd!.characters.count < 6{
+        if newPwd!.count < 6{
             self.showSVProgressHUD(status: "新密码最少需要6位数", type: HUD.info)
             return
         }

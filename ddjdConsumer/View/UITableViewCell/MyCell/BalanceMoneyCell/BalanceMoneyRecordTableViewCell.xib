@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="BalanceMoneyRecordTableViewCellId" selectionStyle="default" indentationWidth="10" reuseIdentifier="BalanceMoneyRecordTableViewCellId" rowHeight="75" id="KGk-i7-Jjw" customClass="BalanceMoneyRecordTableViewCell" customModule="ddjdConsumer" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="369" height="75"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="369" height="74.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUq-Ac-bPE">
+                        <rect key="frame" x="15" y="15" width="42" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="KRH-rh-nQm"/>
+                            <constraint firstAttribute="height" constant="20" id="foq-fA-5ba"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCt-6C-Cb9">
+                        <rect key="frame" x="15" y="45" width="42" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="7e8-FJ-UHC"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="PFz-0v-GMO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpk-W5-epg">
+                        <rect key="frame" x="312" y="27.5" width="42" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="2HL-rX-9Dw"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" id="Oaa-Uh-Ia2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="HCt-6C-Cb9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Isb-gq-lKU"/>
+                    <constraint firstItem="Tpk-W5-epg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="NCG-nr-36W"/>
+                    <constraint firstItem="HCt-6C-Cb9" firstAttribute="top" secondItem="AUq-Ac-bPE" secondAttribute="bottom" constant="10" id="abe-S6-awb"/>
+                    <constraint firstItem="AUq-Ac-bPE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="eLg-pZ-E14"/>
+                    <constraint firstAttribute="trailing" secondItem="Tpk-W5-epg" secondAttribute="trailing" constant="15" id="f6R-dR-V7o"/>
+                    <constraint firstItem="AUq-Ac-bPE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="fDe-7B-f82"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblBalanceMoney" destination="Tpk-W5-epg" id="JN6-sA-w15"/>
+                <outlet property="lblBalanceMoneyType" destination="AUq-Ac-bPE" id="cQ1-Sh-lSP"/>
+                <outlet property="lblTime" destination="HCt-6C-Cb9" id="0gp-iA-91P"/>
+            </connections>
+            <point key="canvasLocation" x="-58.5" y="14.5"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -51,6 +51,7 @@
 		63351D601FB5CC93004B12A3 /* PayNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63351D5F1FB5CC93004B12A3 /* PayNetWork.swift */; };
 		63351D621FB69EAC004B12A3 /* LoginWithRegistrNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63351D611FB69EAC004B12A3 /* LoginWithRegistrNetWork.swift */; };
 		63351D641FB69EE2004B12A3 /* ReistrViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63351D631FB69EE2004B12A3 /* ReistrViewController.swift */; };
+		6337B6B21FFB1085007D2C12 /* SetThePaymentPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6337B6B11FFB1085007D2C12 /* SetThePaymentPasswordViewController.swift */; };
 		63395A781FE74FE4005EE80A /* OrderStatisticsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63395A771FE74FE4005EE80A /* OrderStatisticsEntity.swift */; };
 		63395A7C1FE7530B005EE80A /* OrderStatisticsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63395A7A1FE7530B005EE80A /* OrderStatisticsTableViewCell.swift */; };
 		63395A7D1FE7530B005EE80A /* OrderStatisticsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63395A7B1FE7530B005EE80A /* OrderStatisticsTableViewCell.xib */; };
@@ -60,6 +61,8 @@
 		633AC4671FCE8497009278D0 /* StoreEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633AC4661FCE8497009278D0 /* StoreEntity.swift */; };
 		633AC4691FCE9406009278D0 /* PriceComputationsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633AC4681FCE9405009278D0 /* PriceComputationsUtil.swift */; };
 		633C0B7B1FBBCE410054C215 /* GoodDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C0B7A1FBBCE410054C215 /* GoodDetailsViewController.swift */; };
+		633DF0BE1FF48CBA005285B9 /* PayAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF0BD1FF48CBA005285B9 /* PayAlertView.swift */; };
+		633DF0C11FF4DB14005285B9 /* BalanceMoneyTopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF0C01FF4DB14005285B9 /* BalanceMoneyTopUpViewController.swift */; };
 		633F39BF1FD62EDF00484E81 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F39BE1FD62EDF00484E81 /* UpdatePasswordViewController.swift */; };
 		6341B9BA1FD159710074787F /* Store.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6341B9B61FD159700074787F /* Store.storyboard */; };
 		6341B9BB1FD159710074787F /* LoginWithRegistr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6341B9B81FD159700074787F /* LoginWithRegistr.storyboard */; };
@@ -169,6 +172,10 @@
 		63F7C1191FCA5B0400C74544 /* OrderListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F7C1171FCA5B0400C74544 /* OrderListTableViewCell.swift */; };
 		63F7C11A1FCA5B0400C74544 /* OrderListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F7C1181FCA5B0400C74544 /* OrderListTableViewCell.xib */; };
 		63F7C11C1FCA5FB900C74544 /* OrderEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F7C11B1FCA5FB900C74544 /* OrderEntity.swift */; };
+		63F85F381FFDC64200759141 /* BalanceMoneyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F85F371FFDC64200759141 /* BalanceMoneyRecordViewController.swift */; };
+		63F85F3C1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F85F3A1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.swift */; };
+		63F85F3D1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F85F3B1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.xib */; };
+		63F85F3F1FFDFA7900759141 /* BalanceRecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F85F3E1FFDFA7900759141 /* BalanceRecordEntity.swift */; };
 		63F941C41FD8EA70007BB96A /* CategorySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F941C31FD8EA70007BB96A /* CategorySelectionViewController.swift */; };
 		63F941C61FD90525007BB96A /* NSNotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F941C51FD90525007BB96A /* NSNotificationName.swift */; };
 		63F9C8D01FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C8CF1FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift */; };
@@ -281,6 +288,7 @@
 		63351D5F1FB5CC93004B12A3 /* PayNetWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayNetWork.swift; sourceTree = "<group>"; };
 		63351D611FB69EAC004B12A3 /* LoginWithRegistrNetWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithRegistrNetWork.swift; sourceTree = "<group>"; };
 		63351D631FB69EE2004B12A3 /* ReistrViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReistrViewController.swift; sourceTree = "<group>"; };
+		6337B6B11FFB1085007D2C12 /* SetThePaymentPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetThePaymentPasswordViewController.swift; sourceTree = "<group>"; };
 		63395A771FE74FE4005EE80A /* OrderStatisticsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatisticsEntity.swift; sourceTree = "<group>"; };
 		63395A7A1FE7530B005EE80A /* OrderStatisticsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatisticsTableViewCell.swift; sourceTree = "<group>"; };
 		63395A7B1FE7530B005EE80A /* OrderStatisticsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderStatisticsTableViewCell.xib; sourceTree = "<group>"; };
@@ -292,6 +300,8 @@
 		633AC4661FCE8497009278D0 /* StoreEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEntity.swift; sourceTree = "<group>"; };
 		633AC4681FCE9405009278D0 /* PriceComputationsUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceComputationsUtil.swift; sourceTree = "<group>"; };
 		633C0B7A1FBBCE410054C215 /* GoodDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodDetailsViewController.swift; sourceTree = "<group>"; };
+		633DF0BD1FF48CBA005285B9 /* PayAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayAlertView.swift; sourceTree = "<group>"; };
+		633DF0C01FF4DB14005285B9 /* BalanceMoneyTopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceMoneyTopUpViewController.swift; sourceTree = "<group>"; };
 		633F39BE1FD62EDF00484E81 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		6341B9B71FD159700074787F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Store.storyboard; sourceTree = "<group>"; };
 		6341B9B91FD159700074787F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LoginWithRegistr.storyboard; sourceTree = "<group>"; };
@@ -412,6 +422,10 @@
 		63F7C1171FCA5B0400C74544 /* OrderListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListTableViewCell.swift; sourceTree = "<group>"; };
 		63F7C1181FCA5B0400C74544 /* OrderListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderListTableViewCell.xib; sourceTree = "<group>"; };
 		63F7C11B1FCA5FB900C74544 /* OrderEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEntity.swift; sourceTree = "<group>"; };
+		63F85F371FFDC64200759141 /* BalanceMoneyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceMoneyRecordViewController.swift; sourceTree = "<group>"; };
+		63F85F3A1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceMoneyRecordTableViewCell.swift; sourceTree = "<group>"; };
+		63F85F3B1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BalanceMoneyRecordTableViewCell.xib; sourceTree = "<group>"; };
+		63F85F3E1FFDFA7900759141 /* BalanceRecordEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceRecordEntity.swift; sourceTree = "<group>"; };
 		63F941C31FD8EA70007BB96A /* CategorySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionViewController.swift; sourceTree = "<group>"; };
 		63F941C51FD90525007BB96A /* NSNotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationName.swift; sourceTree = "<group>"; };
 		63F9C8CF1FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStoreGoodDetailViewController.swift; sourceTree = "<group>"; };
@@ -671,6 +685,7 @@
 				63BB8BCA1FC6908C003BB38D /* AlipaySDK.framework */,
 				63BB8BC71FC69070003BB38D /* AliSdkManager.swift */,
 				63351D571FB590F1004B12A3 /* WXApiManager.swift */,
+				633DF0BD1FF48CBA005285B9 /* PayAlertView.swift */,
 			);
 			path = pay;
 			sourceTree = "<group>";
@@ -693,6 +708,15 @@
 				63395A821FE786A6005EE80A /* NSDate+HooDatePicker.m */,
 			);
 			path = HooDatePicker;
+			sourceTree = "<group>";
+		};
+		633DF0BF1FF4DADF005285B9 /* BalanceMoney */ = {
+			isa = PBXGroup;
+			children = (
+				633DF0C01FF4DB14005285B9 /* BalanceMoneyTopUpViewController.swift */,
+				63F85F371FFDC64200759141 /* BalanceMoneyRecordViewController.swift */,
+			);
+			path = BalanceMoney;
 			sourceTree = "<group>";
 		};
 		63506DCB1F6A13D000DDBB15 /* UICollectionViewFlowLayout */ = {
@@ -745,6 +769,7 @@
 				63E497041FD93E8200DA0F05 /* GoodUploadEntity.swift */,
 				63395A771FE74FE4005EE80A /* OrderStatisticsEntity.swift */,
 				630594261FF0D1AA00FA303B /* TransferAccountSrecordEntity.swift */,
+				63F85F3E1FFDFA7900759141 /* BalanceRecordEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1091,6 +1116,7 @@
 		63D9CAC81FB92DB500414BC7 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				633DF0BF1FF4DADF005285B9 /* BalanceMoney */,
 				63FDDC461FD1480C001CD97E /* PurchaseHistory */,
 				63E1A3B51FC80964008AAD72 /* Order */,
 				63CC8E921FC0688D005C5FB6 /* MyNews */,
@@ -1101,6 +1127,7 @@
 				630000971FBC59CF0038FAA4 /* SettingViewController.swift */,
 				63A30C1D1FD275F8007E6D9F /* FeedbackViewController.swift */,
 				633F39BE1FD62EDF00484E81 /* UpdatePasswordViewController.swift */,
+				6337B6B11FFB1085007D2C12 /* SetThePaymentPasswordViewController.swift */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -1108,6 +1135,7 @@
 		63D9CACB1FB93DAD00414BC7 /* MyCell */ = {
 			isa = PBXGroup;
 			children = (
+				63F85F391FFDF77A00759141 /* BalanceMoneyCell */,
 				63F7C1161FCA5AE400C74544 /* OrderCell */,
 				63CC8E951FC06A22005C5FB6 /* NewsCell */,
 				63FA10901FC0637C009B6CB2 /* CollectCell */,
@@ -1230,6 +1258,15 @@
 				63F7C1181FCA5B0400C74544 /* OrderListTableViewCell.xib */,
 			);
 			path = OrderCell;
+			sourceTree = "<group>";
+		};
+		63F85F391FFDF77A00759141 /* BalanceMoneyCell */ = {
+			isa = PBXGroup;
+			children = (
+				63F85F3A1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.swift */,
+				63F85F3B1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.xib */,
+			);
+			path = BalanceMoneyCell;
 			sourceTree = "<group>";
 		};
 		63F9C9131FAB3BE700A3732D /* SpecialPrice */ = {
@@ -1590,6 +1627,7 @@
 				631595871F67797C000355C6 /* ShoppingCar.storyboard in Resources */,
 				63F6E7DC1FB7FA30009411E6 /* GoodClassifyTableViewCell.xib in Resources */,
 				6341B9BA1FD159710074787F /* Store.storyboard in Resources */,
+				63F85F3D1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.xib in Resources */,
 				637DD61E1F69203200D1BDD7 /* GoodCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1710,6 +1748,7 @@
 			files = (
 				63E8B2751FD3D05C003FCF1E /* FormCheckCell.swift in Sources */,
 				630A59081FE37C5B00C2B7E1 /* OrderStatisticsTextViewController.swift in Sources */,
+				6337B6B21FFB1085007D2C12 /* SetThePaymentPasswordViewController.swift in Sources */,
 				63FACD291FDA261A007678B8 /* LBXScanWrapper.swift in Sources */,
 				63F6E7D21FB7E738009411E6 /* GoodscategoryEntity.swift in Sources */,
 				632B57F61FDA3C0A008CE639 /* StoreGoodListViewController.swift in Sources */,
@@ -1726,6 +1765,7 @@
 				63E8B27E1FD3D05C003FCF1E /* FormTextFieldCell.swift in Sources */,
 				63741CD31F7897F500946979 /* WRCycleCell.swift in Sources */,
 				63E8B2741FD3D05C003FCF1E /* FormButtonCell.swift in Sources */,
+				63F85F381FFDC64200759141 /* BalanceMoneyRecordViewController.swift in Sources */,
 				6300009A1FBC63A70038FAA4 /* OrderConfirmViewController.swift in Sources */,
 				6316BAEE1FA95BD500D91BA1 /* publicView.swift in Sources */,
 				63D9CACA1FB92DC700414BC7 /* MyViewController.swift in Sources */,
@@ -1737,6 +1777,7 @@
 				6326552B1FC1A6B200559E66 /* StoreIndexCollectionViewCell.swift in Sources */,
 				63CC3D3D1FC2CBED00BDD724 /* GoodUploadViewController.swift in Sources */,
 				63F6E7D01FB7E298009411E6 /* GoodsClassificationViewController.swift in Sources */,
+				633DF0BE1FF48CBA005285B9 /* PayAlertView.swift in Sources */,
 				63FC077B1FD4F1ED00C24DF9 /* BindStoreListViewController.swift in Sources */,
 				63E8B2851FD3D05C003FCF1E /* FormSectionDescriptor.swift in Sources */,
 				63FACD251FDA261A007678B8 /* LBXScanNetAnimation.swift in Sources */,
@@ -1744,6 +1785,7 @@
 				63E8B27A1FD3D05C003FCF1E /* FormSelectorCell.swift in Sources */,
 				633AC4651FCE7EEA009278D0 /* StoreInfoNetWork.swift in Sources */,
 				6349FAF51FBBE58F00873C50 /* GoodNetWork.swift in Sources */,
+				63F85F3C1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.swift in Sources */,
 				63F6E7DB1FB7FA30009411E6 /* GoodClassifyTableViewCell.swift in Sources */,
 				63FA10931FC06394009B6CB2 /* MyCollectGoodTableViewCell.swift in Sources */,
 				63FACD181FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift in Sources */,
@@ -1808,7 +1850,9 @@
 				63351D621FB69EAC004B12A3 /* LoginWithRegistrNetWork.swift in Sources */,
 				63BB8BC51FC67A53003BB38D /* OtherSettingsViewController.swift in Sources */,
 				633AC4691FCE9406009278D0 /* PriceComputationsUtil.swift in Sources */,
+				633DF0C11FF4DB14005285B9 /* BalanceMoneyTopUpViewController.swift in Sources */,
 				63FA108C1FC05E0B009B6CB2 /* Image.swift in Sources */,
+				63F85F3F1FFDFA7900759141 /* BalanceRecordEntity.swift in Sources */,
 				63E8B2781FD3D05C003FCF1E /* FormPickerCell.swift in Sources */,
 				63FACAEF1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift in Sources */,
 				63F9C8D01FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift in Sources */,

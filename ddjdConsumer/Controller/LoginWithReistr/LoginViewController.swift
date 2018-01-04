@@ -125,6 +125,7 @@ extension LoginViewController{
                 userDefaults.set(memberEntity!.storeId, forKey:"storeId")
                 userDefaults.set(memberEntity!.bindstoreId, forKey:"bindstoreId")
                 userDefaults.set(memberEntity!.token,forKey:"token")
+                userDefaults.set(memberEntity!.payPw, forKey:"payPw")
                 userDefaults.synchronize()
                 self.dismissHUD {
                     //登录成功设置应用程序别名

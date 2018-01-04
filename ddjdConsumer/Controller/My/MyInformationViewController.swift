@@ -62,12 +62,14 @@ extension MyInformationViewController:UITableViewDelegate,UITableViewDataSource{
             cell!.detailTextLabel!.text=memberInfo!.nickName
         }else if indexPath.row == 1{
             cell!.textLabel!.text="修改密码"
+        }else if indexPath.row == 2{
+            cell!.textLabel!.text="修改支付密码"
         }
         
         return cell!
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
@@ -77,8 +79,11 @@ extension MyInformationViewController:UITableViewDelegate,UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0{
             showUpdateNickName()
-        }else{
-            let vc=storyboardPushView(type:.my, storyboardId:"UpdatePasswordVC") as! UpdatePasswordViewController
+        }else if indexPath.row == 1{
+            let vc=self.storyboardPushView(type:.my, storyboardId:"UpdatePasswordVC") as! UpdatePasswordViewController
+            self.navigationController?.pushViewController(vc, animated:true)
+        }else if indexPath.row == 2{
+            let vc=self.storyboardPushView(type:.my, storyboardId:"SetThePaymentPasswordVC") as! SetThePaymentPasswordViewController
             self.navigationController?.pushViewController(vc, animated:true)
         }
     }

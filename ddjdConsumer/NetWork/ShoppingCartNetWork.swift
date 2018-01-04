@@ -28,10 +28,10 @@ public enum CarApi{
     case queryCarSumMoney(memberId:Int)
     ///购物车全选或全不选  1. 全选，2 全不选
     case checkOrCanceAllShoppingCarGoods(memberId:Int,checkOrCance:Int)
-    // platform1.安卓 2. 苹果 3.其他  payType支付方式 1. 微信 2.支付宝
+    // platform1.安卓 2. 苹果 3.其他  payType支付方式 1. 微信 2.支付宝 4余额支付
     case saveOrder(memberId:Int,shipaddressId:Int,platform:Int,payType:Int,moblieSumPrice:String,payMessage:String)
     //待支付的订单支付
-    case pendingPaymentSubmit(orderId:Int,memberId:Int,platform:Int,payType:Int)
+    case pendingPaymentSubmit(orderId:Int,memberId:Int,platform:Int,payType:Int,memberbalancePaySumPrice:String)
     //确认收货
     case updateMemberOrderInfoStatusThe4(orderId:Int,memberId:Int)
     //取消订单
@@ -63,7 +63,7 @@ extension CarApi:TargetType{
             return "/front/shopCar/checkOrCanceAllShoppingCarGoods"
         case .saveOrder(_,_,_,_,_,_):
             return "/front/order/saveOrder"
-        case .pendingPaymentSubmit(_,_,_,_):
+        case .pendingPaymentSubmit(_,_,_,_,_):
             return "/front/order/pendingPaymentSubmit"
         case .updateMemberOrderInfoStatusThe4(_,_):
             return "/front/order/updateMemberOrderInfoStatusThe4"
@@ -74,7 +74,7 @@ extension CarApi:TargetType{
     
     public var method:Moya.Method {
         switch self {
-        case .getAllCarGood(_,_,_),.addCar(_,_,_),.clearCar(_),.removeCar(_,_),.changeCarNumForGoods(_,_),.chooseCarGoods(_,_),.queryCarSumMoney(_),.checkOrCanceAllShoppingCarGoods(_,_),.saveOrder(_,_,_,_,_,_),.pendingPaymentSubmit(_,_,_,_),.updateMemberOrderInfoStatusThe4(_,_),.removeOrder(_,_):
+        case .getAllCarGood(_,_,_),.addCar(_,_,_),.clearCar(_),.removeCar(_,_),.changeCarNumForGoods(_,_),.chooseCarGoods(_,_),.queryCarSumMoney(_),.checkOrCanceAllShoppingCarGoods(_,_),.saveOrder(_,_,_,_,_,_),.pendingPaymentSubmit(_,_,_,_,_),.updateMemberOrderInfoStatusThe4(_,_),.removeOrder(_,_):
             return .post
         case .queryShoppingCarGoodsSumCount(_,_):
             return .get
@@ -107,8 +107,8 @@ extension CarApi:TargetType{
             return .requestParameters(parameters:["memberId":memberId,"checkOrCance":checkOrCance],encoding: URLEncoding.default)
         case let .saveOrder(memberId, shipaddressId, platform, payType, moblieSumPrice,payMessage):
             return .requestParameters(parameters:["memberId":memberId,"shipaddressId":shipaddressId,"platform":platform,"payType":payType,"moblieSumPrice":moblieSumPrice,"payMessage":payMessage], encoding: URLEncoding.default)
-        case let .pendingPaymentSubmit(orderId, memberId, platform, payType):
-            return .requestParameters(parameters:["orderId":orderId,"memberId":memberId,"platform":platform,"payType":payType], encoding:URLEncoding.default)
+        case let .pendingPaymentSubmit(orderId, memberId, platform, payType,memberbalancePaySumPrice):
+            return .requestParameters(parameters:["orderId":orderId,"memberId":memberId,"platform":platform,"payType":payType,"memberbalancePaySumPrice":memberbalancePaySumPrice], encoding:URLEncoding.default)
         case let .updateMemberOrderInfoStatusThe4(orderId, memberId):
             return .requestParameters(parameters:["orderId":orderId,"memberId":memberId], encoding: URLEncoding.default)
         case let .removeOrder(orderId, memberId):

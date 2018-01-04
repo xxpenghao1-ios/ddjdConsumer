@@ -19,9 +19,9 @@ class MyViewController:BaseViewController{
     //会员名称
     private var lblMemberName:UILabel!
     //名称数组
-    private let nameArr=["我的信息","地址管理","我的收藏","购买历史","意见反馈","解绑门店","我的门店"]
+    private let nameArr=["我的信息","余额明细","地址管理","我的收藏","购买历史","意见反馈","解绑门店","我的门店"]
     //图片数组
-    private let imgArr=["my_info","my_address","my_sc","my_history","my_opinion","my_relieve_store","my_store"]
+    private let imgArr=["my_info","my_balance_record","my_address","my_sc","my_history","my_opinion","my_relieve_store","my_store"]
     //订单名称
     private let orderNameArr=["全部","待付款","待发货","待收货","已完成"]
     //订单图标
@@ -32,9 +32,10 @@ class MyViewController:BaseViewController{
     private var forTheGoodsOrderCount=0
     //待发货订单数量
     private var toSendTheGoodsOrderCount=0
-    private var navBarHairlineImageView:UIImageView?
     //用于header背景拉伸效果
     private var topView:UIView!
+    //会员vip标识图片
+    private var vipImg:UIImageView!
     ///保存会员信息
     private var memberEntity:MemberEntity?{
         willSet{
@@ -44,24 +45,26 @@ class MyViewController:BaseViewController{
                 }else{//如果没有显示会员账号
                     lblMemberName.text=newValue!.account
                 }
+                let memberNameSize=lblMemberName.text!.textSizeWithFont(font:UIFont.systemFont(ofSize:15), constrainedToSize: CGSize.init(width:300, height: 20))
+                lblMemberName.frame=CGRect.init(x:(boundsWidth-30-memberNameSize.width)/2, y: memberImg.frame.maxY+10,width: memberNameSize.width, height:20)
+                vipImg.frame=CGRect.init(x:lblMemberName.frame.origin.x-20, y:  memberImg.frame.maxY+10, width:20, height:20)
             }
         }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setUpNavColor()
+        self.setUpNavColor()
         getMember()
         queryOrderNum()
-        queryMemberBalanceMoney()
+        queryMemberIsVip()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        reinstateNavColor()
+        self.reinstateNavColor()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor=UIColor.viewBackgroundColor()
-        navBarHairlineImageView=self.findNavLineImageViewOn(self.navigationController!.navigationBar)
         setUpView()
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -93,22 +96,6 @@ extension MyViewController{
        //消息按钮
         self.navigationItem.rightBarButtonItem=UIBarButtonItem(image:UIImage(named:"news")!.reSizeImage(reSize:CGSize(width:25, height: 25)), style: UIBarButtonItemStyle.done, target:self, action:#selector(pushNewsVC))
     }
-    //设置导航栏颜色
-    private func setUpNavColor(){
-        //改掉导航栏黑线颜色
-        self.navigationController?.navigationBar.shadowImage=UIImage.imageFromColor(UIColor.applicationMainColor())
-        self.navigationController?.navigationBar.barTintColor=UIColor.applicationMainColor()
-        self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.white, forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
-        self.navigationController?.navigationBar.tintColor=UIColor.white
-    }
-    //恢复导航栏颜色
-    private func reinstateNavColor(){
-        //恢复导航栏黑线颜色
-        self.navigationController?.navigationBar.shadowImage=nil
-        self.navigationController?.navigationBar.tintColor=UIColor.applicationMainColor()
-        self.navigationController?.navigationBar.barTintColor=UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.applicationMainColor(), forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
-    }
     //table头部
     private func setHeaderView() -> UIView{
         let view=UIView(frame:CGRect(x:0, y:0, width:boundsWidth, height:275))
@@ -134,8 +121,11 @@ extension MyViewController{
         infoView.addSubview(memberImg)
         //会员名称
         lblMemberName=UILabel.buildLabel(textColor:UIColor.color333(), font:15, textAlignment: NSTextAlignment.center)
-        lblMemberName.frame=CGRect(x:0, y:memberImg.frame.maxY+10,width: infoView.frame.width,height:20)
         infoView.addSubview(lblMemberName)
+        //vip图片
+        vipImg=UIImageView()
+        infoView.addSubview(vipImg)
+
         //订单视图
         //初始化UICollectionViewFlowLayout.init对象
         let flowLayout = UICollectionViewFlowLayout.init()
@@ -188,29 +178,33 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
             self.pushVC(vc:vc)
             break
         case 1:
-            let vc=self.storyboardPushView(type:.my, storyboardId:"AddressListVC") as! AddressListViewController
+            let vc=self.storyboardPushView(type:.my, storyboardId:"BalanceMoneyRecordVC") as! BalanceMoneyRecordViewController
             self.pushVC(vc:vc)
             break
         case 2:
-            let vc=self.storyboardPushView(type:.my, storyboardId:"MyCollectGoodVC") as! MyCollectGoodViewController
+            let vc=self.storyboardPushView(type:.my, storyboardId:"AddressListVC") as! AddressListViewController
             self.pushVC(vc:vc)
             break
         case 3:
+            let vc=self.storyboardPushView(type:.my, storyboardId:"MyCollectGoodVC") as! MyCollectGoodViewController
+            self.pushVC(vc:vc)
+            break
+        case 4:
             let vc=self.storyboardPushView(type:.my, storyboardId:"PurchaseHistoryVC") as! PurchaseHistoryViewController
             self.pushVC(vc: vc)
             break
-        case 4:
+        case 5:
             let vc=self.storyboardPushView(type:.my, storyboardId:"FeedbackVC") as! FeedbackViewController
             self.pushVC(vc:vc)
             break
-        case 5:
+        case 6:
             var storeName=userDefaults.object(forKey:"storeName") as? String
             storeName=storeName ?? ""
             UIAlertController.showAlertYesNo(self, title:"", message:"解除绑定后将会需要重新登录并绑定门店,您确定要与[\(storeName!)]解除绑定?", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
                 self.unBindStore()
             })
             break
-        case 6:
+        case 7:
             let vc=self.storyboardPushView(type:.store, storyboardId:"StoreIndexVC") as! StoreIndexViewController
             self.pushVC(vc:vc)
             break
@@ -354,19 +348,17 @@ extension MyViewController{
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
-    private func queryMemberBalanceMoney(){
-//        let timeFormatter = DateFormatter()
-//        timeFormatter.dateFormat = "yyyy-MM-dd"
-//        let strNowTime = timeFormatter.string(from:Date())
-//        let data=Date().timeIntervalSince1970 * 1000
-//        print(data)
-//        print(Int(data))
-//
-//
-//        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceMoney(timestamp:Int(data).description, token:"137d9eb5d4274c86827189e104dfcab2", publicKey:"ddjdc_request", sign:DDJDCSign.shared.getSign(dic:["timestamp":Int(data).description])), successClosure: { (json) in
-//            print(json)
-//        }) { (error) in
-//            self.showSVProgressHUD(status:error!, type: HUD.error)
-//        }
+    ///查询会员是否vip
+    private func queryMemberIsVip(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberbindrechargepaymenttools(memberId:MEMBERID), successClosure: { (json) in
+            let payType=json["payType"].intValue
+            if payType != 0{
+                if self.vipImg != nil{
+                    self.vipImg.image=UIImage.init(named:"member_vip")
+                }
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
     }
 }

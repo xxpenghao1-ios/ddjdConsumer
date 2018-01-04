@@ -56,32 +56,47 @@ class OrderDetailsViewController:BaseViewController{
     private var orderEntity:OrderDetailsEntity?{
         willSet{
             if newValue != nil{
+                ///收货人姓名
                 lblShippName.text=newValue!.shippName
+                ///电话
                 lblTel.text=newValue!.tel
+                ///地址
                 lblAddress.text=newValue!.shipaddress
-                lblPayMode.text=newValue!.payType==1 ? "微信支付":"支付宝支付"
+                if newValue!.payType == 4{
+                    lblPayMode.text="余额支付"
+                    ///计算优惠价
+                    let preferentialTreatment=PriceComputationsUtil.decimalNumberWithString(multiplierValue:(newValue!.orderOriginalPrice ?? 0).description, multiplicandValue:(newValue!.orderPrice ?? 0).description, type: ComputationsType.subtraction, position:2)
+                    lblPreferentialTreatment.text="￥\(preferentialTreatment)"
+                }else{
+                    lblPayMode.text=newValue!.payType==1 ? "微信支付":"支付宝支付"
+                    lblPreferentialTreatment.text="￥0.0"
+                }
+                ///订单编号
                 lblOrderSN.text=newValue!.orderSN
+                ///下单时间
                 lblOrderTime.text=newValue!.addTime
+                ///是否有留言
                 if newValue!.payMessage != nil && newValue!.payMessage! != ""{
                     lblBuyerMessage.text=newValue!.payMessage
                 }else{
                     lblBuyerMessage.text="无"
                 }
-                lblPreferentialTreatment.text="￥0.0"
                 if deliveryFee == 0{//如果配送费为0 隐藏
                     lblDeliveryFee.isHidden=true
                 }else{
                     lblDeliveryFee.text="配送费\(deliveryFee)元"
                 }
                 newValue!.goodsAmount=newValue!.goodsAmount ?? 0
+                ///商品数量
                 let goodSumCountStr="共计\(newValue!.goodsAmount!)件商品"
                 lblGoodSumCount.attributedText=UILabel.setAttributedText(str:goodSumCountStr, textColor:UIColor.applicationMainColor(), font:14, range: NSRange.init(location:2, length:goodSumCountStr.count-5))
-                
+
+                ///商品实付价格
                 newValue!.orderPrice=newValue!.orderPrice ?? 0.0
-                let subtotalStr="小计:￥\(newValue!.orderPrice!)"
+                let subtotalStr="实付:￥\(newValue!.orderPrice!)"
                 lblSubtotal.attributedText=UILabel.setAttributedText(str:subtotalStr, textColor:UIColor.applicationMainColor(), font:14, range: NSRange.init(location:3, length:subtotalStr.count-3))
-                
-                lblSumPrice.text="￥\(newValue!.orderPrice!)"
+                ///商品原价
+                lblSumPrice.text="￥\(newValue!.orderOriginalPrice ?? 0.0)"
                 if newValue!.orderStatus == 1{
                     lblOrderState.text="待付款"
                     lblOrderStateTime.text="订单失效时间:"

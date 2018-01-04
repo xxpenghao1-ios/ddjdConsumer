@@ -17,12 +17,22 @@ class OrderListViewController:BaseViewController{
     private var orderArr=[OrderEntity]()
     private var pageNumber=1
     //支付方式图片
-    private var payImgArr=["wx","alipay"]
-    private var payTitle=["微信支付","支付宝支付"]
+    private var payImgArr=["wx","alipay","balance_money"]
+    private var payTitle=["微信支付","支付宝支付","余额支付"]
+    ///保存用户余额
+    private var memberBalanceMoney:Double?
+    ///保存平台折扣
+    private var memberDiscount:Int?
+    //获取配送费
+    private var deliveryFee=userDefaults.object(forKey:"deliveryFee") as? Int ?? 0
     //支付透明view
     private var payView:UIView!
     //支付table
     private var payTableView:UITableView!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        queryMemberBalanceMoney()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
@@ -328,20 +338,37 @@ extension OrderListViewController{
         }
     }
     
-    ///去付款
-    private func payOrder(payType:Int,orderId:Int){
+    ///去付款 payType 1微信支付 2支付宝支付 4余额支付
+    private func payOrder(payType:Int,orderId:Int,memberbalancePaySumPrice:String){
         self.showSVProgressHUD(status:"正在加载中...", type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.pendingPaymentSubmit(orderId:orderId, memberId:MEMBERID, platform: 2, payType:payType), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.pendingPaymentSubmit(orderId:orderId, memberId:MEMBERID, platform: 2, payType:payType,memberbalancePaySumPrice:memberbalancePaySumPrice), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
                 self.dismissHUD {
-                    let orderString=json["charge"]["orderString"].stringValue
-                    AliPayManager.shared.payAlertController(self, request:orderString, paySuccess: {
-                        //跳转到下一页面
-                        self.pageSelectIndexClosure?(2)
-                    }, payFail: {
-                        self.showSVProgressHUD(status:"支付失败", type: HUD.error)
-                    })
+                    if payType == 1{//微信支付
+                        let charge=json["charge"]
+                        let req=PayReq()
+                        req.timeStamp=charge["timestamp"].uInt32Value
+                        req.partnerId=charge["partnerid"].stringValue
+                        req.package=charge["package"].stringValue
+                        req.nonceStr=charge["noncestr"].stringValue
+                        req.sign=charge["sign"].stringValue
+                        req.prepayId=charge["prepayid"].stringValue
+                        WXApiManager.shared.payAlertController(self, request: req, paySuccess: {
+                            self.showSuccess()
+                        }, payFail: {
+                            self.showSVProgressHUD(status:"支付失败", type: HUD.error)
+                        })
+                    }else if payType == 2{//支付宝支付
+                        let orderString=json["charge"]["orderString"].stringValue
+                        AliPayManager.shared.payAlertController(self, request:orderString, paySuccess: {
+                            self.showSuccess()
+                        }, payFail: {
+                            self.showSVProgressHUD(status:"支付失败", type: HUD.error)
+                        })
+                    }else if payType == 4{//余额支付
+                        self.showSuccess()
+                    }
                 }
             }else if success == "notExist"{
                 self.showSVProgressHUD(status:"订单不存在", type: HUD.error)
@@ -353,6 +380,13 @@ extension OrderListViewController{
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
+    }
+    ///谈出成功提示
+    private func showSuccess(){
+        UIAlertController.showAlertYes(self, title:"", message:"支付成功", okButtonTitle:"确定", okHandler: { (action) in
+            //跳转到下一页面
+            self.pageSelectIndexClosure?(2)
+        })
     }
     ///取消订单
     private func removeOrder(orderId:Int){
@@ -387,6 +421,18 @@ extension OrderListViewController{
             self.showSVProgressHUD(status:error!, type: .error)
         }
     }
+    ///获取用户余额
+    private func queryMemberBalanceMoney(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceMoney(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description)), successClosure: { (json) in
+            let success=json["success"].string
+            if success == "success"{
+                self.memberBalanceMoney=json["memberBalanceMoney"].double
+                self.memberDiscount=json["memberDiscount"].int
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
 }
 ///table协议
 extension OrderListViewController:UITableViewDelegate,UITableViewDataSource{
@@ -394,12 +440,19 @@ extension OrderListViewController:UITableViewDelegate,UITableViewDataSource{
         if tableView.tag != 100{//支付
             var cell=payTableView.dequeueReusableCell(withIdentifier:"payId")
             if cell == nil{
-                cell=UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier:"payId")
+                cell=UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier:"payId")
             }
             cell!.textLabel!.font=UIFont.systemFont(ofSize: 14)
             cell!.textLabel!.text=payTitle[indexPath.row]
+            cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:13)
             cell!.imageView!.image=UIImage.init(named:payImgArr[indexPath.row])?.reSizeImage(reSize: CGSize.init(width:30, height:30))
             cell!.accessoryType = .disclosureIndicator
+            if indexPath.row == 2{
+                if self.memberDiscount != nil{
+                    cell!.textLabel!.text=payTitle[indexPath.row]+"(\(self.memberDiscount!)折)"
+                }
+                cell!.detailTextLabel!.text="(剩余￥\(self.memberBalanceMoney ?? 0))"
+            }
             return cell!
         }else{//订单
             var cell=table.dequeueReusableCell(withIdentifier:"orderId") as? OrderListTableViewCell
@@ -496,11 +549,61 @@ extension OrderListViewController:UITableViewDelegate,UITableViewDataSource{
             //取消选中效果颜色
             tableView.deselectRow(at: indexPath, animated: true)
             if indexPath.row == 0{
-                self.payOrder(payType:1, orderId:entity.orderId ?? 0)
+                self.payOrder(payType:1, orderId:entity.orderId ?? 0, memberbalancePaySumPrice:entity.orderPrice!.description)
             }else if indexPath.row == 1{
-                self.payOrder(payType:2, orderId:entity.orderId ?? 0)
+                self.payOrder(payType:2, orderId:entity.orderId ?? 0, memberbalancePaySumPrice:entity.orderPrice!.description)
+            }else if indexPath.row == 2{
+                self.balanceMoneyPay(entity:entity)
             }
             self.hidePayView()
+        }
+    }
+}
+///余额支付
+extension OrderListViewController{
+    ///余额支付
+    private func balanceMoneyPay(entity:OrderEntity){
+        ///计算折扣价
+        var memberDiscountPrice=PriceComputationsUtil.decimalNumberWithString(multiplierValue:(entity.orderPrice ?? 0.0).description, multiplicandValue:(Double(memberDiscount ?? 100)/100).description,type:ComputationsType.multiplication,position:2)
+        ///加上配送费
+        memberDiscountPrice=PriceComputationsUtil.decimalNumberWithString(multiplierValue:memberDiscountPrice, multiplicandValue:deliveryFee.description, type: ComputationsType.addition, position:2)
+        if self.memberBalanceMoney == nil || self.memberBalanceMoney! < Double(memberDiscountPrice)!{//如果余额为空 或者余额小于支付金额 需要用户去充值
+            let vc=self.storyboardPushView(type:.my, storyboardId:"BalanceMoneyTopUpVC") as! BalanceMoneyTopUpViewController
+            self.navigationController?.pushViewController(vc, animated:true)
+        }else{//去支付
+            ///获取支付密码
+            let payPw=userDefaults.object(forKey:"payPw") as? String
+            if payPw == nil{//提示用户设置支付密码
+                UIAlertController.showAlertYesNo(self, title:"温馨提示", message:"您还没有设置支付密码,为确保您余额安全,请设置支付密码。", cancelButtonTitle:"取消",okButtonTitle:"设置支付密码", okHandler: { (action) in
+                    let vc=self.storyboardPushView(type:.my, storyboardId:"SetThePaymentPasswordVC") as! SetThePaymentPasswordViewController
+                    self.navigationController?.pushViewController(vc, animated:true)
+                },cancelHandler:{ (action) in
+
+                })
+            }else{//输入支付密码
+                self.showPayAlert(payPw:payPw,orderId:entity.orderId ?? 0,memberDiscountPrice:memberDiscountPrice)
+            }
+        }
+    }
+
+    /// 输入支付密码
+    ///
+    /// - Parameter payPw:本地支付密码
+    private func showPayAlert(payPw:String?,orderId:Int,memberDiscountPrice:String){
+        let payAlert = PayAlert.init(frame:UIScreen.main.bounds,price:memberDiscountPrice,view:self.view)
+        payAlert.completeBlock = {(password) -> Void in
+            ///密码*2 MD5加密 转大写
+            let pw=(Int(password)!*2).description.MD5().uppercased()
+            if pw != payPw{
+                UIAlertController.showAlertYesNo(self, title:"", message:"支付密码错误,请重试", cancelButtonTitle:"忘记密码", okButtonTitle:"重试", okHandler: { (action) in
+                    self.showPayAlert(payPw:payPw, orderId:orderId, memberDiscountPrice:memberDiscountPrice)
+                }, cancelHandler: { (action) in
+                    let vc=self.storyboardPushView(type:.my, storyboardId:"SetThePaymentPasswordVC") as! SetThePaymentPasswordViewController
+                    self.navigationController?.pushViewController(vc, animated:true)
+                })
+            }else{//支付密码输入正确
+                self.payOrder(payType:4,orderId:orderId,memberbalancePaySumPrice: memberDiscountPrice)
+            }
         }
     }
 }

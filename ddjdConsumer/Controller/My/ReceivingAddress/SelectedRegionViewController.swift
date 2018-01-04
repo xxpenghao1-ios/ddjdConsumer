@@ -28,16 +28,22 @@ class SelectedRegionViewController:BaseViewController{
     fileprivate var geoCode:BMKGeoCodeSearch?;
     //用经纬度反编译成地址信息
     fileprivate var option:BMKReverseGeoCodeOption!;
+    //判断页面是否是push到下一页 还是返回上一页  true push到下一页
+    private var isPush=false
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated);
         bmkMapView?.viewWillAppear()
+        isPush=false
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         bmkMapView?.viewWillDisappear()
-        bmkMapView?.delegate=nil
-        locService?.delegate = nil
-        geoCode?.delegate=nil;
+        if isPush == false{//如果是返回上一页 清除百度地图协议
+            bmkMapView?.delegate=nil
+            locService?.delegate = nil
+            geoCode?.delegate=nil;
+        }
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,6 +161,7 @@ extension SelectedRegionViewController:UITextFieldDelegate{
             }
         }
         self.navigationController?.pushViewController(vc, animated:true)
+        isPush=true
     }
 }
 ///table协议
@@ -187,7 +194,6 @@ extension SelectedRegionViewController:UITableViewDelegate,UITableViewDataSource
         let entity=addressArr[indexPath.row]
         if entity.lat != nil && entity.lon != nil{
             self.poiAddressInfoClosure?(entity)
-            
             self.navigationController?.popViewController(animated:true)
         }
     }

@@ -32,14 +32,6 @@ class StoreIndexViewController:BaseViewController{
 }
 ///设置页面
 extension StoreIndexViewController{
-    //设置导航栏颜色
-    private func setUpNavColor(){
-        self.navigationController?.navigationBar.barTintColor=UIColor.applicationMainColor()
-        self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.white, forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
-        self.navigationController?.navigationBar.tintColor=UIColor.white
-        //改掉导航栏黑线颜色
-        self.navigationController?.navigationBar.shadowImage=UIImage.imageFromColor(UIColor.applicationMainColor())
-    }
     private func setUpView(){
         collection.layer.cornerRadius=10
         //初始化UICollectionViewFlowLayout.init对象

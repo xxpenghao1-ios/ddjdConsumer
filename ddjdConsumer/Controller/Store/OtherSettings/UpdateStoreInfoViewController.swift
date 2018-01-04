@@ -126,13 +126,16 @@ extension UpdateStoreInfoViewController{
         SVProgressHUD.setDefaultMaskType(.clear)
 
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.updateStoreInfo(storeId:STOREID, storeMsg:nil, tel:tel, distributionScope:Int(distributionScope ?? ""),lowestMoney:Int(lowestMoney ?? ""), distributionStartTime:distributionStartTimeDate, distributionEndTime:distributionEndTimeDate), successClosure: { (json) in
-            print(json)
             let success=json["success"].stringValue
 
             if success == "success"{
                 SVProgressHUD.showSuccess(withStatus:"修改成功")
                 SVProgressHUD.setDefaultMaskType(.none)
                 self.navigationController?.popViewController(animated:true)
+                if self.type == 1{
+                    userDefaults.set(Int(lowestMoney ?? ""), forKey:"lowestMoney")
+                    userDefaults.synchronize()
+                }
             }else{
                 self.showError(withStatus:"修改失败")
             }

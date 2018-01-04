@@ -65,8 +65,7 @@ extension ShoppingCarViewController{
         //默认隐藏结算view
         self.bottomView.isHidden=true
         self.btnClearing.addTarget(self, action:#selector(toClearing), for: UIControlEvents.touchUpInside)
-        
-        lblSendPrice.text="\(sendPrice)元起送"
+
     }
     private func showClearCarRightBarButtonItem(){
         self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(title:"清空", style: UIBarButtonItemStyle.done, target:self, action: #selector(clearCar))
@@ -223,6 +222,7 @@ extension ShoppingCarViewController{
             }else{
                 self.btnClearing.disable() //不可点击
             }
+            self.lblSendPrice.text="\(self.sendPrice)元起送"
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }

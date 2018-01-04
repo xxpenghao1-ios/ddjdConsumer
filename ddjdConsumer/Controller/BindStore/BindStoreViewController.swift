@@ -33,21 +33,6 @@ class BindStoreViewController:BaseViewController{
         btnManualOperationBind.layer.borderColor=UIColor.white.cgColor
         btnManualOperationBind.addTarget(self, action:#selector(searchBindStore), for: UIControlEvents.touchUpInside)
     }
-    //设置导航栏颜色
-    private func setUpNavColor(){
-        self.navigationController?.navigationBar.barTintColor=UIColor.applicationMainColor()
-        self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.white, forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
-        self.navigationController?.navigationBar.tintColor=UIColor.white
-        self.navigationController?.navigationBar.shadowImage=UIImage.imageFromColor(UIColor.applicationMainColor())
-    }
-    //恢复导航栏颜色
-    private func reinstateNavColor(){
-        self.navigationController?.navigationBar.tintColor=UIColor.applicationMainColor()
-        self.navigationController?.navigationBar.barTintColor=UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes=NSDictionary(object:UIColor.applicationMainColor(), forKey:NSAttributedStringKey.foregroundColor as NSCopying) as? [NSAttributedStringKey : Any]
-        //恢复导航栏黑线颜色
-        self.navigationController?.navigationBar.shadowImage=nil
-    }
     ///扫码绑定店铺
     @objc private func sweepCodeBindStore(){
         let vc=ScanCodeGetBarcodeViewController()

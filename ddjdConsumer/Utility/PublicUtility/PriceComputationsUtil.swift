@@ -8,17 +8,17 @@
 
 import Foundation
 public enum ComputationsType{
-    //加
+    ///加
     case addition
-    //减
+    ///减
     case subtraction
-    //乘
+    ///乘
     case multiplication
-    //除
+    ///除
     case division
 }
 class PriceComputationsUtil: NSObject {
-    /// 货币计算,向上取整
+    /// 货币计算,向零方向舍入的舍入模式。从不对舍弃部分前面的数字加 1（即截尾）。注意，此舍入模式始终不会增加计算值的绝对值。
     ///
     /// - Parameters:
     ///   - multiplierValue: value1
@@ -31,7 +31,7 @@ class PriceComputationsUtil: NSObject {
         let multiplicandNumber = NSDecimalNumber.init(string: multiplicandValue)
         
         let roundingBehavior = NSDecimalNumberHandler.init(
-            roundingMode: NSDecimalNumber.RoundingMode.up,
+            roundingMode: NSDecimalNumber.RoundingMode.down,
             scale: Int16(position),
             raiseOnExactness: false,
             raiseOnOverflow: false,

@@ -191,7 +191,7 @@
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3uZ-s1-2jE">
                                         <rect key="frame" x="0.0" y="193" width="275" height="45"/>
-                                        <color key="backgroundColor" red="0.98188108210000002" green="0.96966427560000001" blue="0.9689583182" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.98039215686274506" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="MlV-L0-E84"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="YeK-9h-gLa"/>

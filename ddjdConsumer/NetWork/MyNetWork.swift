@@ -46,6 +46,11 @@ public enum MyApi{
     case memberRechargeBalance(parameters:[String:Any])
     ///会员余额记录
     case queryMemberBalanceRecord(parameters:[String:Any])
+    ///修改支付密码
+    case updateMemberBalancePayPassword(parameters:[String:Any])
+    ///查询会员绑定的充值支付工具 memberId 查询会员绑定的充值支付工具 ; 如果没有绑定，就可以使用全部的支付方式充值； 如果有绑定，就只能使用绑定的支付工具充值；如：炮神今天第一次充值，页面提示可以用支付宝和微信，他使用了微信充值了500元， 那么，以后他每次充值都将只能使用微信进行充值，将看不到支付宝充值的按钮；
+    case queryMemberbindrechargepaymenttools(memberId:Int)
+
 
 }
 extension MyApi:TargetType{
@@ -85,21 +90,25 @@ extension MyApi:TargetType{
             return "/front/member/updatePwd"
         case .saveQuestionsorsuggestions(_,_,_,_):
             return "/front/questionsOrSuggestions/saveQuestionsorsuggestions"
-        case .queryMemberBalanceMoney(_,_,_,_):
+        case .queryMemberBalanceMoney(_):
             return "/front/memberBalance/queryMemberBalanceMoney"
         case .memberRechargeBalance(_):
             return "/front/memberBalance/memberRechargeBalance"
         case .queryMemberBalanceRecord(_):
-            return "/front/memberBalance/queryMemberBalanceMoney"
+            return "/front/memberBalance/queryMemberBalanceRecord"
+        case .updateMemberBalancePayPassword(_):
+            return "/front/memberBalance/updateMemberBalancePayPassword"
+        case .queryMemberbindrechargepaymenttools(_):
+            return "/front/memberBalance/queryMemberbindrechargepaymenttools"
             
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_,_,_,_),.queryMemberBalanceRecord(_):
+        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_),.queryMemberBalanceRecord(_),.queryMemberbindrechargepaymenttools(_):
             return .get
-        case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_),.bindStore(_,_),.unBindStore(_),.updatePwd(_,_,_),.saveQuestionsorsuggestions(_,_,_,_),.memberRechargeBalance(_):
+        case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_),.bindStore(_,_),.unBindStore(_),.updatePwd(_,_,_),.saveQuestionsorsuggestions(_,_,_,_),.memberRechargeBalance(_),.updateMemberBalancePayPassword(_):
             return .post
         }
     }
@@ -117,42 +126,62 @@ extension MyApi:TargetType{
             }else{
                 return .requestParameters(parameters:["lat":lat,"lon":lon,"address":address,"detailAddress":detailAddress,"shippName":shippName,"phoneNumber":phoneNumber,"memberId":memberId,"shippAddressId":shippAddressId!,"defaultFlag":defaultFlag], encoding: URLEncoding.default)
             }
+
         case let .queryRegion(pid):
             return .requestParameters(parameters:["pid":pid], encoding: URLEncoding.default)
+
         case let .delShippaddress(memberId, shippAddressId):
             return .requestParameters(parameters:["memberId":memberId,"shippAddressId":shippAddressId], encoding: URLEncoding.default)
+
         case let .queryOrderPaginate(memberId, orderStatus, pageSize, pageNumber):
             return .requestParameters(parameters:["memberId":memberId,"orderStatus":orderStatus,"pageSize":pageSize,"pageNumber":pageNumber], encoding: URLEncoding.default)
+
         case let .queryOrderById(orderId):
             return .requestParameters(parameters:["orderId":orderId], encoding: URLEncoding.default)
+
         case let .queryOrderNum(memberId):
             return .requestParameters(parameters:["memberId":memberId], encoding: URLEncoding.default)
+
         case let .pendingPaymentSubmit(orderId, memberId, platform, payType):
             return .requestParameters(parameters:["orderId":orderId,"memberId":memberId,"platform":platform,"payType":payType], encoding:URLEncoding.default)
+
         case let .setDefault(memberId, shippAddressId):
             return .requestParameters(parameters:["memberId":memberId,"shippAddressId":shippAddressId], encoding: URLEncoding.default)
+
         case let .getMember(memberId):
             return .requestParameters(parameters:["memberId":memberId], encoding: URLEncoding.default)
+
         case let .updateHeadportraiturl(memberId, headportraiturl, nickName):
             if headportraiturl != nil{
                 return .requestParameters(parameters:["memberId":memberId,"headportraiturl":headportraiturl!], encoding: URLEncoding.default)
             }else{
                 return .requestParameters(parameters:["memberId":memberId,"nickName":nickName!], encoding: URLEncoding.default)
             }
+
         case let .bindStore(memberId, bindstoreId):
             return .requestParameters(parameters:["memberId":memberId,"bindstoreId":bindstoreId], encoding: URLEncoding.default)
+
         case let .unBindStore(memberId):
             return .requestParameters(parameters:["memberId":memberId], encoding: URLEncoding.default)
+
         case let .updatePwd(memberId, oldpassword, password):
             return .requestParameters(parameters:["memberId":memberId,"oldpassword":oldpassword,"password":password], encoding: URLEncoding.default)
+
         case let .saveQuestionsorsuggestions(memberId, questionsOrSuggestionsType, questionsOrSuggestionsText, questionsOrSuggestionsPic):
             return .requestParameters(parameters:["memberId":memberId,"questionsOrSuggestionsType":questionsOrSuggestionsType,"questionsOrSuggestionsText":questionsOrSuggestionsText,"questionsOrSuggestionsPic":questionsOrSuggestionsPic], encoding: URLEncoding.default)
-        case let .queryMemberBalanceMoney(timestamp, token, publicKey, sign):
-            return .requestParameters(parameters:["timestamp":timestamp,"token":token,"publicKey":publicKey,"sign":sign], encoding: URLEncoding.default)
+
+        case let .queryMemberBalanceMoney(parameters):
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+
         case let .memberRechargeBalance(parameters):
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+
         case let .queryMemberBalanceRecord(parameters):
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+        case let .updateMemberBalancePayPassword(parameters):
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+        case let .queryMemberbindrechargepaymenttools(memberId):
+            return .requestParameters(parameters:["memberId":memberId], encoding: URLEncoding.default)
         }
     }
     

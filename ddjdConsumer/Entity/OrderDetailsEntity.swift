@@ -42,12 +42,14 @@ class OrderDetailsEntity:Mappable {
     var payType:Int?
     ///订单完成日期
     var finishedTime:String?
-    ///  '订单总价
+    /// '订单总价
     var orderPrice:Double?
     ///  收货人电话
     var tel:String?
     ///留言
     var payMessage:String?
+    /// 订单原价
+    var orderOriginalPrice:Double?
     init(){}
     required init?(map: Map) {
         mapping(map:map)
@@ -73,5 +75,6 @@ class OrderDetailsEntity:Mappable {
         orderPrice <- map["orderPrice"]
         tel <- map["tel"]
         payMessage <- map["payMessage"]
+        orderOriginalPrice <- map["orderOriginalPrice"]
     }
 }

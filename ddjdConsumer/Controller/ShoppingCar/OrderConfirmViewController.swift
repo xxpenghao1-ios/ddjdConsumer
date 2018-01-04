@@ -50,6 +50,8 @@ class OrderConfirmViewController:BaseViewController{
     private var payTableView:UITableView!
     ///保存用户余额
     private var memberBalanceMoney:Double?
+    ///保存平台折扣
+    private var memberDiscount:Int?
     //保存当前地址信息
     private var addressEntity:ShippAddressEntity?{
         willSet{
@@ -232,11 +234,12 @@ extension OrderConfirmViewController{
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
-    //下单 payType 1微信支付 2支付宝
-    private func payOrder(payType:Int){
+    //下单 payType 1微信支付 2支付宝 4余额
+    private func payOrder(payType:Int,sumPrice:String){
         self.showSVProgressHUD(status:"请稍后...", type: HUD.textClear)
         let payMessage=txtMessage.text ?? ""
-        let moblieSumPrice=PriceComputationsUtil.decimalNumberWithString(multiplierValue: sumPrice!, multiplicandValue:"\(deliveryFee)", type: ComputationsType.addition, position:2)
+        ///加上配送费
+        let moblieSumPrice=PriceComputationsUtil.decimalNumberWithString(multiplierValue: sumPrice,multiplicandValue:"\(deliveryFee)", type: ComputationsType.addition, position:2)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.saveOrder(memberId:MEMBERID, shipaddressId:addressEntity!.shippAddressId!, platform:2, payType:payType, moblieSumPrice:moblieSumPrice,payMessage:payMessage), successClosure: { (json) in
             print(json)
             let success=json["success"].stringValue
@@ -265,6 +268,8 @@ extension OrderConfirmViewController{
                             self.showSVProgressHUD(status:"支付失败", type: HUD.error)
                             self.navigationController?.popViewController(animated:true)
                         })
+                    }else if payType == 4{
+                        self.checkOrder()
                     }
                 }
             }else if success == "orderRepeat"{
@@ -289,29 +294,81 @@ extension OrderConfirmViewController{
     private func queryMemberBalanceMoney(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceMoney(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description)), successClosure: { (json) in
             let success=json["success"].string
+            print(json)
             if success == "success"{
                 self.memberBalanceMoney=json["memberBalanceMoney"].double
+                self.memberDiscount=json["memberDiscount"].int
+                if self.payTableView != nil{
+                    self.payTableView.reloadData()
+                }
             }
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
+    ///余额支付
+    private func balanceMoneyPay(){
+        ///计算折扣价
+        var memberDiscountPrice=PriceComputationsUtil.decimalNumberWithString(multiplierValue:sumPrice!, multiplicandValue:(Double(memberDiscount ?? 100)/100).description,type:ComputationsType.multiplication,position:2)
+        ///加上配送费
+        memberDiscountPrice=PriceComputationsUtil.decimalNumberWithString(multiplierValue:memberDiscountPrice, multiplicandValue:deliveryFee.description, type: ComputationsType.addition, position:2)
+        if self.memberBalanceMoney == nil || self.memberBalanceMoney! < Double(memberDiscountPrice)!{//如果余额为空 或者余额小于支付金额 需要用户去充值
+            let vc=self.storyboardPushView(type:.my, storyboardId:"BalanceMoneyTopUpVC") as! BalanceMoneyTopUpViewController
+            self.navigationController?.pushViewController(vc, animated:true)
+        }else{//去支付
+            ///获取支付密码
+            let payPw=userDefaults.object(forKey:"payPw") as? String
+            if payPw == nil{//提示用户设置支付密码
+                UIAlertController.showAlertYesNo(self, title:"温馨提示", message:"您还没有设置支付密码,为确保您余额安全,请设置支付密码。", cancelButtonTitle:"取消",okButtonTitle:"设置支付密码", okHandler: { (action) in
+                    let vc=self.storyboardPushView(type:.my, storyboardId:"SetThePaymentPasswordVC") as! SetThePaymentPasswordViewController
+                    self.navigationController?.pushViewController(vc, animated:true)
+                },cancelHandler:{ (action) in
+                    
+                })
+            }else{//输入支付密码
+                self.showPayAlert(payPw:payPw, memberDiscountPrice:memberDiscountPrice)
+            }
+        }
+    }
 
+    /// 输入支付密码
+    ///
+    /// - Parameter payPw:本地支付密码
+    private func showPayAlert(payPw:String?,memberDiscountPrice:String){
+        let payAlert = PayAlert.init(frame:UIScreen.main.bounds,price:memberDiscountPrice,view:self.view)
+        payAlert.completeBlock = {(password) -> Void in
+            ///密码*2 MD5加密 转大写
+            let pw=(Int(password)!*2).description.MD5().uppercased()
+            if pw != payPw{
+                UIAlertController.showAlertYesNo(self, title:"", message:"支付密码错误,请重试", cancelButtonTitle:"忘记密码", okButtonTitle:"重试", okHandler: { (action) in
+                    self.showPayAlert(payPw:payPw, memberDiscountPrice:memberDiscountPrice)
+                }, cancelHandler: { (action) in
+                    let vc=self.storyboardPushView(type:.my, storyboardId:"SetThePaymentPasswordVC") as! SetThePaymentPasswordViewController
+                    self.navigationController?.pushViewController(vc, animated:true)
+                })
+            }else{//支付密码输入正确
+                self.payOrder(payType:4,sumPrice:memberDiscountPrice)
+            }
+        }
+    }
 }
 extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == 100{
             var cell=payTableView.dequeueReusableCell(withIdentifier:"payId")
             if cell == nil{
-                cell=UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier:"payId")
+                cell=UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier:"payId")
             }
             cell!.textLabel!.font=UIFont.systemFont(ofSize: 14)
             cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:13)
             cell!.textLabel!.text=payTitle[indexPath.row]
             cell!.imageView!.image=UIImage.init(named:payImgArr[indexPath.row])?.reSizeImage(reSize: CGSize.init(width:30, height:30))
             cell!.accessoryType = .disclosureIndicator
-            if indexPath.row == 3{
-                cell!.detailTextLabel!.text="96折"
+            if indexPath.row == 2{
+                if self.memberDiscount != nil{
+                    cell!.textLabel!.text=payTitle[indexPath.row]+"(\(self.memberDiscount!)折)"
+                }
+                cell!.detailTextLabel!.text="(剩余￥\(self.memberBalanceMoney ?? 0))"
             }
             return cell!
         }else{
@@ -342,10 +399,12 @@ extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
         //取消选中效果颜色
         tableView.deselectRow(at: indexPath, animated: true)
         if tableView.tag == 100{
-            if indexPath.row == 0{
-                self.payOrder(payType:1)
-            }else if indexPath.row == 1{
-                self.payOrder(payType:2)
+            if indexPath.row == 0{//微信支付
+                self.payOrder(payType:1, sumPrice:self.sumPrice!)
+            }else if indexPath.row == 1{//支付宝支付
+                self.payOrder(payType:2, sumPrice:self.sumPrice!)
+            }else if indexPath.row == 2{//余额支付
+                self.balanceMoneyPay()
             }
             self.hidePayView()
         }
@@ -354,13 +413,13 @@ extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
         if tableView.tag == 100{
             let view=UIView(frame: CGRect.zero)
             let lblSelectedPayTitle=UILabel.buildLabel(textColor: UIColor.black, font:15, textAlignment: NSTextAlignment.left)
-            lblSelectedPayTitle.text="请选择支付方式"
+            lblSelectedPayTitle.text="选择支付方式"
             let lblSelectedPayTitleSize=lblSelectedPayTitle.text!.textSizeWithFont(font:lblSelectedPayTitle.font, constrainedToSize: CGSize.init(width:200, height: 20))
             lblSelectedPayTitle.frame=CGRect.init(x:15, y:15, width:lblSelectedPayTitleSize.width, height:20)
             view.addSubview(lblSelectedPayTitle)
             
             let lblPayPrice=UILabel.buildLabel(textColor:UIColor.color666(), font:13, textAlignment: NSTextAlignment.left)
-            lblPayPrice.text="订单金额:"
+            lblPayPrice.text="金额:"
             let lblPayPriceSize=lblPayPrice.text!.textSizeWithFont(font:lblPayPrice.font, constrainedToSize: CGSize.init(width:200, height: 20))
             lblPayPrice.frame=CGRect.init(x:lblSelectedPayTitle.frame.maxX+5, y:15, width:lblPayPriceSize.width, height:20)
             view.addSubview(lblPayPrice)
