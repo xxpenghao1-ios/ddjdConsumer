@@ -46,6 +46,8 @@ class BalanceMoneyRecordViewController:BaseViewController{
     }
     //跳转到提现页面
     @IBAction func pushWithdrawal(_ sender: UIButton) {
+        let vc=self.storyboardPushView(type:.my, storyboardId:"BalanceMoneyWithdrawalVC") as! BalanceMoneyWithdrawalViewController
+        self.navigationController?.pushViewController(vc,animated:true)
     }
 
 

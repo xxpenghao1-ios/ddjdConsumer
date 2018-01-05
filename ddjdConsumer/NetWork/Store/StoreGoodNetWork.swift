@@ -36,6 +36,10 @@ public enum StoreGoodApi{
     case addIndexGoods(storeAndGoodsId:Int,storeId:Int,sort:Int)
     ///删除首页商品
     case removeIndexGoods(storeAndGoodsId:Int,storeId:Int)
+    ///添加促销商品
+    case addPromotiongoods(storeAndGoodsId:Int,storeId:Int,promotionStartTime:String,promotionEndTime:String,promotionMsg:String,promotionStock:Int)
+    ///移除店铺促销商品
+    case removePromotiongoods(storeAndGoodsId:Int,storeId:Int)
     
     
 }
@@ -72,12 +76,16 @@ extension StoreGoodApi:TargetType{
             return "/front/storeAndGoods/addIndexGoods"
         case .removeIndexGoods(_,_):
             return "/front/storeAndGoods/removeIndexGoods"
+        case .addPromotiongoods(_,_,_,_,_,_):
+            return "/front/promotiongoods/addPromotiongoods"
+        case .removePromotiongoods(_,_):
+            return "/front/promotiongoods/removePromotiongoods"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods(_,_),.addIndexGoods(_,_,_),.removeIndexGoods(_,_):
+        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods(_,_),.addIndexGoods(_,_,_),.removeIndexGoods(_,_),.addPromotiongoods(_,_,_,_,_,_),.removePromotiongoods(_,_):
             return .post
         case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_),.queryStoreAndGoodsDetail(_,_),.queryGoodsInfoList_store(_,_,_,_,_),.queryGoodsInfoByGoodsId_store(_):
             return .get
@@ -126,6 +134,10 @@ extension StoreGoodApi:TargetType{
             return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId,"sort":sort],encoding: URLEncoding.default)
         case let .removeIndexGoods(storeAndGoodsId, storeId):
             return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId],encoding: URLEncoding.default)
+        case let .addPromotiongoods(storeAndGoodsId, storeId, promotionStartTime, promotionEndTime, promotionMsg, promotionStock):
+            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId,"promotionStartTime":promotionStartTime,"promotionEndTime":promotionEndTime,"promotionMsg":promotionMsg,"promotionStock":promotionStock], encoding: URLEncoding.default)
+        case let .removePromotiongoods(storeAndGoodsId, storeId):
+            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId], encoding: URLEncoding.default)
         }
         
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 import AVFoundation
-///扫码获取条形码 或2二维码
+///扫码获取条形码 或二维码
 class ScanCodeGetBarcodeViewController:LBXScanViewController,LBXScanViewControllerDelegate{
     ///有值获取二维码 否则条形码
     var flag:Int?
@@ -20,10 +20,10 @@ class ScanCodeGetBarcodeViewController:LBXScanViewController,LBXScanViewControll
     override func viewDidLoad() {
         super.viewDidLoad()
         if flag == nil{
-            self.title="获取条形码"
+            self.title="扫描条形码"
             self.arrayCodeType=[AVMetadataObject.ObjectType.ean13,AVMetadataObject.ObjectType.ean8,AVMetadataObject.ObjectType.code128,AVMetadataObject.ObjectType.code39,AVMetadataObject.ObjectType.code93]
         }else{
-            self.title="获取二维码"
+            self.title="扫描二维码"
             self.arrayCodeType=[AVMetadataObject.ObjectType.qr]
         }
         //设置扫码区域参数
@@ -37,6 +37,8 @@ class ScanCodeGetBarcodeViewController:LBXScanViewController,LBXScanViewControll
         style.anmiationStyle = LBXScanViewAnimationStyle.NetGrid;
         //使用的支付宝里面网格图片
         style.animationImage = UIImage(named: "CodeScan.bundle/qrcode_scan_part_net");
+        //4个角的颜色
+        style.colorAngle = UIColor.applicationMainColor()
         self.scanStyle=style
         self.isOpenInterestRect = true
         self.scanResultDelegate=self
@@ -50,7 +52,7 @@ class ScanCodeGetBarcodeViewController:LBXScanViewController,LBXScanViewControll
                 self.codeInfoClosure?(scanResult.strScanned)
             }
         }
-        self.navigationController?.popViewController(animated:true)
+        self.navigationController? .popViewController(animated: true)
     }
     //设置导航栏颜色
     private func setUpNavColor(){

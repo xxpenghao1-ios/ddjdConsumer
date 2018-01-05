@@ -35,17 +35,29 @@ class BindStoreViewController:BaseViewController{
     }
     ///扫码绑定店铺
     @objc private func sweepCodeBindStore(){
-        let vc=ScanCodeGetBarcodeViewController()
-        vc.flag=1
-        vc.codeInfoClosure={ (str) in
-            if str != nil{
-                let arr=str!.components(separatedBy:"_")
-                if arr.count > 2{
-                    self.bindStore(bindstoreId:Int(arr[2])!)
+        LBXPermissions.authorizeCameraWith { [weak self] (granted) in
+            if granted
+            {
+                if let strongSelf = self
+                {
+                    let vc=ScanCodeGetBarcodeViewController()
+                    vc.flag=1
+                    vc.codeInfoClosure={ (str) in
+                        if str != nil{
+                            let arr=str!.components(separatedBy:"_")
+                            if arr.count > 2{
+                                strongSelf.bindStore(bindstoreId:Int(arr[2])!)
+                            }
+                        }
+                    }
+                    strongSelf.navigationController?.pushViewController(vc, animated:true)
                 }
             }
+            else
+            {
+                LBXPermissions.jumpToSystemPrivacySetting()
+            }
         }
-        self.navigationController?.pushViewController(vc, animated:true)
     }
     ///搜索绑定店铺
     @objc private func searchBindStore(){

@@ -24,6 +24,10 @@ public enum GoodApi{
     case getAllCollection(memberId:Int,pageSize:Int,pageNumber:Int)
     ///历史购买
     case getGoodsOfBuyed(memberId:Int,pageSize:Int,pageNumber:Int)
+    ///通过商品条码查询商品id
+    case queryGoodsByGoodsCode(goodsCode:String)
+    ///查询促销商品列表
+    case queryPromotiongoodsPaginate(memberId:Int,bindstoreId:Int,pageNumber:Int,pageSize:Int,salesCountFlag:Int?,priceFlag:Int?)
     
 }
 extension GoodApi:TargetType{
@@ -50,12 +54,16 @@ extension GoodApi:TargetType{
             return "/front/collection/getAllCollection"
         case .getGoodsOfBuyed(_,_,_):
             return "/front/goods/getGoodsOfBuyed"
+        case .queryGoodsByGoodsCode(_):
+            return "/front/goods/queryGoodsByGoodsCode"
+        case .queryPromotiongoodsPaginate(_,_,_,_,_,_):
+            return "front/promotiongoods/queryPromotiongoodsPaginate"
         }
     }
     ///请求方式
     public var method:Moya.Method{
         switch  self {
-        case .getGoodsDetail(_,_,_),.searchGood(_,_,_,_,_,_,_),.goodListByCategoryId(_,_,_,_,_,_,_),.getAllCollection(_,_,_),.getGoodsOfBuyed(_,_,_):
+        case .getGoodsDetail(_,_,_),.searchGood(_,_,_,_,_,_,_),.goodListByCategoryId(_,_,_,_,_,_,_),.getAllCollection(_,_,_),.getGoodsOfBuyed(_,_,_),.queryGoodsByGoodsCode(_),.queryPromotiongoodsPaginate(_,_,_,_,_,_):
             return .get
         case .addCollection(_,_),.removeCollection(_,_):
             return .post
@@ -90,6 +98,10 @@ extension GoodApi:TargetType{
             return .requestParameters(parameters:["memberId":memberId,"pageSize":pageSize,"pageNumber":pageNumber], encoding: URLEncoding.default)
         case let .getGoodsOfBuyed(memberId, pageSize, pageNumber):
             return .requestParameters(parameters:["memberId":memberId,"pageSize":pageSize,"pageNumber":pageNumber], encoding: URLEncoding.default)
+        case let .queryGoodsByGoodsCode(goodsCode):
+            return .requestParameters(parameters:["goodsCode":goodsCode], encoding: URLEncoding.default)
+        case let .queryPromotiongoodsPaginate(memberId, bindstoreId, pageNumber, pageSize, salesCountFlag, priceFlag):
+            return .requestParameters(parameters:["memberId":memberId,"bindstoreId":bindstoreId,"pageNumber":pageNumber,"pageSize":pageSize,"salesCountFlag":salesCountFlag ?? "","priceFlag":priceFlag ?? ""],encoding:URLEncoding.default)
         }
     }
 }

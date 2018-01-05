@@ -63,24 +63,15 @@ open class LBXScanViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     override open func viewDidAppear(_ animated: Bool) {
+        
         super.viewDidAppear(animated)
-        LBXPermissions.authorizeCameraWith { [weak self] (granted) in
-            if granted
-            {
-                if let strongSelf = self
-                {
-                    strongSelf.drawScanView()
-                    strongSelf.perform(#selector(LBXScanViewController.startScan), with: nil, afterDelay: 0.3)
-                }
-            }
-            else
-            {
-                UIAlertController.showAlertYes(self, title:"温馨提示", message:"请前往设置-隐私-相机-YH城乡惠允许使用相机", okButtonTitle:"确定", okHandler: {  Void in
-                    self?.navigationController?.popViewController(animated: true)
-                })
-            }
-        }
+        
+        drawScanView()
+       
+        perform(#selector(LBXScanViewController.startScan), with: nil, afterDelay: 0.3)
+        
     }
+    
     @objc open func startScan()
     {
    
@@ -95,7 +86,7 @@ open class LBXScanViewController: UIViewController, UIImagePickerControllerDeleg
             //指定识别几种码
             if arrayCodeType == nil
             {
-                arrayCodeType = [AVMetadataObject.ObjectType.qr,AVMetadataObject.ObjectType.ean13,AVMetadataObject.ObjectType.ean8,AVMetadataObject.ObjectType.code128,AVMetadataObject.ObjectType.code39,AVMetadataObject.ObjectType.code93]
+                arrayCodeType = [AVMetadataObject.ObjectType.qr,AVMetadataObject.ObjectType.ean13,AVMetadataObject.ObjectType.code128]
             }
             
             scanObj = LBXScanWrapper(videoPreView: self.view,objType:arrayCodeType!, isCaptureImg: isNeedCodeImage,cropRect:cropRect, success: { [weak self] (arrayResult) -> Void in
@@ -138,7 +129,6 @@ open class LBXScanViewController: UIViewController, UIImagePickerControllerDeleg
     open func handleCodeResult(arrayResult:[LBXScanResult])
     {
         if let delegate = scanResultDelegate  {
-
             let result:LBXScanResult = arrayResult[0]
             
             delegate.scanFinished(scanResult: result, error: nil)

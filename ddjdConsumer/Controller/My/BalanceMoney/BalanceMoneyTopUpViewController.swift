@@ -40,6 +40,7 @@ class BalanceMoneyTopUpViewController:BaseViewController{
         txtBalanceMoneyTopUp.keyboardType=UIKeyboardType.numberPad;
         txtBalanceMoneyTopUp.layer.cornerRadius=45/2
         txtBalanceMoneyTopUp.backgroundColor=UIColor.white
+        txtBalanceMoneyTopUp.delegate=self
         //不为空，且在编辑状态时（及获得焦点）显示清空按钮
         txtBalanceMoneyTopUp.clearButtonMode=UITextFieldViewMode.whileEditing;
         //左视图
@@ -49,10 +50,12 @@ class BalanceMoneyTopUpViewController:BaseViewController{
         txtBalanceMoneyTopUpLeft.addSubview(txtBalanceMoneyTopUpLeftImg)
         txtBalanceMoneyTopUp.leftView=txtBalanceMoneyTopUpLeft
         txtBalanceMoneyTopUp.leftViewMode=UITextFieldViewMode.always;
+        txtBalanceMoneyTopUp.addTarget(self, action:#selector(textFieldDidChange), for: UIControlEvents.editingChanged)
 
 
         btnSubmit.addTarget(self, action:#selector(submit), for: UIControlEvents.touchUpInside)
         btnSubmit.layer.cornerRadius=40/2
+        btnSubmit.disable()
     }
     @objc private func submit(){
         let rechargeMoney=txtBalanceMoneyTopUp.text
@@ -178,6 +181,17 @@ extension BalanceMoneyTopUpViewController{
             self.payType=json["payType"].intValue
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+}
+
+extension BalanceMoneyTopUpViewController:UITextFieldDelegate{
+    //监听输入
+    @objc func textFieldDidChange(_ textField:UITextField){
+        if textField.text != nil && textField.text != ""{
+            btnSubmit.enable()
+        }else{
+            btnSubmit.disable()
         }
     }
 }

@@ -13,7 +13,6 @@ import AssetsLibrary
 
 
 
-
 class LBXPermissions: NSObject {
 
     //MARK: ----获取相册权限
@@ -49,29 +48,28 @@ class LBXPermissions: NSObject {
             comletion(false)
             break;
         case AVAuthorizationStatus.notDetermined:
+
             AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted:Bool) in
                 comletion(granted)
             })
-            break
         }
     }
     
     //MARK:跳转到APP系统设置权限界面
     static func jumpToSystemPrivacySetting()
     {
-        let appSetting=Foundation.URL(string:UIApplicationOpenSettingsURLString)
+        let appSetting = URL(string:UIApplicationOpenSettingsURLString)
+        
         if appSetting != nil
         {
             if #available(iOS 10, *) {
-                let options = [UIApplicationOpenURLOptionUniversalLinksOnly : true]
-                DispatchQueue.main.async{
-                    UIApplication.shared.open(appSetting!, options:options, completionHandler: nil)
-                }
+                UIApplication.shared.open(appSetting!, options: [:], completionHandler:{
+                    (success) in
+                    print(success)
+                })
             }
             else{
-                DispatchQueue.main.async{
-                    UIApplication.shared.openURL(appSetting!)
-                }
+                UIApplication.shared.openURL(appSetting!)
             }
         }
     }

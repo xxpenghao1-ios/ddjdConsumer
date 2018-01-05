@@ -44,11 +44,24 @@ class VerifyThatTheBarcodeExistsViewController:BaseViewController{
     }
     ///跳转到扫码获取条形码页面
     @objc private func pushScanCodeVC(){
-        let vc=ScanCodeGetBarcodeViewController()
-        vc.codeInfoClosure={ (code) in
-            self.txtCode.text=code
+        LBXPermissions.authorizeCameraWith { [weak self] (granted) in
+
+            if granted
+            {
+                if let strongSelf = self
+                {
+                    let vc=ScanCodeGetBarcodeViewController()
+                    vc.codeInfoClosure={ (code) in
+                        strongSelf.txtCode.text=code
+                    }
+                    strongSelf.navigationController?.pushViewController(vc, animated:true)
+                }
+            }
+            else
+            {
+                LBXPermissions.jumpToSystemPrivacySetting()
+            }
         }
-        self.navigationController?.pushViewController(vc, animated:true)
     }
     @IBAction func submit(_ sender: UIButton) {
         queryGoodsCodeIsExist()

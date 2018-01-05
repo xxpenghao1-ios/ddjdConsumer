@@ -26,6 +26,7 @@ class SearchViewController:BaseViewController{
         if collectionView != nil{
             updateCollectionView()
         }
+        self.reinstateNavColor()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -177,14 +178,30 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
 extension SearchViewController:UITextFieldDelegate{
     ///跳转到扫码页面
     @objc private func pushSweepCodeVC(){
-        self.showSVProgressHUD(status:"点击了", type: HUD.info)
+        LBXPermissions.authorizeCameraWith { [weak self] (granted) in
+            if granted
+            {
+                if let strongSelf = self
+                {
+                    let vc=ScanCodeGetBarcodeViewController()
+                    vc.codeInfoClosure={ (str) in
+                        strongSelf.queryGoodsByGoodsCode(goodsCode:str ?? "")
+                    }
+                    strongSelf.navigationController?.pushViewController(vc, animated:true)
+                }
+            }
+            else
+            {
+                LBXPermissions.jumpToSystemPrivacySetting()
+            }
+        }
     }
     //搜索商品
     @objc private func searchGood() {
         //保存搜索记录arr
         var searchArr:[String]?;
-        if  txtSearch.text != nil && txtSearch.text!.characters.count > 0{//判断搜索条件是否为空
-            if txtSearch.text!.check().characters.count == 0{
+        if  txtSearch.text != nil && txtSearch.text!.count > 0{//判断搜索条件是否为空
+            if txtSearch.text!.check().count == 0{
                 self.showSVProgressHUD(status:"亲不能输入表情等特殊字符", type: HUD.info)
                 return
             }else{
@@ -255,3 +272,25 @@ extension SearchViewController:UITextFieldDelegate{
     }
 }
 
+// MARK: - 网络请求
+extension SearchViewController{
+
+    /// 通过商品条码查询商品id
+    ///
+    /// - Parameter goodsCode: 条形码
+    private func queryGoodsByGoodsCode(goodsCode:String){
+        self.showSVProgressHUD(status:"正在加载...", type: HUD.textClear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.queryGoodsByGoodsCode(goodsCode:goodsCode), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                let goodId=json["goodsId"].intValue
+                let vc=self.storyboardPushView(type: .index, storyboardId:"GoodDetailsVC") as! GoodDetailsViewController
+                vc.storeAndGoodsId=goodId
+                self.navigationController?.pushViewController(vc, animated:true)
+            }
+            self.dismissHUD()
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+}

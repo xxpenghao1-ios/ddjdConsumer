@@ -178,8 +178,8 @@ extension IndexViewController:UICollectionViewDelegate,UICollectionViewDataSourc
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.tag == 1{
-            if indexPath.item == 1{//跳转特价区
-                let vc=SpecialPriceListViewController()
+            if indexPath.item == 1{//跳转促销区
+                let vc=PromotionListViewController()
                 vc.hidesBottomBarWhenPushed=true
                 self.navigationController?.pushViewController(vc, animated:true)
             }else if indexPath.item == 2{//跳转到订单

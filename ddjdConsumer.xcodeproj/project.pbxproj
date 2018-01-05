@@ -41,6 +41,7 @@
 		632D817C1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632D817A1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.xib */; };
 		632D817E1FEBB1D800E4A89A /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 632D817D1FEBB1D800E4A89A /* libresolv.tbd */; };
 		632FB4311FE9F20C0007B86C /* GoodPublicLibraryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632FB4301FE9F20C0007B86C /* GoodPublicLibraryListViewController.swift */; };
+		63312D6C1FFF663C00512177 /* PromotionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63312D6B1FFF663C00512177 /* PromotionListViewController.swift */; };
 		6331FD001FA876A700D850EC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331FCFF1FA876A700D850EC /* SearchViewController.swift */; };
 		633366E21FB54F4B00809F98 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633366E11FB54F4B00809F98 /* LoginViewController.swift */; };
 		63351D551FB5799B004B12A3 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63351D541FB5799B004B12A3 /* UIButton.swift */; };
@@ -75,7 +76,6 @@
 		636925B71F5FFEA1007EFDB7 /* JPUSHService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636925B61F5FFEA1007EFDB7 /* JPUSHService.swift */; };
 		6371F0A01FECB3FE0080B269 /* HotGoodListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6371F09F1FECB3FE0080B269 /* HotGoodListViewController.swift */; };
 		63741CCB1F7683CC00946979 /* PHTransitionFromFirstToSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63741CCA1F7683CC00946979 /* PHTransitionFromFirstToSecond.swift */; };
-		63741CCE1F7685DA00946979 /* GoodSpecialPromotionsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63741CCD1F7685DA00946979 /* GoodSpecialPromotionsDetailsViewController.swift */; };
 		63741CD31F7897F500946979 /* WRCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63741CD01F7897F500946979 /* WRCycleCell.swift */; };
 		63741CD41F7897F500946979 /* WRCycleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63741CD11F7897F500946979 /* WRCycleScrollView.swift */; };
 		63741CD51F7897F500946979 /* WRProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63741CD21F7897F500946979 /* WRProxy.swift */; };
@@ -210,6 +210,7 @@
 		63FC077B1FD4F1ED00C24DF9 /* BindStoreListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FC077A1FD4F1ED00C24DF9 /* BindStoreListViewController.swift */; };
 		63FC077F1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FC077D1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift */; };
 		63FC07801FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63FC077E1FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib */; };
+		63FCA2A21FFF1DC700DF834C /* BalanceMoneyWithdrawalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCA2A11FFF1DC700DF834C /* BalanceMoneyWithdrawalViewController.swift */; };
 		63FCB5C61FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCB5C51FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m */; };
 		63FD229B1FE0B23F001CF142 /* PageStoreOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD229A1FE0B23F001CF142 /* PageStoreOrderListViewController.swift */; };
 		63FD229D1FE0B33E001CF142 /* StoreOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD229C1FE0B33E001CF142 /* StoreOrderListViewController.swift */; };
@@ -278,6 +279,7 @@
 		632D817A1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoodPublicLibraryListTableViewCell.xib; sourceTree = "<group>"; };
 		632D817D1FEBB1D800E4A89A /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		632FB4301FE9F20C0007B86C /* GoodPublicLibraryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodPublicLibraryListViewController.swift; sourceTree = "<group>"; };
+		63312D6B1FFF663C00512177 /* PromotionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionListViewController.swift; sourceTree = "<group>"; };
 		6331FCFF1FA876A700D850EC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		633366E11FB54F4B00809F98 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		63351D541FB5799B004B12A3 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
@@ -316,7 +318,6 @@
 		636925B61F5FFEA1007EFDB7 /* JPUSHService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPUSHService.swift; sourceTree = "<group>"; };
 		6371F09F1FECB3FE0080B269 /* HotGoodListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotGoodListViewController.swift; sourceTree = "<group>"; };
 		63741CCA1F7683CC00946979 /* PHTransitionFromFirstToSecond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHTransitionFromFirstToSecond.swift; sourceTree = "<group>"; };
-		63741CCD1F7685DA00946979 /* GoodSpecialPromotionsDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodSpecialPromotionsDetailsViewController.swift; sourceTree = "<group>"; };
 		63741CD01F7897F500946979 /* WRCycleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleCell.swift; sourceTree = "<group>"; };
 		63741CD11F7897F500946979 /* WRCycleScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleScrollView.swift; sourceTree = "<group>"; };
 		63741CD21F7897F500946979 /* WRProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRProxy.swift; sourceTree = "<group>"; };
@@ -461,6 +462,7 @@
 		63FC077A1FD4F1ED00C24DF9 /* BindStoreListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindStoreListViewController.swift; sourceTree = "<group>"; };
 		63FC077D1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindStoreListTableViewCell.swift; sourceTree = "<group>"; };
 		63FC077E1FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BindStoreListTableViewCell.xib; sourceTree = "<group>"; };
+		63FCA2A11FFF1DC700DF834C /* BalanceMoneyWithdrawalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceMoneyWithdrawalViewController.swift; sourceTree = "<group>"; };
 		63FCB5C41FC27AE6005B96D8 /* UIViewController+BackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackButtonHandler.h"; sourceTree = "<group>"; };
 		63FCB5C51FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackButtonHandler.m"; sourceTree = "<group>"; };
 		63FD229A1FE0B23F001CF142 /* PageStoreOrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStoreOrderListViewController.swift; sourceTree = "<group>"; };
@@ -659,6 +661,14 @@
 			path = GoodPublicLibrary;
 			sourceTree = "<group>";
 		};
+		63312D6A1FFF661900512177 /* Promotion */ = {
+			isa = PBXGroup;
+			children = (
+				63312D6B1FFF663C00512177 /* PromotionListViewController.swift */,
+			);
+			path = Promotion;
+			sourceTree = "<group>";
+		};
 		6331FCFE1FA8763900D850EC /* search */ = {
 			isa = PBXGroup;
 			children = (
@@ -715,6 +725,7 @@
 			children = (
 				633DF0C01FF4DB14005285B9 /* BalanceMoneyTopUpViewController.swift */,
 				63F85F371FFDC64200759141 /* BalanceMoneyRecordViewController.swift */,
+				63FCA2A11FFF1DC700DF834C /* BalanceMoneyWithdrawalViewController.swift */,
 			);
 			path = BalanceMoney;
 			sourceTree = "<group>";
@@ -839,6 +850,7 @@
 		63741CCC1F7685C400946979 /* Good */ = {
 			isa = PBXGroup;
 			children = (
+				63312D6A1FFF661900512177 /* Promotion */,
 				63F9C9131FAB3BE700A3732D /* SpecialPrice */,
 				63F38B431FAAAC0800DB0FAA /* GoodListViewController.swift */,
 				633C0B7A1FBBCE410054C215 /* GoodDetailsViewController.swift */,
@@ -1272,7 +1284,6 @@
 		63F9C9131FAB3BE700A3732D /* SpecialPrice */ = {
 			isa = PBXGroup;
 			children = (
-				63741CCD1F7685DA00946979 /* GoodSpecialPromotionsDetailsViewController.swift */,
 				63F9C9221FAB5D0900A3732D /* SpecialPriceListViewController.swift */,
 				63F9C9201FAB5C0200A3732D /* SpecialPriceViewController.swift */,
 			);
@@ -1803,6 +1814,7 @@
 				63FEDA0D1FC5A11E000EF4DF /* poiTableViewCell.swift in Sources */,
 				639455731FDFD67500434616 /* StoreOrderNetWork.swift in Sources */,
 				63FC077F1FD4F39B00C24DF9 /* BindStoreListTableViewCell.swift in Sources */,
+				63FCA2A21FFF1DC700DF834C /* BalanceMoneyWithdrawalViewController.swift in Sources */,
 				63351D641FB69EE2004B12A3 /* ReistrViewController.swift in Sources */,
 				63FD229B1FE0B23F001CF142 /* PageStoreOrderListViewController.swift in Sources */,
 				63CC8E981FC06A45005C5FB6 /* NewsTableViewCell.swift in Sources */,
@@ -1855,6 +1867,7 @@
 				63F85F3F1FFDFA7900759141 /* BalanceRecordEntity.swift in Sources */,
 				63E8B2781FD3D05C003FCF1E /* FormPickerCell.swift in Sources */,
 				63FACAEF1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift in Sources */,
+				63312D6C1FFF663C00512177 /* PromotionListViewController.swift in Sources */,
 				63F9C8D01FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift in Sources */,
 				63351D601FB5CC93004B12A3 /* PayNetWork.swift in Sources */,
 				63F9EF101F67620C0038B05D /* StoreTabBarViewController.swift in Sources */,
@@ -1892,7 +1905,6 @@
 				63E8B27F1FD3D05C003FCF1E /* FormTextViewCell.swift in Sources */,
 				632FB4311FE9F20C0007B86C /* GoodPublicLibraryListViewController.swift in Sources */,
 				63FACD231FDA261A007678B8 /* LBXPermissions.swift in Sources */,
-				63741CCE1F7685DA00946979 /* GoodSpecialPromotionsDetailsViewController.swift in Sources */,
 				63F7C11C1FCA5FB900C74544 /* OrderEntity.swift in Sources */,
 				63A30C221FD2920C007E6D9F /* FeedbackCollectionViewCell.swift in Sources */,
 				638C53EC1FB72197006DDBED /* MemberEntity.swift in Sources */,
