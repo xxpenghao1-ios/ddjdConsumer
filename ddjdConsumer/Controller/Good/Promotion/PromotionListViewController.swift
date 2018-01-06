@@ -38,6 +38,15 @@ class PromotionListViewController:BaseViewController{
             self.queryPromotiongoodsPaginate(pageNumber:self.pageNumber, pageSize:10, isRefresh:true)
         })
         self.table.mj_footer.isHidden=true
+        // 启动倒计时管理
+        OYCountDownManager.sharedManager.start()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // 移除所有倒计时源
+        OYCountDownManager.sharedManager.removeAllSource()
+        // 废除定时器
+        OYCountDownManager.sharedManager.invalidate()
     }
 }
 
@@ -70,6 +79,8 @@ extension PromotionListViewController{
         self.table.mj_footer.endRefreshing()
         self.table.mj_header.endRefreshing()
         self.setLoadingState(isLoading:false)
+        ///刷新倒计时
+        OYCountDownManager.sharedManager.reload()
         self.table.reloadData()
     }
 }
@@ -80,6 +91,10 @@ extension PromotionListViewController:UITableViewDelegate,UITableViewDataSource{
         var cell=table.dequeueReusableCell(withIdentifier:"SpecialPriceTableViewCellId") as? SpecialPriceTableViewCell
         if cell == nil{
             cell=Bundle.main.loadNibNamed("SpecialPriceTableViewCell", owner:self, options: nil)?.last as? SpecialPriceTableViewCell
+        }
+        if arr.count > 0{
+            let entity=arr[indexPath.row]
+            cell!.updateCell(entity:entity)
         }
         return cell!
     }
@@ -93,13 +108,20 @@ extension PromotionListViewController:UITableViewDelegate,UITableViewDataSource{
 // MARK: - 网络请求
 extension PromotionListViewController{
     private func  queryPromotiongoodsPaginate(pageNumber:Int,pageSize:Int,isRefresh:Bool){
+        let dfmatter = DateFormatter()
+        dfmatter.dateFormat="yyyy-MM-dd HH:mm:ss"
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.queryPromotiongoodsPaginate(memberId:MEMBERID, bindstoreId:BINDSTOREID, pageNumber: pageNumber,pageSize:pageSize,salesCountFlag:salesCountFlag, priceFlag:priceFlag), successClosure: { (json) in
+            print(json)
             if isRefresh{
                 self.arr.removeAll()
             }
+            for i in 0...10{
             for(_,value) in json["goodsList"]["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
+                let date=dfmatter.date(from:entity!.promotionEndTime ?? "")
+                entity?.promotionEndTimeSeconds=date==nil ? 0 : Int(date!.timeIntervalSince1970)
                 self.arr.append(entity!)
+            }
             }
             if self.arr.count < json["goodsList"]["totalRow"].intValue{
                 self.table.mj_footer.isHidden=false

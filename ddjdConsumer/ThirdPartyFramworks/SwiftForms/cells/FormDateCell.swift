@@ -16,7 +16,9 @@ open class FormDateCell: FormValueCell {
     private let hiddenTextField = UITextField(frame: CGRect.zero)
     
     private let defaultDateFormatter = DateFormatter()
-    
+
+    ///是否返回Date数据 //默认不
+    private var isRetunrDate=false
     // MARK: FormBaseCell
     
     open override func configure() {
@@ -53,6 +55,7 @@ open class FormDateCell: FormValueCell {
                 datePicker.datePickerMode = .dateAndTime
                 defaultDateFormatter.dateStyle = .long
                 defaultDateFormatter.timeStyle = .short
+                isRetunrDate=true
             }
         }
         
@@ -86,7 +89,11 @@ open class FormDateCell: FormValueCell {
     // MARK: Actions
     
     @objc internal func valueChanged(_ sender: UIDatePicker) {
-        rowDescriptor?.value = getDateFormatter().string(from: sender.date) as AnyObject
+        if isRetunrDate{
+            rowDescriptor?.value = sender.date as AnyObject
+        }else{
+            rowDescriptor?.value = getDateFormatter().string(from: sender.date) as AnyObject
+        }
         valueLabel.text = getDateFormatter().string(from: sender.date)
         update()
     }

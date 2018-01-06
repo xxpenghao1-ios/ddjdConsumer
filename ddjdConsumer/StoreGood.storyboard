@@ -112,7 +112,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SgX-fr-xET" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-820" y="56"/>
+            <point key="canvasLocation" x="-3014" y="477"/>
         </scene>
         <!--Good Upload View Controller-->
         <scene sceneID="ENx-h2-qK3">
@@ -401,6 +401,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nlw-nZ-Sxw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3724" y="1124"/>
+        </scene>
+        <!--Add Promotion Good View Controller-->
+        <scene sceneID="0U6-pj-mn4">
+            <objects>
+                <tableViewController storyboardIdentifier="AddPromotionGoodVC" id="SbK-mk-MEI" customClass="AddPromotionGoodViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="egA-pN-yhN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="SbK-mk-MEI" id="NSx-9d-ZYQ"/>
+                            <outlet property="delegate" destination="SbK-mk-MEI" id="jKr-d4-dtv"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NrS-en-ou9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2986" y="1135"/>
         </scene>
         <!--Update Store Good Detail View Controller-->
         <scene sceneID="Jnk-D2-10S">

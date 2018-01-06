@@ -193,6 +193,8 @@
 		63FA108F1FC0629B009B6CB2 /* MyCollectGoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA108E1FC0629B009B6CB2 /* MyCollectGoodViewController.swift */; };
 		63FA10931FC06394009B6CB2 /* MyCollectGoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA10911FC06394009B6CB2 /* MyCollectGoodTableViewCell.swift */; };
 		63FA10941FC06394009B6CB2 /* MyCollectGoodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63FA10921FC06394009B6CB2 /* MyCollectGoodTableViewCell.xib */; };
+		63FA211C20006262001F2240 /* AddPromotionGoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA211B20006262001F2240 /* AddPromotionGoodViewController.swift */; };
+		63FA21212000B57E001F2240 /* OYCountDownManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA21202000B57E001F2240 /* OYCountDownManager.swift */; };
 		63FACAEF1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FACAED1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift */; };
 		63FACAF01FDA61D10051BA59 /* StoreGoodListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63FACAEE1FDA61D10051BA59 /* StoreGoodListTableViewCell.xib */; };
 		63FACD181FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FACD171FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift */; };
@@ -444,6 +446,8 @@
 		63FA108E1FC0629B009B6CB2 /* MyCollectGoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectGoodViewController.swift; sourceTree = "<group>"; };
 		63FA10911FC06394009B6CB2 /* MyCollectGoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectGoodTableViewCell.swift; sourceTree = "<group>"; };
 		63FA10921FC06394009B6CB2 /* MyCollectGoodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectGoodTableViewCell.xib; sourceTree = "<group>"; };
+		63FA211B20006262001F2240 /* AddPromotionGoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPromotionGoodViewController.swift; sourceTree = "<group>"; };
+		63FA21202000B57E001F2240 /* OYCountDownManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OYCountDownManager.swift; sourceTree = "<group>"; };
 		63FACAED1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGoodListTableViewCell.swift; sourceTree = "<group>"; };
 		63FACAEE1FDA61D10051BA59 /* StoreGoodListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreGoodListTableViewCell.xib; sourceTree = "<group>"; };
 		63FACD171FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeGetBarcodeViewController.swift; sourceTree = "<group>"; };
@@ -788,6 +792,7 @@
 		636925B11F5FFE01007EFDB7 /* ThirdPartyFramworks */ = {
 			isa = PBXGroup;
 			children = (
+				63FA211F2000B57E001F2240 /* CountDownManager */,
 				63395A7E1FE786A6005EE80A /* HooDatePicker */,
 				63FACD191FDA261A007678B8 /* Scan */,
 				63E8B2561FD3D05B003FCF1E /* SwiftForms */,
@@ -1080,6 +1085,7 @@
 		63CC3D391FC2CBAE00BDD724 /* Good */ = {
 			isa = PBXGroup;
 			children = (
+				63FA211A20006240001F2240 /* PromotionGood */,
 				632B57F21FDA3ADB008CE639 /* GoodList */,
 				63CCF5691FD7ED4A00D120A8 /* GoodUpload */,
 			);
@@ -1345,6 +1351,22 @@
 				63FA10921FC06394009B6CB2 /* MyCollectGoodTableViewCell.xib */,
 			);
 			path = CollectCell;
+			sourceTree = "<group>";
+		};
+		63FA211A20006240001F2240 /* PromotionGood */ = {
+			isa = PBXGroup;
+			children = (
+				63FA211B20006262001F2240 /* AddPromotionGoodViewController.swift */,
+			);
+			path = PromotionGood;
+			sourceTree = "<group>";
+		};
+		63FA211F2000B57E001F2240 /* CountDownManager */ = {
+			isa = PBXGroup;
+			children = (
+				63FA21202000B57E001F2240 /* OYCountDownManager.swift */,
+			);
+			path = CountDownManager;
 			sourceTree = "<group>";
 		};
 		63FACAEC1FDA61920051BA59 /* StoreGoodList */ = {
@@ -1799,6 +1821,7 @@
 				63F85F3C1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.swift in Sources */,
 				63F6E7DB1FB7FA30009411E6 /* GoodClassifyTableViewCell.swift in Sources */,
 				63FA10931FC06394009B6CB2 /* MyCollectGoodTableViewCell.swift in Sources */,
+				63FA21212000B57E001F2240 /* OYCountDownManager.swift in Sources */,
 				63FACD181FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift in Sources */,
 				633AC4671FCE8497009278D0 /* StoreEntity.swift in Sources */,
 				63395A831FE786A6005EE80A /* HooDatePicker.m in Sources */,
@@ -1846,6 +1869,7 @@
 				63351D581FB590F1004B12A3 /* WXApiManager.swift in Sources */,
 				632655271FC19C2A00559E66 /* StoreIndexViewController.swift in Sources */,
 				630594241FF0CF3E00FA303B /* AccountDetailsTableViewCell.swift in Sources */,
+				63FA211C20006262001F2240 /* AddPromotionGoodViewController.swift in Sources */,
 				6381737D1FAB0ECC001EA0CD /* ShoppingCarViewController.swift in Sources */,
 				63924F391FB991DC007872F6 /* AddressListViewController.swift in Sources */,
 				63395A841FE786A6005EE80A /* NSDate+HooDatePicker.m in Sources */,

@@ -104,11 +104,11 @@
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="vTY-XY-H4W" firstAttribute="trailing" secondItem="lDw-Hg-1lr" secondAttribute="trailing" id="3FT-sn-TRa"/>
                     <constraint firstItem="OId-2E-zIv" firstAttribute="leading" secondItem="oz6-zW-paO" secondAttribute="trailing" constant="10" id="ADW-hP-sZu"/>
                     <constraint firstItem="lDw-Hg-1lr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="AK8-TS-d4x"/>
                     <constraint firstItem="3nD-tN-Qtm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="BsI-Vw-csX"/>
                     <constraint firstItem="oz6-zW-paO" firstAttribute="bottom" secondItem="Jkh-W4-A9U" secondAttribute="bottom" id="GTQ-s9-6S4"/>
-                    <constraint firstItem="9L8-W0-MME" firstAttribute="leading" secondItem="vTY-XY-H4W" secondAttribute="trailing" constant="5" id="GYw-AD-aer"/>
                     <constraint firstItem="oz6-zW-paO" firstAttribute="leading" secondItem="Jkh-W4-A9U" secondAttribute="trailing" id="OlN-1Y-g7B"/>
                     <constraint firstItem="Jkh-W4-A9U" firstAttribute="leading" secondItem="lDw-Hg-1lr" secondAttribute="trailing" constant="5" id="Tdq-y9-cQd"/>
                     <constraint firstAttribute="bottom" secondItem="3nD-tN-Qtm" secondAttribute="bottom" constant="15.5" id="bib-vn-imv"/>

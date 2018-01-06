@@ -72,13 +72,13 @@ open class FormTextViewCell : FormBaseCell, UITextViewDelegate {
     
     open override func defaultVisualConstraints() -> [String] {
         if self.imageView!.image != nil {
-            if let text = titleLabel.text , text.characters.count > 0 {
+            if let text = titleLabel.text , text.count > 0 {
                 return ["H:[imageView]-[titleLabel]-[textField]-16-|"]
             } else {
                 return ["H:[imageView]-[textField]-16-|"]
             }
         } else {
-            if let text = titleLabel.text , text.characters.count > 0 {
+            if let text = titleLabel.text , text.count > 0 {
                 return ["H:|-16-[titleLabel]-[textField]-16-|"]
             } else {
                 return ["H:|-16-[textField]-16-|"]

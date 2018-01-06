@@ -50,7 +50,12 @@ class StoreGoodListViewController:BaseViewController{
     private var operatingGoodMaskView:UIView!
     ///商品操作table
     private var operatingTable:UITableView!
-    
+    ///商品操作table高度
+    private var operatingTableHeight:CGFloat{
+        get{
+            return goodsFlag==1 ? 200:100
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor=UIColor.viewBackgroundColor()
@@ -163,20 +168,20 @@ extension StoreGoodListViewController{
         operatingGoodMaskView.addGestureRecognizer(gesture)
         self.view.addSubview(operatingGoodMaskView)
 
-        operatingTable=UITableView(frame: CGRect.init(x:0, y:-200,width: boundsWidth, height:200), style: UITableViewStyle.plain)
+        operatingTable=UITableView(frame: CGRect.init(x:0, y:-operatingTableHeight,width: boundsWidth, height:operatingTableHeight), style: UITableViewStyle.plain)
         operatingTable.delegate=self
         operatingTable.dataSource=self
         operatingTable.tag=tag
         operatingTable.isScrollEnabled=false
         operatingGoodMaskView.addSubview(operatingTable)
         UIView.animate(withDuration:0.3, delay:0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.operatingTable.frame=CGRect.init(x:0,y:0, width:boundsWidth,height:200)
+            self.operatingTable.frame=CGRect.init(x:0,y:0, width:boundsWidth,height:self.operatingTableHeight)
         })
     }
     ///隐藏
     @objc private func hideOperatingView(){
         UIView.animate(withDuration:0.3, delay:0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.operatingTable.frame=CGRect.init(x:0, y:-200,width:boundsWidth,height:200)
+            self.operatingTable.frame=CGRect.init(x:0, y:-self.operatingTableHeight,width:boundsWidth,height:self.operatingTableHeight)
         }, completion: { (b) in
             UIView.animate(withDuration:0.1, delay:0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
                 self.operatingGoodMaskView.isHidden=true
@@ -407,7 +412,13 @@ extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
             }else if indexPath.row == 1{
                 cell!.textLabel!.text="修改商品信息"
             }else if indexPath.row == 2{
-                cell!.textLabel!.text="加入促销"
+                if arr.count > 0{
+                    if arr[tableView.tag].goodsStutas == 1{
+                        cell!.textLabel!.text="加入促销"
+                    }else if arr[tableView.tag].goodsStutas == 3{
+                        cell!.textLabel!.text="从促销区移除"
+                    }
+                }
             }else if indexPath.row == 3{
                 if arr.count > 0{
                     if arr[tableView.tag].indexGoodsId == nil{
@@ -438,7 +449,11 @@ extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag != 100{
-            return 4
+            if goodsFlag == 1{//如果是上架
+                return 4
+            }else{
+                return 2
+            }
         }
         return arr.count
     }
@@ -462,6 +477,16 @@ extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
                 let vc=storyboardPushView(type:.storeGood, storyboardId:"UpdateStoreGoodDetailVC") as! UpdateStoreGoodDetailViewController
                 vc.goodEntity=selectedGoodEntity
                 self.navigationController?.pushViewController(vc, animated: true)
+                break
+            case 2:
+                let entity=self.arr[tableView.tag]
+                if entity.goodsStutas == 3{//如果已经加入促销
+                    UIAlertController.showAlertYesNo(self, title:"温馨提示", message:"您确定从促销区移除吗?", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
+                        self.removePromotiongoods(storeAndGoodsId:entity.storeAndGoodsId ?? 0,row:tableView.tag)
+                    })
+                }else{//加入促销
+                    self.addPromotiongoods(storeAndGoodsId:entity.storeAndGoodsId ?? 0, row: tableView.tag)
+                }
                 break
             case 3:
                 if self.arr[tableView.tag].indexGoodsId == nil{
@@ -511,6 +536,7 @@ extension StoreGoodListViewController{
     //查询商品
     private func queryStoreAndGoodsList(pageNumber:Int,pageSize:Int,isRefresh:Bool){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryStoreAndGoodsList(storeId:STOREID, goodsFlag:goodsFlag!, pageNumber: pageNumber, pageSize: pageSize,tCategoryId:tCategoryId), successClosure: { (json) in
+            print(json)
             if isRefresh{
                 self.arr.removeAll()
             }
@@ -567,7 +593,7 @@ extension StoreGoodListViewController{
         }
     }
     private func deleteIndexGoods(storeAndGoodsId:Int,row:Int){
-        self.showSVProgressHUD(status:"正在移除", type: HUD.textClear)
+        self.showSVProgressHUD(status:"正在移除...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.removeIndexGoods(storeAndGoodsId:storeAndGoodsId, storeId:STOREID), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
@@ -583,5 +609,37 @@ extension StoreGoodListViewController{
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
+    }
+    ///移除促销商品
+    private func removePromotiongoods(storeAndGoodsId:Int,row:Int){
+        self.showSVProgressHUD(status:"正在移除...", type: HUD.textClear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.removePromotiongoods(storeAndGoodsId:storeAndGoodsId, storeId:STOREID), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.arr[row].goodsStutas=1
+                self.table.reloadRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.none)
+                self.hideOperatingView()
+                self.showSVProgressHUD(status:"移除成功", type: HUD.success)
+            }else if success == "notExist"{
+                self.showSVProgressHUD(status:"商品不存在", type: HUD.error)
+            }else if success == "storeDifferent"{
+                self.showSVProgressHUD(status:"商品不是这个店铺的，不能移除", type: HUD.error)
+            }else{
+                self.showSVProgressHUD(status:"移除失败", type: HUD.error)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+    ///添加促销商品
+    private func addPromotiongoods(storeAndGoodsId:Int,row:Int){
+        let vc=self.storyboardPushView(type:.storeGood, storyboardId:"AddPromotionGoodVC") as! AddPromotionGoodViewController
+        vc.storeAndGoodsId=storeAndGoodsId
+        vc.reloadListClosure={
+            self.arr[row].goodsStutas=3
+            self.table.reloadRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.none)
+        }
+        self.navigationController?.pushViewController(vc, animated:true)
+        self.hideOperatingView()
     }
 }

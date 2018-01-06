@@ -50,6 +50,12 @@ class GoodEntity:Mappable{
     var goodsMoney:Double? //订单商品价格
     var goodsCollectionId:Int? //商品收藏Id
     var indexGoodsId:Int? //不为空就表示该商品已经加入了首页商品
+    var goodsStutas:Int? //3促销 1普通 2特价
+    var promotionStock:Int? //促销库存
+    var promotionMsg:String? //促销信息
+    var promotionStartTime:String? //促销开始时间
+    var promotionEndTime:String? //促销结束时间
+    var promotionEndTimeSeconds:Int? //促销结束时间秒
     init(){}
     required init?(map: Map) {
         mapping(map: map)
@@ -90,5 +96,10 @@ class GoodEntity:Mappable{
         goodsMoney <- map["goodsMoney"]
         goodsCollectionId <- map["goodsCollectionId"]
         indexGoodsId <- map["indexGoodsId"]
+        goodsStutas <- map["goodsStutas"]
+        promotionStock <- map["promotionStock"]
+        promotionMsg <- map["promotionMsg"]
+        promotionStartTime <- map["promotionStartTime"]
+        promotionEndTime <- map["promotionEndTime"]
     }
 }

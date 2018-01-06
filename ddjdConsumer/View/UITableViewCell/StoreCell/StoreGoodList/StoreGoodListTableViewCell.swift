@@ -43,9 +43,15 @@ class StoreGoodListTableViewCell: UITableViewCell {
         }
         entity.goodsPic=entity.goodsPic ?? ""
         goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
-        if entity.indexGoodsId == nil{
-            hotGoodImg.isHidden=true
-        }else{
+        if entity.goodsStutas == 1{//普通商品
+            hotGoodImg.image=UIImage.init(named:"good_tj")
+            if entity.indexGoodsId == nil{
+                hotGoodImg.isHidden=true
+            }else{
+                hotGoodImg.isHidden=false
+            }
+        }else if entity.goodsStutas == 3{//促销
+            hotGoodImg.image=UIImage.init(named:"sales_promotion")
             hotGoodImg.isHidden=false
         }
     }
