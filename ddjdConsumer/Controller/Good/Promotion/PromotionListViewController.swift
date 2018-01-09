@@ -23,19 +23,17 @@ class PromotionListViewController:BaseViewController{
     private var priceFlag:Int?=2
     ///销量排序1.降序 2. 升序
     private var salesCountFlag:Int?=nil
+    /// 定时器
+    private var timer:Timer?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="促销专区"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         setUpView()
         self.queryPromotiongoodsPaginate(pageNumber:self.pageNumber, pageSize:10, isRefresh:true)
-        table.mj_header=PHNormalHeader(refreshingBlock: {
-            self.pageNumber=1
-            self.queryPromotiongoodsPaginate(pageNumber:self.pageNumber, pageSize:10, isRefresh:true)
-        })
         table.mj_footer=PHNormalFooter(refreshingBlock: {
             self.pageNumber+=1
-            self.queryPromotiongoodsPaginate(pageNumber:self.pageNumber, pageSize:10, isRefresh:true)
+            self.queryPromotiongoodsPaginate(pageNumber:self.pageNumber, pageSize:10, isRefresh:false)
         })
         self.table.mj_footer.isHidden=true
         // 启动倒计时管理
@@ -43,8 +41,6 @@ class PromotionListViewController:BaseViewController{
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // 移除所有倒计时源
-        OYCountDownManager.sharedManager.removeAllSource()
         // 废除定时器
         OYCountDownManager.sharedManager.invalidate()
     }
@@ -60,7 +56,7 @@ extension PromotionListViewController{
         menu.delegate=self
         self.view.addSubview(menu)
 
-        table=UITableView(frame: CGRect.init(x:0, y:menu.frame.maxY, width:boundsWidth, height:boundsHeight-menu.frame.maxY-bottomSafetyDistanceHeight))
+        table=UITableView(frame: CGRect.init(x:0, y:menu.frame.maxY, width:boundsWidth, height:boundsHeight-menu.frame.maxY-bottomSafetyDistanceHeight-navHeight))
         table.delegate=self
         table.dataSource=self
         table.emptyDataSetSource=self
@@ -77,7 +73,6 @@ extension PromotionListViewController{
     ///刷新数据
     private func reloadData(){
         self.table.mj_footer.endRefreshing()
-        self.table.mj_header.endRefreshing()
         self.setLoadingState(isLoading:false)
         ///刷新倒计时
         OYCountDownManager.sharedManager.reload()
@@ -115,13 +110,11 @@ extension PromotionListViewController{
             if isRefresh{
                 self.arr.removeAll()
             }
-            for i in 0...10{
             for(_,value) in json["goodsList"]["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
                 let date=dfmatter.date(from:entity!.promotionEndTime ?? "")
-                entity?.promotionEndTimeSeconds=date==nil ? 0 : Int(date!.timeIntervalSince1970)
+                entity?.promotionEndTimeSeconds=date==nil ? 0 : Int(date!.timeIntervalSince1970) - Int(Date().timeIntervalSince1970)
                 self.arr.append(entity!)
-            }
             }
             if self.arr.count < json["goodsList"]["totalRow"].intValue{
                 self.table.mj_footer.isHidden=false
@@ -185,5 +178,10 @@ extension PromotionListViewController:JNDropDownMenuDelegate,JNDropDownMenuDataS
                 salesCountFlag=nil
             }
         }
+        self.pageNumber=1
+        self.setLoadingState(isLoading:true)
+        self.arr.removeAll()
+        self.reloadData()
+        self.queryPromotiongoodsPaginate(pageNumber:self.pageNumber, pageSize:10, isRefresh:true)
     }
 }

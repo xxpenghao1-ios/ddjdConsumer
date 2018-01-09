@@ -45,6 +45,7 @@ extension AddPromotionGoodViewController{
 
         let section2 = FormSectionDescriptor(headerTitle:"请输入促销信息", footerTitle: nil)
         row = FormRowDescriptor(tag: Static.promotionMsgTag, type:.multilineText, title:"")
+        row.configuration.cell.placeholder="最多输入100个字符"
         section2.rows.append(row)
 
         let section3=FormSectionDescriptor(headerTitle: nil, footerTitle: nil)
@@ -91,6 +92,9 @@ extension AddPromotionGoodViewController{
         if promotionMsg == nil || promotionMsg!.count == 0{
             self.showInfo(withStatus:"促销信息不能为空")
             return
+        }
+        if promotionMsg!.count > 100{
+            self.showInfo(withStatus:"促销信息不能超过100个字符")
         }
         if promotionStock == nil || promotionStock!.count == 0{
             self.showInfo(withStatus:"促销库存不能为空")

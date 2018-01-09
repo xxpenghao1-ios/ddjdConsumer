@@ -27,7 +27,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRh-Rf-u6C">
                         <rect key="frame" x="0.0" y="113" width="135" height="21.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="还剩10天24小时59分58秒" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Wf-A4-sP6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Wf-A4-sP6">
                                 <rect key="frame" x="0.0" y="0.0" width="135" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -90,22 +90,31 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BBA-Xw-olG">
-                        <rect key="frame" x="145" y="32" width="160" height="0.0"/>
+                        <rect key="frame" x="145" y="27" width="160" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="to_sell_end" translatesAutoresizingMaskIntoConstraints="NO" id="Ghi-SB-u2Q">
+                        <rect key="frame" x="245" y="37.5" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="cft-lZ-gJV"/>
+                            <constraint firstAttribute="height" constant="60" id="ziZ-n7-ah7"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="d8h-rY-ZGm" firstAttribute="leading" secondItem="PYr-Ay-faK" secondAttribute="trailing" constant="10" id="06w-Sk-4Hm"/>
                     <constraint firstItem="2JB-UD-Htz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BBA-Xw-olG" secondAttribute="bottom" constant="10" id="9xs-ve-MiS"/>
                     <constraint firstItem="BBA-Xw-olG" firstAttribute="leading" secondItem="PYr-Ay-faK" secondAttribute="trailing" constant="10" id="BqF-ME-Y7M"/>
                     <constraint firstAttribute="bottom" secondItem="PYr-Ay-faK" secondAttribute="bottom" id="DUO-kd-TNJ"/>
+                    <constraint firstAttribute="trailing" secondItem="Ghi-SB-u2Q" secondAttribute="trailing" constant="15" id="ELH-3q-omq"/>
                     <constraint firstAttribute="bottom" secondItem="d8h-rY-ZGm" secondAttribute="bottom" constant="5" id="HUh-1Y-hPj"/>
+                    <constraint firstItem="Ghi-SB-u2Q" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KK1-9A-BtK"/>
                     <constraint firstItem="lg1-5G-zs6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="KNS-pE-cAz"/>
                     <constraint firstAttribute="bottom" secondItem="yRh-Rf-u6C" secondAttribute="bottom" id="LbP-6c-gZl"/>
                     <constraint firstItem="d8h-rY-ZGm" firstAttribute="top" secondItem="2JB-UD-Htz" secondAttribute="bottom" constant="5" id="NhD-ct-y1y"/>
-                    <constraint firstItem="BBA-Xw-olG" firstAttribute="top" secondItem="lg1-5G-zs6" secondAttribute="bottom" constant="10" id="QAB-ti-PvY"/>
+                    <constraint firstItem="BBA-Xw-olG" firstAttribute="top" secondItem="lg1-5G-zs6" secondAttribute="bottom" constant="5" id="QAB-ti-PvY"/>
                     <constraint firstAttribute="trailing" secondItem="BBA-Xw-olG" secondAttribute="trailing" constant="15" id="TWy-nb-fDi"/>
                     <constraint firstItem="yRh-Rf-u6C" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ufh-G4-UuP"/>
                     <constraint firstAttribute="trailing" secondItem="lg1-5G-zs6" secondAttribute="trailing" constant="10" id="Urj-gG-C7j"/>
@@ -131,11 +140,13 @@
                 <outlet property="lblPromotionMsg" destination="BBA-Xw-olG" id="ZW7-TK-WsS"/>
                 <outlet property="lblSales" destination="2JB-UD-Htz" id="FxJ-4o-YGS"/>
                 <outlet property="lblStock" destination="LYL-EU-sui" id="bce-jR-tCm"/>
+                <outlet property="promptImg" destination="Ghi-SB-u2Q" id="znu-tK-0my"/>
             </connections>
-            <point key="canvasLocation" x="-247" y="-12.5"/>
+            <point key="canvasLocation" x="-440" y="-51.5"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="add_car" width="64" height="64"/>
+        <image name="to_sell_end" width="103" height="103"/>
     </resources>
 </document>

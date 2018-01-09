@@ -50,6 +50,12 @@ public enum MyApi{
     case updateMemberBalancePayPassword(parameters:[String:Any])
     ///查询会员绑定的充值支付工具 memberId 查询会员绑定的充值支付工具 ; 如果没有绑定，就可以使用全部的支付方式充值； 如果有绑定，就只能使用绑定的支付工具充值；如：炮神今天第一次充值，页面提示可以用支付宝和微信，他使用了微信充值了500元， 那么，以后他每次充值都将只能使用微信进行充值，将看不到支付宝充值的按钮；
     case queryMemberbindrechargepaymenttools(memberId:Int)
+    ///查询可提现余额 同时返回系统设置最小和最大提现范围 ； — 合伙人不能提现
+    case queryMemberWithdrawalsBalance(parameters:[String:Any])
+    ///绑定会员提现信息 payType 1 微信 ； 2 支付宝  code 第三方支付工具，授权登录时的code；支付宝的叫‘auth_code’
+    case updateBindMemberWithdrawalsInfo(parameters:[String:Any])
+    ///开始提现 withdrawalsMoney 提现金额 serviceCharge 手续费
+    case memberStartWithdrawalsBalance(parameters:[String:Any])
 
 
 }
@@ -100,15 +106,21 @@ extension MyApi:TargetType{
             return "/front/memberBalance/updateMemberBalancePayPassword"
         case .queryMemberbindrechargepaymenttools(_):
             return "/front/memberBalance/queryMemberbindrechargepaymenttools"
+        case .queryMemberWithdrawalsBalance(_):
+            return "/front/memberWithdrawals/queryMemberWithdrawalsBalance"
+        case .updateBindMemberWithdrawalsInfo(_):
+            return "/front/memberWithdrawals/updateBindMemberWithdrawalsInfo"
+        case .memberStartWithdrawalsBalance(_):
+            return "front/memberWithdrawals/memberStartWithdrawalsBalance"
             
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_),.queryMemberBalanceRecord(_),.queryMemberbindrechargepaymenttools(_):
+        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_),.queryMemberBalanceRecord(_),.queryMemberbindrechargepaymenttools(_),.queryMemberWithdrawalsBalance(_):
             return .get
-        case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_),.bindStore(_,_),.unBindStore(_),.updatePwd(_,_,_),.saveQuestionsorsuggestions(_,_,_,_),.memberRechargeBalance(_),.updateMemberBalancePayPassword(_):
+        case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_),.bindStore(_,_),.unBindStore(_),.updatePwd(_,_,_),.saveQuestionsorsuggestions(_,_,_,_),.memberRechargeBalance(_),.updateMemberBalancePayPassword(_),.updateBindMemberWithdrawalsInfo(_),.memberStartWithdrawalsBalance(_):
             return .post
         }
     }
@@ -182,6 +194,12 @@ extension MyApi:TargetType{
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         case let .queryMemberbindrechargepaymenttools(memberId):
             return .requestParameters(parameters:["memberId":memberId], encoding: URLEncoding.default)
+        case let .queryMemberWithdrawalsBalance(parameters):
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+        case let .updateBindMemberWithdrawalsInfo(parameters):
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+        case let .memberStartWithdrawalsBalance(parameters):
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         }
     }
     

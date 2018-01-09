@@ -70,6 +70,9 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
             }else if indexPath.item == 3{//热门推荐商品
                 let vc=self.storyboardPushView(type:.storeGood, storyboardId:"HotGoodListVC") as! HotGoodListViewController
                 self.navigationController?.pushViewController(vc, animated:true)
+            }else if indexPath.item == 4{//限时促销
+                let vc=self.storyboardPushView(type:.storeGood, storyboardId:"StorePromotionGoodListVC") as! StorePromotionGoodListViewController
+                self.navigationController?.pushViewController(vc, animated:true)
             }else if indexPath.item == 5{//账户明细
                 let vc=self.storyboardPushView(type:.store, storyboardId:"AccountDetailsVC") as! AccountDetailsViewController
                 self.navigationController?.pushViewController(vc, animated:true)

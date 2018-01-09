@@ -28,14 +28,25 @@ class SpecialPriceTableViewCell: UITableViewCell {
     @IBOutlet weak var lblPromotionMsg: UILabel!
     ///活动时间背景view
     @IBOutlet weak var dateBacView: UIView!
+    //提示图片
+    @IBOutlet weak var promptImg: UIImageView!
 
-    private var entity:GoodEntity?
+    private var entity:GoodEntity?{
+        willSet{
+            self.countDownNotification()
+        }
+    }
+
+    ///更新促销结束时间
+    var updatePromotionEndTimeClosure:((_ timeInterval:Int) -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
         lblDate.adjustsFontSizeToFitWidth=true
         dateBacView.backgroundColor=UIColor.init(red:0, green:0, blue:0,alpha: 0.5)
+        ///默认隐藏提示图片
+        promptImg.isHidden=true
         //监听倒计时通知
         NotificationCenter.default.addObserver(self, selector: #selector(self.countDownNotification), name:.OYCountDownNotification, object: nil)
     }
@@ -48,21 +59,36 @@ class SpecialPriceTableViewCell: UITableViewCell {
         lblPrice.text="￥\(entity.storeGoodsPrice ?? 0.0)"
         goodImg.kf.setImage(with:URL.init(string:urlImg+entity.goodsPic!), placeholder:UIImage.init(named:goodDefaultImg),options:[.transition(ImageTransition.fade(1))])
         lblPromotionMsg.text=entity.promotionMsg
-        lblDate.text=lessSecondToDay(entity.promotionEndTimeSeconds ?? 0)
-
+        ///默认隐藏提示图片
+        promptImg.isHidden=true
+        ///默认显示促销信息
+        lblPromotionMsg.isHidden=false
+        if entity.promotionEndTimeSeconds == nil || entity.promotionEndTimeSeconds! <= 0 {//如果活动时间小于等于0  或者为空 显示活动已结束
+            showPromptImg(named: "to_sell_end")
+        }else{//如果活动没有结束
+            if entity.promotionStock == nil || entity.promotionStock! <= 0{//如果促销库存为0
+                showPromptImg(named: "to_sell_out")
+            }
+        }
+    }
+    ///显示提示图片
+    private func showPromptImg(named:String){
+        promptImg.isHidden=false
+        promptImg.image=UIImage.init(named:named)
+        self.contentView.isUserInteractionEnabled=false
+        lblPromotionMsg.isHidden=true
+        self.addCarImg.isHidden=true
     }
     ///每次倒计时
     @objc private func countDownNotification() {
-        print(self.entity?.promotionEndTimeSeconds)
         // 计算倒计时
-        let countDown = (self.entity?.promotionEndTimeSeconds ?? 0) - OYCountDownManager.sharedManager.timeInterval
-        if countDown <= 0 {
-            // 倒计时结束时回调
-            print("时间结束")
-            return;
-        }
+        let countDown = (self.entity?.promotionEndTimeSeconds ?? 0)-OYCountDownManager.sharedManager.timeInterval
         // 重新赋值
         lblDate.text=lessSecondToDay(countDown)
+        if countDown <= 0 {//活动结束
+            showPromptImg(named: "to_sell_end")
+            return;
+        }
     }
     /**
      计算剩余时间
@@ -79,9 +105,9 @@ class SpecialPriceTableViewCell: UITableViewCell {
         var time:NSString=""
         if seconds >= 0{
             if day == 0{//如果天数等于0
-                time=NSString(format:"还剩%i小时%i分钟%i秒",hour,min,second)
+                time=NSString(format:"还剩%i小时%i分%i秒",hour,min,second)
                 if hour == 0{
-                    time=NSString(format:"还剩%i分钟%i秒",min,second)
+                    time=NSString(format:"还剩%i分%i秒",min,second)
                     if min == 0{
                         time=NSString(format:"还剩%i秒",second)
                         if seconds == 0{
@@ -90,7 +116,7 @@ class SpecialPriceTableViewCell: UITableViewCell {
                     }
                 }
             }else{
-                time=NSString(format:"还剩%i日%i小时%i分钟%i秒",day,hour,min,second)
+                time=NSString(format:"还剩%i日%i小时%i分%i秒",day,hour,min,second)
             }
         }else{
             return "活动已结束"

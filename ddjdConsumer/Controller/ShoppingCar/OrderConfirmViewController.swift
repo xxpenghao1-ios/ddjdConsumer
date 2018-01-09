@@ -335,7 +335,9 @@ extension OrderConfirmViewController{
     ///
     /// - Parameter payPw:本地支付密码
     private func showPayAlert(payPw:String?,memberDiscountPrice:String){
-        let payAlert = PayAlert.init(frame:UIScreen.main.bounds,price:memberDiscountPrice,view:self.view)
+        ///折扣了多少
+        let discount=PriceComputationsUtil.decimalNumberWithString(multiplierValue:sumPrice!, multiplicandValue:memberDiscountPrice, type: ComputationsType.subtraction, position:2)
+        let payAlert = PayAlert.init(frame:UIScreen.main.bounds,price:memberDiscountPrice,view:self.view,payType:1,discount:discount)
         payAlert.completeBlock = {(password) -> Void in
             ///密码*2 MD5加密 转大写
             let pw=(Int(password)!*2).description.MD5().uppercased()

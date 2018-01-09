@@ -581,7 +581,9 @@ extension OrderListViewController{
 
                 })
             }else{//输入支付密码
-                self.showPayAlert(payPw:payPw,orderId:entity.orderId ?? 0,memberDiscountPrice:memberDiscountPrice)
+                ///折扣了多少
+                let discount=PriceComputationsUtil.decimalNumberWithString(multiplierValue:(entity.orderPrice ?? 0.0).description, multiplicandValue:memberDiscountPrice, type: ComputationsType.subtraction, position:2)
+                self.showPayAlert(payPw:payPw,orderId:entity.orderId ?? 0,memberDiscountPrice:memberDiscountPrice, discount:discount)
             }
         }
     }
@@ -589,14 +591,14 @@ extension OrderListViewController{
     /// 输入支付密码
     ///
     /// - Parameter payPw:本地支付密码
-    private func showPayAlert(payPw:String?,orderId:Int,memberDiscountPrice:String){
-        let payAlert = PayAlert.init(frame:UIScreen.main.bounds,price:memberDiscountPrice,view:self.view)
+    private func showPayAlert(payPw:String?,orderId:Int,memberDiscountPrice:String,discount:String){
+        let payAlert = PayAlert.init(frame:UIScreen.main.bounds,price:memberDiscountPrice,view:self.view,payType:1,discount:discount)
         payAlert.completeBlock = {(password) -> Void in
             ///密码*2 MD5加密 转大写
             let pw=(Int(password)!*2).description.MD5().uppercased()
             if pw != payPw{
                 UIAlertController.showAlertYesNo(self, title:"", message:"支付密码错误,请重试", cancelButtonTitle:"忘记密码", okButtonTitle:"重试", okHandler: { (action) in
-                    self.showPayAlert(payPw:payPw, orderId:orderId, memberDiscountPrice:memberDiscountPrice)
+                    self.showPayAlert(payPw:payPw, orderId:orderId, memberDiscountPrice:memberDiscountPrice, discount: discount)
                 }, cancelHandler: { (action) in
                     let vc=self.storyboardPushView(type:.my, storyboardId:"SetThePaymentPasswordVC") as! SetThePaymentPasswordViewController
                     self.navigationController?.pushViewController(vc, animated:true)

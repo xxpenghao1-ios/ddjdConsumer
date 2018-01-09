@@ -21,8 +21,12 @@ class PayAlert: UIView,UITextFieldDelegate {
     private var passWidth:CGFloat!
     private var inputViewX:CGFloat!
     private var pwdCircleArr = [UILabel]()
+    ///1订单支付 2提现
+    private var payType:Int!
+    ///折扣
+    private var discount:String!
 
-    init(frame:CGRect,price:String,view:UIView) {
+    init(frame:CGRect,price:String,view:UIView,payType:Int,discount:String) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.init(red:0, green: 0, blue: 0, alpha:0.5)
         self.inputViewX = 15
@@ -30,6 +34,8 @@ class PayAlert: UIView,UITextFieldDelegate {
         self.passWidth = (boundsWidth-80-inputViewX*2)/6
         self.inputViewWidth = passWidth * passCount
         self.price=price
+        self.payType=payType
+        self.discount=discount
         setupView()
         show(view:view)
     }
@@ -40,7 +46,7 @@ class PayAlert: UIView,UITextFieldDelegate {
 
     func setupView(){
 
-        contentView =  UIView(frame:CGRect.init(x:40, y:100, width:boundsWidth-80, height:127.5+passWidth))
+        contentView =  UIView(frame:CGRect.init(x:40, y:100, width:boundsWidth-80, height:197.5+passWidth))
         contentView!.backgroundColor = UIColor.white
         contentView?.layer.cornerRadius = 5;
         self.addSubview(contentView!)
@@ -63,19 +69,36 @@ class PayAlert: UIView,UITextFieldDelegate {
         linView.backgroundColor = UIColor.lightGray
         contentView?.addSubview(linView)
 
-        let moneyLabel:UILabel = UILabel(frame:CGRect.init(x:0, y:linView.frame.maxY+20, width:contentView!.frame.size.width, height:26))
-        moneyLabel.text = "￥\(price!)元"
+        let lblPayType=UILabel.init(frame:CGRect.init(x:0, y:linView.frame.maxY+20, width:contentView!.frame.size.width, height:20))
+        lblPayType.textAlignment = .center
+        lblPayType.textColor=UIColor.color333()
+        lblPayType.font=UIFont.systemFont(ofSize:17)
+        contentView?.addSubview(lblPayType)
+
+        let moneyLabel:UILabel = UILabel(frame:CGRect.init(x:0, y:lblPayType.frame.maxY+15, width:contentView!.frame.size.width, height:26))
+        moneyLabel.text = "￥\(price!)"
         moneyLabel.textAlignment = NSTextAlignment.center
-        moneyLabel.font = UIFont.systemFont(ofSize:20)
+        moneyLabel.font = UIFont.systemFont(ofSize:30)
         contentView?.addSubview(moneyLabel)
 
-        textField = UITextField(frame:CGRect.init(x:0, y:moneyLabel.frame.maxY+20, width:contentView!.frame.size.width, height:passWidth))
+        let lblDiscount=UILabel.buildLabel(textColor:UIColor.RGBFromHexColor(hexString:"aeaeae"), font:16, textAlignment: NSTextAlignment.center)
+        lblDiscount.frame=CGRect.init(x:0, y:moneyLabel.frame.maxY+15, width: contentView!.frame.size.width, height:14)
+        contentView?.addSubview(lblDiscount)
+
+        if payType == 1{
+            lblPayType.text="订单支付"
+            lblDiscount.text="已优惠￥\(self.discount!)"
+        }else{
+            lblPayType.text="提现"
+            lblDiscount.text="额外扣除￥\(self.discount!)手续费"
+        }
+        textField = UITextField(frame:CGRect.init(x:0, y:lblDiscount.frame.maxY+20, width:contentView!.frame.size.width, height:passWidth))
         textField.delegate = self
         textField.isHidden = true
         textField.keyboardType = UIKeyboardType.numberPad
         contentView?.addSubview(textField!)
 
-        let inputView:UIView = UIView(frame:CGRect.init(x:self.inputViewX, y: moneyLabel.frame.maxY+20, width: inputViewWidth, height:passWidth))
+        let inputView:UIView = UIView(frame:CGRect.init(x:self.inputViewX, y: lblDiscount.frame.maxY+20, width: inputViewWidth, height:passWidth))
         inputView.layer.borderWidth = 0.5;
         inputView.layer.borderColor = UIColor.lightGray.cgColor;
         contentView?.addSubview(inputView)

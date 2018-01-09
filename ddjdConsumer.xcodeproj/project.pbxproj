@@ -206,6 +206,9 @@
 		63FACD271FDA261A007678B8 /* LBXScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FACD1F1FDA261A007678B8 /* LBXScanViewController.swift */; };
 		63FACD281FDA261A007678B8 /* LBXScanViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FACD201FDA261A007678B8 /* LBXScanViewStyle.swift */; };
 		63FACD291FDA261A007678B8 /* LBXScanWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FACD211FDA261A007678B8 /* LBXScanWrapper.swift */; };
+		63FB65742003420B0025438B /* StorePromotionGoodListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FB65732003420B0025438B /* StorePromotionGoodListViewController.swift */; };
+		63FB6577200346530025438B /* StorePromotionGoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FB6575200346530025438B /* StorePromotionGoodTableViewCell.swift */; };
+		63FB6578200346530025438B /* StorePromotionGoodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63FB6576200346530025438B /* StorePromotionGoodTableViewCell.xib */; };
 		63FBCC8B1FD7851000A461E6 /* GoodUploadImgTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FBCC8A1FD7851000A461E6 /* GoodUploadImgTableViewCell.swift */; };
 		63FBDB3A1FBA7C0600F0507F /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FBDB391FBA7C0600F0507F /* UITextView+Placeholder.m */; };
 		63FC07791FD4DDC900C24DF9 /* BindStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FC07781FD4DDC900C24DF9 /* BindStoreViewController.swift */; };
@@ -459,6 +462,9 @@
 		63FACD1F1FDA261A007678B8 /* LBXScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanViewController.swift; sourceTree = "<group>"; };
 		63FACD201FDA261A007678B8 /* LBXScanViewStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanViewStyle.swift; sourceTree = "<group>"; };
 		63FACD211FDA261A007678B8 /* LBXScanWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanWrapper.swift; sourceTree = "<group>"; };
+		63FB65732003420B0025438B /* StorePromotionGoodListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePromotionGoodListViewController.swift; sourceTree = "<group>"; };
+		63FB6575200346530025438B /* StorePromotionGoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePromotionGoodTableViewCell.swift; sourceTree = "<group>"; };
+		63FB6576200346530025438B /* StorePromotionGoodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StorePromotionGoodTableViewCell.xib; sourceTree = "<group>"; };
 		63FBCC8A1FD7851000A461E6 /* GoodUploadImgTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodUploadImgTableViewCell.swift; sourceTree = "<group>"; };
 		63FBDB381FBA7C0600F0507F /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		63FBDB391FBA7C0600F0507F /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
@@ -1357,6 +1363,7 @@
 			isa = PBXGroup;
 			children = (
 				63FA211B20006262001F2240 /* AddPromotionGoodViewController.swift */,
+				63FB65732003420B0025438B /* StorePromotionGoodListViewController.swift */,
 			);
 			path = PromotionGood;
 			sourceTree = "<group>";
@@ -1374,6 +1381,8 @@
 			children = (
 				63FACAED1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift */,
 				63FACAEE1FDA61D10051BA59 /* StoreGoodListTableViewCell.xib */,
+				63FB6575200346530025438B /* StorePromotionGoodTableViewCell.swift */,
+				63FB6576200346530025438B /* StorePromotionGoodTableViewCell.xib */,
 			);
 			path = StoreGoodList;
 			sourceTree = "<group>";
@@ -1646,6 +1655,7 @@
 				63395A7D1FE7530B005EE80A /* OrderStatisticsTableViewCell.xib in Resources */,
 				63F9EF131F6763290038B05D /* Index.storyboard in Resources */,
 				63FACAF01FDA61D10051BA59 /* StoreGoodListTableViewCell.xib in Resources */,
+				63FB6578200346530025438B /* StorePromotionGoodTableViewCell.xib in Resources */,
 				63BB8BCB1FC6908D003BB38D /* AlipaySDK.bundle in Resources */,
 				63924F3E1FB99A90007872F6 /* AddressListTableViewCell.xib in Resources */,
 				632D817C1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.xib in Resources */,
@@ -1864,6 +1874,7 @@
 				635F3FA51FDCD01A00373365 /* GoodClassificationDB.swift in Sources */,
 				63A6C53B1FCC01840041F012 /* OrderListPageController.swift in Sources */,
 				63E8B2821FD3D05C003FCF1E /* FormViewController.swift in Sources */,
+				63FB65742003420B0025438B /* StorePromotionGoodListViewController.swift in Sources */,
 				6394F6301FAAC9C900D1795A /* MJRefresh.swift in Sources */,
 				6302E6F31FCB96270009A018 /* UILabel.swift in Sources */,
 				63351D581FB590F1004B12A3 /* WXApiManager.swift in Sources */,
@@ -1932,6 +1943,7 @@
 				63F7C11C1FCA5FB900C74544 /* OrderEntity.swift in Sources */,
 				63A30C221FD2920C007E6D9F /* FeedbackCollectionViewCell.swift in Sources */,
 				638C53EC1FB72197006DDBED /* MemberEntity.swift in Sources */,
+				63FB6577200346530025438B /* StorePromotionGoodTableViewCell.swift in Sources */,
 				63FC07791FD4DDC900C24DF9 /* BindStoreViewController.swift in Sources */,
 				63351D5A1FB59943004B12A3 /* AlertViewController.swift in Sources */,
 				632D817B1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.swift in Sources */,

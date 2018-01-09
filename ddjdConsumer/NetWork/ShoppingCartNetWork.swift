@@ -12,8 +12,8 @@ import Moya
 public enum CarApi{
     ///查询购物车商品
     case getAllCarGood(memberId:Int,pageSize:Int,pageNumber:Int)
-    ///加入购物车
-    case addCar(memberId:Int,storeAndGoodsId:Int,goodsCount:Int)
+    ///加入购物车 goodsStuta 普通商品传1 ，促销商品传3
+    case addCar(memberId:Int,storeAndGoodsId:Int,goodsCount:Int,goodsStuta:Int)
     ///清除购物车所有商品
     case clearCar(memberId:Int)
     ///删除购物车某个商品
@@ -45,7 +45,7 @@ extension CarApi:TargetType{
         switch self {
         case .getAllCarGood(_,_,_):
             return "/front/shopCar/getGoodsWithShoppingCar"
-        case .addCar(_,_,_):
+        case .addCar(_,_,_,_):
             return "/front/shopCar/addCar"
         case .clearCar(_):
             return "/front/shopCar/clearCar"
@@ -74,7 +74,7 @@ extension CarApi:TargetType{
     
     public var method:Moya.Method {
         switch self {
-        case .getAllCarGood(_,_,_),.addCar(_,_,_),.clearCar(_),.removeCar(_,_),.changeCarNumForGoods(_,_),.chooseCarGoods(_,_),.queryCarSumMoney(_),.checkOrCanceAllShoppingCarGoods(_,_),.saveOrder(_,_,_,_,_,_),.pendingPaymentSubmit(_,_,_,_,_),.updateMemberOrderInfoStatusThe4(_,_),.removeOrder(_,_):
+        case .getAllCarGood(_,_,_),.addCar(_,_,_,_),.clearCar(_),.removeCar(_,_),.changeCarNumForGoods(_,_),.chooseCarGoods(_,_),.queryCarSumMoney(_),.checkOrCanceAllShoppingCarGoods(_,_),.saveOrder(_,_,_,_,_,_),.pendingPaymentSubmit(_,_,_,_,_),.updateMemberOrderInfoStatusThe4(_,_),.removeOrder(_,_):
             return .post
         case .queryShoppingCarGoodsSumCount(_,_):
             return .get
@@ -89,8 +89,8 @@ extension CarApi:TargetType{
         switch self {
         case let .getAllCarGood(memberId, pageSize, pageNumber):
             return .requestParameters(parameters:["memberId":memberId,"pageSize":pageSize,"pageNumber":pageNumber], encoding: URLEncoding.default)
-        case let .addCar(memberId, storeAndGoodsId,goodsCount):
-            return .requestParameters(parameters:["memberId":memberId,"storeAndGoodsId":storeAndGoodsId,"goodsCount":goodsCount], encoding: URLEncoding.default)
+        case let .addCar(memberId, storeAndGoodsId,goodsCount,goodsStuta):
+            return .requestParameters(parameters:["memberId":memberId,"storeAndGoodsId":storeAndGoodsId,"goodsCount":goodsCount,"goodsStuta":goodsStuta], encoding: URLEncoding.default)
         case let .clearCar(memberId):
             return .requestParameters(parameters:["memberId":memberId], encoding: URLEncoding.default)
         case let .removeCar(shoppingCarId, memberId):

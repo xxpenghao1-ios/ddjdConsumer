@@ -84,7 +84,7 @@ extension HotGoodListViewController:UITableViewDelegate,UITableViewDataSource{
     }
     //把delete 该成中文
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?{
-        return "移除"
+        return "移除首页推荐"
     }
 }
 

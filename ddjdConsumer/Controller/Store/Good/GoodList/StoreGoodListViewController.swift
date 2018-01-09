@@ -156,7 +156,7 @@ extension StoreGoodListViewController{
         self.table.mj_header.endRefreshing()
     }
 }
-///设置商品操作 (上下架,查看商品信息,加入促销)
+///设置商品操作 (上下架,查看商品信息,加入促销,加入首页推荐)
 extension StoreGoodListViewController{
     ///显示
     private func showOperatingView(tag:Int){

@@ -50,7 +50,7 @@ extension PurchaseHistoryViewController{
     //加入购物车
     private func addCar(storeAndGoodsId:Int){
         self.showSVProgressHUD(status:"正在加入...",type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.addCar(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId,goodsCount:1), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.addCar(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId,goodsCount:1,goodsStuta:1), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"成功加入购物车", type: HUD.success)

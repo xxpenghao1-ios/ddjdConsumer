@@ -55,7 +55,7 @@ open class FormTextViewCell : FormBaseCell, UITextViewDelegate {
         
         titleLabel.text = rowDescriptor?.title
         textField.text = rowDescriptor?.value as? String
-        
+        textField.placeholder=rowDescriptor?.configuration.cell.placeholder
         textField.isSecureTextEntry = false
         textField.autocorrectionType = .default
         textField.autocapitalizationType = .sentences
@@ -89,7 +89,7 @@ open class FormTextViewCell : FormBaseCell, UITextViewDelegate {
     // MARK: UITextViewDelegate
     
     open func textViewDidChange(_ textView: UITextView) {
-        guard let text = textView.text , text.characters.count > 0 else { rowDescriptor?.value = nil; update(); return }
+        guard let text = textView.text , text.count > 0 else { rowDescriptor?.value = nil; update(); return }
         rowDescriptor?.value = text as AnyObject
         update()
     }
