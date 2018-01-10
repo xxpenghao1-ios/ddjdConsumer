@@ -37,8 +37,10 @@ class BalanceMoneyWithdrawalViewController:BaseViewController {
     private var toDeductoundageMoneyMaxWithdrawalsMoney:String?
     ///获取会员可提现金额
     private var memberBalanceMoney:Double?
-    ///保存会员提现余额(传给服务器)
+    ///保存会员提现余额
     private var returnMemberBalanceMoney:String?
+    ///提现余额(传给服务器)
+    private var withdrawalsMoney:String?
     ///余额充值 0 没有绑定； 1 绑定了微信； 2 绑定了支付宝
     private var payType:Int?
     ///提现是否绑定1 已经绑定； =2 没有绑定 ；
@@ -105,7 +107,14 @@ extension BalanceMoneyWithdrawalViewController{
     }
     ///获取全部可提余额
     @objc private func getAllMoney(){
-        toCalculateMoney(isAllWithdrawal:1, memberBalanceMoney:self.memberBalanceMoney ?? 0.00)
+        if self.memberBalanceMoney ?? 0 <= 0{
+            return
+        }
+        if self.memberBalanceMoney ?? 0 < self.minWithdrawalsMoney ?? 1{
+            self.btnAllWithdrawal.isHidden=true
+            return
+        }
+        toCalculateMoney(isAllWithdrawal:1, memberBalanceMoney:self.memberBalanceMoney ?? 0.0)
         ///隐藏全部提现按钮
         self.btnAllWithdrawal.isHidden=true
         self.btnSubmit.enable()
@@ -133,6 +142,7 @@ extension BalanceMoneyWithdrawalViewController{
                 returnMemberBalanceMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue:memberBalanceMoney.description, multiplicandValue: poundageMoneyStr ?? "0", type: ComputationsType.subtraction, position:2)
                 if isAllWithdrawal == 1{//如果是全部提现
                     txtMoney.text=returnMemberBalanceMoney
+
                 }
                 ///提示信息
                 self.lblWithdrawalInfoPrompt.text="额外扣除￥\(poundageMoneyStr ?? "0")手续费 (费率\(PriceComputationsUtil.decimalNumberWithString(multiplierValue: (withdrawalsServiceChargeRate ?? 6).description, multiplicandValue: 10.description, type: ComputationsType.division, position:1))%)"
@@ -144,16 +154,21 @@ extension BalanceMoneyWithdrawalViewController{
                 self.lblWithdrawalInfoPrompt.text="免费额度2000(已用额度\(memberSumWithdrawalsMoney ?? 0))"
             }
         }else{//如果已经超过累计金额
-            ///可提金额
-            returnMemberBalanceMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue:memberBalanceMoney.description, multiplicandValue:poundage, type: ComputationsType.multiplication, position:2)
+            ///手续费扣除
+            let poundageMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue: memberBalanceMoney.description, multiplicandValue: poundage, type: ComputationsType.multiplication, position: 2)
+            ///如果手续费小于0.1 收0.1
+            poundageMoneyStr=Double(poundageMoney) ?? 0.0 < 0.1 ? "0.1":poundageMoney
+            ///计算当前可提余额 (可提余额-手续费扣除后)
+            returnMemberBalanceMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue:memberBalanceMoney.description, multiplicandValue: poundageMoneyStr ?? "0", type: ComputationsType.subtraction, position:2)
             if isAllWithdrawal == 1{//如果是全部提现
                 txtMoney.text=returnMemberBalanceMoney
             }
-            ///手续费
-            let poundageMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue:memberBalanceMoney.description , multiplicandValue:returnMemberBalanceMoney ?? "0", type: ComputationsType.subtraction, position:2)
-            ///如果手续费小于0.1 收0.1
-            poundageMoneyStr=Double(poundageMoney) ?? 0.0 < 0.1 ? "0.1":poundageMoney
             self.lblWithdrawalInfoPrompt.text="额外扣除￥\(poundageMoneyStr ?? "0")手续费 (费率\(PriceComputationsUtil.decimalNumberWithString(multiplierValue: (withdrawalsServiceChargeRate ?? 6).description, multiplicandValue: 10.description, type: ComputationsType.division, position:1))%)"
+        }
+        ///会员提现余额(没有计算手续费)
+        withdrawalsMoney=memberBalanceMoney.description
+        if isAllWithdrawal == 1{//如果是全部提现
+            withdrawalsMoney=self.memberBalanceMoney?.description
         }
         self.lblWithdrawalInfoPrompt.textColor=UIColor.RGBFromHexColor(hexString:"aeaeae")
         ///计算最大提现金额(扣除手续费后)
@@ -178,12 +193,16 @@ extension BalanceMoneyWithdrawalViewController{
                 self.toDeductoundageMoneyMaxWithdrawalsMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue:(self.memberBalanceMoney ?? 0.0).description, multiplicandValue:poundageMoneyStrs, type: ComputationsType.subtraction, position:2)
 
             }else{//如果小于 不收取手续费
-                self.toDeductoundageMoneyMaxWithdrawalsMoney=memberBalanceMoney.description
+            self.toDeductoundageMoneyMaxWithdrawalsMoney=memberBalanceMoney.description
 
             }
         }else{//如果已经超过累计金额
+            ///手续费扣除
+            let poundageMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue:(self.memberBalanceMoney ?? 0.0).description, multiplicandValue: poundage, type: ComputationsType.multiplication, position: 2)
+            ///如果手续费小于0.1 收0.1
+            let poundageMoneyStrs=Double(poundageMoney) ?? 0.0 < 0.1 ? "0.1":poundageMoney
             ///计算最大提现金额(扣除手续费后)
-            self.toDeductoundageMoneyMaxWithdrawalsMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue:memberBalanceMoney.description, multiplicandValue: poundage, type: ComputationsType.multiplication, position:2)
+            self.toDeductoundageMoneyMaxWithdrawalsMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue:(self.memberBalanceMoney ?? 0.0).description, multiplicandValue:poundageMoneyStrs, type: ComputationsType.subtraction, position:2)
 
         }
     }
@@ -322,13 +341,14 @@ extension BalanceMoneyWithdrawalViewController{
     ///开始提现
     private func memberStartWithdrawalsBalance(){
         self.showSVProgressHUD(status:"正在提现...", type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.memberStartWithdrawalsBalance(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description, dicAny:["withdrawalsMoney":self.returnMemberBalanceMoney ?? "","serviceCharge":self.poundageMoneyStr ?? ""])), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.memberStartWithdrawalsBalance(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description, dicAny:["withdrawalsMoney":self.withdrawalsMoney ?? "0.0","serviceCharge":self.poundageMoneyStr ?? "0.0"])), successClosure: { (json) in
             print(json)
             let success=json["success"].stringValue
             self.dismissHUD()
             switch success{
             case "success":
-                self.showSVProgressHUD(status:"提现成功", type: HUD.success)
+                let vc=self.storyboardPushView(type:.my, storyboardId:"WithdrawalSuccessVC") as! WithdrawalSuccessViewController
+                self.navigationController?.pushViewController(vc, animated:true)
                 break
             case "memberBalanceNotEnough":
                 self.showSVProgressHUD(status:"会员余额不充足", type: HUD.error)
@@ -342,11 +362,16 @@ extension BalanceMoneyWithdrawalViewController{
             case "notExist":
                 self.showSVProgressHUD(status:"提现金额超出剩余可提现金额", type: HUD.error)
                 break
+            case "maxWithdrawalsMoneyToday":
+                let surplusToday=json["surplusToday"].doubleValue
+                self.showSVProgressHUD(status:"超出今日最大提现金额\(surplusToday)", type: HUD.error)
+                break
             default:
                 self.showSVProgressHUD(status:"提现失败", type: HUD.error)
             }
             self.queryMemberWithdrawalsBalance()
             self.btnAllWithdrawal.isHidden=false
+            self.txtMoney.text=nil
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
@@ -364,7 +389,22 @@ extension BalanceMoneyWithdrawalViewController:UITextFieldDelegate{
                     return false
                 }
                 if strs[1].count >= 2{//如果小数点超过2位
-                    return false
+                    if range.location == textField.text!.count{//光标位置在最后
+                        return false
+                    }
+                }
+            }else{//如果没有点
+                if range.location < textField.text!.count{//光标位值小于字符长度
+                    if string.contains("."){//如果是点
+                        if textField.text!.count > 2{//如果输入框的字符串大于2位
+                            return false
+                        }else{//如果小于等于2位
+                            if range.location == 0{//如果光标位置是第一为
+                                textField.text="0."+textField.text!
+                                return false
+                            }
+                        }
+                    }
                 }
             }
         }else{//如果输入框为空
@@ -412,5 +452,6 @@ extension BalanceMoneyWithdrawalViewController:UITextFieldDelegate{
         self.lblWithdrawalInfoPrompt.text=str
         self.lblWithdrawalInfoPrompt.textColor=UIColor.red
         self.btnAllWithdrawal.isHidden=true
+        self.btnSubmit.disable()
     }
 }

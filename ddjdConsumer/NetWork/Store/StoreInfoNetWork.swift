@@ -20,6 +20,10 @@ public enum StoreInfoApi{
     case queryStoreTransferaccountsrecord(storeId:Int,pageNumber:Int,pageSize:Int,queryStatu:Int)
     ///修改店铺信息
     case updateStoreInfo(storeId:Int,storeMsg:String?,tel:String?,distributionScope:Int?,lowestMoney:Int?,distributionStartTime:String?,distributionEndTime:String?)
+    ///店铺查询合伙人
+    case queryStoreBindPartner(storeId:Int)
+    ///添加合伙人
+    case addPartnerByStore(storeId:Int,memberAcc:String,memberTel:String,BFB:Int,nickName:String,storeAndPartneAmountOfPayment:String)
 }
 extension StoreInfoApi:TargetType{
     public var baseURL: URL {
@@ -38,14 +42,18 @@ extension StoreInfoApi:TargetType{
             return "/front/storeStatistics/queryStoreTransferaccountsrecord"
         case .updateStoreInfo(_,_,_,_,_,_,_):
             return "/front/storeInfo/updateStoreInfo"
+        case .queryStoreBindPartner(_):
+            return "/front/partner/queryStoreBindPartner"
+        case .addPartnerByStore(_,_,_,_,_,_):
+            return "/front/partner/addPartnerByStore"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .queryStoreById(_),.queryStoreForLocation(_,_,_),.queryStoreTurnover(_),.queryStoreTransferaccountsrecord(_,_,_,_):
+        case .queryStoreById(_),.queryStoreForLocation(_,_,_),.queryStoreTurnover(_),.queryStoreTransferaccountsrecord(_,_,_,_),.queryStoreBindPartner(_):
             return .get
-        case .updateStoreInfo(_,_,_,_,_,_,_):
+        case .updateStoreInfo(_,_,_,_,_,_,_),.addPartnerByStore(_,_,_,_,_,_):
             return .post
         }
     }
@@ -86,6 +94,10 @@ extension StoreInfoApi:TargetType{
                 parameters["distributionEndTime"]=distributionEndTime!
             }
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+        case let .queryStoreBindPartner(storeId):
+            return .requestParameters(parameters:["storeId":storeId], encoding: URLEncoding.default)
+        case let .addPartnerByStore(storeId, memberAcc, memberTel, BFB, nickName, storeAndPartneAmountOfPayment):
+            return .requestParameters(parameters:["storeId":storeId,"memberAcc":memberAcc,"memberTel":memberTel,"BFB":BFB,"nickName":nickName,"storeAndPartneAmountOfPayment":storeAndPartneAmountOfPayment], encoding: URLEncoding.default)
         }
     }
     

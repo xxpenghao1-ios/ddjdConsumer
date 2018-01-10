@@ -218,6 +218,54 @@
             </objects>
             <point key="canvasLocation" x="-1278" y="1116"/>
         </scene>
+        <!--Partner List View Controller-->
+        <scene sceneID="GtZ-H3-Y4w">
+            <objects>
+                <viewController storyboardIdentifier="PartnerListVC" id="vd2-nE-7rG" customClass="PartnerListViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FWZ-cj-Aw1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pfD-Ue-APk">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pfD-Ue-APk" firstAttribute="top" secondItem="XGs-GV-JPt" secondAttribute="top" id="7VI-Jg-98b"/>
+                            <constraint firstItem="pfD-Ue-APk" firstAttribute="leading" secondItem="XGs-GV-JPt" secondAttribute="leading" id="ANB-Ev-5lu"/>
+                            <constraint firstItem="XGs-GV-JPt" firstAttribute="trailing" secondItem="pfD-Ue-APk" secondAttribute="trailing" id="PNQ-s1-w2T"/>
+                            <constraint firstItem="XGs-GV-JPt" firstAttribute="bottom" secondItem="pfD-Ue-APk" secondAttribute="bottom" id="THc-bf-lLa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XGs-GV-JPt"/>
+                    </view>
+                    <connections>
+                        <outlet property="table" destination="pfD-Ue-APk" id="upg-hr-cvT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="THa-GR-X20" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-583" y="1116"/>
+        </scene>
+        <!--Add Partner View Controller-->
+        <scene sceneID="KM4-QT-rsQ">
+            <objects>
+                <tableViewController storyboardIdentifier="AddPartnerVC" id="kib-QM-Vhk" customClass="AddPartnerViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="TuW-db-b35">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="kib-QM-Vhk" id="1U0-Ki-e9l"/>
+                            <outlet property="delegate" destination="kib-QM-Vhk" id="cqJ-Lk-R91"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aYV-nU-wlS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="1111"/>
+        </scene>
         <!--Bind Wx And Ali View Controller-->
         <scene sceneID="0Oa-EZ-7wx">
             <objects>

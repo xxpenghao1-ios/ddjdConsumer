@@ -157,12 +157,12 @@ class PayAlert: UIView,UITextFieldDelegate {
             password = textField.text! + string
         }
         self.setCircleShow(count:password.count)
-        DispatchQueue.main.asyncAfter(deadline:.now()+0.3) {//延时0.3
-            if password.count == 6 {
-                self.completeBlock?(password)
-                self.close()
-            }
+
+        if password.count == 6 {
+            self.completeBlock?(password)
+            self.close()
         }
+
         return true;
     }
 

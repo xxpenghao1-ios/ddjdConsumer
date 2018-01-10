@@ -18,10 +18,18 @@ class BalanceMoneyRecordViewController:BaseViewController{
 
     private var pageNumber=1
 
+    private var flag=false
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setUpNavColor()
         queryMemberBalanceMoney()
+        if flag{
+            self.pageNumber=1
+            self.arr.removeAll()
+            self.queryMemberBalanceRecord(pageNumber:self.pageNumber, pageSize:10)
+        }
+        flag=true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -90,6 +98,7 @@ extension BalanceMoneyRecordViewController{
     ///获取余额记录
     private func queryMemberBalanceRecord(pageNumber:Int,pageSize:Int){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceRecord(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description, dicAny:["pageNumber":pageNumber,"pageSize":pageSize])), successClosure: { (json) in
+            print(json)
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:BalanceRecordEntity.init(), object:value.object)
                 self.arr.append(entity!)
@@ -100,10 +109,12 @@ extension BalanceMoneyRecordViewController{
                 self.table.mj_footer.isHidden=true
             }
             self.setLoadingState(isLoading:false)
+            self.table.mj_footer.endRefreshing()
             self.table.reloadData()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
             self.setLoadingState(isLoading:false)
+            self.table.mj_footer.endRefreshing()
             self.table.reloadData()
         }
     }

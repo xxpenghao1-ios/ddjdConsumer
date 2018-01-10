@@ -15,8 +15,8 @@ class StoreIndexViewController:BaseViewController{
     @IBOutlet weak var lblTodayPirce: UILabel!
     
     @IBOutlet weak var collection: UICollectionView!
-    private let imgArr=["store_index_good","store_index_order","store_index_xstj","store_index_tj","store_index_cx","store_index_zhmx","store_index_lxkf","store_index_qt"]
-    private let strArr=["商品管理","订单管理","销售统计","热门推荐","限时促销","账户明细","联系客服","其他设置"]
+    private let imgArr=["store_index_good","store_index_order","store_index_xstj","store_index_tj","store_index_cx","store_index_zhmx","store_index_lxkf","store_index_lxkf","store_index_qt"]
+    private let strArr=["商品管理","订单管理","销售统计","热门推荐","限时促销","账户明细","合伙人管理","联系客服","其他设置"]
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpNavColor()
@@ -67,6 +67,10 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
             }else if indexPath.item == 1{//订单
                 let vc=PageStoreOrderListViewController()
                 self.navigationController?.pushViewController(vc, animated:true)
+            }else if indexPath.item == 2{//销售统计
+                let vc=self.storyboardPushView(type:.storeOrder, storyboardId:"OrderStatisticsTextVC") as! OrderStatisticsTextViewController
+                vc.orderSumPrice=lblSumPrice.text
+                self.navigationController?.pushViewController(vc, animated:true)
             }else if indexPath.item == 3{//热门推荐商品
                 let vc=self.storyboardPushView(type:.storeGood, storyboardId:"HotGoodListVC") as! HotGoodListViewController
                 self.navigationController?.pushViewController(vc, animated:true)
@@ -76,14 +80,13 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
             }else if indexPath.item == 5{//账户明细
                 let vc=self.storyboardPushView(type:.store, storyboardId:"AccountDetailsVC") as! AccountDetailsViewController
                 self.navigationController?.pushViewController(vc, animated:true)
-            }else if indexPath.item == 6{//联系客服
-                UIApplication.shared.openURL(Foundation.URL(string :"tel://4008356878")!)
-            }else if indexPath.item == 7{//其他设置
-                let vc=self.storyboardPushView(type:.store, storyboardId:"OtherSettingsVC") as! OtherSettingsViewController
+            }else if indexPath.item == 6{//合伙人管理
+                let vc=self.storyboardPushView(type:.store, storyboardId:"PartnerListVC") as! PartnerListViewController
                 self.navigationController?.pushViewController(vc, animated:true)
-            }else{
-                let vc=self.storyboardPushView(type:.storeOrder, storyboardId:"OrderStatisticsTextVC") as! OrderStatisticsTextViewController
-                vc.orderSumPrice=lblSumPrice.text
+            }else if indexPath.item == 7{//联系客服
+                UIApplication.shared.openURL(Foundation.URL(string :"tel://4008356878")!)
+            }else if indexPath.item == 8{//其他设置
+                let vc=self.storyboardPushView(type:.store, storyboardId:"OtherSettingsVC") as! OtherSettingsViewController
                 self.navigationController?.pushViewController(vc, animated:true)
             }
         }else{

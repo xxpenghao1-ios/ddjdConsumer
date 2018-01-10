@@ -13,7 +13,7 @@ class BalanceRecordEntity:Mappable {
 
     ///记录id
     var memberBalanceRecordId:Int?
-    /// ‘1，充值获得；2，赠送获得；3，下单使用扣除；’,
+    /// ‘1，充值获得；2，赠送获得；3，下单使用扣除；4提现扣除’,
     var memberBalanceRecordType:Int?
     /// ‘操作余额’,
     var memberBalanceRecordMoney:Double?
