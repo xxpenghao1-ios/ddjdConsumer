@@ -11,6 +11,8 @@ import Foundation
 class GoodDetailsViewController:BaseViewController{
     /// 接收传入的商品Id
     var storeAndGoodsId:Int?
+    ///1普通商品 3促销商品
+    var goodsStuta:Int?
     //可滑动容器
     @IBOutlet weak var scrollView: UIScrollView!
     ///幻灯片view
@@ -53,7 +55,17 @@ class GoodDetailsViewController:BaseViewController{
     //条码
     @IBOutlet weak var lblBarcode: UILabel!
     /**********end商品参数**********/
-    
+
+    /**********促销信息*********/
+    ///促销信息view高度
+    @IBOutlet weak var promotionViewHeight: NSLayoutConstraint!
+    ///促销信息view
+    @IBOutlet weak var promotionView: UIView!
+    ///促销时间
+    @IBOutlet weak var lblPromotionTime: UILabel!
+    ///促销内容
+    @IBOutlet weak var lblPromotionMsg: UILabel!
+    /**********end促销信息*******/
     //商品列表(为你推荐)
     @IBOutlet weak var goodCollection: UICollectionView!
     //商品列表高度
@@ -73,7 +85,7 @@ class GoodDetailsViewController:BaseViewController{
         storeAndGoodsId=storeAndGoodsId ?? 0
         setUpView()
         setUpNav()
-        getGoodsDetail()
+        getGoodsDetail(goodsStuta: goodsStuta ?? 1)
     }
     //添加商品数量
     @IBAction func addCount(_ sender: UIButton) {
@@ -87,7 +99,12 @@ class GoodDetailsViewController:BaseViewController{
             lblCount.text="\(goodCount)"
         }
     }
-    
+    //隐藏促销信息
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        promotionViewHeight.constant=0
+
+    }
 }
 
 // MARK: - 页面设置
@@ -170,9 +187,6 @@ extension GoodDetailsViewController:WaterFlowViewLayoutDelegate{
             }
             //条形码
             lblBarcode.text=goodEntity!.goodsCode
-            //商品库存
-            goodEntity!.stock=goodEntity!.stock ?? 0
-            lblStock.text="库存:\(goodEntity!.stock!)"
             //商品销量
             goodEntity!.salesCount=goodEntity!.salesCount ?? 0
             lblSales.text="销量:\(goodEntity!.salesCount!)"
@@ -182,6 +196,18 @@ extension GoodDetailsViewController:WaterFlowViewLayoutDelegate{
                 collectImg.image=UIImage(named:"y_collect")
             }else{
                 collectImg.image=UIImage(named:"collect")
+            }
+            if goodsStuta == 3{//如果是促销
+                lblStock.text="库存:\(goodEntity!.promotionStock ?? 0)"
+                let date=DateFormatter()
+                self.lblPromotionTime.text=date.string(for:goodEntity!.promotionStartTime)
+                self.lblPromotionMsg.text=goodEntity!.promotionMsg
+
+            }else{//不是促销
+                ///隐藏促销信息View
+                lblStock.text="库存:\(goodEntity!.stock ?? 0)"
+                promotionView.isHidden=true
+                self.viewDidLayoutSubviews()
             }
             updateViewHeight()
         }
@@ -199,9 +225,10 @@ extension GoodDetailsViewController:WaterFlowViewLayoutDelegate{
 }
 //发送网络请求
 extension GoodDetailsViewController{
-    private func getGoodsDetail(){
+    ///1普通商品 3促销商品
+    private func getGoodsDetail(goodsStuta:Int){
         self.showSVProgressHUD(status:"正在加载...", type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.getGoodsDetail(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId!, bindstoreId:BINDSTOREID), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.getGoodsDetail(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId!, bindstoreId:BINDSTOREID, goodsStuta:goodsStuta), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
                 for(_,value) in json["gg"]{//获取推荐商品信息

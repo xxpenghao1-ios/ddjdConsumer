@@ -181,8 +181,6 @@
 		63F9C8D01FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C8CF1FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift */; };
 		63F9C91B1FAB3E5500A3732D /* SpecialPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C9191FAB3E5500A3732D /* SpecialPriceTableViewCell.swift */; };
 		63F9C91C1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F9C91A1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib */; };
-		63F9C9211FAB5C0200A3732D /* SpecialPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C9201FAB5C0200A3732D /* SpecialPriceViewController.swift */; };
-		63F9C9231FAB5D0900A3732D /* SpecialPriceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C9221FAB5D0900A3732D /* SpecialPriceListViewController.swift */; };
 		63F9EF0E1F6761C30038B05D /* ConsumerTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9EF0D1F6761C30038B05D /* ConsumerTabBarViewController.swift */; };
 		63F9EF101F67620C0038B05D /* StoreTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9EF0F1F67620C0038B05D /* StoreTabBarViewController.swift */; };
 		63F9EF131F6763290038B05D /* Index.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63F9EF111F6763290038B05D /* Index.storyboard */; };
@@ -198,9 +196,8 @@
 		63FA69962005B97F005B0CA4 /* WithdrawalSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA69952005B97F005B0CA4 /* WithdrawalSuccessViewController.swift */; };
 		63FA69992005E067005B0CA4 /* PartnerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA69982005E067005B0CA4 /* PartnerListViewController.swift */; };
 		63FA699B2005E79B005B0CA4 /* PartnerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA699A2005E79B005B0CA4 /* PartnerEntity.swift */; };
-		63FA699F2005EB53005B0CA4 /* PartnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA699D2005EB53005B0CA4 /* PartnerTableViewCell.swift */; };
-		63FA69A02005EB53005B0CA4 /* PartnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63FA699E2005EB53005B0CA4 /* PartnerTableViewCell.xib */; };
 		63FA69A22006040E005B0CA4 /* AddPartnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA69A12006040E005B0CA4 /* AddPartnerViewController.swift */; };
+		63FAAB912006337E00FA606B /* PartnerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FAAB902006337E00FA606B /* PartnerDetailViewController.swift */; };
 		63FACAEF1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FACAED1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift */; };
 		63FACAF01FDA61D10051BA59 /* StoreGoodListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63FACAEE1FDA61D10051BA59 /* StoreGoodListTableViewCell.xib */; };
 		63FACD181FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FACD171FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift */; };
@@ -443,8 +440,6 @@
 		63F9C8CF1FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStoreGoodDetailViewController.swift; sourceTree = "<group>"; };
 		63F9C9191FAB3E5500A3732D /* SpecialPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialPriceTableViewCell.swift; sourceTree = "<group>"; };
 		63F9C91A1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpecialPriceTableViewCell.xib; sourceTree = "<group>"; };
-		63F9C9201FAB5C0200A3732D /* SpecialPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialPriceViewController.swift; sourceTree = "<group>"; };
-		63F9C9221FAB5D0900A3732D /* SpecialPriceListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialPriceListViewController.swift; sourceTree = "<group>"; };
 		63F9EF0D1F6761C30038B05D /* ConsumerTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumerTabBarViewController.swift; sourceTree = "<group>"; };
 		63F9EF0F1F67620C0038B05D /* StoreTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreTabBarViewController.swift; sourceTree = "<group>"; };
 		63F9EF121F6763290038B05D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Index.storyboard; sourceTree = "<group>"; };
@@ -460,9 +455,8 @@
 		63FA69952005B97F005B0CA4 /* WithdrawalSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalSuccessViewController.swift; sourceTree = "<group>"; };
 		63FA69982005E067005B0CA4 /* PartnerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerListViewController.swift; sourceTree = "<group>"; };
 		63FA699A2005E79B005B0CA4 /* PartnerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerEntity.swift; sourceTree = "<group>"; };
-		63FA699D2005EB53005B0CA4 /* PartnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerTableViewCell.swift; sourceTree = "<group>"; };
-		63FA699E2005EB53005B0CA4 /* PartnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartnerTableViewCell.xib; sourceTree = "<group>"; };
 		63FA69A12006040E005B0CA4 /* AddPartnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPartnerViewController.swift; sourceTree = "<group>"; };
+		63FAAB902006337E00FA606B /* PartnerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerDetailViewController.swift; sourceTree = "<group>"; };
 		63FACAED1FDA61D10051BA59 /* StoreGoodListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGoodListTableViewCell.swift; sourceTree = "<group>"; };
 		63FACAEE1FDA61D10051BA59 /* StoreGoodListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreGoodListTableViewCell.xib; sourceTree = "<group>"; };
 		63FACD171FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeGetBarcodeViewController.swift; sourceTree = "<group>"; };
@@ -877,7 +871,6 @@
 			isa = PBXGroup;
 			children = (
 				63312D6A1FFF661900512177 /* Promotion */,
-				63F9C9131FAB3BE700A3732D /* SpecialPrice */,
 				63F38B431FAAAC0800DB0FAA /* GoodListViewController.swift */,
 				633C0B7A1FBBCE410054C215 /* GoodDetailsViewController.swift */,
 			);
@@ -1308,15 +1301,6 @@
 			path = BalanceMoneyCell;
 			sourceTree = "<group>";
 		};
-		63F9C9131FAB3BE700A3732D /* SpecialPrice */ = {
-			isa = PBXGroup;
-			children = (
-				63F9C9221FAB5D0900A3732D /* SpecialPriceListViewController.swift */,
-				63F9C9201FAB5C0200A3732D /* SpecialPriceViewController.swift */,
-			);
-			path = SpecialPrice;
-			sourceTree = "<group>";
-		};
 		63F9C9161FAB3DE300A3732D /* UITableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1396,15 +1380,7 @@
 			children = (
 				63FA69982005E067005B0CA4 /* PartnerListViewController.swift */,
 				63FA69A12006040E005B0CA4 /* AddPartnerViewController.swift */,
-			);
-			path = Partner;
-			sourceTree = "<group>";
-		};
-		63FA699C2005EB3D005B0CA4 /* Partner */ = {
-			isa = PBXGroup;
-			children = (
-				63FA699D2005EB53005B0CA4 /* PartnerTableViewCell.swift */,
-				63FA699E2005EB53005B0CA4 /* PartnerTableViewCell.xib */,
+				63FAAB902006337E00FA606B /* PartnerDetailViewController.swift */,
 			);
 			path = Partner;
 			sourceTree = "<group>";
@@ -1438,7 +1414,6 @@
 		63FBCC881FD7846800A461E6 /* StoreCell */ = {
 			isa = PBXGroup;
 			children = (
-				63FA699C2005EB3D005B0CA4 /* Partner */,
 				630594211FF0CF2A00FA303B /* AccountDetails */,
 				632D81781FEB5B9600E4A89A /* GoodPublicLibraryList */,
 				63395A791FE752E6005EE80A /* OrderStatistics */,
@@ -1699,7 +1674,6 @@
 				63FACD221FDA261A007678B8 /* CodeScan.bundle in Resources */,
 				63FA108A1FC05BA2009B6CB2 /* OrderConfirmTableViewCell.xib in Resources */,
 				6326552C1FC1A6B200559E66 /* StoreIndexCollectionViewCell.xib in Resources */,
-				63FA69A02005EB53005B0CA4 /* PartnerTableViewCell.xib in Resources */,
 				6341B9BB1FD159710074787F /* LoginWithRegistr.storyboard in Resources */,
 				63F9EF1B1F6774100038B05D /* My.storyboard in Resources */,
 				631595871F67797C000355C6 /* ShoppingCar.storyboard in Resources */,
@@ -1898,7 +1872,6 @@
 				6316BAF21FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m in Sources */,
 				63F558D31FE1076100BF0CF5 /* BindWxAndAliViewController.swift in Sources */,
 				63FDDC451FD0F1F9001CD97E /* PoiSearchAddressViewController.swift in Sources */,
-				63F9C9231FAB5D0900A3732D /* SpecialPriceListViewController.swift in Sources */,
 				633F39BF1FD62EDF00484E81 /* UpdatePasswordViewController.swift in Sources */,
 				63E8B2831FD3D05C003FCF1E /* FormDescriptor.swift in Sources */,
 				63F941C61FD90525007BB96A /* NSNotificationName.swift in Sources */,
@@ -1916,9 +1889,9 @@
 				6302E6F31FCB96270009A018 /* UILabel.swift in Sources */,
 				63351D581FB590F1004B12A3 /* WXApiManager.swift in Sources */,
 				632655271FC19C2A00559E66 /* StoreIndexViewController.swift in Sources */,
-				63FA699F2005EB53005B0CA4 /* PartnerTableViewCell.swift in Sources */,
 				630594241FF0CF3E00FA303B /* AccountDetailsTableViewCell.swift in Sources */,
 				63FA211C20006262001F2240 /* AddPromotionGoodViewController.swift in Sources */,
+				63FAAB912006337E00FA606B /* PartnerDetailViewController.swift in Sources */,
 				6381737D1FAB0ECC001EA0CD /* ShoppingCarViewController.swift in Sources */,
 				63924F391FB991DC007872F6 /* AddressListViewController.swift in Sources */,
 				63395A841FE786A6005EE80A /* NSDate+HooDatePicker.m in Sources */,
@@ -1996,7 +1969,6 @@
 				630594291FF0F06D00FA303B /* UpdateStoreInfoViewController.swift in Sources */,
 				63E8B2771FD3D05C003FCF1E /* FormLabelCell.swift in Sources */,
 				632B57F41FDA3B00008CE639 /* PageStoreGoodListViewController.swift in Sources */,
-				63F9C9211FAB5C0200A3732D /* SpecialPriceViewController.swift in Sources */,
 				6394465E1FE7AAF700412811 /* DDJDCSign.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

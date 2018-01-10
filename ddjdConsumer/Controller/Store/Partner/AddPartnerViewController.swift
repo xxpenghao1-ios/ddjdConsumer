@@ -32,11 +32,11 @@ extension AddPartnerViewController{
         row.configuration.cell.placeholder="请输入合伙人姓名"
         section1.rows.append(row)
 
-        row = FormRowDescriptor(tag: Static.memberAccTag, type:.namePhone, title:"账号:")
+        row = FormRowDescriptor(tag: Static.memberAccTag, type:.phone, title:"账号:")
         row.configuration.cell.placeholder="请输入合伙人账号"
         section1.rows.append(row)
 
-        row = FormRowDescriptor(tag: Static.memberTelTag, type:.namePhone, title:"联系方式:")
+        row = FormRowDescriptor(tag: Static.memberTelTag, type:.phone, title:"联系方式:")
         row.configuration.cell.placeholder="请输入合伙人联系方式"
         section1.rows.append(row)
 
@@ -97,7 +97,9 @@ extension AddPartnerViewController{
             let success=json["success"].stringValue
             switch success{
             case "success":
-                self.showInfo(withStatus:"成功")
+                SVProgressHUD.showSuccess(withStatus:"添加合伙人成功")
+                SVProgressHUD.setDefaultMaskType(.none)
+                self.navigationController?.popViewController(animated:true)
                 break
             case "bindPartnerExist":
                 self.showInfo(withStatus:"此账号已经绑定合伙人信息,不能再绑定")

@@ -19,6 +19,7 @@ class StorePromotionGoodListViewController:BaseViewController{
     private var operatingTable:UITableView!
     ///商品操作table高度
     private var operatingTableHeight:CGFloat=100
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="促销商品管理"

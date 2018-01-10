@@ -30,12 +30,9 @@ class SpecialPriceTableViewCell: UITableViewCell {
     @IBOutlet weak var dateBacView: UIView!
     //提示图片
     @IBOutlet weak var promptImg: UIImageView!
-
-    private var entity:GoodEntity?{
-        willSet{
-            self.countDownNotification()
-        }
-    }
+    var addCarClosure:(() -> Void)?
+    var pushGoodDetailClosure:(() -> Void)?
+    private var entity:GoodEntity?
 
     ///更新促销结束时间
     var updatePromotionEndTimeClosure:((_ timeInterval:Int) -> Void)?
@@ -45,10 +42,22 @@ class SpecialPriceTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         lblDate.adjustsFontSizeToFitWidth=true
         dateBacView.backgroundColor=UIColor.init(red:0, green:0, blue:0,alpha: 0.5)
+        addCarImg.isUserInteractionEnabled=true
+        addCarImg.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(addCar)))
+        goodImg.isUserInteractionEnabled=true
+        goodImg.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(pushGoodDetail)))
         ///默认隐藏提示图片
         promptImg.isHidden=true
         //监听倒计时通知
         NotificationCenter.default.addObserver(self, selector: #selector(self.countDownNotification), name:.OYCountDownNotification, object: nil)
+    }
+    ///跳转详情页面
+    @objc private func pushGoodDetail(){
+        self.pushGoodDetailClosure?()
+    }
+    ///加入购物车
+    @objc private func addCar(){
+        self.addCarClosure?()
     }
     //更新cell
     func updateCell(entity:GoodEntity){
@@ -63,11 +72,14 @@ class SpecialPriceTableViewCell: UITableViewCell {
         promptImg.isHidden=true
         ///默认显示促销信息
         lblPromotionMsg.isHidden=false
+        addCarImg.isHidden=false
         if entity.promotionEndTimeSeconds == nil || entity.promotionEndTimeSeconds! <= 0 {//如果活动时间小于等于0  或者为空 显示活动已结束
             showPromptImg(named: "to_sell_end")
+            addCarImg.isHidden=true
         }else{//如果活动没有结束
             if entity.promotionStock == nil || entity.promotionStock! <= 0{//如果促销库存为0
                 showPromptImg(named: "to_sell_out")
+                addCarImg.isHidden=true
             }
         }
     }

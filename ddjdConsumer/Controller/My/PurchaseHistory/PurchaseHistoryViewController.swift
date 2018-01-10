@@ -32,6 +32,7 @@ class PurchaseHistoryViewController:BaseViewController{
 extension PurchaseHistoryViewController{
     private func getGoodsOfBuyed(pageSize:Int,pageNumber:Int){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.getGoodsOfBuyed(memberId:MEMBERID, pageSize: pageSize, pageNumber:pageNumber), successClosure: { (json) in
+            print(json)
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
                 self.arr.append(entity!)
@@ -45,6 +46,8 @@ extension PurchaseHistoryViewController{
             self.table.reloadData()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
+            self.setLoadingState(isLoading:false)
+            self.table.reloadData()
         }
     }
     //加入购物车

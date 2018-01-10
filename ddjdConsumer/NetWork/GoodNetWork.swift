@@ -10,8 +10,8 @@ import Foundation
 import Moya
 //商品相关请求
 public enum GoodApi{
-    //查询商品详情  会员id  店铺商品id  会员绑定的店铺id
-    case getGoodsDetail(memberId:Int,storeAndGoodsId:Int,bindstoreId:Int)
+    //查询商品详情  会员id  店铺商品id  会员绑定的店铺id 商品状态：1普通，3促销，只有促销是才会返回促销信息
+    case getGoodsDetail(memberId:Int,storeAndGoodsId:Int,bindstoreId:Int,goodsStuta:Int)
     //收藏商品
     case addCollection(memberId:Int,storeAndGoodsId:Int)
     //搜索商品  priceFlag 价格排序 1.降序 2. 升序  salesCountFlag 销量排序1.降序 2. 升序
@@ -42,7 +42,7 @@ extension GoodApi:TargetType{
     ///URL详细路径
     public var path:String{
         switch self {
-        case .getGoodsDetail(_,_,_):
+        case .getGoodsDetail(_,_,_,_):
             return "/front/goods/getGoodsDetail"
         case .addCollection(_,_):
             return "/front/collection/addCollection"
@@ -63,7 +63,7 @@ extension GoodApi:TargetType{
     ///请求方式
     public var method:Moya.Method{
         switch  self {
-        case .getGoodsDetail(_,_,_),.searchGood(_,_,_,_,_,_,_),.goodListByCategoryId(_,_,_,_,_,_,_),.getAllCollection(_,_,_),.getGoodsOfBuyed(_,_,_),.queryGoodsByGoodsCode(_),.queryPromotiongoodsPaginate(_,_,_,_,_,_):
+        case .getGoodsDetail(_,_,_,_),.searchGood(_,_,_,_,_,_,_),.goodListByCategoryId(_,_,_,_,_,_,_),.getAllCollection(_,_,_),.getGoodsOfBuyed(_,_,_),.queryGoodsByGoodsCode(_),.queryPromotiongoodsPaginate(_,_,_,_,_,_):
             return .get
         case .addCollection(_,_),.removeCollection(_,_):
             return .post
@@ -76,8 +76,8 @@ extension GoodApi:TargetType{
     //任务
     public var task: Task {
         switch self {
-        case let .getGoodsDetail(memberId, storeAndGoodsId, bindstoreId):
-            return .requestParameters(parameters:["memberId":memberId,"storeAndGoodsId":storeAndGoodsId,"bindstoreId":bindstoreId], encoding: URLEncoding.default)
+        case let .getGoodsDetail(memberId, storeAndGoodsId, bindstoreId,goodsStuta):
+            return .requestParameters(parameters:["memberId":memberId,"storeAndGoodsId":storeAndGoodsId,"bindstoreId":bindstoreId,"goodsStuta":goodsStuta], encoding: URLEncoding.default)
         case let .addCollection(memberId, storeAndGoodsId):
             return .requestParameters(parameters:["memberId":memberId,"storeAndGoodsId":storeAndGoodsId], encoding: URLEncoding.default)
         case let .searchGood(memberId, pageSize, pageNumber, bindstoreId, goodsName, priceFlag,salesCountFlag):

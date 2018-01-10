@@ -90,6 +90,15 @@ extension PromotionListViewController:UITableViewDelegate,UITableViewDataSource{
         if arr.count > 0{
             let entity=arr[indexPath.row]
             cell!.updateCell(entity:entity)
+            cell!.addCarClosure={
+                self.addCar(storeAndGoodsId:entity.storeAndGoodsId ?? 0)
+            }
+            cell!.pushGoodDetailClosure={
+                let vc=self.storyboardPushView(type:.index, storyboardId:"GoodDetailsVC") as! GoodDetailsViewController
+                vc.storeAndGoodsId=entity.storeAndGoodsId
+                vc.goodsStuta=3
+                self.navigationController?.pushViewController(vc, animated:true)
+            }
         }
         return cell!
     }
@@ -98,6 +107,9 @@ extension PromotionListViewController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 135
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
     }
 }
 // MARK: - 网络请求
@@ -125,6 +137,21 @@ extension PromotionListViewController{
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
             self.reloadData()
+        }
+    }
+    /// 加入购物车
+    private func addCar(storeAndGoodsId:Int){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.addCar(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId,goodsCount:1, goodsStuta:3), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                self.showSVProgressHUD(status:"成功加入购物车", type: HUD.success)
+            }else if success == "underStock"{
+                self.showSVProgressHUD(status:"库存不足", type: HUD.info)
+            }else{
+                self.showSVProgressHUD(status:"加入失败", type: HUD.error)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
 }

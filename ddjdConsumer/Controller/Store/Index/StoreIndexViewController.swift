@@ -55,7 +55,7 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return 9
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let wxBindStatu=userDefaults.object(forKey:"wxBindStatu") as? Bool
