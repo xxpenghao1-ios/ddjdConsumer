@@ -13,6 +13,7 @@ import IQKeyboardManagerSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate{
     var window: UIWindow?
+    var tab=storyboardViewController(type:.main,withIdentifier:"ConsumerTabBarId") as! ConsumerTabBarViewController
     ///程序入口
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //加载设置
@@ -220,7 +221,7 @@ extension AppDelegate{
 extension AppDelegate{
     //跳转到首页
     func jumpToIndexVC(){
-        self.window?.rootViewController=storyboardViewController(type:.main,withIdentifier:"ConsumerTabBarId") as! UITabBarController
+        self.window?.rootViewController=tab
     }
     //跳转到登录页面
     func jumpToLoginVC(){

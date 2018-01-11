@@ -33,11 +33,12 @@ class SpecialPriceTableViewCell: UITableViewCell {
     //提示图片
     @IBOutlet weak var promptImg: UIImageView!
     var addCarClosure:(() -> Void)?
-    var pushGoodDetailClosure:(() -> Void)?
+    ///更新促销结束时间
+    var updatePromotionEndTimeSecondsClosure:(() -> Void)?
     private var entity:GoodEntity?
 
     ///更新促销结束时间
-    var updatePromotionEndTimeClosure:((_ timeInterval:Int) -> Void)?
+    var updatePromotionEndTimeClosure:(() -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -101,6 +102,7 @@ class SpecialPriceTableViewCell: UITableViewCell {
         lblDate.text=lessSecondToDay(countDown)
         if countDown <= 0 {//活动结束
             showPromptImg(named: "to_sell_end")
+            self.updatePromotionEndTimeSecondsClosure?()
             return;
         }
     }

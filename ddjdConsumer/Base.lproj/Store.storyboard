@@ -23,10 +23,10 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="130"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pKA-U2-Rd1">
-                                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="130"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="130"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84f-NN-sJn">
-                                                <rect key="frame" x="0.0" y="45" width="187.66666666666666" height="20"/>
+                                                <rect key="frame" x="0.0" y="45" width="125" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="V5s-Gj-BqA"/>
                                                 </constraints>
@@ -35,7 +35,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日营业额(元)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6se-XH-nq2">
-                                                <rect key="frame" x="0.0" y="65" width="187.66666666666666" height="20"/>
+                                                <rect key="frame" x="0.0" y="65" width="125" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="dmc-0w-u6J"/>
                                                 </constraints>
@@ -55,10 +55,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Vy-By-DTW">
-                                        <rect key="frame" x="187.66666666666663" y="0.0" width="187.33333333333337" height="130"/>
+                                        <rect key="frame" x="250" y="0.0" width="125" height="130"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fq3-DU-eQ9">
-                                                <rect key="frame" x="0.0" y="45" width="187.33333333333334" height="20"/>
+                                                <rect key="frame" x="0.0" y="45" width="125" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="PsS-Vq-2T7"/>
                                                 </constraints>
@@ -67,7 +67,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史总营业额(元)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gmi-39-la7">
-                                                <rect key="frame" x="0.0" y="65" width="187.33333333333334" height="20"/>
+                                                <rect key="frame" x="0.0" y="65" width="125" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="9nt-uW-SML"/>
                                                 </constraints>
@@ -86,18 +86,54 @@
                                             <constraint firstItem="fq3-DU-eQ9" firstAttribute="top" secondItem="0Vy-By-DTW" secondAttribute="top" constant="45" id="x3f-mQ-Dji"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xsi-Di-CJo">
+                                        <rect key="frame" x="125" y="0.0" width="125" height="130"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omK-zd-udM">
+                                                <rect key="frame" x="0.0" y="45" width="125" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="4FD-T6-N1T"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="本月营业额(元)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2R-8R-O1N">
+                                                <rect key="frame" x="0.0" y="65" width="125" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="F3O-zG-9TA"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="s2R-8R-O1N" firstAttribute="leading" secondItem="Xsi-Di-CJo" secondAttribute="leading" id="1ib-Iq-3aM"/>
+                                            <constraint firstItem="omK-zd-udM" firstAttribute="top" secondItem="Xsi-Di-CJo" secondAttribute="top" constant="45" id="V8R-uu-zxY"/>
+                                            <constraint firstAttribute="trailing" secondItem="omK-zd-udM" secondAttribute="trailing" id="fED-Ib-1DY"/>
+                                            <constraint firstItem="omK-zd-udM" firstAttribute="leading" secondItem="Xsi-Di-CJo" secondAttribute="leading" id="hx6-pS-Gob"/>
+                                            <constraint firstAttribute="trailing" secondItem="s2R-8R-O1N" secondAttribute="trailing" id="vxo-wP-j8H"/>
+                                            <constraint firstItem="s2R-8R-O1N" firstAttribute="top" secondItem="omK-zd-udM" secondAttribute="bottom" id="y4t-LT-AVQ"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="pKA-U2-Rd1" firstAttribute="top" secondItem="9VI-ay-cYf" secondAttribute="top" id="5rr-Qa-Fnf"/>
                                     <constraint firstAttribute="trailing" secondItem="0Vy-By-DTW" secondAttribute="trailing" id="80x-c9-HwR"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xsi-Di-CJo" secondAttribute="bottom" id="NIV-T2-hM0"/>
+                                    <constraint firstItem="0Vy-By-DTW" firstAttribute="leading" secondItem="Xsi-Di-CJo" secondAttribute="trailing" id="Qmq-39-pWc"/>
                                     <constraint firstAttribute="height" constant="130" id="SmJ-WU-7Su"/>
                                     <constraint firstItem="pKA-U2-Rd1" firstAttribute="leading" secondItem="9VI-ay-cYf" secondAttribute="leading" id="TL7-gw-tpq"/>
-                                    <constraint firstItem="pKA-U2-Rd1" firstAttribute="width" secondItem="9VI-ay-cYf" secondAttribute="width" multiplier="0.5" id="VAh-F5-Erw"/>
+                                    <constraint firstItem="pKA-U2-Rd1" firstAttribute="width" secondItem="9VI-ay-cYf" secondAttribute="width" multiplier="0.333333" id="VAh-F5-Erw"/>
+                                    <constraint firstItem="Xsi-Di-CJo" firstAttribute="top" secondItem="9VI-ay-cYf" secondAttribute="top" id="aPC-0h-UkC"/>
+                                    <constraint firstItem="0Vy-By-DTW" firstAttribute="width" secondItem="9VI-ay-cYf" secondAttribute="width" multiplier="0.333333" id="agL-b1-5IU"/>
                                     <constraint firstAttribute="bottom" secondItem="0Vy-By-DTW" secondAttribute="bottom" id="f8k-QR-4cA"/>
                                     <constraint firstItem="0Vy-By-DTW" firstAttribute="top" secondItem="9VI-ay-cYf" secondAttribute="top" id="f9V-0L-mDq"/>
                                     <constraint firstAttribute="bottom" secondItem="pKA-U2-Rd1" secondAttribute="bottom" id="iMS-9d-42C"/>
-                                    <constraint firstItem="0Vy-By-DTW" firstAttribute="leading" secondItem="pKA-U2-Rd1" secondAttribute="trailing" id="n4C-oy-x6F"/>
+                                    <constraint firstItem="Xsi-Di-CJo" firstAttribute="leading" secondItem="pKA-U2-Rd1" secondAttribute="trailing" id="nNJ-bJ-CLH"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pno-t5-Pvc">
@@ -132,6 +168,7 @@
                     </view>
                     <connections>
                         <outlet property="collection" destination="pno-t5-Pvc" id="70b-0C-FbH"/>
+                        <outlet property="lblMonthPrice" destination="omK-zd-udM" id="TF2-lK-sSy"/>
                         <outlet property="lblSumPrice" destination="fq3-DU-eQ9" id="FSu-tM-G3C"/>
                         <outlet property="lblTodayPirce" destination="84f-NN-sJn" id="ji2-Iq-0ps"/>
                     </connections>

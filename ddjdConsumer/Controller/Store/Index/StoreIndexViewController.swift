@@ -13,7 +13,8 @@ class StoreIndexViewController:BaseViewController{
     @IBOutlet weak var lblSumPrice: UILabel!
     ///日营业额
     @IBOutlet weak var lblTodayPirce: UILabel!
-    
+    ///月营业额
+    @IBOutlet weak var lblMonthPrice: UILabel!
     @IBOutlet weak var collection: UICollectionView!
     private let imgArr=["store_index_good","store_index_order","store_index_xstj","store_index_tj","store_index_cx","store_index_zhmx","store_index_partner","store_index_lxkf","store_index_qt"]
     private let strArr=["商品管理","订单管理","销售统计","热门推荐","限时促销","账户明细","合伙人管理","联系客服","其他设置"]
@@ -105,6 +106,7 @@ extension StoreIndexViewController{
             print(json)
             self.lblSumPrice.text=json["sumPrice"].double?.description
             self.lblTodayPirce.text=json["today"].double?.description
+            self.lblMonthPrice.text=json["month"].double?.description
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }

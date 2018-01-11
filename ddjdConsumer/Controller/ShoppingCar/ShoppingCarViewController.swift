@@ -323,14 +323,48 @@ extension ShoppingCarViewController{
                 let entity=self.jsonMappingEntity(entity:StoreEntity.init(), object:json["store"].object)
                 if entity!.distributionStartTime != nil && entity!.distributionEndTime != nil{
                     let dateFormatter=DateFormatter()
-                    dateFormatter.dateFormat="yyyy-MM-dd HH:mm:ss"
-                    //获取当前时间
-                    let currentDate=Date()
-                    if currentDate.compare(dateFormatter.date(from:entity!.distributionStartTime!) ?? currentDate) == .orderedDescending && currentDate.compare(dateFormatter.date(from:entity!.distributionEndTime!) ?? currentDate) == .orderedAscending{ //当前时间必须大于店铺营业起始时间 小于店铺营业结束时间
-                        self.btnClearing.enable()
-                    }else{
-                        UIAlertController.showAlertYes(self, title:"亲,已过营业时间", message:"本店营业时间为\(entity!.distributionStartTime!)-\(entity!.distributionEndTime!)", okButtonTitle:"知道了")
-                        self.btnClearing.disable()
+                    dateFormatter.dateFormat="HH:mm:ss"
+                    ///营业开始时间Date
+                    let startTimeDate=dateFormatter.date(from:entity!.distributionStartTime!)
+
+                    ///营业结束时间Date
+                    let endTimeDate=dateFormatter.date(from:entity!.distributionEndTime!)
+
+                    if startTimeDate != nil && endTimeDate != nil{//如果转换的开始结束时间都不为空
+                        let calendar=Calendar.current
+
+                        let components:Set<Calendar.Component>=[.year,.month, .day, .hour,.minute,.second]
+
+                        var componentsCurrent=calendar.dateComponents(components, from:Date())
+                        componentsCurrent.timeZone = TimeZone(abbreviation: "GMT")
+
+                        var componentsStartTime = calendar.dateComponents(components, from:startTimeDate!)
+                        componentsStartTime.timeZone = TimeZone(abbreviation: "GMT")
+                        componentsStartTime.year=componentsCurrent.year
+                        componentsStartTime.month=componentsCurrent.month
+                        componentsStartTime.day=componentsCurrent.day
+
+
+                        var componentsEndTime = calendar.dateComponents(components, from:endTimeDate!)
+                        componentsEndTime.timeZone = TimeZone(abbreviation: "GMT")
+                        componentsEndTime.year=componentsCurrent.year
+                        componentsEndTime.month=componentsCurrent.month
+                        componentsEndTime.day=componentsCurrent.day
+
+                        let currentDate=calendar.date(from:componentsCurrent)
+                        let startDate=calendar.date(from:componentsStartTime)
+                        let endDate=calendar.date(from:componentsEndTime)
+
+                        if startDate != nil && endDate != nil && currentDate != nil{
+                            if currentDate!.compare(startDate!) == .orderedAscending || currentDate!.compare(endDate!) == .orderedDescending{ //当前时间小于店铺营业起始时间 大于店铺营业结束时间
+                                UIAlertController.showAlertYes(self, title:"亲,已过营业时间", message:"本店营业时间为\(entity!.distributionStartTime!)-\(entity!.distributionEndTime!)", okButtonTitle:"知道了", okHandler: { (action) in
+                                    self.navigationController?.popToRootViewController(animated:true)
+                                    ///回到首页
+                                    app.tab.selectedIndex=0
+                                })
+
+                            }
+                        }
                     }
                 }
                 ///把最低起送额保存

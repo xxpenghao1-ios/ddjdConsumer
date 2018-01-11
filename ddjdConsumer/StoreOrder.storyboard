@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,11 +16,11 @@
             <objects>
                 <viewController storyboardIdentifier="StoreOrderListVC" id="JJF-NR-c2w" customClass="StoreOrderListViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hG0-Ww-wIB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="q2R-NE-cIy">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -46,14 +46,14 @@
             <objects>
                 <viewController storyboardIdentifier="OrderStatisticsTextVC" id="oAZ-hg-a3r" customClass="OrderStatisticsTextViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XTb-wB-1Xs">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uIa-gD-7Ld">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="CFQ-bc-nTF">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5D-t0-eFD">
@@ -128,7 +128,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="yWy-Dt-6oN"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -137,7 +137,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="3am-sQ-bns"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -159,13 +159,13 @@
                                         <constraint firstAttribute="trailing" secondItem="bFJ-Lj-wGV" secondAttribute="trailing" id="AVx-nn-Th2"/>
                                         <constraint firstAttribute="bottom" secondItem="g5D-t0-eFD" secondAttribute="bottom" id="BaO-Du-e9D"/>
                                         <constraint firstItem="pjf-4q-Fxt" firstAttribute="top" secondItem="CFQ-bc-nTF" secondAttribute="top" id="BgA-QJ-rLv"/>
-                                        <constraint firstItem="pjf-4q-Fxt" firstAttribute="width" secondItem="g5D-t0-eFD" secondAttribute="width" id="DUf-4p-Hgb"/>
                                         <constraint firstAttribute="height" constant="130" id="OYw-mz-Hfr"/>
                                         <constraint firstAttribute="bottom" secondItem="bFJ-Lj-wGV" secondAttribute="bottom" id="Q9u-C2-bZq"/>
                                         <constraint firstItem="g5D-t0-eFD" firstAttribute="top" secondItem="CFQ-bc-nTF" secondAttribute="top" id="QLP-f9-2Po"/>
                                         <constraint firstItem="pjf-4q-Fxt" firstAttribute="leading" secondItem="g5D-t0-eFD" secondAttribute="trailing" id="RAi-Oy-6VM"/>
+                                        <constraint firstItem="bFJ-Lj-wGV" firstAttribute="width" secondItem="CFQ-bc-nTF" secondAttribute="width" multiplier="0.333333" id="Sf5-c3-eIa"/>
+                                        <constraint firstItem="bFJ-Lj-wGV" firstAttribute="leading" secondItem="pjf-4q-Fxt" secondAttribute="trailing" id="brq-J5-DEn"/>
                                         <constraint firstItem="bFJ-Lj-wGV" firstAttribute="top" secondItem="CFQ-bc-nTF" secondAttribute="top" id="mp0-G8-JPh"/>
-                                        <constraint firstItem="bFJ-Lj-wGV" firstAttribute="leading" secondItem="pjf-4q-Fxt" secondAttribute="trailing" id="pA0-v0-XCS"/>
                                         <constraint firstItem="g5D-t0-eFD" firstAttribute="leading" secondItem="CFQ-bc-nTF" secondAttribute="leading" id="xAr-mB-Xul"/>
                                         <constraint firstItem="g5D-t0-eFD" firstAttribute="width" secondItem="CFQ-bc-nTF" secondAttribute="width" multiplier="0.333333" id="xxc-Ig-THs"/>
                                     </constraints>
@@ -191,7 +191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PnH-CA-hH4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="329" y="-30"/>
+            <point key="canvasLocation" x="528.79999999999995" y="-106.40394088669952"/>
         </scene>
     </scenes>
 </document>
