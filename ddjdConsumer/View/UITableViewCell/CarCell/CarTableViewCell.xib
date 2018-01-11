@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="418" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="418" height="119.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="418" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXO-mA-23w">
@@ -26,7 +26,7 @@
                         </constraints>
                         <state key="normal" image="checked"/>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="FKg-O5-FkJ">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FKg-O5-FkJ">
                         <rect key="frame" x="45" y="15" width="90" height="90"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="90" id="Fve-p9-LOl"/>
@@ -93,11 +93,19 @@
                         <color key="textColor" red="0.89215421679999996" green="0.27958154680000002" blue="0.40878674390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sales_promotion" translatesAutoresizingMaskIntoConstraints="NO" id="EYg-Cw-DzM">
+                        <rect key="frame" x="95" y="15" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="Ogl-uy-DWh"/>
+                            <constraint firstAttribute="width" constant="40" id="WgE-ul-RkF"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="pOz-So-fOF" secondAttribute="bottom" constant="15" id="3op-Gx-76e"/>
                     <constraint firstItem="pOz-So-fOF" firstAttribute="leading" secondItem="Zfs-Bu-hTk" secondAttribute="trailing" constant="5" id="8om-hK-KFF"/>
                     <constraint firstItem="4Ja-hD-t8K" firstAttribute="leading" secondItem="FKg-O5-FkJ" secondAttribute="trailing" constant="10" id="Ayd-an-3iL"/>
+                    <constraint firstItem="EYg-Cw-DzM" firstAttribute="trailing" secondItem="FKg-O5-FkJ" secondAttribute="trailing" id="GoC-qI-A06"/>
                     <constraint firstItem="FKg-O5-FkJ" firstAttribute="leading" secondItem="yXO-mA-23w" secondAttribute="trailing" constant="10" id="Jfx-sg-Ia9"/>
                     <constraint firstItem="Zfs-Bu-hTk" firstAttribute="leading" secondItem="FKg-O5-FkJ" secondAttribute="trailing" constant="10" id="Pi8-Yh-ZKV"/>
                     <constraint firstItem="FKg-O5-FkJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Svt-y2-tO1"/>
@@ -105,6 +113,7 @@
                     <constraint firstItem="yXO-mA-23w" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="doC-tr-cKr"/>
                     <constraint firstItem="yXO-mA-23w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="eb2-Ws-Dne"/>
                     <constraint firstAttribute="trailing" secondItem="pOz-So-fOF" secondAttribute="trailing" constant="15" id="fnK-Zb-876"/>
+                    <constraint firstItem="EYg-Cw-DzM" firstAttribute="top" secondItem="FKg-O5-FkJ" secondAttribute="top" id="nOX-Ec-ExO"/>
                     <constraint firstAttribute="trailing" secondItem="4Ja-hD-t8K" secondAttribute="trailing" constant="15" id="pSx-Qt-TVw"/>
                     <constraint firstItem="Zfs-Bu-hTk" firstAttribute="bottom" secondItem="FKg-O5-FkJ" secondAttribute="bottom" id="s3e-Ia-Sgw"/>
                 </constraints>
@@ -118,12 +127,13 @@
                 <outlet property="lblCount" destination="uhM-5J-l73" id="ehR-lD-It0"/>
                 <outlet property="lblGoodName" destination="4Ja-hD-t8K" id="mLw-vC-QEV"/>
                 <outlet property="lblPrice" destination="pOz-So-fOF" id="xtZ-eb-kaW"/>
+                <outlet property="promotionImg" destination="EYg-Cw-DzM" id="9uE-Iu-2M8"/>
             </connections>
             <point key="canvasLocation" x="-144" y="-51"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Image" width="186" height="187"/>
         <image name="checked" width="64" height="64"/>
+        <image name="sales_promotion" width="58" height="62"/>
     </resources>
 </document>

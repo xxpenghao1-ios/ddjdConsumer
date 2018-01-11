@@ -93,12 +93,12 @@ extension PromotionListViewController:UITableViewDelegate,UITableViewDataSource{
             cell!.addCarClosure={
                 self.addCar(storeAndGoodsId:entity.storeAndGoodsId ?? 0)
             }
-            cell!.pushGoodDetailClosure={
-                let vc=self.storyboardPushView(type:.index, storyboardId:"GoodDetailsVC") as! GoodDetailsViewController
-                vc.storeAndGoodsId=entity.storeAndGoodsId
-                vc.goodsStuta=3
-                self.navigationController?.pushViewController(vc, animated:true)
-            }
+//            cell!.pushGoodDetailClosure={
+//                let vc=self.storyboardPushView(type:.index, storyboardId:"PromotionGoodDetailVC") as! PromotionGoodDetailViewController
+//                vc.storeAndGoodsId=entity.storeAndGoodsId
+//                vc.goodsStuta=3
+//                self.navigationController?.pushViewController(vc, animated:true)
+//            }
         }
         return cell!
     }
@@ -109,7 +109,11 @@ extension PromotionListViewController:UITableViewDelegate,UITableViewDataSource{
         return 135
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        let entity=arr[indexPath.row]
+        let vc=self.storyboardPushView(type:.index, storyboardId:"PromotionGoodDetailVC") as! PromotionGoodDetailViewController
+        vc.storeAndGoodsId=entity.storeAndGoodsId
+        vc.goodsStuta=3
+        self.navigationController?.pushViewController(vc, animated:true)
     }
 }
 // MARK: - 网络请求

@@ -33,7 +33,6 @@ class GoodUploadEntity:Mappable {
     var weight:String? //‘重量’,
     var brand:String? // ‘商品品牌’,
     var stock:String? //线上库存
-    var offlineStock:String? //线下库存
     var salesCount:Int? //销量
     var collectionStatu:Bool? //是否收藏  true收藏了 false 没有
     var storeAndGoodsId:Int? //店铺商品id
@@ -43,6 +42,8 @@ class GoodUploadEntity:Mappable {
     var shoppingCarId:Int? //购物车id
     var goodsMoney:Double? //订单商品价格
     var goodsCollectionId:Int? //商品收藏Id
+    var purchasePrice:String? //商品进货价
+    var offlineStock:String? ///库存下限（总库存低于此值，线上此商品将显示已售罄
     init(){}
     required init?(map: Map) {
         mapping(map: map)
@@ -72,7 +73,6 @@ class GoodUploadEntity:Mappable {
         weight <- map["weight"]
         brand <- map["brand"]
         stock <- map["stock"]
-        offlineStock <- map["offlineStock"]
         salesCount <- map["salesCount"]
         collectionStatu <- map["collectionStatu"]
         storeAndGoodsId <- map["storeAndGoodsId"]
@@ -82,5 +82,7 @@ class GoodUploadEntity:Mappable {
         shoppingCarId <- map["shoppingCarId"]
         goodsMoney <- map["goodsMoney"]
         goodsCollectionId <- map["goodsCollectionId"]
+        purchasePrice <- map["purchasePrice"]
+        offlineStock <- map["offlineStock"]
     }
 }

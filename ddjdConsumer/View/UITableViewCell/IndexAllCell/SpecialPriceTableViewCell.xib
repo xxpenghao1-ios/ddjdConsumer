@@ -47,7 +47,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="复活甲卡萨" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lg1-5G-zs6">
                         <rect key="frame" x="145" y="5" width="165" height="17"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="cf9-YX-6oP"/>
+                            <constraint firstAttribute="height" constant="17" id="cf9-YX-6oP"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.19997704029999999" green="0.2000165284" blue="0.1999686658" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -64,7 +64,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_car" translatesAutoresizingMaskIntoConstraints="NO" id="aUB-gH-RCl">
-                        <rect key="frame" x="285" y="104.5" width="25" height="25"/>
+                        <rect key="frame" x="280" y="104.5" width="25" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="25" id="UPw-tF-XyY"/>
                             <constraint firstAttribute="height" constant="25" id="XQb-MR-dCi"/>
@@ -89,8 +89,8 @@
                         <color key="textColor" red="0.5999411940574646" green="0.60004258155822754" blue="0.59991961717605591" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BBA-Xw-olG">
-                        <rect key="frame" x="145" y="27" width="160" height="0.0"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dsfsdfdsfsdfdsfsdfdsfsdfdsfsdf" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BBA-Xw-olG">
+                        <rect key="frame" x="163" y="27" width="142" height="31.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -102,11 +102,18 @@
                             <constraint firstAttribute="height" constant="60" id="ziZ-n7-ah7"/>
                         </constraints>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="store_index_cx" translatesAutoresizingMaskIntoConstraints="NO" id="ttc-xm-bbs">
+                        <rect key="frame" x="145" y="27" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="Iaa-Of-Q4P"/>
+                            <constraint firstAttribute="width" constant="16" id="T4Y-QN-82N"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="d8h-rY-ZGm" firstAttribute="leading" secondItem="PYr-Ay-faK" secondAttribute="trailing" constant="10" id="06w-Sk-4Hm"/>
                     <constraint firstItem="2JB-UD-Htz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BBA-Xw-olG" secondAttribute="bottom" constant="10" id="9xs-ve-MiS"/>
-                    <constraint firstItem="BBA-Xw-olG" firstAttribute="leading" secondItem="PYr-Ay-faK" secondAttribute="trailing" constant="10" id="BqF-ME-Y7M"/>
+                    <constraint firstItem="ttc-xm-bbs" firstAttribute="leading" secondItem="PYr-Ay-faK" secondAttribute="trailing" constant="10" id="D2s-Hn-tOF"/>
                     <constraint firstAttribute="bottom" secondItem="PYr-Ay-faK" secondAttribute="bottom" id="DUO-kd-TNJ"/>
                     <constraint firstAttribute="trailing" secondItem="Ghi-SB-u2Q" secondAttribute="trailing" constant="15" id="ELH-3q-omq"/>
                     <constraint firstAttribute="bottom" secondItem="d8h-rY-ZGm" secondAttribute="bottom" constant="5" id="HUh-1Y-hPj"/>
@@ -117,16 +124,18 @@
                     <constraint firstItem="BBA-Xw-olG" firstAttribute="top" secondItem="lg1-5G-zs6" secondAttribute="bottom" constant="5" id="QAB-ti-PvY"/>
                     <constraint firstAttribute="trailing" secondItem="BBA-Xw-olG" secondAttribute="trailing" constant="15" id="TWy-nb-fDi"/>
                     <constraint firstItem="yRh-Rf-u6C" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ufh-G4-UuP"/>
+                    <constraint firstItem="ttc-xm-bbs" firstAttribute="top" secondItem="lg1-5G-zs6" secondAttribute="bottom" constant="5" id="Ups-Xu-nn1"/>
                     <constraint firstAttribute="trailing" secondItem="lg1-5G-zs6" secondAttribute="trailing" constant="10" id="Urj-gG-C7j"/>
                     <constraint firstItem="LYL-EU-sui" firstAttribute="top" secondItem="2JB-UD-Htz" secondAttribute="top" id="fmc-aD-8QY"/>
                     <constraint firstItem="PYr-Ay-faK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="iaq-4n-s6P"/>
                     <constraint firstAttribute="bottom" secondItem="d8h-rY-ZGm" secondAttribute="bottom" constant="5" id="k0R-Hh-cBX"/>
                     <constraint firstItem="2JB-UD-Htz" firstAttribute="leading" secondItem="PYr-Ay-faK" secondAttribute="trailing" constant="10" id="m64-tp-SD2"/>
                     <constraint firstItem="LYL-EU-sui" firstAttribute="leading" secondItem="2JB-UD-Htz" secondAttribute="trailing" constant="20" id="msw-XR-Bfs"/>
-                    <constraint firstAttribute="trailing" secondItem="aUB-gH-RCl" secondAttribute="trailing" constant="10" id="qnz-is-u08"/>
+                    <constraint firstAttribute="trailing" secondItem="aUB-gH-RCl" secondAttribute="trailing" constant="15" id="qnz-is-u08"/>
                     <constraint firstItem="PYr-Ay-faK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="r9o-sT-4sK"/>
                     <constraint firstAttribute="trailing" secondItem="LYL-EU-sui" secondAttribute="trailing" constant="15" id="vtf-Yz-tlj"/>
                     <constraint firstAttribute="bottom" secondItem="aUB-gH-RCl" secondAttribute="bottom" constant="5" id="y4R-Lf-SGI"/>
+                    <constraint firstItem="BBA-Xw-olG" firstAttribute="leading" secondItem="ttc-xm-bbs" secondAttribute="trailing" constant="2" id="z9w-0z-pJH"/>
                     <constraint firstItem="lg1-5G-zs6" firstAttribute="leading" secondItem="PYr-Ay-faK" secondAttribute="trailing" constant="10" id="ztB-o1-rR0"/>
                 </constraints>
             </tableViewCellContentView>
@@ -140,6 +149,7 @@
                 <outlet property="lblPromotionMsg" destination="BBA-Xw-olG" id="ZW7-TK-WsS"/>
                 <outlet property="lblSales" destination="2JB-UD-Htz" id="FxJ-4o-YGS"/>
                 <outlet property="lblStock" destination="LYL-EU-sui" id="bce-jR-tCm"/>
+                <outlet property="promotionMsgImg" destination="ttc-xm-bbs" id="Y2M-DV-q8d"/>
                 <outlet property="promptImg" destination="Ghi-SB-u2Q" id="znu-tK-0my"/>
             </connections>
             <point key="canvasLocation" x="-440" y="-51.5"/>
@@ -147,6 +157,7 @@
     </objects>
     <resources>
         <image name="add_car" width="64" height="64"/>
-        <image name="to_sell_end" width="103" height="103"/>
+        <image name="store_index_cx" width="64" height="64"/>
+        <image name="to_sell_end" width="75" height="75"/>
     </resources>
 </document>

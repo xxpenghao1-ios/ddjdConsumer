@@ -30,13 +30,13 @@ class IndexViewController:BaseViewController{
     //商品list
     @IBOutlet weak var goodCollectionView: UICollectionView!
     //分类数据源
-    fileprivate let classifyName=["促销专区","特价专区","我的订单","购买历史"]
+    fileprivate let classifyName=["促销专区","点单VIP","我的订单","购买历史"]
     //幻灯片数组
     private var advertisingURLArr=[String]()
     //推荐商品
     private var goodArr=[GoodEntity]()
     private var pageNumber=1
-    fileprivate let calssifyImg=["classify_promotions","classify_special_price","classify_order","classify_record"]
+    fileprivate let calssifyImg=["classify_promotions","classify_ddvip","classify_order","classify_record"]
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ///每次进首页获取店铺信息
@@ -178,8 +178,12 @@ extension IndexViewController:UICollectionViewDelegate,UICollectionViewDataSourc
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.tag == 1{
-            if indexPath.item == 1{//跳转促销区
+            if indexPath.item == 0{
                 let vc=PromotionListViewController()
+                vc.hidesBottomBarWhenPushed=true
+                self.navigationController?.pushViewController(vc, animated:true)
+            }else if indexPath.item == 1{//跳转促销区
+                let vc=self.storyboardPushView(type:.index, storyboardId:"DDVIPVC") as! DDVIPViewCcontroller
                 vc.hidesBottomBarWhenPushed=true
                 self.navigationController?.pushViewController(vc, animated:true)
             }else if indexPath.item == 2{//跳转到订单

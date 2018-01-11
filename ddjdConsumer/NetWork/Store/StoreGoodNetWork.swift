@@ -11,7 +11,7 @@ import Moya
 //店铺商品相关api
 public enum StoreGoodApi{
     //商品上传
-    case storeUploadGoodsInfo(goodsCode:String,storeId:Int,goodsName:String,goodsUnit:String,goodsLift:Int,goodUcode:String,fCategoryId:Int,sCategoryId:Int,tCategoryId:Int,goodsPic:String,goodsPrice:String,goodsFlag:Int,stock:Int,remark:String?,weight:Int?,brand:String?,goodsMixed:String?,offlineStock:Int)
+    case storeUploadGoodsInfo(goodsCode:String,storeId:Int,goodsName:String,goodsUnit:String,goodsLift:Int,goodUcode:String,fCategoryId:Int,sCategoryId:Int,tCategoryId:Int,goodsPic:String,goodsPrice:String,goodsFlag:Int,stock:Int,remark:String?,weight:Int?,brand:String?,goodsMixed:String?,purchasePrice:String,offlineStock:Int)
     //图片上传
     case start(filePath:String,pathName:String)
     //验证条码是否存在；如果存在，就返回公共商品库的商品信息，且同时返回这个店铺是否已经拥有了这个商品（根据exist判断），如果值为true表明已经拥有，且同时返回店铺的商品信息（querySag），如果值为false，表明没有拥有;如果不存在，直接返回 notExist
@@ -21,11 +21,11 @@ public enum StoreGoodApi{
     //店铺商品上下架
     case updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int)
     //修改店铺信息
-    case updateGoodsByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int?,storeGoodsPrice:String?,stock:String?,offlineStock:String?)
+    case updateGoodsByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int?,storeGoodsPrice:String?,stock:String?,offlineStock:String?,purchasePrice:String?)
     //查询店铺商品详情
     case queryStoreAndGoodsDetail(storeAndGoodsId:Int,storeId:Int)
     ///分配到店铺商品库 单个商品
-    case addGoodsInfoGoToStoreAndGoods_detail(storeId:Int,goodsId:Int,storeGoodsPrice:String,goodsFlag:Int,stock:Int,offlineStock:Int)
+    case addGoodsInfoGoToStoreAndGoods_detail(storeId:Int,goodsId:Int,storeGoodsPrice:String,goodsFlag:Int,stock:Int,offlineStock:Int,purchasePrice:String)
     ///店铺查询公共商品库 ； 不包括当前店铺已经添加的商品
     case queryGoodsInfoList_store(storeId:Int,pageNumber:Int,pageSize:Int,goodsName:String?,tCategoryId:Int?)
     ///店铺查询公共商品库商品详情
@@ -52,7 +52,7 @@ extension StoreGoodApi:TargetType{
     
     public var path: String {
         switch self {
-        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_):
+        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_):
             return "/front/storeUploadGoods/storeUploadGoodsInfo"
         case .start(_,_):
             return "/upload/start"
@@ -62,11 +62,11 @@ extension StoreGoodApi:TargetType{
             return "/front/storeAndGoods/queryStoreAndGoodsList"
         case .updateGoodsFlagByStoreAndGoodsId(_,_):
             return "/front/storeAndGoods/updateGoodsFlagByStoreAndGoodsId"
-        case .updateGoodsByStoreAndGoodsId(_,_,_,_,_):
+        case .updateGoodsByStoreAndGoodsId(_,_,_,_,_,_):
             return "/front/storeAndGoods/updateGoodsByStoreAndGoodsId"
         case .queryStoreAndGoodsDetail(_,_):
             return "/front/storeAndGoods/queryStoreAndGoodsDetail"
-        case .addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_):
+        case .addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_,_):
             return "/front/storeAndGoods/addGoodsInfoGoToStoreAndGoods_detail"
         case .queryGoodsInfoList_store(_,_,_,_,_):
             return "/front/storeAndGoods/queryGoodsInfoList_store"
@@ -90,7 +90,7 @@ extension StoreGoodApi:TargetType{
     
     public var method: Moya.Method {
         switch self {
-        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods(_,_),.addIndexGoods(_,_,_),.removeIndexGoods(_,_),.addPromotiongoods(_,_,_,_,_,_),.removePromotiongoods(_,_):
+        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods(_,_),.addIndexGoods(_,_,_),.removeIndexGoods(_,_),.addPromotiongoods(_,_,_,_,_,_),.removePromotiongoods(_,_):
             return .post
         case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_),.queryStoreAndGoodsDetail(_,_),.queryGoodsInfoList_store(_,_,_,_,_),.queryGoodsInfoByGoodsId_store(_),.queryPromotiongoodsPaginateStore(_,_,_,_,_):
             return .get
@@ -102,8 +102,8 @@ extension StoreGoodApi:TargetType{
     }
     public var task: Task {
         switch self {
-        case let .storeUploadGoodsInfo(goodsCode, storeId, goodsName, goodsUnit, goodsLift, goodUcode, fCategoryId, sCategoryId, tCategoryId, goodsPic, goodsPrice, goodsFlag, stock, remark, weight,brand, goodsMixed,offlineStock):
-            return .requestParameters(parameters:["goodsCode":goodsCode,"storeId":storeId,"goodsName":goodsName,"goodsUnit":goodsUnit,"goodsLift":goodsLift,"goodUcode":goodUcode,"fCategoryId":fCategoryId,"sCategoryId":sCategoryId,"tCategoryId":tCategoryId,"goodsPic":goodsPic,"goodsPrice":goodsPrice,"goodsFlag":goodsFlag,"stock":stock,"remark":remark ?? "","weight":weight ?? "","brand":brand ?? "","goodsMixed":goodsMixed ?? "","offlineStock":offlineStock], encoding:URLEncoding.default)
+        case let .storeUploadGoodsInfo(goodsCode, storeId, goodsName, goodsUnit, goodsLift, goodUcode, fCategoryId, sCategoryId, tCategoryId, goodsPic, goodsPrice, goodsFlag, stock, remark, weight,brand, goodsMixed,purchasePrice,offlineStock):
+            return .requestParameters(parameters:["goodsCode":goodsCode,"storeId":storeId,"goodsName":goodsName,"goodsUnit":goodsUnit,"goodsLift":goodsLift,"goodUcode":goodUcode,"fCategoryId":fCategoryId,"sCategoryId":sCategoryId,"tCategoryId":tCategoryId,"goodsPic":goodsPic,"goodsPrice":goodsPrice,"goodsFlag":goodsFlag,"stock":stock,"remark":remark ?? "","weight":weight ?? "","brand":brand ?? "","goodsMixed":goodsMixed ?? "","purchasePrice":purchasePrice,"offlineStock":offlineStock], encoding:URLEncoding.default)
         case let .start(filePath,pathName):
             let imgData = MultipartFormData(provider: MultipartFormData.FormDataProvider.file(Foundation.URL(fileURLWithPath:filePath)),name:"file")
             let urlParameters = ["path":pathName]
@@ -118,13 +118,13 @@ extension StoreGoodApi:TargetType{
             }
         case let .updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId, goodsFlag):
             return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"goodsFlag":goodsFlag], encoding: URLEncoding.default)
-        case let .updateGoodsByStoreAndGoodsId(storeAndGoodsId, goodsFlag, storeGoodsPrice, stock, offlineStock):
-            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"goodsFlag":goodsFlag ?? "","storeGoodsPrice":storeGoodsPrice ?? "","stock":stock ?? "","offlineStock":offlineStock ?? ""], encoding: URLEncoding.default)
+        case let .updateGoodsByStoreAndGoodsId(storeAndGoodsId, goodsFlag, storeGoodsPrice, stock, offlineStock,purchasePrice):
+            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"goodsFlag":goodsFlag ?? "","storeGoodsPrice":storeGoodsPrice ?? "","stock":stock ?? "","offlineStock":offlineStock ?? "","purchasePrice":purchasePrice ?? ""], encoding: URLEncoding.default)
         case let .queryStoreAndGoodsDetail(storeAndGoodsId, storeId):
             return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId], encoding: URLEncoding.default)
-        case let .addGoodsInfoGoToStoreAndGoods_detail(storeId, goodsId, storeGoodsPrice, goodsFlag, stock, offlineStock):
+        case let .addGoodsInfoGoToStoreAndGoods_detail(storeId, goodsId, storeGoodsPrice, goodsFlag, stock, offlineStock,purchasePrice):
             
-            return .requestParameters(parameters: ["storeId":storeId,"goodsId":goodsId,"storeGoodsPrice":storeGoodsPrice,"goodsFlag":goodsFlag,"stock":stock,"offlineStock":offlineStock], encoding:URLEncoding.default)
+            return .requestParameters(parameters: ["storeId":storeId,"goodsId":goodsId,"storeGoodsPrice":storeGoodsPrice,"goodsFlag":goodsFlag,"stock":stock,"offlineStock":offlineStock,"purchasePrice":purchasePrice], encoding:URLEncoding.default)
         case let .queryGoodsInfoList_store(storeId, pageNumber, pageSize, goodsName, tCategoryId):
             if tCategoryId == nil{
                 return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"goodsName":goodsName ?? ""], encoding: URLEncoding.default)

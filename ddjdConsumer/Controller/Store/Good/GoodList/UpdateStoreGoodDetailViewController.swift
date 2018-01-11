@@ -32,6 +32,7 @@ class UpdateStoreGoodDetailViewController:FormViewController{
         static let uploadImgTag = "uploadImg"
         static let button = "button"
         static let flTag="fl"
+        static let purchasePriceTag="purchasePrice"
     }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -53,27 +54,34 @@ extension UpdateStoreGoodDetailViewController{
     private func loadForm(){
         let form = FormDescriptor()
         
-        let section0 = FormSectionDescriptor(headerTitle:"可修改信息", footerTitle: nil)
-        
-        var row=FormRowDescriptor(tag: Static.goodsPriceTag, type: .decimal, title: "商品价格:")
+        let section0 = FormSectionDescriptor(headerTitle:"可修改信息", footerTitle:"说明:库存下限（总库存低于此值，线上此商品将显示已售罄)")
+
+        var row=FormRowDescriptor(tag: Static.purchasePriceTag, type: .decimal, title: "商品进货价:")
+        if goodEntity!.purchasePrice != nil{
+            row.value="\(goodEntity!.purchasePrice!)" as AnyObject
+        }
+        row.configuration.cell.placeholder="请输入商品进货价"
+        section0.rows.append(row)
+
+        row=FormRowDescriptor(tag: Static.goodsPriceTag, type: .decimal, title: "商品零售价:")
         if goodEntity!.storeGoodsPrice != nil{
             row.value="\(goodEntity!.storeGoodsPrice!)" as AnyObject
         }
-        row.configuration.cell.placeholder="请输入商品价格"
+        row.configuration.cell.placeholder="请输入商品零售价"
         section0.rows.append(row)
-        
-        row=FormRowDescriptor(tag: Static.stockTag, type: .number, title: "商品线上库存:")
+
+        row=FormRowDescriptor(tag: Static.stockTag, type: .number, title: "商品库存:")
         if goodEntity!.stock != nil{
             row.value="\(goodEntity!.stock!)" as AnyObject
         }
-        row.configuration.cell.placeholder="请输入商品线上库存"
+        row.configuration.cell.placeholder="请输入商品库存"
         section0.rows.append(row)
 
-        row=FormRowDescriptor(tag: Static.offlineStockTag, type: .number, title: "商品线下库存:")
+        row=FormRowDescriptor(tag: Static.offlineStockTag, type: .number, title: "库存下限:")
         if goodEntity!.offlineStock != nil{
             row.value="\(goodEntity!.offlineStock!)" as AnyObject
         }
-        row.configuration.cell.placeholder="请输入商品线下库存"
+        row.configuration.cell.placeholder="请输入库存下限"
         section0.rows.append(row)
 
         row = FormRowDescriptor(tag: Static.goodsFlagTag, type: .segmentedControl, title: "商品状态")
@@ -187,6 +195,9 @@ extension UpdateStoreGoodDetailViewController{
         self.setValue(self.goodEntity!.goodUcode as AnyObject, forTag:Static.goodUcodeTag)
         
         self.setValue(self.goodEntity!.goodsPic as AnyObject, forTag:Static.uploadImgTag)
+        if self.goodEntity!.purchasePrice != nil{
+            self.setValue(self.goodEntity!.purchasePrice!.description as AnyObject,forTag:Static.purchasePriceTag)
+        }
     }
     ///店铺查询公共商品库商品详情
     private func queryGoodsInfoByGoodsId_store(){
@@ -208,34 +219,38 @@ extension UpdateStoreGoodDetailViewController{
         let storeGoodsPrice=json[Static.goodsPriceTag].string
         let stock=json[Static.stockTag].string
         let offlineStock=json[Static.offlineStockTag].string
-        
+        let purchasePrice=json[Static.purchasePriceTag].string
         if storeGoodsPrice == nil || storeGoodsPrice!.count == 0{
-            self.showInfo(withStatus:"商品价格不能为空")
+            self.showInfo(withStatus:"商品零售价不能为空")
             return
         }
         if stock == nil || stock!.count == 0{
-            self.showInfo(withStatus:"线上库存不能为空")
+            self.showInfo(withStatus:"库存不能为空")
             return
         }
         if offlineStock == nil || offlineStock!.count == 0{
-            self.showInfo(withStatus:"线下库存不能为空")
+            self.showInfo(withStatus:"库存下限不能为空")
+            return
+        }
+        if purchasePrice == nil || purchasePrice!.count == 0{
+            self.showInfo(withStatus:"商品进货价不能为空")
             return
         }
         SVProgressHUD.show(withStatus:"正在提交...")
         SVProgressHUD.setDefaultMaskType(.clear)
         if flag == nil{//修改商品信息
-            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.updateGoodsByStoreAndGoodsId(storeAndGoodsId:goodEntity!.storeAndGoodsId ?? 0, goodsFlag:goodsFlag, storeGoodsPrice: storeGoodsPrice, stock: stock, offlineStock: offlineStock), successClosure: { (json) in
+            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.updateGoodsByStoreAndGoodsId(storeAndGoodsId:goodEntity!.storeAndGoodsId ?? 0, goodsFlag:goodsFlag, storeGoodsPrice: storeGoodsPrice, stock: stock, offlineStock: offlineStock,purchasePrice:purchasePrice!), successClosure: { (json) in
                 let success=json["success"].stringValue
                 if success == "success"{
                     SVProgressHUD.dismiss()
-                    UIAlertController.showAlertYesNo(self, title:"修改成功", message:"价格:\(storeGoodsPrice!),线上库存:\(stock!),线下库存:\(offlineStock!),状态:\(goodsFlag==1 ? "上架":"下架")", cancelButtonTitle:"继续修改", okButtonTitle:"返回", okHandler: { (action) in
+                    UIAlertController.showAlertYesNo(self, title:"修改成功", message:"零售价格:\(storeGoodsPrice!),进货价格:\(purchasePrice!),库存:\(stock!),库存下限:\(offlineStock!),状态:\(goodsFlag==1 ? "上架":"下架")", cancelButtonTitle:"继续修改", okButtonTitle:"返回", okHandler: { (action) in
                         self.navigationController?.popViewController(animated:true)
                     }, cancelHandler: { (action) in
                     })
                     ///通知列表刷新页面
                     NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
                 }else if success == "error"{
-                    self.showError(withStatus:"价格错误")
+                    self.showError(withStatus:"商品价格或进货价填写有误")
                 }else{
                     self.showError(withStatus:"提交失败")
                 }
@@ -243,17 +258,17 @@ extension UpdateStoreGoodDetailViewController{
                 self.showError(withStatus:error!)
             }
         }else{//分配到店铺商品库
-            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.addGoodsInfoGoToStoreAndGoods_detail(storeId:STOREID, goodsId:goodEntity!.goodsId ?? 0, storeGoodsPrice:storeGoodsPrice!, goodsFlag:goodsFlag, stock:Int(stock!)!, offlineStock:Int(offlineStock!)!), successClosure: { (json) in
+            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.addGoodsInfoGoToStoreAndGoods_detail(storeId:STOREID, goodsId:goodEntity!.goodsId ?? 0, storeGoodsPrice:storeGoodsPrice!, goodsFlag:goodsFlag, stock:Int(stock!)!, offlineStock:Int(offlineStock!)!,purchasePrice:purchasePrice!), successClosure: { (json) in
                 let success=json["success"].stringValue
                 if success == "success"{
                     SVProgressHUD.dismiss()
-                    UIAlertController.showAlertYes(self, title:"添加成功", message:"价格:\(storeGoodsPrice!),线上库存:\(stock!),线下库存:\(offlineStock!),状态:\(goodsFlag==1 ? "上架":"下架")", okButtonTitle:"确定", okHandler: { (action) in
+                    UIAlertController.showAlertYes(self, title:"添加成功", message:"零售价格:\(storeGoodsPrice!),进货价格:\(purchasePrice!),库存:\(stock!),库存下限:\(offlineStock!),状态:\(goodsFlag==1 ? "上架":"下架")", okButtonTitle:"确定", okHandler: { (action) in
                         self.navigationController?.popViewController(animated:true)
                     })
                     ///通知列表刷新页面
                     NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
                 }else if success == "storeGoodsPrice_error"{
-                    self.showError(withStatus:"价格错误")
+                    self.showError(withStatus:"商品价格或进货价填写有误")
                 }else{
                     self.showError(withStatus:"提交失败")
                 }

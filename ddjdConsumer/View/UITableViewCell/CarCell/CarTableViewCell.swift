@@ -11,6 +11,8 @@ import Kingfisher
 
 //购物车cell
 class CarTableViewCell: UITableViewCell {
+    ///促销图片
+    @IBOutlet weak var promotionImg: UIImageView!
     //购物车选中按钮
     @IBOutlet weak var btnChecked: UIButton!
     //商品图片
@@ -51,7 +53,8 @@ class CarTableViewCell: UITableViewCell {
         
         goodCountView.layer.borderWidth=1
         goodCountView.layer.borderColor=UIColor.borderColor().cgColor
-        
+
+        promotionImg.isHidden=true
         self.selectionStyle = .none
         // Initialization code
     }
@@ -70,6 +73,11 @@ class CarTableViewCell: UITableViewCell {
             btnChecked.isSelected=true
         }else{
             btnChecked.isSelected=false
+        }
+        if entity.goodsStutas == 3{
+            promotionImg.isHidden=false
+        }else{
+            promotionImg.isHidden=true
         }
     }
     //增加商品数量

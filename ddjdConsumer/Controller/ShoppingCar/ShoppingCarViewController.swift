@@ -37,8 +37,9 @@ class ShoppingCarViewController:BaseViewController{
         }
     }
     private var pageNumber=1
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getStoreInfo()
         self.getCarGoodList(pageSize:5000, pageNumber:self.pageNumber)
     }
     override func viewDidLoad() {
@@ -186,8 +187,10 @@ extension ShoppingCarViewController{
         self.showSVProgressHUD(status:"正在加载中...", type:HUD.textClear)
         self.arr.removeAll()
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.getAllCarGood(memberId:MEMBERID,pageSize:pageSize,pageNumber:pageNumber), successClosure: { (json) in
+            print(json)
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
+                entity!.goodsStutas=value["flag"].intValue
                 self.arr.append(entity!)
             }
             if self.arr.count == 0{
@@ -310,6 +313,34 @@ extension ShoppingCarViewController{
             }
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+    //获取店铺信息
+    private func getStoreInfo(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryStoreById(bindstoreId:BINDSTOREID), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                let entity=self.jsonMappingEntity(entity:StoreEntity.init(), object:json["store"].object)
+                if entity!.distributionStartTime != nil && entity!.distributionEndTime != nil{
+                    let dateFormatter=DateFormatter()
+                    dateFormatter.dateFormat="yyyy-MM-dd HH:mm:ss"
+                    //获取当前时间
+                    let currentDate=Date()
+                    if currentDate.compare(dateFormatter.date(from:entity!.distributionStartTime!) ?? currentDate) == .orderedDescending && currentDate.compare(dateFormatter.date(from:entity!.distributionEndTime!) ?? currentDate) == .orderedAscending{ //当前时间必须大于店铺营业起始时间 小于店铺营业结束时间
+                        self.btnClearing.enable()
+                    }else{
+                        UIAlertController.showAlertYes(self, title:"亲,已过营业时间", message:"本店营业时间为\(entity!.distributionStartTime!)-\(entity!.distributionEndTime!)", okButtonTitle:"知道了")
+                        self.btnClearing.disable()
+                    }
+                }
+                ///把最低起送额保存
+                userDefaults.set(entity?.lowestMoney, forKey:"lowestMoney")
+                userDefaults.set(entity?.deliveryFee, forKey:"deliveryFee")
+                userDefaults.set(entity?.storeName, forKey:"storeName")
+                userDefaults.synchronize()
+            }
+        }) { (error) in
+
         }
     }
     //是否全选 true是 false不是

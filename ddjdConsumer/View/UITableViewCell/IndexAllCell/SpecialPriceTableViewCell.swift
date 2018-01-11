@@ -10,6 +10,8 @@ import UIKit
 import Kingfisher
 //特价cell
 class SpecialPriceTableViewCell: UITableViewCell {
+    ///促销信息图片
+    @IBOutlet weak var promotionMsgImg: UIImageView!
     ///加入购物车
     @IBOutlet weak var addCarImg: UIImageView!
     ///商品名称
@@ -43,17 +45,13 @@ class SpecialPriceTableViewCell: UITableViewCell {
         lblDate.adjustsFontSizeToFitWidth=true
         dateBacView.backgroundColor=UIColor.init(red:0, green:0, blue:0,alpha: 0.5)
         addCarImg.isUserInteractionEnabled=true
-        addCarImg.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(addCar)))
-        goodImg.isUserInteractionEnabled=true
-        goodImg.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(pushGoodDetail)))
+        let gr=UITapGestureRecognizer(target:self, action: #selector(addCar))
+        gr.delegate=self
+        addCarImg.addGestureRecognizer(gr)
         ///默认隐藏提示图片
         promptImg.isHidden=true
         //监听倒计时通知
         NotificationCenter.default.addObserver(self, selector: #selector(self.countDownNotification), name:.OYCountDownNotification, object: nil)
-    }
-    ///跳转详情页面
-    @objc private func pushGoodDetail(){
-        self.pushGoodDetailClosure?()
     }
     ///加入购物车
     @objc private func addCar(){
@@ -72,6 +70,7 @@ class SpecialPriceTableViewCell: UITableViewCell {
         promptImg.isHidden=true
         ///默认显示促销信息
         lblPromotionMsg.isHidden=false
+        promotionMsgImg.isHidden=false
         addCarImg.isHidden=false
         if entity.promotionEndTimeSeconds == nil || entity.promotionEndTimeSeconds! <= 0 {//如果活动时间小于等于0  或者为空 显示活动已结束
             showPromptImg(named: "to_sell_end")
@@ -82,6 +81,8 @@ class SpecialPriceTableViewCell: UITableViewCell {
                 addCarImg.isHidden=true
             }
         }
+        //赋值
+        lblDate.text=lessSecondToDay(entity.promotionEndTimeSeconds ?? 0)
     }
     ///显示提示图片
     private func showPromptImg(named:String){
@@ -89,6 +90,7 @@ class SpecialPriceTableViewCell: UITableViewCell {
         promptImg.image=UIImage.init(named:named)
         self.contentView.isUserInteractionEnabled=false
         lblPromotionMsg.isHidden=true
+        promotionMsgImg.isHidden=true
         self.addCarImg.isHidden=true
     }
     ///每次倒计时
@@ -142,5 +144,14 @@ class SpecialPriceTableViewCell: UITableViewCell {
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+}
+///监听view点击事件
+extension SpecialPriceTableViewCell{
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if NSStringFromClass((touch.view?.classForCoder)!) == "UITableViewCellContentView"{
+            return false
+        }
+        return true
     }
 }

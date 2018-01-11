@@ -56,6 +56,7 @@ class GoodEntity:Mappable{
     var promotionStartTime:String? //促销开始时间
     var promotionEndTime:String? //促销结束时间
     var promotionEndTimeSeconds:Int? //促销结束时间秒
+    var purchasePrice:Double?//店铺进货价
     init(){}
     required init?(map: Map) {
         mapping(map: map)
@@ -101,5 +102,6 @@ class GoodEntity:Mappable{
         promotionMsg <- map["promotionMsg"]
         promotionStartTime <- map["promotionStartTime"]
         promotionEndTime <- map["promotionEndTime"]
+        purchasePrice <- map["purchasePrice"]
     }
 }

@@ -1,25 +1,24 @@
 //
-//  GoodDetailsViewController.swift
+//  PromotionGoodDetailViewController.swift
 //  ddjdConsumer
 //
-//  Created by hao peng on 2017/11/15.
-//  Copyright © 2017年 zltx. All rights reserved.
+//  Created by hao peng on 2018/1/11.
+//  Copyright © 2018年 zltx. All rights reserved.
 //
 
 import Foundation
 import Kingfisher
-//商品详情
-class GoodDetailsViewController:BaseViewController{
+///促销详情页面
+class PromotionGoodDetailViewController:BaseViewController{
     /// 接收传入的商品Id
     var storeAndGoodsId:Int?
     ///1普通商品 3促销商品
     var goodsStuta:Int?
     //可滑动容器
     @IBOutlet weak var scrollView: UIScrollView!
-
     ///商品图片
     @IBOutlet weak var goodImg: UIImageView!
-    
+
     /*********底部购物车操作***********/
     //加入购物车按钮
     @IBOutlet weak var btnAddCar: UIButton!
@@ -32,7 +31,7 @@ class GoodDetailsViewController:BaseViewController{
     //商品数量加减view
     @IBOutlet weak var goodCountView: UIView!
     /*********end底部购物车操作***********/
-    
+
     /**********商品参数**********/
     //商品名称
     @IBOutlet weak var lblGoodName: UILabel!
@@ -56,11 +55,21 @@ class GoodDetailsViewController:BaseViewController{
     @IBOutlet weak var lblBarcode: UILabel!
     /**********end商品参数**********/
 
+    /**********促销信息*********/
+    ///促销信息view高度
+    @IBOutlet weak var promotionViewHeight: NSLayoutConstraint!
+    ///促销信息view
+    @IBOutlet weak var promotionView: UIView!
+    ///促销时间
+    @IBOutlet weak var lblPromotionTime: UILabel!
+    ///促销内容
+    @IBOutlet weak var lblPromotionMsg: UILabel!
+    /**********end促销信息*******/
     //商品列表(为你推荐)
     @IBOutlet weak var goodCollection: UICollectionView!
     //商品列表高度
     @IBOutlet weak var goodCollectionHeight: NSLayoutConstraint!
-    
+
     //保存推荐商品数组
     private var goodArr=[GoodEntity]()
     //保存商品详细信息
@@ -73,7 +82,7 @@ class GoodDetailsViewController:BaseViewController{
         storeAndGoodsId=storeAndGoodsId ?? 0
         setUpView()
         setUpNav()
-        getGoodsDetail(goodsStuta: goodsStuta ?? 1)
+        getGoodsDetail(goodsStuta:goodsStuta ?? 3)
     }
     //添加商品数量
     @IBAction func addCount(_ sender: UIButton) {
@@ -90,7 +99,7 @@ class GoodDetailsViewController:BaseViewController{
 }
 
 // MARK: - 页面设置
-extension GoodDetailsViewController:WaterFlowViewLayoutDelegate{
+extension PromotionGoodDetailViewController:WaterFlowViewLayoutDelegate{
     //设置页面
     private func setUpView(){
         scrollView.backgroundColor=UIColor.viewBackgroundColor()
@@ -104,17 +113,18 @@ extension GoodDetailsViewController:WaterFlowViewLayoutDelegate{
         btnReduceCount.setTitleColor(UIColor.color666(), for: .normal)
         goodCountView.layer.borderWidth=1
         goodCountView.layer.borderColor=UIColor.borderColor().cgColor
-        
+
+
         lblStock.textColor=UIColor.textColor()
         lblSales.textColor=UIColor.textColor()
-        
+
         //加入收藏
         collectImg.isUserInteractionEnabled=true
         collectImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addCollect)))
-        
+
         //加入购物车
         btnAddCar.addTarget(self, action:#selector(addCar), for: UIControlEvents.touchUpInside)
-        
+
         //商品列表设置
         //初始化UICollectionViewFlowLayout.init对象
         let layout = WaterFlowViewLayout()
@@ -169,8 +179,14 @@ extension GoodDetailsViewController:WaterFlowViewLayoutDelegate{
             }else{
                 collectImg.image=UIImage(named:"collect")
             }
-            ///隐藏促销信息View
-            lblStock.text="库存:\(goodEntity!.stock ?? 0)"
+            if goodsStuta == 3{//如果是促销
+                lblStock.text="库存:\(goodEntity!.promotionStock ?? 0)"
+                let dateFormatter=DateFormatter()
+                dateFormatter.dateFormat="yyyy-MM-dd HH:mm:ss"
+                let date=dateFormatter.date(from:goodEntity!.promotionEndTime ?? "")
+                self.lblPromotionTime.text=dateFormatter.string(from:date ?? Date())+"结束"
+                self.lblPromotionMsg.text=goodEntity!.promotionMsg
+            }
             updateViewHeight()
         }
     }
@@ -186,7 +202,7 @@ extension GoodDetailsViewController:WaterFlowViewLayoutDelegate{
     }
 }
 //发送网络请求
-extension GoodDetailsViewController{
+extension PromotionGoodDetailViewController{
     ///1普通商品 3促销商品
     private func getGoodsDetail(goodsStuta:Int){
         self.showSVProgressHUD(status:"正在加载...", type: HUD.textClear)
@@ -226,7 +242,7 @@ extension GoodDetailsViewController{
                 self.collectImg.image=UIImage(named:"y_collect")
                 self.goodEntity!.collectionStatu=true
             }else{
-               self.showSVProgressHUD(status:"收藏失败", type: HUD.error)
+                self.showSVProgressHUD(status:"收藏失败", type: HUD.error)
             }
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
@@ -235,7 +251,7 @@ extension GoodDetailsViewController{
     //请求加入购物车
     private func requestAddCar(count:Int,storeAndGoodsId:Int){
         self.showSVProgressHUD(status:"正在加入...",type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.addCar(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId,goodsCount:count, goodsStuta:1), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.addCar(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId,goodsCount:count,goodsStuta:3), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"成功加入购物车", type: HUD.success)
@@ -252,10 +268,10 @@ extension GoodDetailsViewController{
     }
 }
 // MARK: goodCollection协议
-extension GoodDetailsViewController:UICollectionViewDelegate,UICollectionViewDataSource{
-    
+extension PromotionGoodDetailViewController:UICollectionViewDelegate,UICollectionViewDataSource{
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+
         let cell=goodCollection.dequeueReusableCell(withReuseIdentifier:"goodCollectionViewCellId", for:indexPath) as! GoodCollectionViewCell
         if goodArr.count > 0{
             let entity=goodArr[indexPath.row]
@@ -268,8 +284,8 @@ extension GoodDetailsViewController:UICollectionViewDelegate,UICollectionViewDat
             }
         }
         return cell
-        
-        
+
+
     }
     func waterFlowViewLayout(waterFlowViewLayout: WaterFlowViewLayout, heightForWidth: CGFloat, atIndextPath: IndexPath) -> CGFloat {
         return boundsWidth/2+80
@@ -284,7 +300,7 @@ extension GoodDetailsViewController:UICollectionViewDelegate,UICollectionViewDat
     }
 }
 // MARK: - 点击事件
-extension GoodDetailsViewController{
+extension PromotionGoodDetailViewController{
     //加入购物车
     @objc private func addCar(){
         requestAddCar(count:goodCount,storeAndGoodsId:storeAndGoodsId!)

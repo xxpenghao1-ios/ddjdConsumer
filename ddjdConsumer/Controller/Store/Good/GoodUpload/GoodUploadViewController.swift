@@ -25,11 +25,12 @@ class GoodUploadViewController:FormViewController{
         static let brandTag = "brand"
         static let goodsMixedTag = "goodsMixed"
         static let stockTag = "stock"
-        static let offlineStockTag = "offlineStock"
+        static let purchasePriceTag = "purchasePrice"
         static let goodsFlagTag = "goodsFlag"
         static let categoryTag = "category"
         static let uploadImgTag = "uploadImg"
         static let button = "button"
+        static let offlineStockTag = "offlineStock"
     }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -50,7 +51,7 @@ class GoodUploadViewController:FormViewController{
             goodEntity!.sCategoryId=json["sCategoryId"].intValue
             goodEntity!.fCategoryId=json["fCategoryId"].intValue
             goodEntity!.goodsCategoryName=json["str"].stringValue
-            if let cell = self.tableView.cellForRow(at:IndexPath(row:5,section:0)) as? FormLabelCell {
+            if let cell = self.tableView.cellForRow(at:IndexPath(row:6,section:0)) as? FormLabelCell {
                 cell.rowDescriptor?.value=goodEntity!.goodsCategoryName as AnyObject
                 cell.update()
             }
@@ -72,6 +73,16 @@ extension GoodUploadViewController{
         row.value=goodEntity!.goodsName as AnyObject
         row.configuration.cell.placeholder="请输入商品名称"
         section1.rows.append(row)
+
+        row=FormRowDescriptor(tag:Static.purchasePriceTag, type:.decimal, title:"商品进货价:")
+        row.value=goodEntity!.stock as AnyObject
+        row.configuration.cell.placeholder="请输入进货价"
+        section1.rows.append(row)
+
+        row=FormRowDescriptor(tag: Static.goodsPriceTag, type: .decimal, title: "商品零售价格:")
+        row.value=goodEntity!.storeGoodsPrice as AnyObject
+        row.configuration.cell.placeholder="请输入商品零售价格"
+        section1.rows.append(row)
         
         row=FormRowDescriptor(tag: Static.goodsUnitTag, type: .text, title: "商品单位:")
         row.value=goodEntity!.goodsUnit as AnyObject
@@ -83,11 +94,6 @@ extension GoodUploadViewController{
         row.configuration.cell.placeholder="例如:1*500g,1*200ml等"
         section1.rows.append(row)
         
-        row=FormRowDescriptor(tag: Static.goodsPriceTag, type: .decimal, title: "商品价格:")
-        row.value=goodEntity!.storeGoodsPrice as AnyObject
-        row.configuration.cell.placeholder="请输入商品价格"
-        section1.rows.append(row)
-        
         row=FormRowDescriptor(tag: Static.categoryTag, type: .label, title:"商品分类:")
         row.value=goodEntity!.goodsCategoryName as AnyObject
         row.configuration.cell.placeholder="请选择商品分类"
@@ -97,23 +103,22 @@ extension GoodUploadViewController{
         }
         section1.rows.append(row)
         
-        let section2 = FormSectionDescriptor(headerTitle:"商品其他信息", footerTitle: nil)
-        
+        let section2 = FormSectionDescriptor(headerTitle:"商品其他信息", footerTitle:"说明:库存下限（总库存低于此值，线上此商品将显示已售罄)")
         row=FormRowDescriptor(tag: Static.goodsLiftTag, type: .number, title: "商品保质期:")
         row.value=goodEntity!.goodsLift as AnyObject
         row.configuration.cell.placeholder="请输入商品保质期(天)"
         section2.rows.append(row)
         
-        row=FormRowDescriptor(tag: Static.stockTag, type: .number, title: "商品线上库存:")
+        row=FormRowDescriptor(tag: Static.stockTag, type: .number, title: "商品库存:")
         row.value=goodEntity!.stock as AnyObject
-        row.configuration.cell.placeholder="请输入商品线上库存"
+        row.configuration.cell.placeholder="请输入商品库存"
         section2.rows.append(row)
-        
-        row=FormRowDescriptor(tag: Static.offlineStockTag, type: .number, title: "商品线下库存:")
+
+        row=FormRowDescriptor(tag: Static.offlineStockTag, type: .number, title: "库存下限:")
         row.value=goodEntity!.stock as AnyObject
-        row.configuration.cell.placeholder="请输入商品线下库存"
+        row.configuration.cell.placeholder="请输入库存下限"
         section2.rows.append(row)
-        
+
         row = FormRowDescriptor(tag: Static.goodsFlagTag, type: .segmentedControl, title: "商品状态")
         row.configuration.selection.options = ([0, 1] as [Int]) as [AnyObject]
         row.configuration.selection.optionTitleClosure = { value in
@@ -200,10 +205,11 @@ extension GoodUploadViewController{
         goodEntity!.goodsPrice=json[Static.goodsPriceTag].string
         goodEntity!.goodsFlag=json[Static.goodsFlagTag].intValue
         goodEntity!.stock=json[Static.stockTag].string
-        goodEntity!.offlineStock=json[Static.offlineStockTag].string
+        goodEntity!.purchasePrice=json[Static.purchasePriceTag].string
         goodEntity!.brand=json[Static.brandTag].string
         goodEntity!.goodsMixed=json[Static.goodsMixedTag].string
         goodEntity!.goodsCategoryName=json[Static.categoryTag].string
+        goodEntity!.offlineStock=json[Static.offlineStockTag].string
         let image=formValues[Static.uploadImgTag] as? UIImage
         if goodEntity!.goodsName == nil || goodEntity!.goodsName!.count == 0{
             self.showInfo(withStatus:"商品名称不能为空")
@@ -230,11 +236,15 @@ extension GoodUploadViewController{
             return
         }
         if goodEntity!.stock == nil || goodEntity!.stock!.count == 0{
-            self.showInfo(withStatus:"商品线上库存不能为空")
+            self.showInfo(withStatus:"商品库存不能为空")
             return
         }
         if goodEntity!.offlineStock == nil || goodEntity!.offlineStock!.count == 0{
-            self.showInfo(withStatus:"商品线下库存不能为空")
+            self.showInfo(withStatus:"库存下限不能为空")
+            return
+        }
+        if goodEntity!.purchasePrice == nil || goodEntity!.purchasePrice!.count == 0{
+            self.showInfo(withStatus:"进货价不能为空")
             return
         }
         if image == nil{
@@ -244,7 +254,7 @@ extension GoodUploadViewController{
         self.uploadGoodImg(img:image!)
     }
     private func uploadGood(goodsPic:String){
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.storeUploadGoodsInfo(goodsCode:goodEntity!.goodsCode!, storeId:STOREID, goodsName: goodEntity!.goodsName!, goodsUnit:goodEntity!.goodsUnit!, goodsLift: Int(goodEntity!.goodsLift!)!,goodUcode:goodEntity!.goodUcode!, fCategoryId:goodEntity!.fCategoryId ?? 0, sCategoryId: goodEntity!.sCategoryId ?? 0, tCategoryId:goodEntity!.tCategoryId ?? 0, goodsPic:goodsPic,goodsPrice:"\(goodEntity!.goodsPrice!)", goodsFlag:goodEntity!.goodsFlag!+1,stock:Int(goodEntity!.stock!) ?? 0,remark:nil, weight:nil,brand:goodEntity!.brand,goodsMixed:goodEntity!.goodsMixed,offlineStock:Int(goodEntity!.offlineStock!) ?? 0), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.storeUploadGoodsInfo(goodsCode:goodEntity!.goodsCode!, storeId:STOREID, goodsName: goodEntity!.goodsName!, goodsUnit:goodEntity!.goodsUnit!, goodsLift: Int(goodEntity!.goodsLift!)!,goodUcode:goodEntity!.goodUcode!, fCategoryId:goodEntity!.fCategoryId ?? 0, sCategoryId: goodEntity!.sCategoryId ?? 0, tCategoryId:goodEntity!.tCategoryId ?? 0, goodsPic:goodsPic,goodsPrice:"\(goodEntity!.goodsPrice!)", goodsFlag:goodEntity!.goodsFlag!+1,stock:Int(goodEntity!.stock!) ?? 0,remark:nil, weight:nil,brand:goodEntity!.brand,goodsMixed:goodEntity!.goodsMixed,purchasePrice:goodEntity!.purchasePrice!,offlineStock:Int(goodEntity!.offlineStock!) ?? 0), successClosure: { (json) in
             let success = json["success"].stringValue
             if success == "success"{
                 SVProgressHUD.dismiss()
@@ -254,10 +264,13 @@ extension GoodUploadViewController{
                 ///通知列表刷新页面
                 NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
             }else if success == "exist"{
-                self.showInfo(withStatus:"条码已存在,不能再添加此条码")
+                SVProgressHUD.showError(withStatus:"不能再添加此条码")
+            }else if success == "goodsPriceOrpurchasePriceTypeError"{
+                SVProgressHUD.showError(withStatus:"商品价格或进货价填写有误")
             }else{
                 self.showInfo(withStatus:"上传失败")
             }
+            SVProgressHUD.setDefaultMaskType(.none)
         }) { (error) in
             SVProgressHUD.showError(withStatus:error)
             SVProgressHUD.setDefaultMaskType(.none)
