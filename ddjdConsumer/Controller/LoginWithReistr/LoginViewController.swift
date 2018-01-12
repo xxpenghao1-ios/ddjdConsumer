@@ -114,8 +114,9 @@ extension LoginViewController{
             self.showSVProgressHUD(status:"密码不能为空", type: HUD.info)
             return
         }
+        let deviceToken=userDefaults.object(forKey:"deviceToken") as? String ?? ""
         self.showSVProgressHUD(status:"登录中...", type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.memberLogin(account:memberName!, password: password!), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.memberLogin(account:memberName!, password: password!, deviceToken:deviceToken,deviceName:UIDevice().name), successClosure: { (json) in
             let success=json["success"].stringValue
             print(json)
             if success == "success"{

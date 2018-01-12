@@ -11,7 +11,7 @@ import SVProgressHUD
 import SwiftyJSON
 ///设置店铺信息
 class UpdateStoreInfoViewController:FormViewController{
-    ///1最低起送额 2配送范围 3联系方式 4营业时间
+    ///1最低起送额 2配送范围 3联系方式 4营业时间 5店铺折扣
     var type:Int?
     ///接收店铺信息
     var entity:StoreEntity?
@@ -21,6 +21,7 @@ class UpdateStoreInfoViewController:FormViewController{
         static let lowestMoneyTag  = "lowestMoney"
         static let distributionStartTimeTag  = "distributionStartTime"
         static let distributionEndTimeTag  = "distributionEndTime"
+        static let memberDiscountTag = "memberDiscount"
     }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -74,6 +75,13 @@ extension UpdateStoreInfoViewController{
             }
             section1.rows.append(row)
         }
+        if type == 5{
+            let row = FormRowDescriptor(tag:Static.memberDiscountTag, type:.number, title:"会员折扣:")
+            row.configuration.cell.placeholder="请输入折扣"
+            row.value=entity?.memberDiscount?.description as AnyObject
+            section1.rows.append(row)
+        }
+
         let section2 = FormSectionDescriptor(headerTitle: nil, footerTitle: nil)
         let row = FormRowDescriptor(tag:"button", type: .button, title:"确认修改")
         row.configuration.button.didSelectClosure = { _ in
@@ -103,6 +111,7 @@ extension UpdateStoreInfoViewController{
         let lowestMoney=values[Static.lowestMoneyTag].string
         let distributionStartTimeDate=values[Static.distributionStartTimeTag].string
         let distributionEndTimeDate=values[Static.distributionEndTimeTag].string
+        let memberDiscount=values[Static.memberDiscountTag].string
         switch type! {
         case 1:
             guard lowestMoney != nil else {
@@ -119,15 +128,21 @@ extension UpdateStoreInfoViewController{
                 self.showInfo(withStatus:"联系方式不能为空")
                 return
             }
+        case 4:
+            return
+        case 5:
+            guard memberDiscount != nil else {
+                self.showInfo(withStatus:"折扣不能为空")
+                return
+            }
         default:break
 
         }
         SVProgressHUD.show(withStatus:"正在修改...")
         SVProgressHUD.setDefaultMaskType(.clear)
 
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.updateStoreInfo(storeId:STOREID, storeMsg:nil, tel:tel, distributionScope:Int(distributionScope ?? ""),lowestMoney:Int(lowestMoney ?? ""), distributionStartTime:distributionStartTimeDate, distributionEndTime:distributionEndTimeDate), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.updateStoreInfo(storeId:STOREID, storeMsg:nil, tel:tel, distributionScope:Int(distributionScope ?? ""),lowestMoney:Int(lowestMoney ?? ""), distributionStartTime:distributionStartTimeDate, distributionEndTime:distributionEndTimeDate,memberDiscount:Int(memberDiscount ?? "")), successClosure: { (json) in
             let success=json["success"].stringValue
-
             if success == "success"{
                 SVProgressHUD.showSuccess(withStatus:"修改成功")
                 SVProgressHUD.setDefaultMaskType(.none)

@@ -19,7 +19,7 @@ public enum StoreInfoApi{
     ///查询店铺收入明细（转账明细）记录
     case queryStoreTransferaccountsrecord(storeId:Int,pageNumber:Int,pageSize:Int,queryStatu:Int)
     ///修改店铺信息
-    case updateStoreInfo(storeId:Int,storeMsg:String?,tel:String?,distributionScope:Int?,lowestMoney:Int?,distributionStartTime:String?,distributionEndTime:String?)
+    case updateStoreInfo(storeId:Int,storeMsg:String?,tel:String?,distributionScope:Int?,lowestMoney:Int?,distributionStartTime:String?,distributionEndTime:String?,memberDiscount:Int?)
     ///店铺查询合伙人
     case queryStoreBindPartner(storeId:Int)
     ///添加合伙人
@@ -40,7 +40,7 @@ extension StoreInfoApi:TargetType{
             return "/front/storeStatistics/queryStoreTurnover"
         case .queryStoreTransferaccountsrecord(_,_,_,_):
             return "/front/storeStatistics/queryStoreTransferaccountsrecord"
-        case .updateStoreInfo(_,_,_,_,_,_,_):
+        case .updateStoreInfo(_,_,_,_,_,_,_,_):
             return "/front/storeInfo/updateStoreInfo"
         case .queryStoreBindPartner(_):
             return "/front/partner/queryStoreBindPartner"
@@ -53,7 +53,7 @@ extension StoreInfoApi:TargetType{
         switch self {
         case .queryStoreById(_),.queryStoreForLocation(_,_,_),.queryStoreTurnover(_),.queryStoreTransferaccountsrecord(_,_,_,_),.queryStoreBindPartner(_):
             return .get
-        case .updateStoreInfo(_,_,_,_,_,_,_),.addPartnerByStore(_,_,_,_,_,_):
+        case .updateStoreInfo(_,_,_,_,_,_,_,_),.addPartnerByStore(_,_,_,_,_,_):
             return .post
         }
     }
@@ -72,7 +72,7 @@ extension StoreInfoApi:TargetType{
             return .requestParameters(parameters:["storeId":storeId], encoding: URLEncoding.default)
         case let .queryStoreTransferaccountsrecord(storeId, pageNumber, pageSize, queryStatu):
             return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"queryStatu":queryStatu], encoding: URLEncoding.default)
-        case let .updateStoreInfo(storeId, storeMsg, tel, distributionScope, lowestMoney, distributionStartTime, distributionEndTime):
+        case let .updateStoreInfo(storeId, storeMsg, tel, distributionScope, lowestMoney, distributionStartTime, distributionEndTime,memberDiscount):
             var parameters:[String:Any]=[:]
                 parameters["storeId"]=storeId
             if storeMsg != nil{
@@ -92,6 +92,9 @@ extension StoreInfoApi:TargetType{
             }
             if distributionEndTime != nil{
                 parameters["distributionEndTime"]=distributionEndTime!
+            }
+            if memberDiscount != nil{
+                parameters["memberDiscount"]=memberDiscount!
             }
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         case let .queryStoreBindPartner(storeId):

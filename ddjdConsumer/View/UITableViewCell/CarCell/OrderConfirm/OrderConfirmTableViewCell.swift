@@ -10,6 +10,8 @@ import UIKit
 import Kingfisher
 //确认订单cell
 class OrderConfirmTableViewCell: UITableViewCell {
+    //促销图片
+    @IBOutlet weak var promotionImg: UIImageView!
     //商品名称
     @IBOutlet weak var lblGoodName: UILabel!
     //商品数量
@@ -22,6 +24,7 @@ class OrderConfirmTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
+        promotionImg.isHidden=true
     }
     func updateCell(entity:GoodEntity){
         lblGoodName.text=entity.goodsName
@@ -31,6 +34,11 @@ class OrderConfirmTableViewCell: UITableViewCell {
         lblGoodPrice.text="￥\(entity.storeGoodsPrice!)"
         entity.goodsPic=entity.goodsPic ?? ""
         goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+        if entity.goodsStutas == 3{
+            promotionImg.isHidden=false
+        }else{
+            promotionImg.isHidden=true
+        }
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

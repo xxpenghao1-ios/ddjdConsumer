@@ -32,8 +32,19 @@ public class PHMoyaHttp{
             switch result{
             case let .success(response):
                 do {
-                    let json = try response.mapJSON()
-                    successClosure(JSON(json))
+                    let mapjson = try response.mapJSON()
+                    let json=JSON(mapjson)
+                    if json["success"].stringValue == "notToken"{
+                        let alert=UIAlertController(title:"重新登录", message:"您的登录信息已过期", preferredStyle: UIAlertControllerStyle.alert)
+                        let ok=UIAlertAction(title:"确定", style: UIAlertActionStyle.default, handler:{ Void
+                            in//点击确定 清除推送别名
+                            JPUSHService.setAlias("", completion: nil, seq: 22)
+                            app.jumpToLoginVC()
+                        })
+                        alert.addAction(ok)
+                        app.window?.rootViewController?.present(alert, animated:true, completion:nil)
+                    }
+                    successClosure(json)
                 } catch {
                     failClosure(self.failInfo)
                 }

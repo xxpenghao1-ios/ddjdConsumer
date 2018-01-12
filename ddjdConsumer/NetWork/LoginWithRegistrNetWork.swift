@@ -15,9 +15,11 @@ public enum LoginWithRegistrApi{
     //注册
     case reg(account:String,password:String)
     //登录
-    case memberLogin(account:String,password:String)
+    case memberLogin(account:String,password:String,deviceToken:String,deviceName:String)
     //忘记密码
     case fingPwd(account:String,password:String)
+    ///会员最后一次不同设备登录记录
+    case queryMemberLastLoginRecord(memberId:Int)
     
 }
 extension LoginWithRegistrApi:TargetType{
@@ -30,17 +32,21 @@ extension LoginWithRegistrApi:TargetType{
             return "/front/member/duanxinValidate"
         case .reg(_,_):
             return "/front/member/reg"
-        case .memberLogin(_,_):
+        case .memberLogin(_,_,_,_):
             return "/front/login/memberLogin"
         case .fingPwd(_,_):
             return "/front/member/fingPwd"
+        case .queryMemberLastLoginRecord(_):
+            return "/front/login/queryMemberLastLoginRecord"
         }
     }
     
     public var method:Moya.Method {
         switch self {
-        case .duanxinValidate(_,_),.reg(_,_),.memberLogin(_,_),.fingPwd(_,_):
+        case .duanxinValidate(_,_),.reg(_,_),.memberLogin(_,_,_,_),.fingPwd(_,_):
             return .post
+        case .queryMemberLastLoginRecord(_):
+            return .get
         }
     }
     
@@ -54,10 +60,12 @@ extension LoginWithRegistrApi:TargetType{
             return .requestParameters(parameters:["account":account,"flag":flag], encoding: URLEncoding.default)
         case let .reg(account,password):
             return .requestParameters(parameters:["account":account,"password":password], encoding: URLEncoding.default)
-        case let .memberLogin(account, password):
-            return .requestParameters(parameters:["account":account,"password":password], encoding: URLEncoding.default)
+        case let .memberLogin(account, password,deviceToken,deviceName):
+            return .requestParameters(parameters:["account":account,"password":password,"deviceToken":deviceToken,"deviceName":deviceName], encoding: URLEncoding.default)
         case let .fingPwd(account, password):
             return .requestParameters(parameters:["account":account,"password":password], encoding: URLEncoding.default)
+        case let .queryMemberLastLoginRecord(memberId):
+            return .requestParameters(parameters:["memberId":memberId], encoding: URLEncoding.default)
         }
     }
     

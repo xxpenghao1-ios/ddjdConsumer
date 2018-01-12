@@ -50,6 +50,8 @@ class StoreEntity:Mappable{
     var lon:String?
     /// 配送费
     var deliveryFee:Int?
+    /// 店铺折扣
+    var memberDiscount:Int?
     init(){}
     required init?(map: Map) {
         mapping(map:map)
@@ -73,5 +75,6 @@ class StoreEntity:Mappable{
         lat <- map["lat"]
         lon <- map["lon"]
         deliveryFee <- map["deliveryFee"]
+        memberDiscount <- map["memberDiscount"]
     }
 }

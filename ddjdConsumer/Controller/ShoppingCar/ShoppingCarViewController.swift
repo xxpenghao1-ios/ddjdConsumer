@@ -190,7 +190,6 @@ extension ShoppingCarViewController{
             print(json)
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
-                entity!.goodsStutas=value["flag"].intValue
                 self.arr.append(entity!)
             }
             if self.arr.count == 0{
@@ -317,8 +316,10 @@ extension ShoppingCarViewController{
     }
     //获取店铺信息
     private func getStoreInfo(){
+        self.showSVProgressHUD(status:"正在加载...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryStoreById(bindstoreId:BINDSTOREID), successClosure: { (json) in
             let success=json["success"].stringValue
+            self.dismissHUD()
             if success == "success"{
                 let entity=self.jsonMappingEntity(entity:StoreEntity.init(), object:json["store"].object)
                 if entity!.distributionStartTime != nil && entity!.distributionEndTime != nil{
@@ -358,8 +359,7 @@ extension ShoppingCarViewController{
                         if startDate != nil && endDate != nil && currentDate != nil{
                             if currentDate!.compare(startDate!) == .orderedAscending || currentDate!.compare(endDate!) == .orderedDescending{ //当前时间小于店铺营业起始时间 大于店铺营业结束时间
                                 UIAlertController.showAlertYes(self, title:"亲,已过营业时间", message:"本店营业时间为\(entity!.distributionStartTime!)-\(entity!.distributionEndTime!)", okButtonTitle:"知道了", okHandler: { (action) in
-                                    self.navigationController?.popToRootViewController(animated:true)
-                                    ///回到首页
+                                    self.navigationController?.popViewController(animated:true)
                                     app.tab.selectedIndex=0
                                 })
 
@@ -374,7 +374,7 @@ extension ShoppingCarViewController{
                 userDefaults.synchronize()
             }
         }) { (error) in
-
+            self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
     //是否全选 true是 false不是

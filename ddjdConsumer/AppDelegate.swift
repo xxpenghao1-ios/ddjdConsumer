@@ -10,10 +10,11 @@ import UIKit
 import Siren
 import SVProgressHUD
 import IQKeyboardManagerSwift
+import SwiftyJSON
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate{
     var window: UIWindow?
-    var tab=storyboardViewController(type:.main,withIdentifier:"ConsumerTabBarId") as! ConsumerTabBarViewController
+    var tab:ConsumerTabBarViewController!
     ///程序入口
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //加载设置
@@ -45,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
          */
         Siren.shared.checkVersion(checkType: .immediately)
     }
+    ///后台进入前台
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         /**
@@ -54,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
          */
         Siren.shared.checkVersion(checkType: .daily)
         JPUSHService.resetBadge()
+        self.queryMemberLastLoginRecord()
         application.applicationIconBadgeNumber=0;
     }
     func applicationWillTerminate(_ application: UIApplication) {
@@ -61,6 +64,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     }
     ///推送消息时，获取设备的tokenid
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        //设备标识是NSdata通过截取字符串去掉空格获得字符串保存进缓存 登录发给服务器 用于控制用户只能在一台设备登录
+        print(deviceToken)
+        let characterSet: CharacterSet = CharacterSet(charactersIn: "<>")
+        let deviceTokenString: String = (deviceToken.description as NSString)
+            .trimmingCharacters(in: characterSet)
+            .replacingOccurrences(of: " ", with: "") as String
+        //把截取的设备令牌保存进缓存
+        userDefaults.set(deviceTokenString, forKey:"deviceToken")
+        //写入磁盘
+        userDefaults.synchronize()
         JPUSHService.registerDeviceToken(deviceToken)
     }
     ///接收到推送消息处理
@@ -68,6 +81,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         // Required, iOS 7 Support
         JPUSHService.handleRemoteNotification(userInfo)
         completionHandler(.newData)
+        //转换为json
+        let jsonObject=JSON(userInfo);
+        //取出推送内容
+        var aps=jsonObject["aps"]
+        let alert_type=jsonObject["alert_type"].intValue
+        let alert=aps["alert"].stringValue;
+        if(application.applicationState == UIApplicationState.active){//如果程序活动在前台
+            if alert_type == 1{//如果是订单
+                UIAlertController.showAlertYesNo(self.window?.rootViewController,title:"提示", message: alert, cancelButtonTitle:"取消", okButtonTitle:"查看", okHandler: { (action) in
+                    self.showStoreOrderList()
+                })
+            }
+        }else{//如果程序运行在后台
+            if alert_type == 1{//如果是订单
+                self.showStoreOrderList()
+            }
+        }
         
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
@@ -89,9 +119,10 @@ extension AppDelegate{
         setUpBMKMap()
         //开启极光推送
         PHJPushHelper.setupWithOptions(launchOptions:launchOptions,delegate:self)
+        //监听极光推送自定义消息(只有在前端运行的时候才能收到自定义消息的推送。)
+        NotificationCenter.default.addObserver(self, selector:#selector(networkDidReceiveMessage), name:NSNotification.Name.jpfNetworkDidReceiveMessage, object:nil)
         //关闭极光推送打印
-//        JPUSHService.setLogOFF()
-        JPUSHService.setDebugMode()
+        JPUSHService.setLogOFF()
         //百度统计
         BaiduMobStat.default().start(withAppId: "46c2b6d4bb")
         BaiduMobStat.default().enableDebugOn=false
@@ -126,6 +157,12 @@ extension AppDelegate:JPUSHRegisterDelegate{
         let userInfo=response.notification.request.content.userInfo
         if (response.notification.request.trigger?.isKind(of:UNPushNotificationTrigger.classForCoder()))!{
             JPUSHService.handleRemoteNotification(userInfo)
+            //转换为json
+            let jsonObject=JSON(userInfo);
+            let alert_type=jsonObject["alert_type"].intValue
+            if alert_type == 1{//订单
+                self.showStoreOrderList()
+            }
         }
         completionHandler()
     }
@@ -135,7 +172,22 @@ extension AppDelegate:JPUSHRegisterDelegate{
         let userInfo=notification.request.content.userInfo
         if (notification.request.trigger?.isKind(of:UNPushNotificationTrigger.classForCoder()))!{
             JPUSHService.handleRemoteNotification(userInfo)
+            //转换为json
+            let jsonObject=JSON(userInfo);
+            let alert_type=jsonObject["alert_type"].intValue
+            if alert_type == 1{//订单
+                let alert=jsonObject["aps"]["alert"].stringValue
+                UIAlertController.showAlertYesNo(self.window?.rootViewController,title:"提示", message: alert, cancelButtonTitle:"取消", okButtonTitle:"查看", okHandler: { (action) in
+                    self.showStoreOrderList()
+                })
+            }
         }
+    }
+    ///弹出订单列表
+    private func showStoreOrderList(){
+        let vc=PageStoreOrderListViewController()
+        vc.isCancelItem=1
+        app.window?.rootViewController?.present(UINavigationController.init(rootViewController:vc), animated:true, completion: nil)
     }
     
 }
@@ -221,11 +273,50 @@ extension AppDelegate{
 extension AppDelegate{
     //跳转到首页
     func jumpToIndexVC(){
+        tab=storyboardViewController(type:.main,withIdentifier:"ConsumerTabBarId") as! ConsumerTabBarViewController
         self.window?.rootViewController=tab
     }
     //跳转到登录页面
     func jumpToLoginVC(){
         let loginNav=storyboardViewController(type:.loginWithRegistr,withIdentifier:"LoginId") as! UINavigationController
         self.window?.rootViewController=loginNav
+    }
+}
+// MARK: - 极光推送自定义消息监听
+extension AppDelegate{
+    @objc func networkDidReceiveMessage(_ notification:Notification){
+        let userInfo=notification.userInfo
+        if userInfo != nil{
+            let json=JSON(userInfo!)
+            let msg=json["extras"]["msg"].intValue
+            if msg == 1{//如果为3 表示该账号在其他设备登录
+                queryMemberLastLoginRecord()
+            }
+        }
+    }
+    ///会员最后一次不同设备登录记录
+    private func queryMemberLastLoginRecord(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.queryMemberLastLoginRecord(memberId:MEMBERID), successClosure: { (json) in
+            print(json)
+            let lastLoginRecord=json["lastLoginRecord"]
+            let memberLastLoginDeviceToken=lastLoginRecord["memberLastLoginDeviceToken"].stringValue
+            let memberLastLoginTime=lastLoginRecord["memberLastLoginTime"].stringValue
+            let memberLastLoginDeviceName=lastLoginRecord["memberLastLoginDeviceName"].stringValue
+            let deviceToken=userDefaults.object(forKey:"deviceToken") as? String
+            if memberLastLoginDeviceToken != deviceToken{//判断服务器返回的设备标识与当前本机的缓存中的设备标识是否相等  如果不等于表示该账号在另一台设备在登录
+                //直接跳转到登录页面
+
+                let alert=UIAlertController(title:"重新登录", message:"您的账号于\(memberLastLoginTime)在另一台设备\(memberLastLoginDeviceName)上登录。如非本人操作,则密码可能已泄露,建议您重新设置密码,以确保数据安全。", preferredStyle: UIAlertControllerStyle.alert)
+                let ok=UIAlertAction(title:"确定", style: UIAlertActionStyle.default, handler:{ Void
+                    in//点击确定 清除推送别名
+                    JPUSHService.setAlias("", completion: nil, seq: 22)
+                    app.jumpToLoginVC()
+                })
+                alert.addAction(ok)
+                self.window?.rootViewController?.present(alert, animated:true, completion:nil)
+            }
+        }) { (error) in
+
+        }
     }
 }

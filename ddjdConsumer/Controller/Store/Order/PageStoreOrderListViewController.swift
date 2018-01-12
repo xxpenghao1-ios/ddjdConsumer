@@ -10,12 +10,21 @@ import Foundation
 import WMPageController
 ///店铺订单
 class PageStoreOrderListViewController:WMPageController{
+    ///是否显示关闭按钮
+    var isCancelItem:Int?
     private let titleArr=["待发货","已发货","已完成"]
     override func viewDidLoad() {
         setUpMenuView()
         super.viewDidLoad()
         self.title="我的订单"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
+        if isCancelItem != nil{
+            self.navigationItem.leftBarButtonItem=UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.cancel, target:self, action: #selector(cancel))
+        }
+    }
+    //关闭页面
+    @objc private func cancel(){
+        self.dismiss(animated:true, completion:nil)
     }
     //设置显示几个页面
     override func numbersOfChildControllers(in pageController: WMPageController) -> Int {

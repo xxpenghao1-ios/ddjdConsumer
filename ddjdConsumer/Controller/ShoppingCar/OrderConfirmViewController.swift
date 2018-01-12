@@ -283,6 +283,8 @@ extension OrderConfirmViewController{
             }else if success == "underStock"{
                 let goodsName=json["goodsName"].stringValue
                 self.showSVProgressHUD(status:goodsName+"库存不足", type: HUD.info)
+            }else if success == "orderInfoAddTimeError"{
+                self.showSVProgressHUD(status:"下单时间不在店铺设置的配送时间范围内，不能下单", type: HUD.info)
             }else{
                 self.showSVProgressHUD(status:"下单失败", type: HUD.error)
             }
@@ -368,7 +370,7 @@ extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
             cell!.accessoryType = .disclosureIndicator
             if indexPath.row == 2{
                 if self.memberDiscount != nil{
-                    cell!.textLabel!.text=payTitle[indexPath.row]+"(\(self.memberDiscount!)折)"
+                    cell!.textLabel!.text=payTitle[indexPath.row]+"(\(self.memberDiscount!==100 ? "不打" : self.memberDiscount!.description)折)"
                 }
                 cell!.detailTextLabel!.text="(剩余￥\(self.memberBalanceMoney ?? 0))"
             }
