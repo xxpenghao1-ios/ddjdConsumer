@@ -62,6 +62,7 @@ open class FormDateCell: FormValueCell {
         if let date = rowDescriptor?.value as? Date {
             datePicker.date = date
             valueLabel.text = getDateFormatter().string(from: date)
+            if titleLabel.text == ""
         }
     }
     

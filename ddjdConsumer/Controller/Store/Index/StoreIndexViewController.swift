@@ -16,6 +16,8 @@ class StoreIndexViewController:BaseViewController{
     ///月营业额
     @IBOutlet weak var lblMonthPrice: UILabel!
     @IBOutlet weak var collection: UICollectionView!
+    ///店铺订单总提示数量
+    private var sumOrderPromptCount=0
     private let imgArr=["store_index_good","store_index_order","store_index_xstj","store_index_tj","store_index_cx","store_index_zhmx","store_index_partner","store_index_lxkf","store_index_qt"]
     private let strArr=["商品管理","订单管理","销售统计","热门推荐","限时促销","账户明细","合伙人管理","联系客服","其他设置"]
     override func viewWillAppear(_ animated: Bool) {
@@ -23,6 +25,7 @@ class StoreIndexViewController:BaseViewController{
         setUpNavColor()
         queryStoreTurnover()
         queryStoreBindWxOrAliStatu()
+        queryOrderAmount()
     }
     
     override func viewDidLoad() {
@@ -49,7 +52,11 @@ extension StoreIndexViewController{
 extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collection.dequeueReusableCell(withReuseIdentifier:"StoreIndexCollectionViewCellId", for:indexPath) as! StoreIndexCollectionViewCell
-        cell.updateCell(imgStr:imgArr[indexPath.item], str:strArr[indexPath.item])
+        if indexPath.item == 1{//如果是订单
+            cell.updateCell(imgStr:imgArr[indexPath.item], str:strArr[indexPath.item],count:sumOrderPromptCount)
+        }else{
+            cell.updateCell(imgStr:imgArr[indexPath.item], str:strArr[indexPath.item], count:nil)
+        }
         return cell
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -117,6 +124,17 @@ extension StoreIndexViewController{
             userDefaults.set(json["wxBindStatu"].bool, forKey:"wxBindStatu")
             userDefaults.set(json["aliBindStatu"].bool, forKey:"aliBindStatu")
             userDefaults.synchronize()
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+        }
+    }
+    ///查询店铺待发和代收订单的数量
+    private func queryOrderAmount(){
+        self.sumOrderPromptCount=0
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryOrderAmount(storeId:STOREID), successClosure: { (json) in
+            self.sumOrderPromptCount=json["yifa"].intValue
+            self.sumOrderPromptCount+=json["daifa"].intValue
+            self.collection.reloadData()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }

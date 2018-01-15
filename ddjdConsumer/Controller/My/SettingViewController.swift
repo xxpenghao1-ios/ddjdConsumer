@@ -86,7 +86,7 @@ extension SettingViewController{
             userDefaults.removeObject(forKey:"memberId")
             userDefaults.synchronize()
             //设置极光推送 别名为空
-            JPUSHService.setAlias("", completion: nil, seq: 22)
+            JPUSHService.deleteAlias(nil, seq:22)
             app.jumpToLoginVC()
         }
     }

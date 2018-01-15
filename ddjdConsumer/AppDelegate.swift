@@ -56,7 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
          */
         Siren.shared.checkVersion(checkType: .daily)
         JPUSHService.resetBadge()
-        self.queryMemberLastLoginRecord()
+        if MEMBERID != -1 {
+            self.queryMemberLastLoginRecord()
+        }
         application.applicationIconBadgeNumber=0;
     }
     func applicationWillTerminate(_ application: UIApplication) {
@@ -65,13 +67,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     ///推送消息时，获取设备的tokenid
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         //设备标识是NSdata通过截取字符串去掉空格获得字符串保存进缓存 登录发给服务器 用于控制用户只能在一台设备登录
-        print(deviceToken)
         let characterSet: CharacterSet = CharacterSet(charactersIn: "<>")
-        let deviceTokenString: String = (deviceToken.description as NSString)
+        let deviceTokenString: String = (NSData.init(data:deviceToken).description)
             .trimmingCharacters(in: characterSet)
             .replacingOccurrences(of: " ", with: "") as String
+
         //把截取的设备令牌保存进缓存
-        userDefaults.set(deviceTokenString, forKey:"deviceToken")
+        userDefaults.set(deviceTokenString.MD5().uppercased(), forKey:"deviceToken")
         //写入磁盘
         userDefaults.synchronize()
         JPUSHService.registerDeviceToken(deviceToken)
@@ -290,7 +292,9 @@ extension AppDelegate{
             let json=JSON(userInfo!)
             let msg=json["extras"]["msg"].intValue
             if msg == 1{//如果为3 表示该账号在其他设备登录
-                queryMemberLastLoginRecord()
+                if MEMBERID != -1{
+                    queryMemberLastLoginRecord()
+                }
             }
         }
     }
@@ -298,10 +302,9 @@ extension AppDelegate{
     private func queryMemberLastLoginRecord(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.queryMemberLastLoginRecord(memberId:MEMBERID), successClosure: { (json) in
             print(json)
-            let lastLoginRecord=json["lastLoginRecord"]
-            let memberLastLoginDeviceToken=lastLoginRecord["memberLastLoginDeviceToken"].stringValue
-            let memberLastLoginTime=lastLoginRecord["memberLastLoginTime"].stringValue
-            let memberLastLoginDeviceName=lastLoginRecord["memberLastLoginDeviceName"].stringValue
+            let memberLastLoginDeviceToken=json["memberLastLoginDeviceToken"].stringValue
+            let memberLastLoginTime=json["memberLastLoginTime"].stringValue
+            let memberLastLoginDeviceName=json["memberLastLoginDeviceName"].stringValue
             let deviceToken=userDefaults.object(forKey:"deviceToken") as? String
             if memberLastLoginDeviceToken != deviceToken{//判断服务器返回的设备标识与当前本机的缓存中的设备标识是否相等  如果不等于表示该账号在另一台设备在登录
                 //直接跳转到登录页面
@@ -316,7 +319,7 @@ extension AppDelegate{
                 self.window?.rootViewController?.present(alert, animated:true, completion:nil)
             }
         }) { (error) in
-
+            print(error!)
         }
     }
 }

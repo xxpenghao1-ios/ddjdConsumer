@@ -18,6 +18,7 @@ enum StoreOrderApi{
     case queryStoreOrderInfoDetails(orderId:Int)
     ///订单统计 按月
     case queryStoreOrderCountForMonth(storeId:Int,date:String)
+    
 }
 extension StoreOrderApi:TargetType{
     var baseURL: URL {

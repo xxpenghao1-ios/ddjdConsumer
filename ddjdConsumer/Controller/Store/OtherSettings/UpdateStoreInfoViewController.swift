@@ -105,12 +105,15 @@ extension UpdateStoreInfoViewController{
         SVProgressHUD.dismiss(withDelay:2)
     }
     private func updateStoreInfo(){
+        let dateFormatter=DateFormatter()
+        dateFormatter.dateFormat="HH:mm:ss"
         let values=JSON(self.form.formValues())
+        print(self.form.formValues())
         let tel=values[Static.telTag].string
         let distributionScope=values[Static.distributionScopeTag].string
         let lowestMoney=values[Static.lowestMoneyTag].string
-        let distributionStartTimeDate=values[Static.distributionStartTimeTag].string
-        let distributionEndTimeDate=values[Static.distributionEndTimeTag].string
+        let distributionStartTime=values[Static.distributionStartTimeTag].string
+        let distributionEndTime=values[Static.distributionEndTimeTag].string
         let memberDiscount=values[Static.memberDiscountTag].string
         switch type! {
         case 1:
@@ -129,6 +132,20 @@ extension UpdateStoreInfoViewController{
                 return
             }
         case 4:
+            if distributionStartTime == nil{
+                self.showInfo(withStatus:"开始营业时间不能为空")
+                return
+            }
+            if distributionEndTime == nil{
+                self.showInfo(withStatus:"结束营业时间不能为空")
+                return
+            }
+            ///营业开始时间Date
+            let startTimeDate=dateFormatter.date(from:distributionStartTime!)
+            ///营业结束时间Date
+            let endTimeDate=dateFormatter.date(from:distributionEndTime!)
+            print(startTimeDate)
+            print(endTimeDate)
             return
         case 5:
             guard memberDiscount != nil else {
@@ -141,22 +158,22 @@ extension UpdateStoreInfoViewController{
         SVProgressHUD.show(withStatus:"正在修改...")
         SVProgressHUD.setDefaultMaskType(.clear)
 
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.updateStoreInfo(storeId:STOREID, storeMsg:nil, tel:tel, distributionScope:Int(distributionScope ?? ""),lowestMoney:Int(lowestMoney ?? ""), distributionStartTime:distributionStartTimeDate, distributionEndTime:distributionEndTimeDate,memberDiscount:Int(memberDiscount ?? "")), successClosure: { (json) in
-            let success=json["success"].stringValue
-            if success == "success"{
-                SVProgressHUD.showSuccess(withStatus:"修改成功")
-                SVProgressHUD.setDefaultMaskType(.none)
-                self.navigationController?.popViewController(animated:true)
-                if self.type == 1{
-                    userDefaults.set(Int(lowestMoney ?? ""), forKey:"lowestMoney")
-                    userDefaults.synchronize()
-                }
-            }else{
-                self.showError(withStatus:"修改失败")
-            }
-        }) { (error) in
-            self.showError(withStatus:error!)
-        }
+//        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.updateStoreInfo(storeId:STOREID, storeMsg:nil, tel:tel, distributionScope:Int(distributionScope ?? ""),lowestMoney:Int(lowestMoney ?? ""), distributionStartTime:distributionStartTimeDate, distributionEndTime:distributionEndTimeDate,memberDiscount:Int(memberDiscount ?? "")), successClosure: { (json) in
+//            let success=json["success"].stringValue
+//            if success == "success"{
+//                SVProgressHUD.showSuccess(withStatus:"修改成功")
+//                SVProgressHUD.setDefaultMaskType(.none)
+//                self.navigationController?.popViewController(animated:true)
+//                if self.type == 1{
+//                    userDefaults.set(Int(lowestMoney ?? ""), forKey:"lowestMoney")
+//                    userDefaults.synchronize()
+//                }
+//            }else{
+//                self.showError(withStatus:"修改失败")
+//            }
+//        }) { (error) in
+//            self.showError(withStatus:error!)
+//        }
     }
 }
 

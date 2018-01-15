@@ -7,11 +7,11 @@
 //
 
 import Foundation
-///UUID写入到钥匙串中
-class KeychainItemWrapper:NSObject{
-    // The actual keychain item data backing store.
-    var keychainItemData = [AnyHashable: Any]()
-    var genericPasswordQuery = [AnyHashable: Any]()
+/////UUID写入到钥匙串中
+//class KeychainItemWrapper:NSObject{
+//    // The actual keychain item data backing store.
+//    var keychainItemData = [AnyHashable: Any]()
+//    var genericPasswordQuery = [AnyHashable: Any]()
 //    override init(account: String, service: String, accessGroup: String) {
 //    }
 //    override init(identifier: String, accessGroup: String) {
@@ -20,7 +20,7 @@ class KeychainItemWrapper:NSObject{
 //    }
 //    override func object(forKey key: Any) -> Any {
 //    }
-    // Initializes and resets the default generic keychain item data.
-    func resetKeychainItem() {
-    }
-}
+//    func resetKeychainItem() {
+//    }
+//}
+

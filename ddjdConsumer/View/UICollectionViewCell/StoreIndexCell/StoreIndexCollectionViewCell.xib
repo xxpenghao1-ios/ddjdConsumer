@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -38,10 +38,20 @@
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EuS-XJ-Jdt">
+                                <rect key="frame" x="88" y="0.0" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Laa-NG-ekg"/>
+                                    <constraint firstAttribute="width" constant="1" id="MFE-Gb-NSn"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="EuS-XJ-Jdt" firstAttribute="top" secondItem="o2z-7Q-9p5" secondAttribute="top" id="EkA-Ii-D6n"/>
                             <constraint firstAttribute="height" constant="70" id="Kp3-gu-DQZ"/>
+                            <constraint firstItem="EuS-XJ-Jdt" firstAttribute="trailing" secondItem="o2z-7Q-9p5" secondAttribute="trailing" id="LFi-cc-tKZ"/>
                             <constraint firstItem="pMv-VF-4iH" firstAttribute="top" secondItem="o2z-7Q-9p5" secondAttribute="bottom" constant="5" id="Ujr-15-UWE"/>
                             <constraint firstAttribute="trailing" secondItem="pMv-VF-4iH" secondAttribute="trailing" id="VfG-eb-7dy"/>
                             <constraint firstItem="o2z-7Q-9p5" firstAttribute="centerX" secondItem="uaq-Ii-8Ci" secondAttribute="centerX" id="ogq-qB-3EV"/>
@@ -59,10 +69,11 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="133" height="130"/>
             <connections>
+                <outlet property="btnBadge" destination="EuS-XJ-Jdt" id="7oF-bE-XyT"/>
                 <outlet property="img" destination="o2z-7Q-9p5" id="UbY-Sc-NSG"/>
                 <outlet property="lblName" destination="pMv-VF-4iH" id="8tj-c6-Yn9"/>
             </connections>
-            <point key="canvasLocation" x="-66.5" y="51"/>
+            <point key="canvasLocation" x="-173" y="25"/>
         </collectionViewCell>
     </objects>
 </document>
