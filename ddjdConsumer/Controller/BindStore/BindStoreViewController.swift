@@ -50,7 +50,9 @@ class BindStoreViewController:BaseViewController{
                             }
                         }
                     }
-                    strongSelf.navigationController?.pushViewController(vc, animated:true)
+                    DispatchQueue.main.async(execute: {
+                        strongSelf.navigationController?.pushViewController(vc, animated:true)
+                    })
                 }
             }
             else

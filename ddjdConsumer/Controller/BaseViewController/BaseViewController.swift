@@ -307,3 +307,25 @@ extension BaseViewController:DZNEmptyDataSetSource,DZNEmptyDataSetDelegate{
         return emptyDataSetIsDisplay
     }
 }
+extension UIViewController{
+    ///跳转到系统设置页面
+    func pushSetting(){
+        let appSetting = URL(string:UIApplicationOpenSettingsURLString)
+        if appSetting != nil
+        {
+            if #available(iOS 10, *) {
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.open(appSetting!, options: [:], completionHandler:{
+                        (success) in
+
+                    })
+                })
+            }
+            else{
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.openURL(appSetting!)
+                })
+            }
+        }
+    }
+}

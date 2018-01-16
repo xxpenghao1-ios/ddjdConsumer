@@ -106,15 +106,15 @@ extension UpdateStoreInfoViewController{
     }
     private func updateStoreInfo(){
         let dateFormatter=DateFormatter()
-        dateFormatter.dateFormat="HH:mm:ss"
-        let values=JSON(self.form.formValues())
-        print(self.form.formValues())
-        let tel=values[Static.telTag].string
-        let distributionScope=values[Static.distributionScopeTag].string
-        let lowestMoney=values[Static.lowestMoneyTag].string
-        let distributionStartTime=values[Static.distributionStartTimeTag].string
-        let distributionEndTime=values[Static.distributionEndTimeTag].string
-        let memberDiscount=values[Static.memberDiscountTag].string
+        dateFormatter.dateFormat="HH:mm"
+        dateFormatter.timeZone=TimeZone(abbreviation: "GMT")
+        let values=self.form.formValues()
+        let tel=values[Static.telTag] as? String
+        let distributionScope=values[Static.distributionScopeTag] as? String
+        let lowestMoney=values[Static.lowestMoneyTag] as? String
+        let distributionStartTime=values[Static.distributionStartTimeTag] as? String
+        let distributionEndTime=values[Static.distributionEndTimeTag] as? String
+        let memberDiscount=values[Static.memberDiscountTag] as? String
         switch type! {
         case 1:
             guard lowestMoney != nil else {
@@ -144,9 +144,12 @@ extension UpdateStoreInfoViewController{
             let startTimeDate=dateFormatter.date(from:distributionStartTime!)
             ///营业结束时间Date
             let endTimeDate=dateFormatter.date(from:distributionEndTime!)
-            print(startTimeDate)
-            print(endTimeDate)
-            return
+            if startTimeDate != nil && endTimeDate != nil{
+                if startTimeDate!.compare(endTimeDate!) == .orderedDescending{//如果开始时间 大于结束时间
+                    self.showInfo(withStatus:"开始时间不能大于结束时间")
+                    return
+                }
+            }
         case 5:
             guard memberDiscount != nil else {
                 self.showInfo(withStatus:"折扣不能为空")
@@ -158,22 +161,22 @@ extension UpdateStoreInfoViewController{
         SVProgressHUD.show(withStatus:"正在修改...")
         SVProgressHUD.setDefaultMaskType(.clear)
 
-//        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.updateStoreInfo(storeId:STOREID, storeMsg:nil, tel:tel, distributionScope:Int(distributionScope ?? ""),lowestMoney:Int(lowestMoney ?? ""), distributionStartTime:distributionStartTimeDate, distributionEndTime:distributionEndTimeDate,memberDiscount:Int(memberDiscount ?? "")), successClosure: { (json) in
-//            let success=json["success"].stringValue
-//            if success == "success"{
-//                SVProgressHUD.showSuccess(withStatus:"修改成功")
-//                SVProgressHUD.setDefaultMaskType(.none)
-//                self.navigationController?.popViewController(animated:true)
-//                if self.type == 1{
-//                    userDefaults.set(Int(lowestMoney ?? ""), forKey:"lowestMoney")
-//                    userDefaults.synchronize()
-//                }
-//            }else{
-//                self.showError(withStatus:"修改失败")
-//            }
-//        }) { (error) in
-//            self.showError(withStatus:error!)
-//        }
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.updateStoreInfo(storeId:STOREID, storeMsg:nil, tel:tel, distributionScope:Int(distributionScope ?? ""),lowestMoney:Int(lowestMoney ?? ""), distributionStartTime:distributionStartTime, distributionEndTime:distributionEndTime,memberDiscount:Int(memberDiscount ?? "")), successClosure: { (json) in
+            let success=json["success"].stringValue
+            if success == "success"{
+                SVProgressHUD.showSuccess(withStatus:"修改成功")
+                SVProgressHUD.setDefaultMaskType(.none)
+                self.navigationController?.popViewController(animated:true)
+                if self.type == 1{
+                    userDefaults.set(Int(lowestMoney ?? ""), forKey:"lowestMoney")
+                    userDefaults.synchronize()
+                }
+            }else{
+                self.showError(withStatus:"修改失败")
+            }
+        }) { (error) in
+            self.showError(withStatus:error!)
+        }
     }
 }
 

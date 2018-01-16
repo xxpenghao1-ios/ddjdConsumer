@@ -312,7 +312,7 @@ extension AppDelegate{
                 let alert=UIAlertController(title:"重新登录", message:"您的账号于\(memberLastLoginTime)在另一台设备\(memberLastLoginDeviceName)上登录。如非本人操作,则密码可能已泄露,建议您重新设置密码,以确保数据安全。", preferredStyle: UIAlertControllerStyle.alert)
                 let ok=UIAlertAction(title:"确定", style: UIAlertActionStyle.default, handler:{ Void
                     in//点击确定 清除推送别名
-                    JPUSHService.setAlias("", completion: nil, seq: 22)
+                    JPUSHService.deleteAlias(nil, seq:22)
                     app.jumpToLoginVC()
                 })
                 alert.addAction(ok)

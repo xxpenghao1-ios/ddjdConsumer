@@ -74,7 +74,7 @@ extension IndexViewController{
         cycleScrollView.pageControlAliment = .CenterBottom
         cycleScrollView.currentDotColor = .white
         cycleScrollView.autoScrollInterval=4
-        cycleScrollView.localImgArray=["slide_default"]
+        cycleScrollView.localImgArray=[slide_default]
         slideView.addSubview(cycleScrollView)
         
         //分类
@@ -314,6 +314,7 @@ extension IndexViewController{
                 userDefaults.set(entity?.lowestMoney, forKey:"lowestMoney")
                 userDefaults.set(entity?.deliveryFee, forKey:"deliveryFee")
                 userDefaults.set(entity?.storeName, forKey:"storeName")
+                userDefaults.set(entity?.tel, forKey:"storeTel")
                 userDefaults.synchronize()
             }
         }) { (error) in

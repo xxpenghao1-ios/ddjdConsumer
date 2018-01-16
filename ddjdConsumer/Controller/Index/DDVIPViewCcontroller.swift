@@ -9,9 +9,48 @@
 import Foundation
 ///点单VIP
 class DDVIPViewCcontroller:BaseViewController {
+    private let storeTel=userDefaults.object(forKey:"storeTel") as? String
+    ///vip内容
+    @IBOutlet weak var lblVIP: UILabel!
+    ///合伙人内容
+    @IBOutlet weak var lblPartner: UILabel!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getVIP()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="点单VIP"
-        self.view.backgroundColor=UIColor.viewBackgroundColor()
+    }
+    ///跳转到充值页面
+    @IBAction func pushTopUpVC(_ sender: UIButton) {
+        let vc=self.storyboardPushView(type:.my, storyboardId:"BalanceMoneyTopUpVC") as! BalanceMoneyTopUpViewController
+        self.navigationController?.pushViewController(vc, animated:true)
+    }
+    ///联系店铺成为合伙人
+    @IBAction func contactStorePartner(_ sender: UIButton) {
+        UIAlertController.showAlertYesNo(self, title:"联系店铺老板", message:"您确定要联系店铺老板成为合伙人吗?", cancelButtonTitle:"取消", okButtonTitle:"确定") { (action) in
+            if self.storeTel != nil{
+                UIApplication.shared.openURL(Foundation.URL(string :"tel://\(self.storeTel!)")!)
+            }else{
+                self.showSVProgressHUD(status:"没有找到店铺老板联系方式", type: HUD.error)
+            }
+        }
+    }
+
+}
+
+// MARK: - 网络请求
+extension DDVIPViewCcontroller{
+    private func getVIP(){
+        self.showSVProgressHUD(status:"正在加载...", type: HUD.textClear)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:IndexApi.ddjdvip(storeId:BINDSTOREID), successClosure: { (json) in
+            self.lblVIP.text=json["ddjdVipKey"].stringValue
+            self.lblPartner.text=json["ddjdPartnerKey"].stringValue
+            self.dismissHUD()
+        }) { (error) in
+            self.showSVProgressHUD(status:error!, type: HUD.error)
+            self.navigationController?.popViewController(animated:true)
+        }
     }
 }

@@ -79,13 +79,6 @@ extension SelectedRegionViewController{
     private func setUpView(){
         //地图
         setUpMapView()
-        if CLLocationManager.authorizationStatus() == .denied{
-            UIAlertController.showAlertYes(self,title:"错误提示", message:"请在设置-点单即到-位置中允许使用定位",okButtonTitle: "确定", okHandler: {
-                (UIAlertAction) in
-                self.navigationController?.popViewController(animated:true)
-            })
-            return
-        }
         //geo搜索服务
         geoCode=BMKGeoCodeSearch();
         geoCode!.delegate=self

@@ -22,6 +22,8 @@ class SpecialPriceTableViewCell: UITableViewCell {
     @IBOutlet weak var lblSales: UILabel!
     //价格
     @IBOutlet weak var lblPrice: UILabel!
+    //单位
+    @IBOutlet weak var lblUnit: UILabel!
     //商品图片
     @IBOutlet weak var goodImg: UIImageView!
     ///活动时间
@@ -65,6 +67,7 @@ class SpecialPriceTableViewCell: UITableViewCell {
         lblStock.text="库存:\(entity.promotionStock ?? 0)"
         lblSales.text="销量:\(entity.salesCount ?? 0)"
         lblPrice.text="￥\(entity.storeGoodsPrice ?? 0.0)"
+        lblUnit.text="/\(entity.goodsUnit ?? "")"
         goodImg.kf.setImage(with:URL.init(string:urlImg+entity.goodsPic!), placeholder:UIImage.init(named:goodDefaultImg),options:[.transition(ImageTransition.fade(1))])
         lblPromotionMsg.text=entity.promotionMsg
         ///默认隐藏提示图片

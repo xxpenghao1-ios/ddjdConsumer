@@ -63,13 +63,17 @@ class LBXPermissions: NSObject {
         if appSetting != nil
         {
             if #available(iOS 10, *) {
-                UIApplication.shared.open(appSetting!, options: [:], completionHandler:{
-                    (success) in
-                    print(success)
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.open(appSetting!, options: [:], completionHandler:{
+                        (success) in
+                        print(success)
+                    })
                 })
             }
             else{
-                UIApplication.shared.openURL(appSetting!)
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.openURL(appSetting!)
+                })
             }
         }
     }

@@ -42,6 +42,10 @@
 		632D817C1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632D817A1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.xib */; };
 		632D817E1FEBB1D800E4A89A /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 632D817D1FEBB1D800E4A89A /* libresolv.tbd */; };
 		632FB4311FE9F20C0007B86C /* GoodPublicLibraryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632FB4301FE9F20C0007B86C /* GoodPublicLibraryListViewController.swift */; };
+		63300F3E200DF743004587E0 /* Proposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63300F3C200DF743004587E0 /* Proposer.swift */; };
+		63300F3F200DF743004587E0 /* UIViewController+Proposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63300F3D200DF743004587E0 /* UIViewController+Proposer.swift */; };
+		63300F44200DFAC5004587E0 /* StoreOrder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63300F40200DFAC4004587E0 /* StoreOrder.storyboard */; };
+		63300F45200DFAC5004587E0 /* StoreGood.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63300F42200DFAC4004587E0 /* StoreGood.storyboard */; };
 		63312D6C1FFF663C00512177 /* PromotionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63312D6B1FFF663C00512177 /* PromotionListViewController.swift */; };
 		6331FD001FA876A700D850EC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331FCFF1FA876A700D850EC /* SearchViewController.swift */; };
 		633366E21FB54F4B00809F98 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633366E11FB54F4B00809F98 /* LoginViewController.swift */; };
@@ -119,7 +123,6 @@
 		63CC8E981FC06A45005C5FB6 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CC8E961FC06A45005C5FB6 /* NewsTableViewCell.swift */; };
 		63CC8E991FC06A45005C5FB6 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63CC8E971FC06A45005C5FB6 /* NewsTableViewCell.xib */; };
 		63CCF5661FD7E7A600D120A8 /* VerifyThatTheBarcodeExistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCF5651FD7E7A600D120A8 /* VerifyThatTheBarcodeExistsViewController.swift */; };
-		63CCF5681FD7E84500D120A8 /* StoreGood.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63CCF5671FD7E84500D120A8 /* StoreGood.storyboard */; };
 		63D82E021FA9FB1500EFE576 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D82E011FA9FB1500EFE576 /* String.swift */; };
 		63D82E041FAA0C6B00EFE576 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D82E031FAA0C6B00EFE576 /* Array.swift */; };
 		63D9CACA1FB92DC700414BC7 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9CAC91FB92DC700414BC7 /* MyViewController.swift */; };
@@ -225,7 +228,6 @@
 		63FCB5C61FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCB5C51FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m */; };
 		63FD229B1FE0B23F001CF142 /* PageStoreOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD229A1FE0B23F001CF142 /* PageStoreOrderListViewController.swift */; };
 		63FD229D1FE0B33E001CF142 /* StoreOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD229C1FE0B33E001CF142 /* StoreOrderListViewController.swift */; };
-		63FD229F1FE0B3F0001CF142 /* StoreOrder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63FD229E1FE0B3F0001CF142 /* StoreOrder.storyboard */; };
 		63FD9B461FBD341800BEE45F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FD9B451FBD340F00BEE45F /* CoreData.framework */; };
 		63FDDC451FD0F1F9001CD97E /* PoiSearchAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FDDC441FD0F1F9001CD97E /* PoiSearchAddressViewController.swift */; };
 		63FDDC481FD14826001CD97E /* PurchaseHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FDDC471FD14826001CD97E /* PurchaseHistoryViewController.swift */; };
@@ -291,6 +293,10 @@
 		632D817A1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoodPublicLibraryListTableViewCell.xib; sourceTree = "<group>"; };
 		632D817D1FEBB1D800E4A89A /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		632FB4301FE9F20C0007B86C /* GoodPublicLibraryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodPublicLibraryListViewController.swift; sourceTree = "<group>"; };
+		63300F3C200DF743004587E0 /* Proposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Proposer.swift; sourceTree = "<group>"; };
+		63300F3D200DF743004587E0 /* UIViewController+Proposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Proposer.swift"; sourceTree = "<group>"; };
+		63300F41200DFAC4004587E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/StoreOrder.storyboard; sourceTree = "<group>"; };
+		63300F43200DFAC4004587E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/StoreGood.storyboard; sourceTree = "<group>"; };
 		63312D6B1FFF663C00512177 /* PromotionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionListViewController.swift; sourceTree = "<group>"; };
 		6331FCFF1FA876A700D850EC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		633366E11FB54F4B00809F98 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -380,7 +386,6 @@
 		63CC8E961FC06A45005C5FB6 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		63CC8E971FC06A45005C5FB6 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
 		63CCF5651FD7E7A600D120A8 /* VerifyThatTheBarcodeExistsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyThatTheBarcodeExistsViewController.swift; sourceTree = "<group>"; };
-		63CCF5671FD7E84500D120A8 /* StoreGood.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StoreGood.storyboard; sourceTree = "<group>"; };
 		63D82E011FA9FB1500EFE576 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		63D82E031FAA0C6B00EFE576 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		63D9CAC91FB92DC700414BC7 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
@@ -489,7 +494,6 @@
 		63FCB5C51FC27AE6005B96D8 /* UIViewController+BackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackButtonHandler.m"; sourceTree = "<group>"; };
 		63FD229A1FE0B23F001CF142 /* PageStoreOrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStoreOrderListViewController.swift; sourceTree = "<group>"; };
 		63FD229C1FE0B33E001CF142 /* StoreOrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOrderListViewController.swift; sourceTree = "<group>"; };
-		63FD229E1FE0B3F0001CF142 /* StoreOrder.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StoreOrder.storyboard; sourceTree = "<group>"; };
 		63FD9B451FBD340F00BEE45F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		63FDDC441FD0F1F9001CD97E /* PoiSearchAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiSearchAddressViewController.swift; sourceTree = "<group>"; };
 		63FDDC471FD14826001CD97E /* PurchaseHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseHistoryViewController.swift; sourceTree = "<group>"; };
@@ -684,6 +688,15 @@
 			path = GoodPublicLibrary;
 			sourceTree = "<group>";
 		};
+		63300F3B200DF743004587E0 /* Proposer */ = {
+			isa = PBXGroup;
+			children = (
+				63300F3C200DF743004587E0 /* Proposer.swift */,
+				63300F3D200DF743004587E0 /* UIViewController+Proposer.swift */,
+			);
+			path = Proposer;
+			sourceTree = "<group>";
+		};
 		63312D6A1FFF661900512177 /* Promotion */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,6 +843,7 @@
 		636925B21F5FFE01007EFDB7 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				63300F3B200DF743004587E0 /* Proposer */,
 				63F0663F2008A7BD002B492B /* KeychainItemWrapper */,
 				6394465C1FE7AACD00412811 /* DDJDCSign */,
 				63351D561FB5908E004B12A3 /* pay */,
@@ -1081,6 +1095,8 @@
 		63AB902E1F66879E0070AEED /* storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				63300F42200DFAC4004587E0 /* StoreGood.storyboard */,
+				63300F40200DFAC4004587E0 /* StoreOrder.storyboard */,
 				6341B9B81FD159700074787F /* LoginWithRegistr.storyboard */,
 				6341B9B61FD159700074787F /* Store.storyboard */,
 				6315958A1F6791D1000355C6 /* GoodsClassification.storyboard */,
@@ -1089,8 +1105,6 @@
 				6395DE4B1F5D431F008149DD /* Main.storyboard */,
 				63F9EF191F6774100038B05D /* My.storyboard */,
 				631595851F67797C000355C6 /* ShoppingCar.storyboard */,
-				63CCF5671FD7E84500D120A8 /* StoreGood.storyboard */,
-				63FD229E1FE0B3F0001CF142 /* StoreOrder.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -1664,9 +1678,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F6E7D71FB7ED0C009411E6 /* GoodClassifyCollectionViewCell.xib in Resources */,
-				63FD229F1FE0B3F0001CF142 /* StoreOrder.storyboard in Resources */,
+				63300F44200DFAC5004587E0 /* StoreOrder.storyboard in Resources */,
 				6395DE521F5D431F008149DD /* LaunchScreen.storyboard in Resources */,
 				6374F3691F67E7DA006551CE /* IndexClassifyCollectionViewCell.xib in Resources */,
+				63300F45200DFAC5004587E0 /* StoreGood.storyboard in Resources */,
 				63A30C231FD2920C007E6D9F /* FeedbackCollectionViewCell.xib in Resources */,
 				6394F6361FAAFEA000D1795A /* CarTableViewCell.xib in Resources */,
 				63CC8E991FC06A45005C5FB6 /* NewsTableViewCell.xib in Resources */,
@@ -1674,7 +1689,6 @@
 				63FA10941FC06394009B6CB2 /* MyCollectGoodTableViewCell.xib in Resources */,
 				6395DE4D1F5D431F008149DD /* Main.storyboard in Resources */,
 				630594251FF0CF3E00FA303B /* AccountDetailsTableViewCell.xib in Resources */,
-				63CCF5681FD7E84500D120A8 /* StoreGood.storyboard in Resources */,
 				6315958C1F6791D1000355C6 /* GoodsClassification.storyboard in Resources */,
 				63F9C91C1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib in Resources */,
 				63F7C11A1FCA5B0400C74544 /* OrderListTableViewCell.xib in Resources */,
@@ -1856,6 +1870,7 @@
 				633AC4651FCE7EEA009278D0 /* StoreInfoNetWork.swift in Sources */,
 				6349FAF51FBBE58F00873C50 /* GoodNetWork.swift in Sources */,
 				63F85F3C1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.swift in Sources */,
+				63300F3F200DF743004587E0 /* UIViewController+Proposer.swift in Sources */,
 				63F6E7DB1FB7FA30009411E6 /* GoodClassifyTableViewCell.swift in Sources */,
 				63FA10931FC06394009B6CB2 /* MyCollectGoodTableViewCell.swift in Sources */,
 				63FA21212000B57E001F2240 /* OYCountDownManager.swift in Sources */,
@@ -1978,6 +1993,7 @@
 				63FB6577200346530025438B /* StorePromotionGoodTableViewCell.swift in Sources */,
 				63FC07791FD4DDC900C24DF9 /* BindStoreViewController.swift in Sources */,
 				63351D5A1FB59943004B12A3 /* AlertViewController.swift in Sources */,
+				63300F3E200DF743004587E0 /* Proposer.swift in Sources */,
 				63FA69A22006040E005B0CA4 /* AddPartnerViewController.swift in Sources */,
 				632D817B1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.swift in Sources */,
 				63E8B2791FD3D05C003FCF1E /* FormSegmentedControlCell.swift in Sources */,
@@ -2038,6 +2054,22 @@
 				6315958B1F6791D1000355C6 /* Base */,
 			);
 			name = GoodsClassification.storyboard;
+			sourceTree = "<group>";
+		};
+		63300F40200DFAC4004587E0 /* StoreOrder.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63300F41200DFAC4004587E0 /* Base */,
+			);
+			name = StoreOrder.storyboard;
+			sourceTree = "<group>";
+		};
+		63300F42200DFAC4004587E0 /* StoreGood.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63300F43200DFAC4004587E0 /* Base */,
+			);
+			name = StoreGood.storyboard;
 			sourceTree = "<group>";
 		};
 		6341B9B61FD159700074787F /* Store.storyboard */ = {

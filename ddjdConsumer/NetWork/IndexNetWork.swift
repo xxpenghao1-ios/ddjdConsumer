@@ -15,6 +15,8 @@ public enum IndexApi{
     case indexGoods(bindstoreId:Int,pageSize:Int,pageNumber:Int)
     //查询首页广告
     case getAllAdvertising()
+    ///成为VIP或合伙人资料
+    case ddjdvip(storeId:Int)
 }
 extension IndexApi:TargetType{
     public var headers: [String : String]? {
@@ -32,12 +34,14 @@ extension IndexApi:TargetType{
             return "/front/goods/indexGoods"
         case .getAllAdvertising():
             return "/front/advertising/getAllAdvertising"
+        case .ddjdvip(_):
+            return "/front/ddjdvip"
         }
     }
     ///请求方式
     public var method:Moya.Method{
         switch  self {
-        case .getAllAdvertising(),.indexGoods(_,_,_):
+        case .getAllAdvertising(),.indexGoods(_,_,_),.ddjdvip(_):
             return .get
 //        case .indexGoods(_,_,_):
 //            return .post
@@ -54,6 +58,8 @@ extension IndexApi:TargetType{
             return .requestParameters(parameters:["bindstoreId":bindstoreId,"pageSize":pageSize,"pageNumber":pageNumber],encoding: URLEncoding.default)
         case .getAllAdvertising():
             return .requestPlain
+        case let .ddjdvip(storeId):
+            return .requestParameters(parameters:["storeId":storeId], encoding: URLEncoding.default)
         }
     }
 }

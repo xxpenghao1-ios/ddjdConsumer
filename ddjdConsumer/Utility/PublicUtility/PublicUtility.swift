@@ -25,7 +25,6 @@
 import Foundation
 import UIKit
 //app公用常量
-
 ///图片请求路径
 let urlImg="http://cs.houjue.me";
 ///cs.houjue.me
@@ -100,8 +99,10 @@ func deleteUploadImgFile(){
     let fileManager = FileManager.default
     let myDirectory = NSHomeDirectory() + "/Documents/myImgages"
     let fileArray = fileManager.subpaths(atPath: myDirectory)
-    for fn in fileArray!{
-        try! fileManager.removeItem(atPath: myDirectory + "/\(fn)")
+    if fileArray != nil{
+        for fn in fileArray!{
+            try! fileManager.removeItem(atPath: myDirectory + "/\(fn)")
+        }
     }
 }
 extension CGFloat{
