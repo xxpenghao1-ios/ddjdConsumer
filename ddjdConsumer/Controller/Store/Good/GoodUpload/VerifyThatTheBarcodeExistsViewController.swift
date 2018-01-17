@@ -44,24 +44,19 @@ class VerifyThatTheBarcodeExistsViewController:BaseViewController{
     }
     ///跳转到扫码获取条形码页面
     @objc private func pushScanCodeVC(){
-        LBXPermissions.authorizeCameraWith { [weak self] (granted) in
-
-            if granted
-            {
-                if let strongSelf = self
-                {
-                    let vc=ScanCodeGetBarcodeViewController()
-                    vc.codeInfoClosure={ (code) in
-                        strongSelf.txtCode.text=code
-                    }
-                    strongSelf.navigationController?.pushViewController(vc, animated:true)
+        let camera: PrivateResource = .camera
+        let propose: Propose = {
+            proposeToAccess(camera, agreed: {
+                let vc=ScanCodeGetBarcodeViewController()
+                vc.codeInfoClosure={ (code) in
+                    self.txtCode.text=code
                 }
-            }
-            else
-            {
-                LBXPermissions.jumpToSystemPrivacySetting()
-            }
+                self.navigationController?.pushViewController(vc, animated:true)
+            }, rejected: {
+                self.alertNoPermissionToAccess(camera)
+            })
         }
+        showProposeMessageIfNeedFor(camera, andTryPropose: propose)
     }
     @IBAction func submit(_ sender: UIButton) {
         queryGoodsCodeIsExist()
@@ -81,12 +76,15 @@ class VerifyThatTheBarcodeExistsViewController:BaseViewController{
                 entity.goodsCode=code
                 self.pushGoodUploadVC(entity:entity)
                 return
+            }else if success == "examineExist"{//此商品正在审核中
+                self.showSVProgressHUD(status:"此商品正在审核中", type: HUD.info)
+                return
             }
             let exist=json["exist"].bool
             if exist != nil{
                 if exist!{ //店铺已拥有
                     let goodEnity=self.jsonMappingEntity(entity:GoodEntity.init(), object:json["querySag"].object)
-                    UIAlertController.showAlertYesNo(self, title:"", message:"该商品已经在您的商品库了", cancelButtonTitle:"不去", okButtonTitle:"去看看", okHandler: { (action) in
+                    UIAlertController.showAlertYesNo(self, title:"", message:"该商品已经在您的商品库了", cancelButtonTitle:"不去了", okButtonTitle:"去看看", okHandler: { (action) in
                         let vc=self.storyboardPushView(type:.storeGood, storyboardId:"UpdateStoreGoodDetailVC") as! UpdateStoreGoodDetailViewController
                         vc.goodEntity=goodEnity
                         self.navigationController?.pushViewController(vc, animated: true)

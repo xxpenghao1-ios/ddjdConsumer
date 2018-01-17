@@ -224,8 +224,16 @@ extension UpdateStoreGoodDetailViewController{
             self.showInfo(withStatus:"商品零售价不能为空")
             return
         }
+        if Double(storeGoodsPrice!) == nil || Double(storeGoodsPrice!)! <= 0{
+            self.showInfo(withStatus:"商品零售价不能小于0")
+            return
+        }
         if stock == nil || stock!.count == 0{
             self.showInfo(withStatus:"库存不能为空")
+            return
+        }
+        if Int(stock!) == nil || Int(stock!)! <= 0{
+            self.showInfo(withStatus:"库存不能小于0")
             return
         }
         if offlineStock == nil || offlineStock!.count == 0{
@@ -236,10 +244,14 @@ extension UpdateStoreGoodDetailViewController{
             self.showInfo(withStatus:"商品进货价不能为空")
             return
         }
+        if Double(purchasePrice!) == nil || Double(purchasePrice!)! <= 0{
+            self.showInfo(withStatus:"商品进货价不能小于0")
+            return
+        }
         SVProgressHUD.show(withStatus:"正在提交...")
         SVProgressHUD.setDefaultMaskType(.clear)
         if flag == nil{//修改商品信息
-            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.updateGoodsByStoreAndGoodsId(storeAndGoodsId:goodEntity!.storeAndGoodsId ?? 0, goodsFlag:goodsFlag, storeGoodsPrice: storeGoodsPrice, stock: stock, offlineStock: offlineStock,purchasePrice:purchasePrice!), successClosure: { (json) in
+            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.updateGoodsByStoreAndGoodsId(storeAndGoodsId:goodEntity!.storeAndGoodsId ?? 0, goodsFlag:goodsFlag, storeGoodsPrice: storeGoodsPrice!, stock:Int(stock!) ?? 0,offlineStock: Int(offlineStock!) ?? 0,purchasePrice:purchasePrice!), successClosure: { (json) in
                 let success=json["success"].stringValue
                 if success == "success"{
                     SVProgressHUD.dismiss()
@@ -252,7 +264,7 @@ extension UpdateStoreGoodDetailViewController{
                 }else if success == "error"{
                     self.showError(withStatus:"商品价格或进货价填写有误")
                 }else{
-                    self.showError(withStatus:"提交失败")
+                    self.showError(withStatus:"修改失败")
                 }
             }) { (error) in
                 self.showError(withStatus:error!)

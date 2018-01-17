@@ -21,7 +21,7 @@ public enum StoreGoodApi{
     //店铺商品上下架
     case updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int)
     //修改店铺信息
-    case updateGoodsByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int?,storeGoodsPrice:String?,stock:String?,offlineStock:String?,purchasePrice:String?)
+    case updateGoodsByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int?,storeGoodsPrice:String,stock:Int,offlineStock:Int,purchasePrice:String)
     //查询店铺商品详情
     case queryStoreAndGoodsDetail(storeAndGoodsId:Int,storeId:Int)
     ///分配到店铺商品库 单个商品
@@ -42,6 +42,8 @@ public enum StoreGoodApi{
     case removePromotiongoods(storeAndGoodsId:Int,storeId:Int)
     ///查询促销商品列表-店铺
     case queryPromotiongoodsPaginateStore(storeId:Int,pageNumber:Int,pageSize:Int,salesCountFlag:Int?,priceFlag:Int?)
+    ///查询店铺各种审核状态的商品  examineGgoodsFlag 1. 审核中 2. 审核失败 3 审核成功  storeId 店铺id
+    case queryExamineGoodsByStoreId(parameters:[String:Any])
     
     
 }
@@ -84,6 +86,8 @@ extension StoreGoodApi:TargetType{
             return "/front/promotiongoods/removePromotiongoods"
         case .queryPromotiongoodsPaginateStore(_,_,_,_,_):
             return "/front/promotiongoods/queryPromotiongoodsPaginateStore"
+        case .queryExamineGoodsByStoreId(_):
+            return "/front/storeUploadGoods/queryExamineGoodsByStoreId"
 
         }
     }
@@ -92,7 +96,7 @@ extension StoreGoodApi:TargetType{
         switch self {
         case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods(_,_),.addIndexGoods(_,_,_),.removeIndexGoods(_,_),.addPromotiongoods(_,_,_,_,_,_),.removePromotiongoods(_,_):
             return .post
-        case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_),.queryStoreAndGoodsDetail(_,_),.queryGoodsInfoList_store(_,_,_,_,_),.queryGoodsInfoByGoodsId_store(_),.queryPromotiongoodsPaginateStore(_,_,_,_,_):
+        case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_),.queryStoreAndGoodsDetail(_,_),.queryGoodsInfoList_store(_,_,_,_,_),.queryGoodsInfoByGoodsId_store(_),.queryPromotiongoodsPaginateStore(_,_,_,_,_),.queryExamineGoodsByStoreId(_):
             return .get
         }
     }
@@ -119,7 +123,7 @@ extension StoreGoodApi:TargetType{
         case let .updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId, goodsFlag):
             return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"goodsFlag":goodsFlag], encoding: URLEncoding.default)
         case let .updateGoodsByStoreAndGoodsId(storeAndGoodsId, goodsFlag, storeGoodsPrice, stock, offlineStock,purchasePrice):
-            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"goodsFlag":goodsFlag ?? "","storeGoodsPrice":storeGoodsPrice ?? "","stock":stock ?? "","offlineStock":offlineStock ?? "","purchasePrice":purchasePrice ?? ""], encoding: URLEncoding.default)
+            return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"goodsFlag":goodsFlag ?? "","storeGoodsPrice":storeGoodsPrice ,"stock":stock ,"offlineStock":offlineStock ,"purchasePrice":purchasePrice], encoding: URLEncoding.default)
         case let .queryStoreAndGoodsDetail(storeAndGoodsId, storeId):
             return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId], encoding: URLEncoding.default)
         case let .addGoodsInfoGoToStoreAndGoods_detail(storeId, goodsId, storeGoodsPrice, goodsFlag, stock, offlineStock,purchasePrice):
@@ -145,6 +149,8 @@ extension StoreGoodApi:TargetType{
             return .requestParameters(parameters:["storeAndGoodsId":storeAndGoodsId,"storeId":storeId], encoding: URLEncoding.default)
         case let .queryPromotiongoodsPaginateStore(storeId, pageNumber, pageSize, salesCountFlag, priceFlag):
             return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"salesCountFlag":salesCountFlag ?? "","priceFlag":priceFlag ?? ""], encoding: URLEncoding.default)
+        case let .queryExamineGoodsByStoreId(parameters):
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         }
         
     }

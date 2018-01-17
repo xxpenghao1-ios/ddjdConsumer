@@ -118,8 +118,12 @@ extension StoreGoodListViewController{
         table.dataSource=self
         table.delegate=self
         table.tag=100
+        table.backgroundColor=UIColor.clear
         table.emptyDataSetSource=self
         table.emptyDataSetDelegate=self
+        table.estimatedRowHeight=0;
+        table.estimatedSectionHeaderHeight=0;
+        table.estimatedSectionFooterHeight=0;
         self.setLoadingState(isLoading:true)
         self.setEmptyDataSetInfo(text:"还没有\(self.title!)商品")
         table.tableFooterView=UIView.init(frame: CGRect.zero)
@@ -563,6 +567,8 @@ extension StoreGoodListViewController{
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"操作成功", type: HUD.success)
+            }else if success == "incomplete"{
+                self.showSVProgressHUD(status:"部分参数没有填写或填写的值小于等于0,（零售价，进货价，库存),不能上架",type: HUD.error)
             }else{
                 self.showSVProgressHUD(status:"操作失败", type: HUD.error)
             }

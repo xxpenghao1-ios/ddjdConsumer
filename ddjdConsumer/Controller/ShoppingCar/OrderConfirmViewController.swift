@@ -257,16 +257,22 @@ extension OrderConfirmViewController{
                         WXApiManager.shared.payAlertController(self, request: req, paySuccess: {
                            self.checkOrder()
                         }, payFail: {
-                            self.showSVProgressHUD(status:"支付失败", type: HUD.error)
-                            self.navigationController?.popViewController(animated:true)
+                            UIAlertController.showAlertYesNo(self, title:"提示", message:"支付失败", cancelButtonTitle: "返回", okButtonTitle:"查看失败订单", okHandler: { (action) in
+                                self.pushOrderList(orderStatus:1)
+                            }, cancelHandler: { (action) in
+                                self.navigationController?.popViewController(animated:true)
+                            })
                         })
                     }else if payType == 2{
                         let orderString=json["charge"]["orderString"].stringValue
                         AliPayManager.shared.payAlertController(self, request:orderString, paySuccess: {
                             self.checkOrder()
                         }, payFail: {
-                            self.showSVProgressHUD(status:"支付失败", type: HUD.error)
-                            self.navigationController?.popViewController(animated:true)
+                            UIAlertController.showAlertYesNo(self, title:"提示", message:"支付失败", cancelButtonTitle: "返回", okButtonTitle:"查看失败订单", okHandler: { (action) in
+                                self.pushOrderList(orderStatus:1)
+                            }, cancelHandler: { (action) in
+                                self.navigationController?.popViewController(animated:true)
+                            })
                         })
                     }else if payType == 4{
                         self.checkOrder()
@@ -281,10 +287,29 @@ extension OrderConfirmViewController{
                     })
                 }
             }else if success == "underStock"{
-                let goodsName=json["goodsName"].stringValue
+                let goodsName=json["underStockGoodsInfo"]["goodsName"].stringValue
                 self.showSVProgressHUD(status:goodsName+"库存不足", type: HUD.info)
             }else if success == "orderInfoAddTimeError"{
                 self.showSVProgressHUD(status:"下单时间不在店铺设置的配送时间范围内，不能下单", type: HUD.info)
+            }else if success == "lowestMoneyError"{
+                self.showSVProgressHUD(status:"订单价格低于店铺设置的最低起送额", type: HUD.info)
+            }else if success == "partnerBalanceError"{
+                self.showSVProgressHUD(status:"合伙人余额信息错误", type: HUD.error)
+            }else if success == "deductPartnerBalanceFail"{
+                self.showSVProgressHUD(status:"扣除合伙人余额失败", type: HUD.error)
+            }else if success == "partnerBalanceNotEnough"{
+                self.showSVProgressHUD(status:"合伙人余额不充足", type: HUD.error)
+            }else if success == "deductMemberBalanceFail"{
+                self.showSVProgressHUD(status:"扣除会员余额失败", type: HUD.error)
+            }else if success == "memberBalanceNotEnough"{
+                self.showSVProgressHUD(status:"会员余额不充足", type: HUD.error)
+            }else if success == "flagError"{
+                self.showSVProgressHUD(status:"店铺整顿中", type: HUD.error)
+            }else if success == "notOpen"{
+                self.showSVProgressHUD(status:"暂停营业", type: HUD.error)
+            }else if success == "outTime"{
+                let goodsName=json["outTimeGoodsInfo"]["goodsName"].stringValue
+                self.showSVProgressHUD(status:goodsName+"促销活动已结束", type: HUD.info)
             }else{
                 self.showSVProgressHUD(status:"下单失败", type: HUD.error)
             }

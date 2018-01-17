@@ -57,6 +57,8 @@ class GoodEntity:Mappable{
     var promotionEndTime:String? //促销结束时间
     var promotionEndTimeSeconds:Int? //促销结束时间秒
     var purchasePrice:Double?//店铺进货价
+    var examineInfo:String? //‘审核信息； 如果审核失败，此处要填入审核失败的原因’,
+    var examineGoodsFlag:Int? //1. 审核中 2. 审核失败 3 审核成功’,
     init(){}
     required init?(map: Map) {
         mapping(map: map)
@@ -103,5 +105,7 @@ class GoodEntity:Mappable{
         promotionStartTime <- map["promotionStartTime"]
         promotionEndTime <- map["promotionEndTime"]
         purchasePrice <- map["purchasePrice"]
+        examineInfo <- map["examineInfo"]
+        examineGoodsFlag <- map["examineGoodsFlag"]
     }
 }

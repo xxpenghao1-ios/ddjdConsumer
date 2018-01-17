@@ -24,8 +24,9 @@ class StoreIndexCollectionViewCell: UICollectionViewCell {
         img.image=UIImage(named:imgStr)
         lblName.text=str
         if count != nil{
-            btnBadge.badgeValue=count!.description
+            btnBadge.badgeValue=(count! == 0 ? "" : count!.description)
             btnBadge.isHidden=false
+
         }else{
             btnBadge.isHidden=true
             btnBadge.badgeValue=""

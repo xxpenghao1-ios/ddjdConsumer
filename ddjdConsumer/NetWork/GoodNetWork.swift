@@ -25,7 +25,7 @@ public enum GoodApi{
     ///历史购买
     case getGoodsOfBuyed(memberId:Int,pageSize:Int,pageNumber:Int)
     ///通过商品条码查询商品id
-    case queryGoodsByGoodsCode(goodsCode:String)
+    case queryStoreAndGoodsByGoodsCode(goodsCode:String,bindstoreId:Int)
     ///查询促销商品列表
     case queryPromotiongoodsPaginate(memberId:Int,bindstoreId:Int,pageNumber:Int,pageSize:Int,salesCountFlag:Int?,priceFlag:Int?)
     
@@ -54,8 +54,8 @@ extension GoodApi:TargetType{
             return "/front/collection/getAllCollection"
         case .getGoodsOfBuyed(_,_,_):
             return "/front/goods/getGoodsOfBuyed"
-        case .queryGoodsByGoodsCode(_):
-            return "/front/goods/queryGoodsByGoodsCode"
+        case .queryStoreAndGoodsByGoodsCode(_,_):
+            return "/front/goods/queryStoreAndGoodsByGoodsCode"
         case .queryPromotiongoodsPaginate(_,_,_,_,_,_):
             return "front/promotiongoods/queryPromotiongoodsPaginate"
         }
@@ -63,7 +63,7 @@ extension GoodApi:TargetType{
     ///请求方式
     public var method:Moya.Method{
         switch  self {
-        case .getGoodsDetail(_,_,_,_),.searchGood(_,_,_,_,_,_,_),.goodListByCategoryId(_,_,_,_,_,_,_),.getAllCollection(_,_,_),.getGoodsOfBuyed(_,_,_),.queryGoodsByGoodsCode(_),.queryPromotiongoodsPaginate(_,_,_,_,_,_):
+        case .getGoodsDetail(_,_,_,_),.searchGood(_,_,_,_,_,_,_),.goodListByCategoryId(_,_,_,_,_,_,_),.getAllCollection(_,_,_),.getGoodsOfBuyed(_,_,_),.queryStoreAndGoodsByGoodsCode(_,_),.queryPromotiongoodsPaginate(_,_,_,_,_,_):
             return .get
         case .addCollection(_,_),.removeCollection(_,_):
             return .post
@@ -98,8 +98,8 @@ extension GoodApi:TargetType{
             return .requestParameters(parameters:["memberId":memberId,"pageSize":pageSize,"pageNumber":pageNumber], encoding: URLEncoding.default)
         case let .getGoodsOfBuyed(memberId, pageSize, pageNumber):
             return .requestParameters(parameters:["memberId":memberId,"pageSize":pageSize,"pageNumber":pageNumber], encoding: URLEncoding.default)
-        case let .queryGoodsByGoodsCode(goodsCode):
-            return .requestParameters(parameters:["goodsCode":goodsCode], encoding: URLEncoding.default)
+        case let .queryStoreAndGoodsByGoodsCode(goodsCode,bindstoreId):
+            return .requestParameters(parameters:["goodsCode":goodsCode,"bindstoreId":bindstoreId], encoding: URLEncoding.default)
         case let .queryPromotiongoodsPaginate(memberId, bindstoreId, pageNumber, pageSize, salesCountFlag, priceFlag):
             return .requestParameters(parameters:["memberId":memberId,"bindstoreId":bindstoreId,"pageNumber":pageNumber,"pageSize":pageSize,"salesCountFlag":salesCountFlag ?? "","priceFlag":priceFlag ?? ""],encoding:URLEncoding.default)
         }

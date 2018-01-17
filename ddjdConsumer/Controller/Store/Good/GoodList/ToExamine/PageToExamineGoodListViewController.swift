@@ -1,29 +1,20 @@
 //
-//  PageStoreGoodListViewController.swift
+//  PageToExamineGoodListViewController.swift
 //  ddjdConsumer
 //
-//  Created by hao peng on 2017/12/8.
-//  Copyright © 2017年 zltx. All rights reserved.
+//  Created by hao peng on 2018/1/17.
+//  Copyright © 2018年 zltx. All rights reserved.
 //
 
 import Foundation
 import WMPageController
-class PageStoreGoodListViewController:WMPageController {
-    ///默认选中页面 1已上架 2已下架 3审核
-    var goodsFlag:Int?
-    ///(审核)默认选中页面
+class PageToExamineGoodListViewController:WMPageController{
     var examineGoodsFlag:Int? //1. 审核中 2. 审核失败 3 审核成功
-    private let titleArr=["已上架","已下架","审核"]
+    private let titleArr=["审核中","审核失败","审核成功"]
     override func viewDidLoad() {
         setUpMenuView()
         super.viewDidLoad()
         self.view.backgroundColor=UIColor.viewBackgroundColor()
-        self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target:self, action:#selector(addGood))
-    }
-    ///添加商品
-    @objc private func addGood(){
-        let vc=storyboardViewController(type: .storeGood, withIdentifier:"VerifyThatTheBarcodeExistsVC") as! VerifyThatTheBarcodeExistsViewController
-        self.navigationController?.pushViewController(vc, animated:true)
     }
     //设置显示几个页面
     override func numbersOfChildControllers(in pageController: WMPageController) -> Int {
@@ -39,39 +30,34 @@ class PageStoreGoodListViewController:WMPageController {
     }
     //显示对应的页面
     override func pageController(_ pageController: WMPageController, viewControllerAt index: Int) -> UIViewController {
-        if index == 2{
-            let vc=PageToExamineGoodListViewController()
-            vc.examineGoodsFlag=examineGoodsFlag
-            return vc
-        }
-        let vc=storyboardViewController(type: .storeGood, withIdentifier:"StoreGoodListVC") as! StoreGoodListViewController
-        vc.goodsFlag=index+1
+        let vc=storyboardViewController(type: .storeGood, withIdentifier:"ToExamineGoodListVC") as! ToExamineGoodListViewController
+        vc.examineGoodsFlag=index+1
         return vc
     }
     //设置menuView frame
     override func pageController(_ pageController: WMPageController, preferredFrameFor menuView: WMMenuView) -> CGRect {
-        menuView.backgroundColor=UIColor.clear
+        menuView.backgroundColor=UIColor.white
         return CGRect(x:0, y:0, width:boundsWidth,height:44)
     }
     //设置contentView frame
     override func pageController(_ pageController: WMPageController, preferredFrameForContentView contentView: WMScrollView) -> CGRect {
-        return CGRect(x:0, y:0, width:boundsWidth,height:boundsHeight-navHeight-bottomSafetyDistanceHeight)
+        return CGRect(x:0, y:44, width:boundsWidth,height:boundsHeight-44-navHeight-bottomSafetyDistanceHeight)
     }
 }
 // MARK: - 设置页面
-extension PageStoreGoodListViewController{
+extension PageToExamineGoodListViewController{
     //设置分页控件
     private  func setUpMenuView(){
         self.menuViewStyle = .line
-        self.titleColorSelected = .white
+        self.titleColorSelected = UIColor.applicationMainColor()
         self.titleSizeNormal = 15;
         self.titleSizeSelected = 15;
-        self.menuItemWidth=60
+        self.menuItemWidth=80
         self.progressHeight=2
-        self.showOnNavigationBar=true
-        self.titleColorNormal = UIColor.black
-        if goodsFlag != nil{
-            self.selectIndex=Int32(goodsFlag!-1)
+        self.titleColorNormal = UIColor.color333()
+        if examineGoodsFlag != nil{
+            self.selectIndex=Int32(examineGoodsFlag!-1)
         }
     }
 }
+

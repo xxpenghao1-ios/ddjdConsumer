@@ -224,7 +224,11 @@ extension GoodUploadViewController{
             return
         }
         if goodEntity!.goodsPrice == nil || goodEntity!.goodsPrice!.count == 0{
-            self.showInfo(withStatus:"商品价格不能为空")
+            self.showInfo(withStatus:"商品零售价格不能为空")
+            return
+        }
+        if Double(goodEntity!.goodsPrice!) == nil || Double(goodEntity!.goodsPrice!)! <= 0{
+            self.showInfo(withStatus:"商品零售价格不能小于0")
             return
         }
         if goodEntity!.goodsCategoryName == nil || goodEntity!.goodsCategoryName!.count == 0{
@@ -239,12 +243,19 @@ extension GoodUploadViewController{
             self.showInfo(withStatus:"商品库存不能为空")
             return
         }
+        if Int(goodEntity!.stock!) == nil || Int(goodEntity!.stock!)! <= 0{
+            self.showInfo(withStatus:"商品库存不能小于0")
+        }
         if goodEntity!.offlineStock == nil || goodEntity!.offlineStock!.count == 0{
             self.showInfo(withStatus:"库存下限不能为空")
             return
         }
         if goodEntity!.purchasePrice == nil || goodEntity!.purchasePrice!.count == 0{
             self.showInfo(withStatus:"进货价不能为空")
+            return
+        }
+        if Double(goodEntity!.purchasePrice!) == nil || Double(goodEntity!.purchasePrice!)! <= 0{
+            self.showInfo(withStatus:"进货价不能小于0")
             return
         }
         if image == nil{
@@ -258,15 +269,17 @@ extension GoodUploadViewController{
             let success = json["success"].stringValue
             if success == "success"{
                 SVProgressHUD.dismiss()
-                UIAlertController.showAlertYes(self, title:"", message:"商品上传到商品库成功，并成功分配到店铺自己的商品库", okButtonTitle:"确定", okHandler: { (action) in
+                UIAlertController.showAlertYes(self, title:"", message:"商品成功提交审核；请等待审核结果", okButtonTitle:"确定", okHandler: { (action) in
                     self.navigationController?.popViewController(animated:true)
                 })
                 ///通知列表刷新页面
                 NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
             }else if success == "exist"{
-                SVProgressHUD.showError(withStatus:"不能再添加此条码")
+                SVProgressHUD.showInfo(withStatus:"条码已存在,不能再添加此条码")
             }else if success == "goodsPriceOrpurchasePriceTypeError"{
                 SVProgressHUD.showError(withStatus:"商品价格或进货价填写有误")
+            }else if success == "examineExist"{
+                SVProgressHUD.showInfo(withStatus:"此商品正在审核中")
             }else{
                 self.showInfo(withStatus:"上传失败")
             }

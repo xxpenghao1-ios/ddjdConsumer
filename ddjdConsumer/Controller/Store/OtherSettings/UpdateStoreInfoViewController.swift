@@ -77,7 +77,7 @@ extension UpdateStoreInfoViewController{
         }
         if type == 5{
             let row = FormRowDescriptor(tag:Static.memberDiscountTag, type:.number, title:"会员折扣:")
-            row.configuration.cell.placeholder="请输入折扣"
+            row.configuration.cell.placeholder="请输入折扣(如输入95,余额支付95折)"
             row.value=entity?.memberDiscount?.description as AnyObject
             section1.rows.append(row)
         }
@@ -121,9 +121,17 @@ extension UpdateStoreInfoViewController{
                 self.showInfo(withStatus:"订单起送金额不能为空")
                 return
             }
+            if Int(lowestMoney!) == nil || Int(lowestMoney!)! < 1{
+                self.showInfo(withStatus:"订单起送金额不能小于1")
+                return
+            }
         case 2:
             guard distributionScope != nil else{
                 self.showInfo(withStatus:"配送范围不能为空")
+                return
+            }
+            if Int(distributionScope!) == nil || Int(distributionScope!)! < 1{
+                self.showInfo(withStatus:"配送范围不能小于1公里")
                 return
             }
         case 3:
@@ -155,6 +163,10 @@ extension UpdateStoreInfoViewController{
                 self.showInfo(withStatus:"折扣不能为空")
                 return
             }
+            if Int(memberDiscount!) == nil || Int(memberDiscount!)! < 10{
+                self.showInfo(withStatus:"折扣不能小于10")
+                return
+            }
         default:break
 
         }
@@ -171,6 +183,8 @@ extension UpdateStoreInfoViewController{
                     userDefaults.set(Int(lowestMoney ?? ""), forKey:"lowestMoney")
                     userDefaults.synchronize()
                 }
+            }else if success == "memberDiscountMaxOrMin"{
+                self.showError(withStatus:"填写的折扣数不能大于100 或小于 10")
             }else{
                 self.showError(withStatus:"修改失败")
             }

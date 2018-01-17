@@ -178,23 +178,19 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
 extension SearchViewController:UITextFieldDelegate{
     ///跳转到扫码页面
     @objc private func pushSweepCodeVC(){
-        LBXPermissions.authorizeCameraWith { [weak self] (granted) in
-            if granted
-            {
-                if let strongSelf = self
-                {
-                    let vc=ScanCodeGetBarcodeViewController()
-                    vc.codeInfoClosure={ (str) in
-                        strongSelf.queryGoodsByGoodsCode(goodsCode:str ?? "")
-                    }
-                    strongSelf.navigationController?.pushViewController(vc, animated:true)
+        let camera: PrivateResource = .camera
+        let propose: Propose = {
+            proposeToAccess(camera, agreed: {
+                let vc=ScanCodeGetBarcodeViewController()
+                vc.codeInfoClosure={ (str) in
+                    self.queryGoodsByGoodsCode(goodsCode:str ?? "")
                 }
-            }
-            else
-            {
-                LBXPermissions.jumpToSystemPrivacySetting()
-            }
+                self.navigationController?.pushViewController(vc, animated:true)
+            }, rejected: {
+                self.alertNoPermissionToAccess(camera)
+            })
         }
+        showProposeMessageIfNeedFor(camera, andTryPropose: propose)
     }
     //搜索商品
     @objc private func searchGood() {
@@ -280,13 +276,16 @@ extension SearchViewController{
     /// - Parameter goodsCode: 条形码
     private func queryGoodsByGoodsCode(goodsCode:String){
         self.showSVProgressHUD(status:"正在加载...", type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.queryGoodsByGoodsCode(goodsCode:goodsCode), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.queryStoreAndGoodsByGoodsCode(goodsCode:goodsCode,bindstoreId:BINDSTOREID), successClosure: { (json) in
             let success=json["success"].stringValue
+            print(json)
             if success == "success"{
-                let goodId=json["goodsId"].intValue
+                let storeAndGoodsId=json["storeAndGoodsId"].intValue
                 let vc=self.storyboardPushView(type: .index, storyboardId:"GoodDetailsVC") as! GoodDetailsViewController
-                vc.storeAndGoodsId=goodId
+                vc.storeAndGoodsId=storeAndGoodsId
                 self.navigationController?.pushViewController(vc, animated:true)
+            }else{
+                self.showSVProgressHUD(status:"没有找到该条码", type: HUD.error)
             }
             self.dismissHUD()
         }) { (error) in

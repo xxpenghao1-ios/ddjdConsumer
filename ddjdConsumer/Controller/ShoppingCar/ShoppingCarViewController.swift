@@ -55,6 +55,9 @@ extension ShoppingCarViewController{
         //去掉底部多余cell
         table.tableFooterView=UIView(frame:CGRect.zero)
         table.backgroundColor=UIColor.viewBackgroundColor()
+        table.estimatedRowHeight=0;
+        table.estimatedSectionHeaderHeight=0;
+        table.estimatedSectionFooterHeight=0;
         table.emptyDataSetSource=self
         table.emptyDataSetDelegate=self
         self.setDisplay(isDisplay:false)
@@ -273,7 +276,7 @@ extension ShoppingCarViewController{
             let success=json["success"].stringValue
             if success == "success"{
                 self.arr[indexPath.row].goodsCount=goodsCount
-                self.table.reloadRows(at:[indexPath], with: UITableViewRowAnimation.none)
+                self.table.reloadRows(at:[indexPath], with: UITableViewRowAnimation.fade)
                 self.dismissHUD()
                 //重新计算价格
                 self.queryCarSumMoney()

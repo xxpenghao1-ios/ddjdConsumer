@@ -116,7 +116,6 @@
     CGRect rect = [backgroundView.superview convertRect:backgroundView.frame toView:self.view];
     self.km_transitionNavigationBar.frame = rect;
 }
-
 - (void)km_addTransitionNavigationBarIfNeeded {
     if (!self.isViewLoaded || !self.view.window) {
         return;

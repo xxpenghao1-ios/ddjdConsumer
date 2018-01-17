@@ -448,7 +448,47 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NrS-en-ou9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2986" y="1135"/>
+            <point key="canvasLocation" x="-3356" y="1125"/>
+        </scene>
+        <!--To Examine Good List View Controller-->
+        <scene sceneID="HK9-46-0eG">
+            <objects>
+                <viewController storyboardIdentifier="ToExamineGoodListVC" id="Uqk-Cl-JWY" customClass="ToExamineGoodListViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w28-DX-FFD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cSZ-Vl-f1X">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="return_top" translatesAutoresizingMaskIntoConstraints="NO" id="Af7-bf-Uxn">
+                                <rect key="frame" x="325" y="723" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="SRT-PM-MiD"/>
+                                    <constraint firstAttribute="width" constant="45" id="okm-w8-c50"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iAc-cJ-hEo" firstAttribute="trailing" secondItem="Af7-bf-Uxn" secondAttribute="trailing" constant="5" id="0ye-UE-vBM"/>
+                            <constraint firstItem="cSZ-Vl-f1X" firstAttribute="top" secondItem="iAc-cJ-hEo" secondAttribute="top" id="FOI-Qj-EVq"/>
+                            <constraint firstItem="iAc-cJ-hEo" firstAttribute="bottom" secondItem="Af7-bf-Uxn" secondAttribute="bottom" constant="10" id="G2k-vj-5lE"/>
+                            <constraint firstItem="cSZ-Vl-f1X" firstAttribute="leading" secondItem="iAc-cJ-hEo" secondAttribute="leading" id="HUR-nl-uOs"/>
+                            <constraint firstItem="iAc-cJ-hEo" firstAttribute="trailing" secondItem="cSZ-Vl-f1X" secondAttribute="trailing" id="doI-uc-axL"/>
+                            <constraint firstItem="iAc-cJ-hEo" firstAttribute="bottom" secondItem="cSZ-Vl-f1X" secondAttribute="bottom" id="sEN-cA-aKR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iAc-cJ-hEo"/>
+                    </view>
+                    <connections>
+                        <outlet property="returnImg" destination="Af7-bf-Uxn" id="1s4-7j-4Pd"/>
+                        <outlet property="table" destination="cSZ-Vl-f1X" id="LeX-kz-fHN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Wg-jj-ssg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2703" y="1125"/>
         </scene>
         <!--Update Store Good Detail View Controller-->
         <scene sceneID="Jnk-D2-10S">

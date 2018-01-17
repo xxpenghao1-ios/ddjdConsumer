@@ -135,18 +135,20 @@ extension UpdateAddAddressInfoViewController{
     }
     ///跳转到区域选择页面
     @objc private func pushSelectedRegion(){
-        if CLLocationManager.authorizationStatus() == .denied{
-            UIAlertController.showAlertYesNo(self, title:"温馨提示", message: "请在设置-点单即到-位置中允许使用定位", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
-                self.pushSetting()
+        let location: PrivateResource = .location(.whenInUse)
+        let propose: Propose = {
+            proposeToAccess(location, agreed: {
+                let vc=SelectedRegionViewController()
+                vc.poiAddressInfoClosure={ (entity) in
+                    self.poiEntity=entity
+                    self.lblAddress.text=self.poiEntity?.name
+                }
+                vc.poiEntity=self.poiEntity
+                self.navigationController?.pushViewController(vc, animated:true)
+            }, rejected: {
+                self.alertNoPermissionToAccess(location)
             })
-            return
         }
-        let vc=SelectedRegionViewController()
-        vc.poiAddressInfoClosure={ (entity) in
-            self.poiEntity=entity
-            self.lblAddress.text=self.poiEntity?.name
-        }
-        vc.poiEntity=self.poiEntity
-        self.navigationController?.pushViewController(vc, animated:true)
+        showProposeMessageIfNeedFor(location, andTryPropose: propose)
     }
 }

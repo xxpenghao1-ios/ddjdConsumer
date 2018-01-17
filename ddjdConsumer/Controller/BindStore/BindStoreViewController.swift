@@ -35,31 +35,27 @@ class BindStoreViewController:BaseViewController{
     }
     ///扫码绑定店铺
     @objc private func sweepCodeBindStore(){
-        LBXPermissions.authorizeCameraWith { [weak self] (granted) in
-            if granted
-            {
-                if let strongSelf = self
-                {
-                    let vc=ScanCodeGetBarcodeViewController()
-                    vc.flag=1
-                    vc.codeInfoClosure={ (str) in
-                        if str != nil{
-                            let arr=str!.components(separatedBy:"_")
-                            if arr.count > 2{
-                                strongSelf.bindStore(bindstoreId:Int(arr[2])!)
-                            }
+        let camera: PrivateResource = .camera
+        let propose: Propose = {
+            proposeToAccess(camera, agreed: {
+                let vc=ScanCodeGetBarcodeViewController()
+                vc.flag=1
+                vc.codeInfoClosure={ (str) in
+                    if str != nil{
+                        let arr=str!.components(separatedBy:"_")
+                        if arr.count > 2{
+                            self.bindStore(bindstoreId:Int(arr[2])!)
+                        }else{
+                            self.showSVProgressHUD(status:"请扫描店铺二维码", type: HUD.error)
                         }
                     }
-                    DispatchQueue.main.async(execute: {
-                        strongSelf.navigationController?.pushViewController(vc, animated:true)
-                    })
                 }
-            }
-            else
-            {
-                LBXPermissions.jumpToSystemPrivacySetting()
-            }
+                self.navigationController?.pushViewController(vc, animated:true)
+            }, rejected: {
+                self.alertNoPermissionToAccess(camera)
+            })
         }
+        showProposeMessageIfNeedFor(camera, andTryPropose: propose)
     }
     ///搜索绑定店铺
     @objc private func searchBindStore(){
