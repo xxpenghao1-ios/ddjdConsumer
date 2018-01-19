@@ -77,7 +77,7 @@ class VerifyThatTheBarcodeExistsViewController:BaseViewController{
                 self.pushGoodUploadVC(entity:entity)
                 return
             }else if success == "examineExist"{//此商品正在审核中
-                self.showSVProgressHUD(status:"此商品正在审核中", type: HUD.info)
+                self.showSVProgressHUD(status:"此商品正在审核中,请稍后再试", type: HUD.info)
                 return
             }
             let exist=json["exist"].bool

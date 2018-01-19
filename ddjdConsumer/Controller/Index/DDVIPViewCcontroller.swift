@@ -10,17 +10,24 @@ import Foundation
 ///点单VIP
 class DDVIPViewCcontroller:BaseViewController {
     private let storeTel=userDefaults.object(forKey:"storeTel") as? String
+    @IBOutlet weak var scrollView: UIScrollView!
     ///vip内容
     @IBOutlet weak var lblVIP: UILabel!
     ///合伙人内容
     @IBOutlet weak var lblPartner: UILabel!
+    ///vip按钮
+    @IBOutlet weak var btnVIP: UIButton!
+    ///合伙人按钮
+    @IBOutlet weak var btnPartner: UIButton!
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getVIP()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="点单VIP"
+        btnVIP.layer.cornerRadius=5
+        btnPartner.layer.cornerRadius=5
+        getVIP()
     }
     ///跳转到充值页面
     @IBAction func pushTopUpVC(_ sender: UIButton) {

@@ -138,6 +138,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="good_tj" width="64" height="64"/>
+        <image name="good_tj" width="250" height="250"/>
     </resources>
 </document>

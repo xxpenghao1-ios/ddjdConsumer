@@ -59,6 +59,7 @@ class GoodEntity:Mappable{
     var purchasePrice:Double?//店铺进货价
     var examineInfo:String? //‘审核信息； 如果审核失败，此处要填入审核失败的原因’,
     var examineGoodsFlag:Int? //1. 审核中 2. 审核失败 3 审核成功’,
+    var examineGoodsId:Int? ///审核商品id
     init(){}
     required init?(map: Map) {
         mapping(map: map)
@@ -107,5 +108,6 @@ class GoodEntity:Mappable{
         purchasePrice <- map["purchasePrice"]
         examineInfo <- map["examineInfo"]
         examineGoodsFlag <- map["examineGoodsFlag"]
+        examineGoodsId <- map["examineGoodsId"]
     }
 }

@@ -13,6 +13,8 @@ class StoreGoodListViewController:BaseViewController{
     var goodsFlag:Int?
     ///数据集合
     private var arr=[GoodEntity]()
+    ///数据总条数默认等于0
+    private var totalRow=0
     ///选中商品
     private var selectedGoodEntity:GoodEntity?
     //分类集合  (全部分类)
@@ -90,7 +92,20 @@ class StoreGoodListViewController:BaseViewController{
     }
     ///刷新数据
     @objc private func updateList(not:Notification){
-        self.table.mj_header.beginRefreshing()
+        let userInfo=not.userInfo
+        if userInfo != nil{
+            let index=userInfo!["index"] as? IndexPath
+            let goodsFlag=userInfo!["goodsFlag"] as? Int
+            if index != nil{
+                if self.goodsFlag == goodsFlag{//当前页面状态等于当前刷新状态
+                    self.queryStoreAndGoodsDetail(index:index!)
+                }else{
+                    self.table.mj_header.beginRefreshing()
+                }
+            }
+        }else{
+            self.table.mj_header.beginRefreshing()
+        }
     }
 }
 // MARK: - 滑动协议
@@ -260,6 +275,7 @@ extension StoreGoodListViewController{
     }
     ///显示
     private func showPickerView(){
+        self.view.bringSubview(toFront:pickerMaskView)
         pickerMaskView.isHidden=false
         UIView.animate(withDuration:0.5, delay:0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.contentPickerView.frame=CGRect.init(x:0, y:self.pickerMaskView.frame.height-340, width:boundsWidth,height:340)
@@ -474,11 +490,12 @@ extension StoreGoodListViewController:UITableViewDataSource,UITableViewDelegate{
                     message="上架"
                }
                 UIAlertController.showAlertYesNo(self, title:"", message:"确定\(message)吗?", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
-                    self.updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId: self.selectedGoodEntity?.storeAndGoodsId ?? 0, goodsFlag:self.goodsFlag!==1 ? 2 : 1)
+                    self.updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId: self.selectedGoodEntity?.storeAndGoodsId ?? 0, goodsFlag:self.goodsFlag!==1 ? 2 : 1,row: tableView.tag)
                 })
                 break
             case 1:
                 let vc=storyboardPushView(type:.storeGood, storyboardId:"UpdateStoreGoodDetailVC") as! UpdateStoreGoodDetailViewController
+                vc.index=IndexPath.init(row:tableView.tag, section:0)
                 vc.goodEntity=selectedGoodEntity
                 self.navigationController?.pushViewController(vc, animated: true)
                 break
@@ -549,32 +566,62 @@ extension StoreGoodListViewController{
                 entity!.goodsFlag=self.goodsFlag
                 self.arr.append(entity!)
             }
-            if self.arr.count < json["totalRow"].intValue{
+            self.totalRow=json["totalRow"].intValue
+            if self.arr.count < self.totalRow{
                 self.table.mj_footer.isHidden=false
             }else{
                 self.table.mj_footer.isHidden=true
             }
+            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
             self.reloadTable()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
             self.reloadTable()
         }
     }
+    ///查询店铺商品详情
+    private func queryStoreAndGoodsDetail(index:IndexPath){
+        let goodEntity=self.arr[index.row]
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryStoreAndGoodsDetail(storeAndGoodsId:goodEntity.storeAndGoodsId ?? 0, storeId:STOREID), successClosure: { (json) in
+            let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:json.object)
+            entity?.indexGoodsId=goodEntity.indexGoodsId
+            entity?.goodsStutas=goodEntity.goodsStutas
+            if self.goodsFlag != entity?.goodsFlag{//如果上下架状态不匹配  表示已经在修改中更改 删除当前行数据
+                ///删除原有数据
+                self.arr.remove(at:index.row)
+                self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
+                self.totalRow=self.totalRow-1
+                self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+                return
+            }
+            if entity != nil{
+                ///删除原有数据
+                self.arr.remove(at:index.row)
+                //重新插入新数据
+                self.arr.insert(entity!, at:index.row)
+                self.table.reloadRows(at:[index], with: UITableViewRowAnimation.fade)
+            }
+        }) { (error) in
+            self.showSVProgressHUD(status:"获取\(goodEntity.goodsName ?? "")修改信息失败", type: HUD.error)
+        }
+    }
     ///商品上下架
-    private func updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int){
+    private func updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int,row:Int){
         self.showSVProgressHUD(status:"正在加载...",type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId:storeAndGoodsId, goodsFlag: goodsFlag), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"操作成功", type: HUD.success)
+                self.arr.remove(at:row)
+                self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
+                self.totalRow=self.totalRow-1
+                self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
             }else if success == "incomplete"{
                 self.showSVProgressHUD(status:"部分参数没有填写或填写的值小于等于0,（零售价，进货价，库存),不能上架",type: HUD.error)
             }else{
                 self.showSVProgressHUD(status:"操作失败", type: HUD.error)
             }
             self.hideOperatingView()
-            ///通知列表刷新页面
-            NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }

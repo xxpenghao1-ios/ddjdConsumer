@@ -18,3 +18,6 @@ let updateCarBadgeValue=NSNotification.Name(rawValue: "postBadgeValue")
 ///更新店铺商品列表
 let  notificationNameUpdateStoreGoodList=NSNotification.Name(rawValue:"UpdateStoreGoodList")
 
+//更新店铺审核商品列表
+let  notificationNameUpdateStoreToExamineGoodList=NSNotification.Name(rawValue:"UpdateStoreToExamineGoodList")
+

@@ -11,7 +11,7 @@ import UIKit
 import SVProgressHUD
 import SwiftyJSON
 import ObjectMapper
-import RealReachability
+import SnapKit
 /// 对应sb中单个storyboard
 ///
 /// - index: 首页
@@ -41,14 +41,17 @@ class BaseViewController:UIViewController{
     private var emptyDataSetImage:String?
     //空视图文字颜色
     private var emptyDataSetTextColor:UIColor?
-//    /// 检查是否有无网络
-//    let reachabilityStatus=RealReachability.sharedInstance().currentReachabilityStatus()
+    ///商品数量提示
+    private var lblGoodCountPrompt:UILabel!
+    private var goodCountPromptView:UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         ///去掉返回按钮文字
         let bark=UIBarButtonItem()
         bark.title=""
         self.navigationItem.backBarButtonItem=bark
+        setUpView()
+
     }
     // MARK: - 其他内部方法
     //寻找导航栏下的横线  （递归查询导航栏下边那条分割线）
@@ -67,6 +70,57 @@ class BaseViewController:UIViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+///页面设置
+extension BaseViewController{
+    ///设置页面view
+    private func setUpView(){
+        setUpGoodCountPromptView()
+    }
+    ///设置商品提示view
+    private func setUpGoodCountPromptView(){
+        goodCountPromptView=UIView.init()
+        goodCountPromptView.backgroundColor=UIColor.init(red:0, green:0, blue: 0, alpha:0.5)
+        goodCountPromptView.layer.cornerRadius=15
+        self.view.addSubview(goodCountPromptView)
+        goodCountPromptView.snp.makeConstraints { (make) in
+            make.height.equalTo(30)
+            make.width.equalTo(100)
+            make.left.equalTo((boundsWidth-100)/2)
+            make.bottom.equalTo(bottomSafetyDistanceHeight+30)
+        }
+
+
+        lblGoodCountPrompt=UILabel.buildLabel(textColor:UIColor.white, font:13, textAlignment: NSTextAlignment.center)
+        goodCountPromptView.addSubview(lblGoodCountPrompt)
+
+        lblGoodCountPrompt.snp.makeConstraints { (make) in
+            make.edges.equalTo(goodCountPromptView)
+        }
+        ///默认隐藏
+        goodCountPromptView.isHidden=true
+    }
+}
+///页面控件赋值展示
+extension BaseViewController{
+
+    ///展示商品数量提示view
+    ///
+    /// - Parameters:
+    ///   - currentCount: 当前数量
+    ///   - totalCount: 总数量
+    func showBaseVCGoodCountPromptView(currentCount:Int,totalCount:Int){
+        lblGoodCountPrompt.text="\(currentCount)/\(totalCount)"
+        goodCountPromptView.isHidden=false
+        self.view.bringSubview(toFront:self.goodCountPromptView)
+        if currentCount == 0{//隐藏
+            hideBaseVCGoodCountPromptView()
+        }
+    }
+    ///隐藏商品数量提示view
+    private func hideBaseVCGoodCountPromptView(){
+        goodCountPromptView.isHidden=true
     }
 }
 
@@ -300,32 +354,11 @@ extension BaseViewController:DZNEmptyDataSetSource,DZNEmptyDataSetDelegate{
     }
     //设置是否可以滑动 默认不可以
     func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView) -> Bool {
-        return false
+        return true
     }
     ///是否显示
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView) -> Bool {
         return emptyDataSetIsDisplay
     }
 }
-extension UIViewController{
-    ///跳转到系统设置页面
-    func pushSetting(){
-        let appSetting = URL(string:UIApplicationOpenSettingsURLString)
-        if appSetting != nil
-        {
-            if #available(iOS 10, *) {
-                DispatchQueue.main.async(execute: {
-                    UIApplication.shared.open(appSetting!, options: [:], completionHandler:{
-                        (success) in
 
-                    })
-                })
-            }
-            else{
-                DispatchQueue.main.async(execute: {
-                    UIApplication.shared.openURL(appSetting!)
-                })
-            }
-        }
-    }
-}

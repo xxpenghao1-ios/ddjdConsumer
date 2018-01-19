@@ -35,6 +35,7 @@ class GoodUploadImgTableViewCell:FormBaseCell{
         if rowDescriptor?.value as? String != nil{
             let imgPic=rowDescriptor?.value as! String;
             scanCodeImg.kf.setImage(with:URL(string:urlImg+imgPic), placeholder:UIImage(named:goodDefaultImg))
+            rowDescriptor?.value=scanCodeImg.image
         }
     }
     @objc private func showImageSelected(){

@@ -44,6 +44,9 @@ public enum StoreGoodApi{
     case queryPromotiongoodsPaginateStore(storeId:Int,pageNumber:Int,pageSize:Int,salesCountFlag:Int?,priceFlag:Int?)
     ///查询店铺各种审核状态的商品  examineGgoodsFlag 1. 审核中 2. 审核失败 3 审核成功  storeId 店铺id
     case queryExamineGoodsByStoreId(parameters:[String:Any])
+
+    ///审核失败，修改审核商品
+    case updateExamineGoodsByStoreId(examineGoodsId:Int,goodsCode:String,storeId:Int,goodsName:String,goodsUnit:String,goodsLift:Int,goodUcode:String,fCategoryId:Int,sCategoryId:Int,tCategoryId:Int,goodsPic:String,goodsPrice:String,goodsFlag:Int,stock:Int,remark:String?,weight:Int?,brand:String?,goodsMixed:String?,purchasePrice:String,offlineStock:Int)
     
     
 }
@@ -88,13 +91,15 @@ extension StoreGoodApi:TargetType{
             return "/front/promotiongoods/queryPromotiongoodsPaginateStore"
         case .queryExamineGoodsByStoreId(_):
             return "/front/storeUploadGoods/queryExamineGoodsByStoreId"
+        case .updateExamineGoodsByStoreId(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_):
+            return "/front/storeUploadGoods/updateExamineGoodsByStoreId"
 
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods(_,_),.addIndexGoods(_,_,_),.removeIndexGoods(_,_),.addPromotiongoods(_,_,_,_,_,_),.removePromotiongoods(_,_):
+        case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods(_,_),.addIndexGoods(_,_,_),.removeIndexGoods(_,_),.addPromotiongoods(_,_,_,_,_,_),.removePromotiongoods(_,_),.updateExamineGoodsByStoreId(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_):
             return .post
         case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_),.queryStoreAndGoodsDetail(_,_),.queryGoodsInfoList_store(_,_,_,_,_),.queryGoodsInfoByGoodsId_store(_),.queryPromotiongoodsPaginateStore(_,_,_,_,_),.queryExamineGoodsByStoreId(_):
             return .get
@@ -151,6 +156,8 @@ extension StoreGoodApi:TargetType{
             return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"salesCountFlag":salesCountFlag ?? "","priceFlag":priceFlag ?? ""], encoding: URLEncoding.default)
         case let .queryExamineGoodsByStoreId(parameters):
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+        case let .updateExamineGoodsByStoreId(examineGoodsId,goodsCode, storeId, goodsName, goodsUnit, goodsLift, goodUcode, fCategoryId, sCategoryId, tCategoryId, goodsPic, goodsPrice, goodsFlag, stock, remark, weight,brand, goodsMixed,purchasePrice,offlineStock):
+            return .requestParameters(parameters:["examineGoodsId":examineGoodsId,"goodsCode":goodsCode,"storeId":storeId,"goodsName":goodsName,"goodsUnit":goodsUnit,"goodsLift":goodsLift,"goodUcode":goodUcode,"fCategoryId":fCategoryId,"sCategoryId":sCategoryId,"tCategoryId":tCategoryId,"goodsPic":goodsPic,"goodsPrice":goodsPrice,"goodsFlag":goodsFlag,"stock":stock,"remark":remark ?? "","weight":weight ?? "","brand":brand ?? "","goodsMixed":goodsMixed ?? "","purchasePrice":purchasePrice,"offlineStock":offlineStock], encoding: URLEncoding.default)
         }
         
     }

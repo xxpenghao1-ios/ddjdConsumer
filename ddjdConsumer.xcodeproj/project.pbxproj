@@ -126,6 +126,9 @@
 		63D82E021FA9FB1500EFE576 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D82E011FA9FB1500EFE576 /* String.swift */; };
 		63D82E041FAA0C6B00EFE576 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D82E031FAA0C6B00EFE576 /* Array.swift */; };
 		63D9CACA1FB92DC700414BC7 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9CAC91FB92DC700414BC7 /* MyViewController.swift */; };
+		63DD43222010311D00D0E360 /* ToExamineGoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD43202010311D00D0E360 /* ToExamineGoodTableViewCell.swift */; };
+		63DD43232010311D00D0E360 /* ToExamineGoodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63DD43212010311D00D0E360 /* ToExamineGoodTableViewCell.xib */; };
+		63DD432520103BA200D0E360 /* UpdateToExamineGoodDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD432420103BA200D0E360 /* UpdateToExamineGoodDetailsViewController.swift */; };
 		63E1A3B71FC8098B008AAD72 /* OrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1A3B61FC8098B008AAD72 /* OrderListViewController.swift */; };
 		63E497051FD93E8200DA0F05 /* GoodUploadEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E497041FD93E8200DA0F05 /* GoodUploadEntity.swift */; };
 		63E8B2711FD3D05B003FCF1E /* FormBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8B2591FD3D05B003FCF1E /* FormBaseCell.swift */; };
@@ -391,6 +394,9 @@
 		63D82E011FA9FB1500EFE576 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		63D82E031FAA0C6B00EFE576 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		63D9CAC91FB92DC700414BC7 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		63DD43202010311D00D0E360 /* ToExamineGoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToExamineGoodTableViewCell.swift; sourceTree = "<group>"; };
+		63DD43212010311D00D0E360 /* ToExamineGoodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToExamineGoodTableViewCell.xib; sourceTree = "<group>"; };
+		63DD432420103BA200D0E360 /* UpdateToExamineGoodDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToExamineGoodDetailsViewController.swift; sourceTree = "<group>"; };
 		63E1A3B61FC8098B008AAD72 /* OrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListViewController.swift; sourceTree = "<group>"; };
 		63E497041FD93E8200DA0F05 /* GoodUploadEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodUploadEntity.swift; sourceTree = "<group>"; };
 		63E8B2591FD3D05B003FCF1E /* FormBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormBaseCell.swift; sourceTree = "<group>"; };
@@ -1324,6 +1330,7 @@
 			children = (
 				63F74BC5200F74780075C37A /* ToExamineGoodListViewController.swift */,
 				63F74BC7200F771F0075C37A /* PageToExamineGoodListViewController.swift */,
+				63DD432420103BA200D0E360 /* UpdateToExamineGoodDetailsViewController.swift */,
 			);
 			path = ToExamine;
 			sourceTree = "<group>";
@@ -1437,6 +1444,8 @@
 				63FACAEE1FDA61D10051BA59 /* StoreGoodListTableViewCell.xib */,
 				63FB6575200346530025438B /* StorePromotionGoodTableViewCell.swift */,
 				63FB6576200346530025438B /* StorePromotionGoodTableViewCell.xib */,
+				63DD43202010311D00D0E360 /* ToExamineGoodTableViewCell.swift */,
+				63DD43212010311D00D0E360 /* ToExamineGoodTableViewCell.xib */,
 			);
 			path = StoreGoodList;
 			sourceTree = "<group>";
@@ -1720,6 +1729,7 @@
 				63FA108A1FC05BA2009B6CB2 /* OrderConfirmTableViewCell.xib in Resources */,
 				6326552C1FC1A6B200559E66 /* StoreIndexCollectionViewCell.xib in Resources */,
 				6341B9BB1FD159710074787F /* LoginWithRegistr.storyboard in Resources */,
+				63DD43232010311D00D0E360 /* ToExamineGoodTableViewCell.xib in Resources */,
 				63F9EF1B1F6774100038B05D /* My.storyboard in Resources */,
 				631595871F67797C000355C6 /* ShoppingCar.storyboard in Resources */,
 				63F6E7DC1FB7FA30009411E6 /* GoodClassifyTableViewCell.xib in Resources */,
@@ -1889,6 +1899,7 @@
 				63F6E7DB1FB7FA30009411E6 /* GoodClassifyTableViewCell.swift in Sources */,
 				63FA10931FC06394009B6CB2 /* MyCollectGoodTableViewCell.swift in Sources */,
 				63FA21212000B57E001F2240 /* OYCountDownManager.swift in Sources */,
+				63DD43222010311D00D0E360 /* ToExamineGoodTableViewCell.swift in Sources */,
 				63FACD181FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift in Sources */,
 				633AC4671FCE8497009278D0 /* StoreEntity.swift in Sources */,
 				63395A831FE786A6005EE80A /* HooDatePicker.m in Sources */,
@@ -2017,6 +2028,7 @@
 				6395DE481F5D431E008149DD /* AppDelegate.swift in Sources */,
 				63F941C41FD8EA70007BB96A /* CategorySelectionViewController.swift in Sources */,
 				63D82E041FAA0C6B00EFE576 /* Array.swift in Sources */,
+				63DD432520103BA200D0E360 /* UpdateToExamineGoodDetailsViewController.swift in Sources */,
 				63E8B27C1FD3D05C003FCF1E /* FormStepperCell.swift in Sources */,
 				630594291FF0F06D00FA303B /* UpdateStoreInfoViewController.swift in Sources */,
 				63E8B2771FD3D05C003FCF1E /* FormLabelCell.swift in Sources */,

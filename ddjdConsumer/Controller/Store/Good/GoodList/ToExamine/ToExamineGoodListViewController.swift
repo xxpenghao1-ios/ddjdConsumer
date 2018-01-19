@@ -33,6 +33,15 @@ class ToExamineGoodListViewController:BaseViewController{
             self.queryExamineGoodsByStoreId(pageNumber:self.pageNumber, pageSize:10,isRefresh:false)
         })
         table.mj_footer.isHidden=true
+        ///接收通知刷新页面
+        NotificationCenter.default.addObserver(self,selector:#selector(updateList), name:notificationNameUpdateStoreGoodList, object:nil)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    ///刷新数据
+    @objc private func updateList(not:Notification){
+        self.table.mj_header.beginRefreshing()
     }
 }
 // MARK: - 滑动协议
@@ -95,6 +104,7 @@ extension ToExamineGoodListViewController{
             }else{
                 self.table.mj_footer.isHidden=true
             }
+            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:json["totalRow"].intValue)
             self.reloadTable()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
@@ -105,9 +115,9 @@ extension ToExamineGoodListViewController{
 ///table协议
 extension ToExamineGoodListViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell=tableView.dequeueReusableCell(withIdentifier:"storeGoodListId") as? StoreGoodListTableViewCell
+        var cell=tableView.dequeueReusableCell(withIdentifier:"storeToExamineGoodListId") as? ToExamineGoodTableViewCell
         if cell == nil{
-            cell=getXibClass(name:"StoreGoodListTableViewCell", owner:self) as? StoreGoodListTableViewCell
+            cell=getXibClass(name:"ToExamineGoodTableViewCell", owner:self) as? ToExamineGoodTableViewCell
         }
         if arr.count > 0{
             let entity=arr[indexPath.row]
@@ -121,5 +131,14 @@ extension ToExamineGoodListViewController:UITableViewDataSource,UITableViewDeleg
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arr.count
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let entity=arr[indexPath.row]
+        if entity.examineGoodsFlag == 2{
+            let vc=self.storyboardPushView(type:.storeGood, storyboardId:"UpdateToExamineGoodDetailsVC") as! UpdateToExamineGoodDetailsViewController
+            vc.goodEntity=entity
+            self.navigationController?.pushViewController(vc, animated:true)
+        }
+        
     }
 }

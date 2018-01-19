@@ -93,6 +93,10 @@ class UpdateAddAddressInfoViewController:BaseViewController{
                     self.navigationController?.popViewController(animated:true)
                 }else if success == "notDistributionScope"{
                     self.showSVProgressHUD(status:"您的收货地址不在配送范围内,请重新选择", type:HUD.error)
+                }else if success == "noBind"{
+                    self.showSVProgressHUD(status:"您没有绑定店铺", type:HUD.error)
+                }else if success == "notSet"{
+                    self.showSVProgressHUD(status:"店铺没有设置坐标或配送范围", type:HUD.error)
                 }else{
                     self.showSVProgressHUD(status:"保存失败", type: HUD.error)
                 }

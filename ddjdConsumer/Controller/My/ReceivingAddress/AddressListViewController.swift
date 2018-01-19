@@ -87,10 +87,12 @@ extension AddressListViewController{
     ///设置默认地址
     private func setDefault(shippAddressId:Int){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.setDefault(memberId:MEMBERID, shippAddressId:shippAddressId), successClosure: { (json) in
+            print(json)
             let success=json["success"].stringValue
-            if success == "success"{
-                self.getAllShippaddress()
+            if success != "success"{
+                self.showSVProgressHUD(status:"设置失败", type: HUD.error)
             }
+            self.getAllShippaddress()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }

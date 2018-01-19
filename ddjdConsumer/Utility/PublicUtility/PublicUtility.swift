@@ -112,7 +112,6 @@ extension CGFloat{
         return CGFloat(pt)
     }
 }
-
 ///MD5加密
 extension Int
 {

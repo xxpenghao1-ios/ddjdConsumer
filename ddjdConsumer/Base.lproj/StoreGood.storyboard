@@ -459,7 +459,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cSZ-Vl-f1X">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="45" width="375" height="733"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="return_top" translatesAutoresizingMaskIntoConstraints="NO" id="Af7-bf-Uxn">
@@ -473,7 +473,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iAc-cJ-hEo" firstAttribute="trailing" secondItem="Af7-bf-Uxn" secondAttribute="trailing" constant="5" id="0ye-UE-vBM"/>
-                            <constraint firstItem="cSZ-Vl-f1X" firstAttribute="top" secondItem="iAc-cJ-hEo" secondAttribute="top" id="FOI-Qj-EVq"/>
+                            <constraint firstItem="cSZ-Vl-f1X" firstAttribute="top" secondItem="iAc-cJ-hEo" secondAttribute="top" constant="1" id="FOI-Qj-EVq"/>
                             <constraint firstItem="iAc-cJ-hEo" firstAttribute="bottom" secondItem="Af7-bf-Uxn" secondAttribute="bottom" constant="10" id="G2k-vj-5lE"/>
                             <constraint firstItem="cSZ-Vl-f1X" firstAttribute="leading" secondItem="iAc-cJ-hEo" secondAttribute="leading" id="HUR-nl-uOs"/>
                             <constraint firstItem="iAc-cJ-hEo" firstAttribute="trailing" secondItem="cSZ-Vl-f1X" secondAttribute="trailing" id="doI-uc-axL"/>
@@ -489,6 +489,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Wg-jj-ssg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2703" y="1125"/>
+        </scene>
+        <!--Update To Examine Good Details View Controller-->
+        <scene sceneID="HXg-KX-bmI">
+            <objects>
+                <tableViewController storyboardIdentifier="UpdateToExamineGoodDetailsVC" id="APR-J5-6LO" customClass="UpdateToExamineGoodDetailsViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="A2K-e0-Yqh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="APR-J5-6LO" id="Ini-kB-gm2"/>
+                            <outlet property="delegate" destination="APR-J5-6LO" id="gum-JJ-AIy"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P18-cH-xuN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2023" y="1124"/>
         </scene>
         <!--Update Store Good Detail View Controller-->
         <scene sceneID="Jnk-D2-10S">

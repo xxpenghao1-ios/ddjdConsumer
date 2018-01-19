@@ -12,6 +12,8 @@ import SVProgressHUD
 import ObjectMapper
 ///修改店铺商品详细信息
 class UpdateStoreGoodDetailViewController:FormViewController{
+    ///接收商品列表中的行索引
+    var index:IndexPath?
     ///接收商品信息
     var goodEntity:GoodEntity?
     ///如果值 添加到店铺商品库
@@ -254,13 +256,13 @@ extension UpdateStoreGoodDetailViewController{
             PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.updateGoodsByStoreAndGoodsId(storeAndGoodsId:goodEntity!.storeAndGoodsId ?? 0, goodsFlag:goodsFlag, storeGoodsPrice: storeGoodsPrice!, stock:Int(stock!) ?? 0,offlineStock: Int(offlineStock!) ?? 0,purchasePrice:purchasePrice!), successClosure: { (json) in
                 let success=json["success"].stringValue
                 if success == "success"{
+                    ///通知列表刷新指定行
+                    NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil, userInfo:["index":self.index ?? "","goodsFlag":goodsFlag])
                     SVProgressHUD.dismiss()
                     UIAlertController.showAlertYesNo(self, title:"修改成功", message:"零售价格:\(storeGoodsPrice!),进货价格:\(purchasePrice!),库存:\(stock!),库存下限:\(offlineStock!),状态:\(goodsFlag==1 ? "上架":"下架")", cancelButtonTitle:"继续修改", okButtonTitle:"返回", okHandler: { (action) in
                         self.navigationController?.popViewController(animated:true)
                     }, cancelHandler: { (action) in
                     })
-                    ///通知列表刷新页面
-                    NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
                 }else if success == "error"{
                     self.showError(withStatus:"商品价格或进货价填写有误")
                 }else{
@@ -278,7 +280,7 @@ extension UpdateStoreGoodDetailViewController{
                         self.navigationController?.popViewController(animated:true)
                     })
                     ///通知列表刷新页面
-                    NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil)
+                    NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil, userInfo:nil)
                 }else if success == "storeGoodsPrice_error"{
                     self.showError(withStatus:"商品价格或进货价填写有误")
                 }else{
