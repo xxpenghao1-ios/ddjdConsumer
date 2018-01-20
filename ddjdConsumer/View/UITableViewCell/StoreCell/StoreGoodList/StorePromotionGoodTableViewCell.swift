@@ -10,6 +10,9 @@ import UIKit
 import Kingfisher
 ///店铺促销商品
 class StorePromotionGoodTableViewCell: UITableViewCell {
+    ///单位
+    @IBOutlet weak var lblUnit: UILabel!
+
     @IBOutlet weak var dateBacView: UIView!
     ///商品图片
     @IBOutlet weak var goodImg: UIImageView!
@@ -37,6 +40,7 @@ class StorePromotionGoodTableViewCell: UITableViewCell {
         lblStock.text="库存:\(entity.promotionStock ?? 0)"
         lblSales.text="销量:\(entity.salesCount ?? 0)"
         lblGoodPrice.text="￥\(entity.storeGoodsPrice ?? 0.0)"
+        lblUnit.text="/\(entity.goodsUnit ?? "")"
         goodImg.kf.setImage(with:URL.init(string:urlImg+entity.goodsPic!), placeholder:UIImage.init(named:goodDefaultImg),options:[.transition(ImageTransition.fade(1))])
         lblPromotionMsg.text=entity.promotionMsg
         if entity.promotionEndTimeSeconds == nil || entity.promotionEndTimeSeconds! <= 0{

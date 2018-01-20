@@ -56,6 +56,8 @@ public enum MyApi{
     case updateBindMemberWithdrawalsInfo(parameters:[String:Any])
     ///开始提现 withdrawalsMoney 提现金额 serviceCharge 手续费
     case memberStartWithdrawalsBalance(parameters:[String:Any])
+    ///会员当前是合伙人，查询基本信息
+    case queryPartnerInfoByMemberId(parameters:[String:Any])
 
 
 }
@@ -111,14 +113,16 @@ extension MyApi:TargetType{
         case .updateBindMemberWithdrawalsInfo(_):
             return "/front/memberWithdrawals/updateBindMemberWithdrawalsInfo"
         case .memberStartWithdrawalsBalance(_):
-            return "front/memberWithdrawals/memberStartWithdrawalsBalance"
+            return "/front/memberWithdrawals/memberStartWithdrawalsBalance"
+        case .queryPartnerInfoByMemberId(_):
+            return "/front/partner/queryPartnerInfoByMemberId"
             
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_),.queryMemberBalanceRecord(_),.queryMemberbindrechargepaymenttools(_),.queryMemberWithdrawalsBalance(_):
+        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_),.queryMemberBalanceRecord(_),.queryMemberbindrechargepaymenttools(_),.queryMemberWithdrawalsBalance(_),.queryPartnerInfoByMemberId(_):
             return .get
         case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_),.bindStore(_,_),.unBindStore(_),.updatePwd(_,_,_),.saveQuestionsorsuggestions(_,_,_,_),.memberRechargeBalance(_),.updateMemberBalancePayPassword(_),.updateBindMemberWithdrawalsInfo(_),.memberStartWithdrawalsBalance(_):
             return .post
@@ -199,6 +203,8 @@ extension MyApi:TargetType{
         case let .updateBindMemberWithdrawalsInfo(parameters):
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         case let .memberStartWithdrawalsBalance(parameters):
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+        case let .queryPartnerInfoByMemberId(parameters):
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         }
     }

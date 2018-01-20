@@ -69,6 +69,8 @@
 		633C0B7B1FBBCE410054C215 /* GoodDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C0B7A1FBBCE410054C215 /* GoodDetailsViewController.swift */; };
 		633DF0BE1FF48CBA005285B9 /* PayAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF0BD1FF48CBA005285B9 /* PayAlertView.swift */; };
 		633DF0C11FF4DB14005285B9 /* BalanceMoneyTopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DF0C01FF4DB14005285B9 /* BalanceMoneyTopUpViewController.swift */; };
+		633E4426201308A800D9F894 /* MemberPartnerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633E4425201308A800D9F894 /* MemberPartnerDetailViewController.swift */; };
+		633E442820130FE400D9F894 /* StoreCodeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633E442720130FE400D9F894 /* StoreCodeInfoViewController.swift */; };
 		633F39BF1FD62EDF00484E81 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F39BE1FD62EDF00484E81 /* UpdatePasswordViewController.swift */; };
 		6341B9BA1FD159710074787F /* Store.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6341B9B61FD159700074787F /* Store.storyboard */; };
 		6341B9BB1FD159710074787F /* LoginWithRegistr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6341B9B81FD159700074787F /* LoginWithRegistr.storyboard */; };
@@ -327,6 +329,8 @@
 		633C0B7A1FBBCE410054C215 /* GoodDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodDetailsViewController.swift; sourceTree = "<group>"; };
 		633DF0BD1FF48CBA005285B9 /* PayAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayAlertView.swift; sourceTree = "<group>"; };
 		633DF0C01FF4DB14005285B9 /* BalanceMoneyTopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceMoneyTopUpViewController.swift; sourceTree = "<group>"; };
+		633E4425201308A800D9F894 /* MemberPartnerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPartnerDetailViewController.swift; sourceTree = "<group>"; };
+		633E442720130FE400D9F894 /* StoreCodeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCodeInfoViewController.swift; sourceTree = "<group>"; };
 		633F39BE1FD62EDF00484E81 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		6341B9B71FD159700074787F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Store.storyboard; sourceTree = "<group>"; };
 		6341B9B91FD159700074787F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LoginWithRegistr.storyboard; sourceTree = "<group>"; };
@@ -779,6 +783,14 @@
 			path = BalanceMoney;
 			sourceTree = "<group>";
 		};
+		633E44242013088900D9F894 /* Partner */ = {
+			isa = PBXGroup;
+			children = (
+				633E4425201308A800D9F894 /* MemberPartnerDetailViewController.swift */,
+			);
+			path = Partner;
+			sourceTree = "<group>";
+		};
 		63506DCB1F6A13D000DDBB15 /* UICollectionViewFlowLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1126,6 +1138,7 @@
 				63F558D11FE105B000BF0CF5 /* BindWxAndAli */,
 				63BB8BC41FC67A53003BB38D /* OtherSettingsViewController.swift */,
 				630594281FF0F06D00FA303B /* UpdateStoreInfoViewController.swift */,
+				633E442720130FE400D9F894 /* StoreCodeInfoViewController.swift */,
 			);
 			path = OtherSettings;
 			sourceTree = "<group>";
@@ -1182,6 +1195,7 @@
 		63D9CAC81FB92DB500414BC7 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				633E44242013088900D9F894 /* Partner */,
 				633DF0BF1FF4DADF005285B9 /* BalanceMoney */,
 				63FDDC461FD1480C001CD97E /* PurchaseHistory */,
 				63E1A3B51FC80964008AAD72 /* Order */,
@@ -1871,6 +1885,7 @@
 				63506DCD1F6A13D000DDBB15 /* UICollectionViewFlowLayout.swift in Sources */,
 				63CCF5661FD7E7A600D120A8 /* VerifyThatTheBarcodeExistsViewController.swift in Sources */,
 				63E8B27E1FD3D05C003FCF1E /* FormTextFieldCell.swift in Sources */,
+				633E442820130FE400D9F894 /* StoreCodeInfoViewController.swift in Sources */,
 				63741CD31F7897F500946979 /* WRCycleCell.swift in Sources */,
 				63E8B2741FD3D05C003FCF1E /* FormButtonCell.swift in Sources */,
 				63F85F381FFDC64200759141 /* BalanceMoneyRecordViewController.swift in Sources */,
@@ -1939,6 +1954,7 @@
 				63F941C61FD90525007BB96A /* NSNotificationName.swift in Sources */,
 				63F3DB751FCCF62E00CEAF24 /* OrderDetailsViewController.swift in Sources */,
 				63F6E7D61FB7ED0C009411E6 /* GoodClassifyCollectionViewCell.swift in Sources */,
+				633E4426201308A800D9F894 /* MemberPartnerDetailViewController.swift in Sources */,
 				63FFD9D81F613E2C00B56B89 /* PublicUtility.swift in Sources */,
 				63F9C91B1FAB3E5500A3732D /* SpecialPriceTableViewCell.swift in Sources */,
 				63FA69992005E067005B0CA4 /* PartnerListViewController.swift in Sources */,

@@ -14,6 +14,7 @@ class HotGoodListViewController:BaseViewController{
     private var arr=[GoodEntity]()
     
     private var pageNumber=1
+
     override func viewDidLoad(){
         super.viewDidLoad()
         self.title="热门推荐商品管理"
@@ -103,11 +104,13 @@ extension HotGoodListViewController{
                 entity?.indexGoodsId=1
                 self.arr.append(entity!)
             }
-            if self.arr.count < json["totalRow"].intValue{
+            self.totalRow=json["totalRow"].intValue
+            if self.arr.count < self.totalRow{
                 self.table.mj_header.isHidden=false
             }else{
                 self.table.mj_header.isHidden=true
             }
+            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
             self.reloadTable()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
@@ -122,6 +125,8 @@ extension HotGoodListViewController{
                 self.showSVProgressHUD(status:"移除成功", type: HUD.success)
                 self.arr.remove(at:row)
                 self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
+                self.totalRow=self.totalRow-1
+                self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
                 if self.arr.count == 0{
                     self.table.reloadData()
                 }

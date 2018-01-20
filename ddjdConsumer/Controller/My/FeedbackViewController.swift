@@ -212,6 +212,7 @@ extension FeedbackViewController:TZImagePickerControllerDelegate{
         if self.selectedAssets.count > 0{
             vc?.selectedAssets=self.selectedAssets
         }
+        self.present(vc!, animated:true, completion:nil)
     }
     //预览照片
     func previewImg(index:Int){

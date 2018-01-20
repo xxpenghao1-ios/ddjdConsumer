@@ -44,6 +44,8 @@ class BaseViewController:UIViewController{
     ///商品数量提示
     private var lblGoodCountPrompt:UILabel!
     private var goodCountPromptView:UIView!
+    ///总数量
+    var totalRow=0
     override func viewDidLoad() {
         super.viewDidLoad()
         ///去掉返回按钮文字
@@ -88,7 +90,9 @@ extension BaseViewController{
             make.height.equalTo(30)
             make.width.equalTo(100)
             make.left.equalTo((boundsWidth-100)/2)
-            make.bottom.equalTo(bottomSafetyDistanceHeight+30)
+            print(self.view.frame.height)
+            print(boundsHeight)
+            make.bottom.equalTo(-(10+bottomSafetyDistanceHeight))
         }
 
 
@@ -110,7 +114,8 @@ extension BaseViewController{
     /// - Parameters:
     ///   - currentCount: 当前数量
     ///   - totalCount: 总数量
-    func showBaseVCGoodCountPromptView(currentCount:Int,totalCount:Int){
+    func showBaseVCGoodCountPromptView(currentCount:Int,totalCount:Int,view:UIView?=nil){
+        print(view?.frame.height)
         lblGoodCountPrompt.text="\(currentCount)/\(totalCount)"
         goodCountPromptView.isHidden=false
         self.view.bringSubview(toFront:self.goodCountPromptView)

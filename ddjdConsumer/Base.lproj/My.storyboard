@@ -317,10 +317,10 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rsA-pf-ROE">
-                                            <rect key="frame" x="0.0" y="0.0" width="138" height="130"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="125" height="130"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1KT-2f-sqy">
-                                                    <rect key="frame" x="38.333333333333343" y="45.666666666666657" width="62" height="40"/>
+                                                    <rect key="frame" x="32" y="45.666666666666657" width="62" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="cCR-H1-3f0"/>
                                                         <constraint firstAttribute="height" constant="40" id="eTP-RI-9Md"/>
@@ -341,10 +341,10 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wmb-h9-E99">
-                                            <rect key="frame" x="138" y="0.0" width="138.33333333333337" height="130"/>
+                                            <rect key="frame" x="125" y="0.0" width="125.33333333333331" height="130"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3a-Fy-5e2">
-                                                    <rect key="frame" x="54.333333333333343" y="42.666666666666664" width="30" height="20"/>
+                                                    <rect key="frame" x="48" y="42.666666666666664" width="30" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="HzX-Xr-ZTp"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="XlI-pW-aA7"/>
@@ -354,7 +354,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可用余额(元)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiE-Qn-zil">
-                                                    <rect key="frame" x="30.999999999999993" y="67.666666666666671" width="76.333333333333314" height="20"/>
+                                                    <rect key="frame" x="24.666666666666657" y="67.666666666666671" width="76.333333333333329" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="jwP-jB-67T"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="tEx-ds-uUS"/>
@@ -373,10 +373,10 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sky-Zs-Aio">
-                                            <rect key="frame" x="276.33333333333331" y="0.0" width="137.66666666666669" height="130"/>
+                                            <rect key="frame" x="250.33333333333334" y="0.0" width="124.66666666666666" height="130"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="273-0q-rBW">
-                                                    <rect key="frame" x="38" y="45" width="62" height="40"/>
+                                                    <rect key="frame" x="31.666666666666657" y="45" width="62" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="6Fv-bA-nCh"/>
                                                         <constraint firstAttribute="height" constant="40" id="gaS-Dy-cbk"/>
@@ -425,6 +425,7 @@
                         <viewLayoutGuide key="safeArea" id="OYM-Y1-eV7"/>
                     </view>
                     <connections>
+                        <outlet property="btnMSTX" destination="273-0q-rBW" id="jIp-SN-j4W"/>
                         <outlet property="lblBlanceMoney" destination="r3a-Fy-5e2" id="4rn-ux-srd"/>
                         <outlet property="table" destination="VtG-UR-l8G" id="nMv-Ga-KUL"/>
                     </connections>

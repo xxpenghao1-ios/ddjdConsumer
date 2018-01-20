@@ -257,7 +257,7 @@ extension UpdateStoreGoodDetailViewController{
                 let success=json["success"].stringValue
                 if success == "success"{
                     ///通知列表刷新指定行
-                    NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil, userInfo:["index":self.index ?? "","goodsFlag":goodsFlag])
+                    NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil, userInfo:["index":self.index ?? "","goodsFlag":self.goodEntity!.goodsFlag ?? 0])
                     SVProgressHUD.dismiss()
                     UIAlertController.showAlertYesNo(self, title:"修改成功", message:"零售价格:\(storeGoodsPrice!),进货价格:\(purchasePrice!),库存:\(stock!),库存下限:\(offlineStock!),状态:\(goodsFlag==1 ? "上架":"下架")", cancelButtonTitle:"继续修改", okButtonTitle:"返回", okHandler: { (action) in
                         self.navigationController?.popViewController(animated:true)

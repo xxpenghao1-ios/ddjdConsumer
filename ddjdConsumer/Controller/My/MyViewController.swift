@@ -179,6 +179,7 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
             break
         case 1:
             let vc=self.storyboardPushView(type:.my, storyboardId:"BalanceMoneyRecordVC") as! BalanceMoneyRecordViewController
+            vc.partnerStatu=memberEntity?.partnerStatu
             self.pushVC(vc:vc)
             break
         case 2:
@@ -200,6 +201,14 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
         case 6:
             var storeName=userDefaults.object(forKey:"storeName") as? String
             storeName=storeName ?? ""
+            if memberEntity?.partnerStatu == 2{
+                self.showSVProgressHUD(status:"合伙人不能解绑", type: HUD.info)
+                return
+            }
+            if memberEntity?.storeFlag == 1{
+                self.showSVProgressHUD(status:"您是店铺不能解绑", type: HUD.info)
+                return
+            }
             UIAlertController.showAlertYesNo(self, title:"", message:"解除绑定后将会需要重新登录并绑定门店,您确定要与[\(storeName!)]解除绑定?", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
                 self.unBindStore()
             })

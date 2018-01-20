@@ -43,15 +43,19 @@ extension MyCollectGoodViewController{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
                 self.arr.append(entity!)
             }
-            if self.arr.count < json["totalRow"].intValue{
+            self.totalRow=json["totalRow"].intValue
+            if self.arr.count < self.totalRow{
                 self.table.mj_footer.isHidden=false
             }else{
                 self.table.mj_footer.isHidden=true
             }
+            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
             self.setLoadingState(isLoading:false)
             self.table.reloadData()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
+            self.setLoadingState(isLoading:false)
+            self.table.reloadData()
         }
     }
     ///删除收藏商品
@@ -63,6 +67,8 @@ extension MyCollectGoodViewController{
                 if cell != nil{
                     self.arr.remove(at:index.row)
                     self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
+                    self.totalRow=self.totalRow-1
+                    self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
                     if self.arr.count == 0{
                         self.table.reloadData()
                     }

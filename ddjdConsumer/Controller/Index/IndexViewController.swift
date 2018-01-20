@@ -256,7 +256,6 @@ extension IndexViewController{
     }
     //请求首页推荐商品
     private func getIndexGoodList(pageSize:Int,pageNumber:Int,isRefresh:Bool){
-        var count=0
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: IndexApi.indexGoods(bindstoreId:BINDSTOREID, pageSize:pageSize,pageNumber:pageNumber),successClosure: { (json) in
             if isRefresh{
                 self.goodArr.removeAll()
@@ -264,12 +263,12 @@ extension IndexViewController{
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
                 self.goodArr.append(entity!)
-                count+=1
             }
-            if count < pageSize{
-                self.scrollView.mj_footer.isHidden=true
-            }else{
+            self.totalRow=json["totalRow"].intValue
+            if self.goodArr.count < self.totalRow{
                 self.scrollView.mj_footer.isHidden=false
+            }else{
+                self.scrollView.mj_footer.isHidden=true
             }
             self.updateViewHeight()
             self.scrollView.mj_header.endRefreshing()
@@ -305,17 +304,19 @@ extension IndexViewController{
             print(json)
             if success == "success"{
                 let entity=self.jsonMappingEntity(entity:StoreEntity.init(), object:json["store"].object)
-                if entity!.distributionStartTime != nil && entity!.distributionEndTime != nil{
-                    self.lblBusinessTime.text=entity!.distributionStartTime!+"-"+entity!.distributionEndTime!
-                }else{
-                    self.lblBusinessTime.text="24小时营业"
+                if entity != nil{
+                    if entity!.distributionStartTime != nil && entity!.distributionEndTime != nil{
+                        self.lblBusinessTime.text=entity!.distributionStartTime!+"-"+entity!.distributionEndTime!
+                    }else{
+                        self.lblBusinessTime.text="24小时营业"
+                    }
+                    ///把最低起送额保存
+                    userDefaults.set(entity?.lowestMoney, forKey:"lowestMoney")
+                    userDefaults.set(entity?.deliveryFee, forKey:"deliveryFee")
+                    userDefaults.set(entity?.storeName, forKey:"storeName")
+                    userDefaults.set(entity?.tel, forKey:"storeTel")
+                    userDefaults.synchronize()
                 }
-                ///把最低起送额保存
-                userDefaults.set(entity?.lowestMoney, forKey:"lowestMoney")
-                userDefaults.set(entity?.deliveryFee, forKey:"deliveryFee")
-                userDefaults.set(entity?.storeName, forKey:"storeName")
-                userDefaults.set(entity?.tel, forKey:"storeTel")
-                userDefaults.synchronize()
             }
         }) { (error) in
             

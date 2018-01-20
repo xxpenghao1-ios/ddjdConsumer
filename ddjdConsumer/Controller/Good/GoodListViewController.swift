@@ -272,11 +272,13 @@ extension GoodListViewController{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:value.object)
                 self.goodArr.append(entity!)
             }
-            if self.goodArr.count >= json["totalRow"].intValue{
+            self.totalRow=json["goodsList"]["totalRow"].intValue
+            if self.goodArr.count >= self.totalRow{
                 self.goodCollection.mj_footer.isHidden=true
             }else{
                 self.goodCollection.mj_footer.isHidden=false
             }
+            self.showBaseVCGoodCountPromptView(currentCount:self.goodArr.count, totalCount: self.totalRow)
             self.endRefreshing()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
@@ -290,11 +292,13 @@ extension GoodListViewController{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:value.object)
                 self.goodArr.append(entity!)
             }
-            if self.goodArr.count >= json["totalRow"].intValue{
+            self.totalRow=json["goodsList"]["totalRow"].intValue
+            if self.goodArr.count >= self.totalRow{
                 self.goodCollection.mj_footer.isHidden=true
             }else{
                 self.goodCollection.mj_footer.isHidden=false
             }
+            self.showBaseVCGoodCountPromptView(currentCount:self.goodArr.count, totalCount: self.totalRow)
             self.endRefreshing()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)

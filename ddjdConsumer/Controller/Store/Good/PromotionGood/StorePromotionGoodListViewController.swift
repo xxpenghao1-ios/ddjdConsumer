@@ -19,7 +19,6 @@ class StorePromotionGoodListViewController:BaseViewController{
     private var operatingTable:UITableView!
     ///商品操作table高度
     private var operatingTableHeight:CGFloat=100
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="促销商品管理"
@@ -107,12 +106,13 @@ extension StorePromotionGoodListViewController{
                 entity?.promotionEndTimeSeconds=date==nil ? 0 : Int(date!.timeIntervalSince1970) - Int(Date().timeIntervalSince1970)
                 self.arr.append(entity!)
             }
-            if self.arr.count < json["goodsList"]["totalRow"].intValue{
+            self.totalRow=json["goodsList"]["totalRow"].intValue
+            if self.arr.count < self.totalRow{
                 self.table.mj_footer.isHidden=false
             }else{
                 self.table.mj_footer.isHidden=true
             }
-            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:json["totalRow"].intValue)
+            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
             self.reloadData()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
@@ -128,6 +128,8 @@ extension StorePromotionGoodListViewController{
                 self.arr.remove(at:index.row)
                 self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
                 self.showSVProgressHUD(status:"移除成功", type: HUD.success)
+                self.totalRow=self.totalRow-1
+                self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
                 if self.arr.count == 0{//如果数据为空
                     self.table.reloadData()
                 }

@@ -13,8 +13,6 @@ class StoreGoodListViewController:BaseViewController{
     var goodsFlag:Int?
     ///数据集合
     private var arr=[GoodEntity]()
-    ///数据总条数默认等于0
-    private var totalRow=0
     ///选中商品
     private var selectedGoodEntity:GoodEntity?
     //分类集合  (全部分类)
@@ -572,7 +570,7 @@ extension StoreGoodListViewController{
             }else{
                 self.table.mj_footer.isHidden=true
             }
-            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow,view:self.view)
             self.reloadTable()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)

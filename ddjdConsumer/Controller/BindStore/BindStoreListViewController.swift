@@ -57,6 +57,7 @@ extension BindStoreListViewController{
     //保存收货地址
     private func saveAddress(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: MyApi.saveShippAddress(lat:addressEntity!.lat!, lon:addressEntity!.lon!, address:addressEntity!.address!, detailAddress:addressEntity!.detailAddress!,shippName:addressEntity!.shippName!, phoneNumber:addressEntity!.phoneNumber!, memberId: MEMBERID, shippAddressId:addressEntity!.shippAddressId, defaultFlag:addressEntity!.defaultFlag!), successClosure: { (json) in
+            print(json)
         }) { (error) in
             
         }

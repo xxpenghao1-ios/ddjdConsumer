@@ -91,7 +91,11 @@ extension AddPartnerViewController{
             self.showInfo(withStatus:"合伙人的出资金额不能为空")
             return
         }
-        SVProgressHUD.show()
+        if Int(storeAndPartneAmountOfPayment!)! > 1000000{
+            self.showInfo(withStatus:"合伙人的出资金额不能大于1百万")
+            return
+        }
+        SVProgressHUD.show(withStatus:"正在请求...")
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.addPartnerByStore(storeId:STOREID, memberAcc:memberAcc!, memberTel: memberTel!, BFB:Int(BFB!) ?? 1, nickName: nickName!, storeAndPartneAmountOfPayment: storeAndPartneAmountOfPayment!), successClosure: { (json) in
             let success=json["success"].stringValue

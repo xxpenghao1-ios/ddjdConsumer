@@ -131,11 +131,13 @@ extension PromotionListViewController{
                 entity?.promotionEndTimeSeconds=date==nil ? 0 : Int(date!.timeIntervalSince1970) - Int(Date().timeIntervalSince1970)
                 self.arr.append(entity!)
             }
-            if self.arr.count < json["goodsList"]["totalRow"].intValue{
+            self.totalRow=json["goodsList"]["totalRow"].intValue
+            if self.arr.count < self.totalRow{
                 self.table.mj_footer.isHidden=false
             }else{
                 self.table.mj_footer.isHidden=true
             }
+            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount: self.totalRow)
             self.reloadData()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)

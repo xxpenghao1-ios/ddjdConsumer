@@ -76,6 +76,8 @@ class PromotionGoodDetailViewController:BaseViewController{
     private var goodEntity:GoodEntity?
     //商品数量默认等于1
     private var goodCount=1
+    ///收藏商品id
+    private var goodsCollectionId:Int?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="商品详情"
@@ -232,26 +234,36 @@ extension PromotionGoodDetailViewController{
     //加入收藏
     @objc private func addCollect(){
         if self.goodEntity!.collectionStatu!{
-            self.showSVProgressHUD(status:"该商品已经收藏", type: HUD.info)
-            return
-        }
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.addCollection(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId!), successClosure: { (json) in
-            let success=json["success"].stringValue
-            if success == "success"{
-                self.showSVProgressHUD(status:"收藏成功", type: HUD.success)
-                self.collectImg.image=UIImage(named:"y_collect")
-                self.goodEntity!.collectionStatu=true
-            }else{
-                self.showSVProgressHUD(status:"收藏失败", type: HUD.error)
+            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.removeCollection(memberId:MEMBERID, goodsCollectionId:self.goodsCollectionId ?? 0), successClosure: { (json) in
+                let success=json["success"].stringValue
+                if success == "success"{
+                    self.showSVProgressHUD(status:"已取消收藏", type: HUD.success)
+                    self.collectImg.image=UIImage(named:"collect")
+                    self.goodEntity!.collectionStatu=false
+                }
+            }, failClosure: { (error) in
+                self.showSVProgressHUD(status:error!, type: HUD.error)
+            })
+        }else{
+            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.addCollection(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId!), successClosure: { (json) in
+                let success=json["success"].stringValue
+                self.goodsCollectionId=json["goodsCollectionId"].intValue
+                if success == "success"{
+                    self.showSVProgressHUD(status:"收藏成功", type: HUD.success)
+                    self.collectImg.image=UIImage(named:"y_collect")
+                    self.goodEntity!.collectionStatu=true
+                }else{
+                    self.showSVProgressHUD(status:"收藏失败", type: HUD.error)
+                }
+            }) { (error) in
+                self.showSVProgressHUD(status:error!, type: HUD.error)
             }
-        }) { (error) in
-            self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
     //请求加入购物车
-    private func requestAddCar(count:Int,storeAndGoodsId:Int){
+    private func requestAddCar(count:Int,storeAndGoodsId:Int,goodsStuta:Int){
         self.showSVProgressHUD(status:"正在加入...",type: HUD.textClear)
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.addCar(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId,goodsCount:count,goodsStuta:3), successClosure: { (json) in
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.addCar(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId,goodsCount:count,goodsStuta:goodsStuta), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"成功加入购物车", type: HUD.success)
@@ -280,7 +292,7 @@ extension PromotionGoodDetailViewController:UICollectionViewDelegate,UICollectio
                 self.pushGoodDetailsVC(entity:entity)
             }
             cell.goodAddCarClosure={
-                self.requestAddCar(count:1, storeAndGoodsId:entity.storeAndGoodsId!)
+                self.requestAddCar(count:1, storeAndGoodsId:entity.storeAndGoodsId!, goodsStuta:1)
             }
         }
         return cell
@@ -303,7 +315,7 @@ extension PromotionGoodDetailViewController:UICollectionViewDelegate,UICollectio
 extension PromotionGoodDetailViewController{
     //加入购物车
     @objc private func addCar(){
-        requestAddCar(count:goodCount,storeAndGoodsId:storeAndGoodsId!)
+        requestAddCar(count:goodCount,storeAndGoodsId:storeAndGoodsId!, goodsStuta:3)
     }
     /// 跳转到搜索页面
     @objc private func pushSearchVC(){

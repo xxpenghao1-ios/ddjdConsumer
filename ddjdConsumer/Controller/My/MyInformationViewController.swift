@@ -53,10 +53,10 @@ extension MyInformationViewController:UITableViewDelegate,UITableViewDataSource{
         if cell == nil{
             cell=UITableViewCell(style: .value1, reuseIdentifier:"myInfoId")
         }
-        cell!.textLabel!.textColor=UIColor.color666()
-        cell!.textLabel!.font=UIFont.systemFont(ofSize:15)
+        cell!.textLabel!.textColor=UIColor.color333()
+        cell!.textLabel!.font=UIFont.systemFont(ofSize:14)
         cell!.accessoryType = .disclosureIndicator
-        cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:15)
+        cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:14)
         if indexPath.row == 0{
             cell!.textLabel!.text="昵称"
             cell!.detailTextLabel!.text=memberInfo!.nickName
@@ -64,11 +64,16 @@ extension MyInformationViewController:UITableViewDelegate,UITableViewDataSource{
             cell!.textLabel!.text="修改密码"
         }else if indexPath.row == 2{
             cell!.textLabel!.text="修改支付密码"
+        }else if indexPath.row == 3{
+            cell!.textLabel!.text="合伙人福利信息"
         }
         
         return cell!
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if memberInfo?.partnerStatu == 2{
+            return 4
+        }
         return 3
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -84,6 +89,9 @@ extension MyInformationViewController:UITableViewDelegate,UITableViewDataSource{
             self.navigationController?.pushViewController(vc, animated:true)
         }else if indexPath.row == 2{
             let vc=self.storyboardPushView(type:.my, storyboardId:"SetThePaymentPasswordVC") as! SetThePaymentPasswordViewController
+            self.navigationController?.pushViewController(vc, animated:true)
+        }else if indexPath.row == 3{
+            let vc=MemberPartnerDetailViewController()
             self.navigationController?.pushViewController(vc, animated:true)
         }
     }
