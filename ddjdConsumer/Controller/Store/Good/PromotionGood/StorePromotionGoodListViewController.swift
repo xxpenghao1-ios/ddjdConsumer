@@ -112,7 +112,7 @@ extension StorePromotionGoodListViewController{
             }else{
                 self.table.mj_footer.isHidden=true
             }
-            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow,view:self.view)
             self.reloadData()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)

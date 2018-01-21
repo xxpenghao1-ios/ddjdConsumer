@@ -44,6 +44,8 @@ class BaseViewController:UIViewController{
     ///商品数量提示
     private var lblGoodCountPrompt:UILabel!
     private var goodCountPromptView:UIView!
+    // 保存约束（引用约束）
+    var updateConstraint: Constraint?
     ///总数量
     var totalRow=0
     override func viewDidLoad() {
@@ -90,11 +92,8 @@ extension BaseViewController{
             make.height.equalTo(30)
             make.width.equalTo(100)
             make.left.equalTo((boundsWidth-100)/2)
-            print(self.view.frame.height)
-            print(boundsHeight)
-            make.bottom.equalTo(-(10+bottomSafetyDistanceHeight))
+            self.updateConstraint=make.bottom.equalTo(-(10+bottomSafetyDistanceHeight)).constraint
         }
-
 
         lblGoodCountPrompt=UILabel.buildLabel(textColor:UIColor.white, font:13, textAlignment: NSTextAlignment.center)
         goodCountPromptView.addSubview(lblGoodCountPrompt)
@@ -115,7 +114,11 @@ extension BaseViewController{
     ///   - currentCount: 当前数量
     ///   - totalCount: 总数量
     func showBaseVCGoodCountPromptView(currentCount:Int,totalCount:Int,view:UIView?=nil){
-        print(view?.frame.height)
+        if view?.frame.height == 690.0{
+            self.updateConstraint?.update(offset:-10)
+        }else{
+            self.updateConstraint?.update(offset:-(10+bottomSafetyDistanceHeight))
+        }
         lblGoodCountPrompt.text="\(currentCount)/\(totalCount)"
         goodCountPromptView.isHidden=false
         self.view.bringSubview(toFront:self.goodCountPromptView)

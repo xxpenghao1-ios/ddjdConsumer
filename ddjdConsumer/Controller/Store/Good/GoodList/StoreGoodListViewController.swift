@@ -553,7 +553,7 @@ extension StoreGoodListViewController{
         }
     }
     //查询商品
-    private func queryStoreAndGoodsList(pageNumber:Int,pageSize:Int,isRefresh:Bool){
+    private func queryStoreAndGoodsList(pageNumber:Int,pageSize:Int,isRefresh:Bool,index:IndexPath?=nil){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryStoreAndGoodsList(storeId:STOREID, goodsFlag:goodsFlag!, pageNumber: pageNumber, pageSize: pageSize,tCategoryId:tCategoryId), successClosure: { (json) in
             print(json)
             if isRefresh{
@@ -585,11 +585,16 @@ extension StoreGoodListViewController{
             entity?.indexGoodsId=goodEntity.indexGoodsId
             entity?.goodsStutas=goodEntity.goodsStutas
             if self.goodsFlag != entity?.goodsFlag{//如果上下架状态不匹配  表示已经在修改中更改 删除当前行数据
-                ///删除原有数据
-                self.arr.remove(at:index.row)
-                self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
-                self.totalRow=self.totalRow-1
-                self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+                if self.arr.count == self.totalRow{//如果服务器已经没有数据 直接删除本条数据
+                    ///删除原有数据
+                    self.arr.remove(at:index.row)
+                    self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
+                    self.totalRow=self.totalRow-1
+                    self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+                }else{
+//                    ///重新查询10条数据
+//                    self.queryStoreAndGoodsList(pageNumber:self.pageNumber, pageSize:10,isRefresh:false,index:index)
+                }
                 return
             }
             if entity != nil{
