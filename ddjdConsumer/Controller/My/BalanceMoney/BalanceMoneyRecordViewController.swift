@@ -202,7 +202,7 @@ extension BalanceMoneyRecordViewController{
     ///获取余额记录
     private func queryMemberBalanceRecord(pageNumber:Int,pageSize:Int,memberBalanceRecordType:Int?){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceRecord(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description, dicAny:["pageNumber":pageNumber,"pageSize":pageSize,"memberBalanceRecordType":memberBalanceRecordType ?? ""])), successClosure: { (json) in
-            print(json)
+
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:BalanceRecordEntity.init(), object:value.object)
                 self.arr.append(entity!)
@@ -221,7 +221,7 @@ extension BalanceMoneyRecordViewController{
     ///获取用户余额
     private func queryMemberBalanceMoney(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceMoney(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description)), successClosure: { (json) in
-            print(json)
+            
             let success=json["success"].stringValue
             if success == "success"{
                 self.lblBlanceMoney.text=json["memberBalanceMoney"].doubleValue.description

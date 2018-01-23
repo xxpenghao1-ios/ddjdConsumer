@@ -127,6 +127,7 @@
 		63CCF5661FD7E7A600D120A8 /* VerifyThatTheBarcodeExistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCF5651FD7E7A600D120A8 /* VerifyThatTheBarcodeExistsViewController.swift */; };
 		63D82E021FA9FB1500EFE576 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D82E011FA9FB1500EFE576 /* String.swift */; };
 		63D82E041FAA0C6B00EFE576 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D82E031FAA0C6B00EFE576 /* Array.swift */; };
+		63D9210A20171A4E000D8C8D /* MemberManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9210920171A4E000D8C8D /* MemberManagementViewController.swift */; };
 		63D9CACA1FB92DC700414BC7 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9CAC91FB92DC700414BC7 /* MyViewController.swift */; };
 		63DD43222010311D00D0E360 /* ToExamineGoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DD43202010311D00D0E360 /* ToExamineGoodTableViewCell.swift */; };
 		63DD43232010311D00D0E360 /* ToExamineGoodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63DD43212010311D00D0E360 /* ToExamineGoodTableViewCell.xib */; };
@@ -397,6 +398,7 @@
 		63CCF5651FD7E7A600D120A8 /* VerifyThatTheBarcodeExistsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyThatTheBarcodeExistsViewController.swift; sourceTree = "<group>"; };
 		63D82E011FA9FB1500EFE576 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		63D82E031FAA0C6B00EFE576 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		63D9210920171A4E000D8C8D /* MemberManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberManagementViewController.swift; sourceTree = "<group>"; };
 		63D9CAC91FB92DC700414BC7 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		63DD43202010311D00D0E360 /* ToExamineGoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToExamineGoodTableViewCell.swift; sourceTree = "<group>"; };
 		63DD43212010311D00D0E360 /* ToExamineGoodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToExamineGoodTableViewCell.xib; sourceTree = "<group>"; };
@@ -646,6 +648,7 @@
 		632655241FC19C0200559E66 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				63D9210820171A0E000D8C8D /* MemberManagement */,
 				63FA69972005E04D005B0CA4 /* Partner */,
 				6305941C1FF0CC5000FA303B /* AccountDetails */,
 				63FD22991FE0B21A001CF142 /* Order */,
@@ -1190,6 +1193,14 @@
 				63FACD171FDA25A6007678B8 /* ScanCodeGetBarcodeViewController.swift */,
 			);
 			path = GoodUpload;
+			sourceTree = "<group>";
+		};
+		63D9210820171A0E000D8C8D /* MemberManagement */ = {
+			isa = PBXGroup;
+			children = (
+				63D9210920171A4E000D8C8D /* MemberManagementViewController.swift */,
+			);
+			path = MemberManagement;
 			sourceTree = "<group>";
 		};
 		63D9CAC81FB92DB500414BC7 /* My */ = {
@@ -2001,6 +2012,7 @@
 				63CC3D401FC2CC4F00BDD724 /* StoreGoodNetWork.swift in Sources */,
 				63FBDB3A1FBA7C0600F0507F /* UITextView+Placeholder.m in Sources */,
 				63E497051FD93E8200DA0F05 /* GoodUploadEntity.swift in Sources */,
+				63D9210A20171A4E000D8C8D /* MemberManagementViewController.swift in Sources */,
 				63FACD261FDA261A007678B8 /* LBXScanView.swift in Sources */,
 				633366E21FB54F4B00809F98 /* LoginViewController.swift in Sources */,
 				63FFD9D51F61270B00B56B89 /* BaseNetWork.swift in Sources */,

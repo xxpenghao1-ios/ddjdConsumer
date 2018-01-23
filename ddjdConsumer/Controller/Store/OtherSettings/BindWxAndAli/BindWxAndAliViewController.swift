@@ -160,7 +160,7 @@ extension BindWxAndAliViewController{
     //查询店铺是否绑定微信或者支付宝 ，并返回相应的基本信息
     private func queryStoreBindWxOrAliStatu(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreBindWxOrAlipayApi.queryStoreBindWxOrAliStatu(storeId:STOREID), successClosure: { (json) in
-            print(json)
+
             self.wxBindStatu=json["wxBindStatu"].boolValue
             self.aliBindStatu=json["aliBindStatu"].boolValue
             if self.aliBindStatu{
@@ -205,7 +205,7 @@ extension BindWxAndAliViewController{
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreBindWxOrAlipayApi.query_ali_AuthParams(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description, dicAny: ["storeId":STOREID])),successClosure: { (json) in
             self.dismissHUD()
             let str=json["ali_auth_app_login"].stringValue
-            print(json)
+
             AliPayManager.shared.login(self, withInfo:str, loginSuccess: { (str) in
                 let resultArr=str.components(separatedBy:"&")
                 for(subResult) in resultArr{
@@ -227,7 +227,7 @@ extension BindWxAndAliViewController{
     private func updateStoreBindWx(code:String){
         self.showSVProgressHUD(status:"正在绑定...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreBindWxOrAlipayApi.updateStoreBindWx(storeId:STOREID, code: code), successClosure: { (json) in
-            print(json)
+            
             let success=json["success"].stringValue
             if success == "success"{
                 self.dismissHUD()

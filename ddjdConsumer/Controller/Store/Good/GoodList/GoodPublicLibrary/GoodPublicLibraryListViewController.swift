@@ -50,7 +50,10 @@ class GoodPublicLibraryListViewController:BaseViewController{
     private var pickerMaskView:UIView!
     ///分类选择view
     private var contentPickerView:UIView!
-    
+    ///搜索
+    private var searchController:UISearchController!
+    ///搜索商品名称
+    private var goodsName:String?
     ///返回上一页 刷新数据
     override func navigationShouldPopOnBackButton() -> Bool {
         NotificationCenter.default.removeObserver(self)
@@ -129,6 +132,24 @@ extension GoodPublicLibraryListViewController{
         btnAddStore.disable()
         btnAddStore.addTarget(self, action:#selector(allAddStore), for: UIControlEvents.touchUpInside)
         setUpPickerView()
+        setUpTableheaderView()
+    }
+    ///设置table头部
+    private func setUpTableheaderView(){
+        //配置搜索控制器
+        self.searchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            //设置searchBar的代理
+            controller.searchBar.delegate = self
+            controller.hidesNavigationBarDuringPresentation = false
+            controller.dimsBackgroundDuringPresentation = true
+            controller.searchBar.placeholder="按商品名称搜索"
+            controller.searchBar.sizeToFit()
+            controller.searchBar.searchBarStyle = .minimal
+            controller.searchBar.autocorrectionType = .no
+            self.table.tableHeaderView = controller.searchBar
+            return controller
+        })()
     }
     ///商品多选加入门店
     @objc private func allAddStore(){
@@ -143,7 +164,7 @@ extension GoodPublicLibraryListViewController{
     ///返回顶部
     @objc private func returnTop(){
         let at=IndexPath(item:0, section:0)
-        self.table.scrollToRow(at:at, at: UITableViewScrollPosition.bottom, animated:true)
+        self.table.scrollToRow(at:at, at: UITableViewScrollPosition.top, animated:true)
     }
     ///筛选分类
     @objc private func screening(sender:UIButton){
@@ -151,9 +172,13 @@ extension GoodPublicLibraryListViewController{
         if sender.tag == 1{
             btnScreening.isSelected=false
             tCategoryId=nil
+            goodsName=nil
+            searchController.searchBar.text=nil
             btnScreening.setTitle("筛选", for: UIControlState.normal)
             table.mj_header.beginRefreshing()
         }else{
+            goodsName=nil
+            searchController.searchBar.text=nil
             btnAll.isSelected=false
             showPickerView()
         }
@@ -165,6 +190,30 @@ extension GoodPublicLibraryListViewController{
         self.table.mj_footer.endRefreshing()
         self.table.mj_header.endRefreshing()
         statisticsSelectedGoodCount()
+    }
+}
+///搜索协议
+extension GoodPublicLibraryListViewController:UISearchBarDelegate{
+    //点击Cancel按钮
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text=nil
+    }
+    //点击搜索按钮
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar.text != nil || searchBar.text!.count == 0{
+            goodsName=searchBar.text!.check()
+            if goodsName!.count == 0{
+                self.showSVProgressHUD(status:"不能输入特殊字符", type: HUD.info)
+                return
+            }else{
+                tCategoryId=nil
+                btnScreening.setTitle("筛选", for: UIControlState.normal)
+                self.table.mj_header.beginRefreshing()
+            }
+        }
+        searchController.isActive=false
+        searchBar.resignFirstResponder()
+        searchBar.text=goodsName
     }
 }
 ///设置分类相关
@@ -411,8 +460,8 @@ extension GoodPublicLibraryListViewController:UITableViewDataSource,UITableViewD
 extension GoodPublicLibraryListViewController{
     //查询公共商品库
     private func queryStoreAndGoodsList(pageNumber:Int,pageSize:Int,isRefresh:Bool){
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryGoodsInfoList_store(storeId:STOREID, pageNumber: pageNumber, pageSize: pageSize,goodsName:nil,tCategoryId:tCategoryId), successClosure: { (json) in
-            print(json)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryGoodsInfoList_store(storeId:STOREID, pageNumber: pageNumber, pageSize: pageSize,goodsName:goodsName,tCategoryId:tCategoryId), successClosure: { (json) in
+            
             if isRefresh{
                 self.arr.removeAll()
             }

@@ -301,7 +301,7 @@ extension IndexViewController{
     private func getStoreInfo(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryStoreById(bindstoreId:BINDSTOREID), successClosure: { (json) in
             let success=json["success"].stringValue
-            print(json)
+            
             if success == "success"{
                 let entity=self.jsonMappingEntity(entity:StoreEntity.init(), object:json["store"].object)
                 if entity != nil{

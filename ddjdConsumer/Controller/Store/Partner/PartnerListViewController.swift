@@ -79,7 +79,7 @@ extension PartnerListViewController{
     private func queryStoreBindPartner(){
         self.arr.removeAll()
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryStoreBindPartner(storeId:STOREID), successClosure: { (json) in
-            print(json)
+            
             for(_,value) in json{
                 let entity=self.jsonMappingEntity(entity:PartnerEntity(), object: value.object)
                 self.arr.append(entity!)

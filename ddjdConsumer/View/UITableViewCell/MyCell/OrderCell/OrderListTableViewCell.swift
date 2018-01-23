@@ -12,6 +12,12 @@ import Kingfisher
 class OrderListTableViewCell: UITableViewCell {
     ///促销图片标识
     @IBOutlet weak var promotionImg: UIImageView!
+    //商品单位
+    @IBOutlet weak var lblUnit: UILabel!
+    ///促销提示信息
+    @IBOutlet weak var lblPromotionMsg: UILabel!
+    ///促销信息提示图片
+    @IBOutlet weak var promotionPromptImg: UIImageView!
     //商品图片
     @IBOutlet weak var goodImg: UIImageView!
     //商品价格
@@ -25,6 +31,7 @@ class OrderListTableViewCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
         promotionImg.isHidden=true
+        promotionPromptImg.isHidden=true
     }
     func updateCell(entity:GoodEntity){
         entity.goodsPic=entity.goodsPic ?? ""
@@ -33,10 +40,15 @@ class OrderListTableViewCell: UITableViewCell {
         entity.goodsMoney=entity.goodsMoney ?? 0.0
         lblGoodPrice.text="￥\(entity.goodsMoney!)"
         lblGoodCount.text="x\(entity.goodsCount!)"
+        lblUnit.text="/\(entity.goodsUnit ?? "")"
         if entity.goodsStutas == 3{
             promotionImg.isHidden=false
+            promotionPromptImg.isHidden=false
+            lblPromotionMsg.text=entity.promotionMsg
         }else{
             promotionImg.isHidden=true
+            promotionPromptImg.isHidden=true
+            lblPromotionMsg.text=nil
         }
 
     }

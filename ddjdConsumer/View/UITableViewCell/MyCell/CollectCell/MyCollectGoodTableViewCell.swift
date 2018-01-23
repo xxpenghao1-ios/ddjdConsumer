@@ -10,6 +10,8 @@ import UIKit
 import Kingfisher
 //我的收藏
 class MyCollectGoodTableViewCell: UITableViewCell {
+    ///商品单位
+    @IBOutlet weak var lblUnit: UILabel!
     //商品图片
     @IBOutlet weak var goodImg: UIImageView!
     //商品名称
@@ -35,6 +37,7 @@ class MyCollectGoodTableViewCell: UITableViewCell {
         lblGoodName.text=entity.goodsName
         entity.storeGoodsPrice=entity.storeGoodsPrice ?? 0.0
         lblGoodPrice.text="￥\(entity.storeGoodsPrice!)"
+        lblUnit.text="/\(entity.goodsUnit ?? "")"
         entity.goodsPic=entity.goodsPic ?? ""
         goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
     }

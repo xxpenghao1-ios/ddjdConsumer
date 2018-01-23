@@ -41,13 +41,9 @@ class DDJDCSign:NSObject{
         for key in sortedArray{
             signStr+=key+"="+"\(self.dic[key]!)"+"&"
         }
-        print("timestamp=\(timestamp)")
-        print("token=\(token)")
         signStr+="ddjdc_privateKey=\(ddjdc_privateKey)"
         self.dic["sign"]=signStr.MD5().uppercased()
 
-
-        print("sign=\(signStr)")
         if dicAny != nil{//如果数组有值 添加进字典
             for item in dicAny!{
                 self.dic[item.key]=dicAny![item.key]

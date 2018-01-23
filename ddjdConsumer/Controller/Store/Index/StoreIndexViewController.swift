@@ -19,19 +19,19 @@ class StoreIndexViewController:BaseViewController{
     ///店铺订单总提示数量
     private var sumOrderPromptCount:Int?
     private let imgArr=["store_index_good","store_index_order","store_index_xstj","store_index_tj","store_index_cx","store_index_zhmx","store_index_partner","store_index_lxkf","store_index_qt"]
-    private let strArr=["商品管理","订单管理","销售统计","热门推荐","限时促销","账户明细","合伙人管理","联系客服","其他设置"]
+    private let strArr=["商品管理","订单管理","销售统计","热门推荐","限时促销","账户明细","合伙人管理","会员管理","其他设置"]
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpNavColor()
         queryStoreTurnover()
         queryStoreBindWxOrAliStatu()
-        queryOrderAmount()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title="门店首页"
+        self.title=userDefaults.object(forKey:"storeName") as? String ?? "门店首页"
         setUpView()
+        queryOrderAmount()
     }
 }
 ///设置页面
@@ -46,6 +46,11 @@ extension StoreIndexViewController{
         flowLayout.minimumInteritemSpacing = 0;//每个相邻layout的左右
         collection.collectionViewLayout = flowLayout
         collection.register(UINib(nibName: "StoreIndexCollectionViewCell", bundle: nil), forCellWithReuseIdentifier:"StoreIndexCollectionViewCellId")
+        self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(image:UIImage.init(named:"contact_service"), style: UIBarButtonItemStyle.done, target:self, action:#selector(contactCustomer))
+    }
+    ///联系客服
+    @objc private func contactCustomer(){
+        UIApplication.shared.openURL(Foundation.URL(string :"tel://4008356878")!)
     }
 }
 /// collection协议
@@ -92,7 +97,8 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
                 let vc=self.storyboardPushView(type:.store, storyboardId:"PartnerListVC") as! PartnerListViewController
                 self.navigationController?.pushViewController(vc, animated:true)
             }else if indexPath.item == 7{//联系客服
-                UIApplication.shared.openURL(Foundation.URL(string :"tel://4008356878")!)
+                let vc=self.storyboardPushView(type:.store, storyboardId:"MemberManagementVC") as! MemberManagementViewController
+                self.navigationController?.pushViewController(vc, animated:true)
             }else if indexPath.item == 8{//其他设置
                 let vc=self.storyboardPushView(type:.store, storyboardId:"OtherSettingsVC") as! OtherSettingsViewController
                 self.navigationController?.pushViewController(vc, animated:true)
@@ -110,7 +116,7 @@ extension StoreIndexViewController{
     ///年月日的总金额和店铺总金额
     private func queryStoreTurnover(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryStoreTurnover(storeId:STOREID), successClosure: { (json) in
-            print(json)
+            
             self.lblSumPrice.text=json["sumPrice"].double?.description
             self.lblTodayPirce.text=json["today"].double?.description
             self.lblMonthPrice.text=json["month"].double?.description

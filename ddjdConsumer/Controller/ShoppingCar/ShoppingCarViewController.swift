@@ -190,7 +190,7 @@ extension ShoppingCarViewController{
         self.showSVProgressHUD(status:"正在加载中...", type:HUD.textClear)
         self.arr.removeAll()
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.getAllCarGood(memberId:MEMBERID,pageSize:pageSize,pageNumber:pageNumber), successClosure: { (json) in
-            print(json)
+            
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
                 self.arr.append(entity!)

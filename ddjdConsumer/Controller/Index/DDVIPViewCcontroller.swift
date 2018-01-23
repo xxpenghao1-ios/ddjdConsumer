@@ -10,6 +10,8 @@ import Foundation
 ///点单VIP
 class DDVIPViewCcontroller:BaseViewController {
     private let storeTel=userDefaults.object(forKey:"storeTel") as? String
+    private let vipStatu=userDefaults.object(forKey:"vipStatu") as? Int
+    private let partnerStatu=userDefaults.object(forKey:"partnerStatu") as? Int
     @IBOutlet weak var scrollView: UIScrollView!
     ///vip内容
     @IBOutlet weak var lblVIP: UILabel!
@@ -27,6 +29,12 @@ class DDVIPViewCcontroller:BaseViewController {
         self.title="点单VIP"
         btnVIP.layer.cornerRadius=5
         btnPartner.layer.cornerRadius=5
+        if vipStatu == 2{
+            btnVIP.disable()
+        }
+        if partnerStatu == 2{
+            btnVIP.disable()
+        }
         getVIP()
     }
     ///跳转到充值页面

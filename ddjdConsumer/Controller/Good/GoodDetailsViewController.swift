@@ -66,8 +66,6 @@ class GoodDetailsViewController:BaseViewController{
     private var goodEntity:GoodEntity?
     //商品数量默认等于1
     private var goodCount=1
-    ///保存收藏商品的id
-    private var goodsCollectionId:Int?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="商品详情"
@@ -193,6 +191,7 @@ extension GoodDetailsViewController{
         self.showSVProgressHUD(status:"正在加载...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.getGoodsDetail(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId!, bindstoreId:BINDSTOREID, goodsStuta:goodsStuta), successClosure: { (json) in
             let success=json["success"].stringValue
+
             if success == "success"{
                 for(_,value) in json["gg"]{//获取推荐商品信息
                     let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:value.object)
@@ -202,13 +201,14 @@ extension GoodDetailsViewController{
                 self.goodEntity=self.jsonMappingEntity(entity:GoodEntity.init(), object:json["goods"].object)
                 //是否已经收藏
                 self.goodEntity?.collectionStatu=json["collectionStatu"].bool
+                self.goodEntity?.goodsCollectionId=json["goodsCollectionId"].int
                 self.updateView()
                 self.dismissHUD()
             }else{
                 self.showSVProgressHUD(status:"商品已经不存在", type: HUD.error)
                 self.navigationController?.popViewController(animated:true)
             }
-            print(json)
+            
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
             self.navigationController?.popViewController(animated:true)
@@ -217,7 +217,7 @@ extension GoodDetailsViewController{
     //加入收藏
     @objc private func addCollect(){
         if self.goodEntity!.collectionStatu!{
-            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.removeCollection(memberId:MEMBERID, goodsCollectionId:self.goodsCollectionId ?? 0), successClosure: { (json) in
+            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.removeCollection(memberId:MEMBERID, goodsCollectionId:self.goodEntity?.goodsCollectionId ?? 0), successClosure: { (json) in
                 let success=json["success"].stringValue
                 if success == "success"{
                     self.showSVProgressHUD(status:"已取消收藏", type: HUD.success)
@@ -230,7 +230,7 @@ extension GoodDetailsViewController{
         }else{
             PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.addCollection(memberId:MEMBERID, storeAndGoodsId:storeAndGoodsId!), successClosure: { (json) in
                 let success=json["success"].stringValue
-                self.goodsCollectionId=json["goodsCollectionId"].intValue
+                self.goodEntity?.goodsCollectionId=json["goodsCollectionId"].intValue
                 if success == "success"{
                     self.showSVProgressHUD(status:"收藏成功", type: HUD.success)
                     self.collectImg.image=UIImage(named:"y_collect")

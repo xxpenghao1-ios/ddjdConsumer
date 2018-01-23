@@ -56,7 +56,6 @@ class MyViewController:BaseViewController{
         self.setUpNavColor()
         getMember()
         queryOrderNum()
-        queryMemberIsVip()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -317,7 +316,7 @@ extension MyViewController{
     ///查询待付和待收订单数量
     private func queryOrderNum(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryOrderNum(memberId:MEMBERID), successClosure: { (json) in
-            print(json)
+            
             self.forTheGoodsOrderCount=json["daishou"].intValue
             self.paymentPendingOrderCount=json["daifu"].intValue
             self.toSendTheGoodsOrderCount=json["daifa"].intValue
@@ -330,6 +329,12 @@ extension MyViewController{
     private func getMember(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.getMember(memberId:MEMBERID), successClosure: { (json) in
             self.memberEntity=self.jsonMappingEntity(entity:MemberEntity.init(), object:json.object)
+            if self.memberEntity!.vipStatu == 2{
+                self.vipImg.image=UIImage.init(named:"member_vip")
+            }
+            userDefaults.set(self.memberEntity!.vipStatu, forKey:"vipStatu")
+            userDefaults.set(self.memberEntity!.partnerStatu, forKey:"partnerStatu")
+            userDefaults.synchronize()
             self.table.reloadData()
         }) { (error) in
             
@@ -350,6 +355,10 @@ extension MyViewController{
                 userDefaults.removeObject(forKey:"memberId")
                 userDefaults.synchronize()
                 app.jumpToLoginVC()
+            }else if success == "isStore"{
+                self.showSVProgressHUD(status:"这个会员是店铺，不能解绑自己", type: HUD.error)
+            }else if success == "partnerNotUnBind"{
+                self.showSVProgressHUD(status:"会员是店铺的合伙人，不能解绑", type: HUD.error)
             }else{
                 self.showSVProgressHUD(status:"解绑失败", type: HUD.error)
             }
@@ -357,17 +366,5 @@ extension MyViewController{
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
-    ///查询会员是否vip
-    private func queryMemberIsVip(){
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberbindrechargepaymenttools(memberId:MEMBERID), successClosure: { (json) in
-            let payType=json["payType"].intValue
-            if payType != 0{
-                if self.vipImg != nil{
-                    self.vipImg.image=UIImage.init(named:"member_vip")
-                }
-            }
-        }) { (error) in
-            self.showSVProgressHUD(status:error!, type: HUD.error)
-        }
-    }
+
 }

@@ -37,11 +37,21 @@ class MyCollectGoodViewController:BaseViewController{
 ///网络请求
 extension MyCollectGoodViewController{
     ///请求收藏商品
-    private func getCollectGoodList(pageSize:Int,pageNumber:Int){
+    private func getCollectGoodList(pageSize:Int,pageNumber:Int,index:IndexPath?=nil){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.getAllCollection(memberId:MEMBERID, pageSize: pageSize, pageNumber: pageNumber), successClosure: { (json) in
+            var arrCount=[GoodEntity]()
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
-                self.arr.append(entity!)
+                if index != nil{
+                    arrCount.append(entity!)
+                }else{
+                    self.arr.append(entity!)
+                }
+            }
+            if index != nil{
+                if arrCount.count > 0{
+                    self.arr.append(arrCount.last!)
+                }
             }
             self.totalRow=json["totalRow"].intValue
             if self.arr.count < self.totalRow{
@@ -49,7 +59,6 @@ extension MyCollectGoodViewController{
             }else{
                 self.table.mj_footer.isHidden=true
             }
-            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
             self.setLoadingState(isLoading:false)
             self.table.reloadData()
         }) { (error) in
@@ -65,12 +74,15 @@ extension MyCollectGoodViewController{
             if success == "success"{
                 let cell=self.table.cellForRow(at:index)
                 if cell != nil{
-                    self.arr.remove(at:index.row)
-                    self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
-                    self.totalRow=self.totalRow-1
-                    self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
-                    if self.arr.count == 0{
-                        self.table.reloadData()
+                    self.showSVProgressHUD(status:"删除成功", type: HUD.error)
+                    if self.arr.count == self.totalRow{
+                        self.arr.remove(at:index.row)
+                        self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
+                        if self.arr.count == 0{
+                            self.table.reloadData()
+                        }
+                    }else{
+                        self.getCollectGoodList(pageSize:10, pageNumber:self.pageNumber, index:index)
                     }
                 }
             }else{

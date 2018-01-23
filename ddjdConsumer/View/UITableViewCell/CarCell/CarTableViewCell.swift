@@ -13,6 +13,14 @@ import Kingfisher
 class CarTableViewCell: UITableViewCell {
     ///促销图片
     @IBOutlet weak var promotionImg: UIImageView!
+    ///促销文字提示图片
+    @IBOutlet weak var promtionPromptImg: UIImageView!
+    ///促销提示信息
+    @IBOutlet weak var lblPromtionMsg: UILabel!
+    ///库存背景view
+    @IBOutlet weak var stockBacView: UIView!
+    ///库存
+    @IBOutlet weak var lblStock: UILabel!
     //购物车选中按钮
     @IBOutlet weak var btnChecked: UIButton!
     //商品图片
@@ -54,7 +62,10 @@ class CarTableViewCell: UITableViewCell {
         goodCountView.layer.borderWidth=1
         goodCountView.layer.borderColor=UIColor.borderColor().cgColor
 
+        stockBacView.backgroundColor=UIColor.init(red:0, green:0, blue:0,alpha: 0.5)
+
         promotionImg.isHidden=true
+        promtionPromptImg.isHidden=true
         self.selectionStyle = .none
         // Initialization code
     }
@@ -76,8 +87,14 @@ class CarTableViewCell: UITableViewCell {
         }
         if entity.goodsStutas == 3{
             promotionImg.isHidden=false
+            promtionPromptImg.isHidden=false
+            lblPromtionMsg.text=entity.promotionMsg
+            lblStock.text="库存:\(entity.promotionStock ?? 0)"
         }else{
             promotionImg.isHidden=true
+            promtionPromptImg.isHidden=true
+            lblPromtionMsg.text=nil
+            lblStock.text="库存:\(entity.stock ?? 0)"
         }
     }
     //增加商品数量

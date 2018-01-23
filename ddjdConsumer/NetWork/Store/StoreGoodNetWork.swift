@@ -17,7 +17,7 @@ public enum StoreGoodApi{
     //验证条码是否存在；如果存在，就返回公共商品库的商品信息，且同时返回这个店铺是否已经拥有了这个商品（根据exist判断），如果值为true表明已经拥有，且同时返回店铺的商品信息（querySag），如果值为false，表明没有拥有;如果不存在，直接返回 notExist
     case queryGoodsCodeIsExist(goodsCode:String,storeId:Int)
     //店铺查询自己的商品
-    case queryStoreAndGoodsList(storeId:Int,goodsFlag:Int,pageNumber:Int,pageSize:Int,tCategoryId:Int?)
+    case queryStoreAndGoodsList(storeId:Int,goodsFlag:Int,pageNumber:Int,pageSize:Int,tCategoryId:Int?,goodsName:String?)
     //店铺商品上下架
     case updateGoodsFlagByStoreAndGoodsId(storeAndGoodsId:Int,goodsFlag:Int)
     //修改店铺信息
@@ -63,7 +63,7 @@ extension StoreGoodApi:TargetType{
             return "/upload/start"
         case .queryGoodsCodeIsExist(_,_):
             return "/front/storeUploadGoods/queryGoodsCodeIsExist"
-        case .queryStoreAndGoodsList(_,_,_,_,_):
+        case .queryStoreAndGoodsList(_,_,_,_,_,_):
             return "/front/storeAndGoods/queryStoreAndGoodsList"
         case .updateGoodsFlagByStoreAndGoodsId(_,_):
             return "/front/storeAndGoods/updateGoodsFlagByStoreAndGoodsId"
@@ -101,7 +101,7 @@ extension StoreGoodApi:TargetType{
         switch self {
         case .storeUploadGoodsInfo(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),.start(_,_),.updateGoodsFlagByStoreAndGoodsId(_,_),.updateGoodsByStoreAndGoodsId(_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods_detail(_,_,_,_,_,_,_),.addGoodsInfoGoToStoreAndGoods(_,_),.addIndexGoods(_,_,_),.removeIndexGoods(_,_),.addPromotiongoods(_,_,_,_,_,_),.removePromotiongoods(_,_),.updateExamineGoodsByStoreId(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_):
             return .post
-        case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_),.queryStoreAndGoodsDetail(_,_),.queryGoodsInfoList_store(_,_,_,_,_),.queryGoodsInfoByGoodsId_store(_),.queryPromotiongoodsPaginateStore(_,_,_,_,_),.queryExamineGoodsByStoreId(_):
+        case .queryGoodsCodeIsExist(_,_),.queryStoreAndGoodsList(_,_,_,_,_,_),.queryStoreAndGoodsDetail(_,_),.queryGoodsInfoList_store(_,_,_,_,_),.queryGoodsInfoByGoodsId_store(_),.queryPromotiongoodsPaginateStore(_,_,_,_,_),.queryExamineGoodsByStoreId(_):
             return .get
         }
     }
@@ -119,9 +119,13 @@ extension StoreGoodApi:TargetType{
             return .uploadCompositeMultipart([imgData],urlParameters: urlParameters)
         case let .queryGoodsCodeIsExist(goodsCode, storeId):
             return .requestParameters(parameters:["goodsCode":goodsCode,"storeId":storeId], encoding:URLEncoding.default)
-        case let .queryStoreAndGoodsList(storeId, goodsFlag, pageNumber, pageSize,tCategoryId):
+        case let .queryStoreAndGoodsList(storeId, goodsFlag, pageNumber, pageSize,tCategoryId,goodsName):
             if tCategoryId == nil{
-                return .requestParameters(parameters:["storeId":storeId,"goodsFlag":goodsFlag,"pageNumber":pageNumber,"pageSize":pageSize],encoding:URLEncoding.default)
+                if goodsName == nil{
+                    return .requestParameters(parameters:["storeId":storeId,"goodsFlag":goodsFlag,"pageNumber":pageNumber,"pageSize":pageSize],encoding:URLEncoding.default)
+                }else{
+                    return .requestParameters(parameters:["storeId":storeId,"goodsFlag":goodsFlag,"pageNumber":pageNumber,"pageSize":pageSize,"goodsName":goodsName!],encoding:URLEncoding.default)
+                }
             }else{
                 return .requestParameters(parameters:["storeId":storeId,"goodsFlag":goodsFlag,"pageNumber":pageNumber,"pageSize":pageSize,"tCategoryId":tCategoryId!],encoding:URLEncoding.default)
             }
@@ -136,9 +140,13 @@ extension StoreGoodApi:TargetType{
             return .requestParameters(parameters: ["storeId":storeId,"goodsId":goodsId,"storeGoodsPrice":storeGoodsPrice,"goodsFlag":goodsFlag,"stock":stock,"offlineStock":offlineStock,"purchasePrice":purchasePrice], encoding:URLEncoding.default)
         case let .queryGoodsInfoList_store(storeId, pageNumber, pageSize, goodsName, tCategoryId):
             if tCategoryId == nil{
-                return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"goodsName":goodsName ?? ""], encoding: URLEncoding.default)
+                if goodsName == nil{
+                    return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize], encoding: URLEncoding.default)
+                }else{
+                    return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"goodsName":goodsName!], encoding: URLEncoding.default)
+                }
             }else{
-                return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"goodsName":goodsName ?? "","tCategoryId":tCategoryId!], encoding: URLEncoding.default)
+                return .requestParameters(parameters:["storeId":storeId,"pageNumber":pageNumber,"pageSize":pageSize,"tCategoryId":tCategoryId!], encoding: URLEncoding.default)
             }
         case let .queryGoodsInfoByGoodsId_store(goodsId):
             return .requestParameters(parameters:["goodsId":goodsId], encoding: URLEncoding.default)

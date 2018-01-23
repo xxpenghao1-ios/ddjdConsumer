@@ -112,7 +112,6 @@ extension WXApiManager {
     //获取凭证
     private func getAccessToken(code:String){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:PayApi.accessToken(code:code), successClosure: { (json) in
-            print("凭证=\(json)")
             let errcode=json["errcode"].int
             if errcode == nil{//如果没有错误
                 let access_token=json["access_token"].stringValue
@@ -129,7 +128,6 @@ extension WXApiManager {
     //获取用户信息
     private func  getUserInfo(access_token:String,openid:String){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: PayApi.getUserinfo(access_token:access_token, openid: openid), successClosure: { (json) in
-            print("用户信息=\(json)")
             let errcode=json["errcode"].int
             if errcode == nil{//如果没有错误
                 self.paySuccessClosure?()

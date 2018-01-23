@@ -118,7 +118,7 @@ extension BalanceMoneyTopUpViewController{
     private func memberRechargeBalance(rechargeMoney:Int,paymentInstrument:Int){
         self.showSVProgressHUD(status:"正在充值...",type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.memberRechargeBalance(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description, dicAny:["rechargeMoney":rechargeMoney,"paymentInstrument":paymentInstrument])), successClosure: { (json) in
-            print(json)
+
             let success=json["success"].stringValue
             if success == "success"{
                 if paymentInstrument == 1{//微信支付
@@ -177,7 +177,7 @@ extension BalanceMoneyTopUpViewController{
     ///查询会员绑定的充值支付工具
     private func queryMemberbindrechargepaymenttools(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberbindrechargepaymenttools(memberId:MEMBERID), successClosure: { (json) in
-            print(json)
+            
             self.payType=json["payType"].intValue
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)

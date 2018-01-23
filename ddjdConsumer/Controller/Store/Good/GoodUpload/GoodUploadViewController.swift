@@ -196,7 +196,7 @@ extension GoodUploadViewController{
 extension GoodUploadViewController{
     private func validateGoodInfo(formValues:[String : AnyObject]){
         let json=JSON(formValues)
-        print(json)
+        
         goodEntity!.goodsCode=json[Static.goodsCodeTag].string
         goodEntity!.goodsName=json[Static.goodsNameTag].string
         goodEntity!.goodsUnit=json[Static.goodsUnitTag].string

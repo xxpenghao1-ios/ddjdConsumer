@@ -121,7 +121,7 @@ extension PromotionListViewController{
         let dfmatter = DateFormatter()
         dfmatter.dateFormat="yyyy-MM-dd HH:mm:ss"
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.queryPromotiongoodsPaginate(memberId:MEMBERID, bindstoreId:BINDSTOREID, pageNumber: pageNumber,pageSize:pageSize,salesCountFlag:salesCountFlag, priceFlag:priceFlag), successClosure: { (json) in
-            print(json)
+            
             if isRefresh{
                 self.arr.removeAll()
             }
@@ -137,7 +137,6 @@ extension PromotionListViewController{
             }else{
                 self.table.mj_footer.isHidden=true
             }
-            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount: self.totalRow)
             self.reloadData()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
@@ -150,6 +149,8 @@ extension PromotionListViewController{
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"成功加入购物车", type: HUD.success)
+                //通知tab页面更新购物车角标
+                NotificationCenter.default.post(name:updateCarBadgeValue,object:nil)
             }else if success == "underStock"{
                 self.showSVProgressHUD(status:"库存不足", type: HUD.info)
             }else{

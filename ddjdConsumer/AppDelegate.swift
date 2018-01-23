@@ -301,7 +301,7 @@ extension AppDelegate{
     ///会员最后一次不同设备登录记录
     private func queryMemberLastLoginRecord(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.queryMemberLastLoginRecord(memberId:MEMBERID), successClosure: { (json) in
-            print(json)
+
             let memberLastLoginDeviceToken=json["memberLastLoginDeviceToken"].stringValue
             let memberLastLoginTime=json["memberLastLoginTime"].stringValue
             let memberLastLoginDeviceName=json["memberLastLoginDeviceName"].stringValue
@@ -313,6 +313,8 @@ extension AppDelegate{
                 let ok=UIAlertAction(title:"确定", style: UIAlertActionStyle.default, handler:{ Void
                     in//点击确定 清除推送别名
                     JPUSHService.deleteAlias(nil, seq:22)
+                    userDefaults.removeObject(forKey:"memberId")
+                    userDefaults.synchronize()
                     app.jumpToLoginVC()
                 })
                 alert.addAction(ok)

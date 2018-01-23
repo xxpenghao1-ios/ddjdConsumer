@@ -267,7 +267,7 @@ extension GoodListViewController{
     //搜索商品
     func searchGood(pageSize:Int,pageNumber:Int,goodsName:String){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: GoodApi.searchGood(memberId:MEMBERID, pageSize:pageSize, pageNumber: pageNumber, bindstoreId:BINDSTOREID, goodsName: goodsName, priceFlag:priceFlag, salesCountFlag:salesCountFlag), successClosure: { (json) in
-            print("商品=\(json)")
+            
             for(_,value) in json["goodsList"]["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:value.object)
                 self.goodArr.append(entity!)
@@ -278,7 +278,6 @@ extension GoodListViewController{
             }else{
                 self.goodCollection.mj_footer.isHidden=false
             }
-            self.showBaseVCGoodCountPromptView(currentCount:self.goodArr.count, totalCount: self.totalRow)
             self.endRefreshing()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
@@ -298,7 +297,6 @@ extension GoodListViewController{
             }else{
                 self.goodCollection.mj_footer.isHidden=false
             }
-            self.showBaseVCGoodCountPromptView(currentCount:self.goodArr.count, totalCount: self.totalRow)
             self.endRefreshing()
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
@@ -320,6 +318,8 @@ extension GoodListViewController{
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"成功加入购物车", type: HUD.success)
+                //通知tab页面更新购物车角标
+                NotificationCenter.default.post(name:updateCarBadgeValue,object:nil)
             }else if success == "underStock"{
                 self.showSVProgressHUD(status:"库存不足", type: HUD.info)
             }else{

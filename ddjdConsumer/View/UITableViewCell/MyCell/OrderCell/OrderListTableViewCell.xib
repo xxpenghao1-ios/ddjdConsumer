@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uxy-nh-0eh" id="9dL-EQ-xLP">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="good_defualt" translatesAutoresizingMaskIntoConstraints="NO" id="t1Y-D5-BgI">
@@ -62,19 +62,52 @@
                             <constraint firstAttribute="width" constant="40" id="ecJ-vA-9uq"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/单位" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKw-XF-kUr">
+                        <rect key="frame" x="157" y="84.5" width="42" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="L1m-Eg-fXU"/>
+                            <constraint firstAttribute="height" constant="20" id="mbD-rm-003"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="store_index_cx" translatesAutoresizingMaskIntoConstraints="NO" id="vcL-9b-Mev">
+                        <rect key="frame" x="115" y="63.5" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="TM4-G8-BXT"/>
+                            <constraint firstAttribute="width" constant="16" id="f0l-Br-gdm"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHL-Xf-wQU">
+                        <rect key="frame" x="131" y="63.5" width="174" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="fUa-BI-XBN"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="HKw-XF-kUr" firstAttribute="leading" secondItem="cel-yV-qwd" secondAttribute="trailing" id="1VD-x5-UOA"/>
                     <constraint firstAttribute="trailing" secondItem="Q5B-Ob-KTt" secondAttribute="trailing" constant="15" id="2sQ-Qa-fzw"/>
+                    <constraint firstItem="vcL-9b-Mev" firstAttribute="leading" secondItem="t1Y-D5-BgI" secondAttribute="trailing" constant="10" id="3db-i9-j3r"/>
+                    <constraint firstItem="HKw-XF-kUr" firstAttribute="bottom" secondItem="cel-yV-qwd" secondAttribute="bottom" id="5XA-Hr-T44"/>
                     <constraint firstAttribute="bottom" secondItem="cel-yV-qwd" secondAttribute="bottom" constant="15" id="6np-Tj-L5r"/>
                     <constraint firstItem="t1Y-D5-BgI" firstAttribute="leading" secondItem="9dL-EQ-xLP" secondAttribute="leading" constant="15" id="7wU-Hk-MA6"/>
                     <constraint firstItem="Q5B-Ob-KTt" firstAttribute="top" secondItem="9dL-EQ-xLP" secondAttribute="top" constant="15" id="AHV-yX-sPy"/>
                     <constraint firstAttribute="trailing" secondItem="pQ9-ct-lAs" secondAttribute="trailing" constant="15" id="JZc-NF-hYu"/>
                     <constraint firstItem="cel-yV-qwd" firstAttribute="leading" secondItem="t1Y-D5-BgI" secondAttribute="trailing" constant="10" id="Lpl-Vn-FnB"/>
                     <constraint firstAttribute="bottom" secondItem="pQ9-ct-lAs" secondAttribute="bottom" constant="15" id="ML0-f3-trk"/>
+                    <constraint firstItem="sHL-Xf-wQU" firstAttribute="top" secondItem="vcL-9b-Mev" secondAttribute="top" id="MOR-kX-0hb"/>
                     <constraint firstItem="LH2-60-YPC" firstAttribute="trailing" secondItem="t1Y-D5-BgI" secondAttribute="trailing" id="R8D-zL-xin"/>
                     <constraint firstItem="Q5B-Ob-KTt" firstAttribute="leading" secondItem="t1Y-D5-BgI" secondAttribute="trailing" constant="10" id="TZp-sg-sbL"/>
+                    <constraint firstItem="sHL-Xf-wQU" firstAttribute="leading" secondItem="vcL-9b-Mev" secondAttribute="trailing" id="YoY-It-t3d"/>
+                    <constraint firstAttribute="trailing" secondItem="sHL-Xf-wQU" secondAttribute="trailing" constant="15" id="iGb-Bc-gAN"/>
                     <constraint firstItem="t1Y-D5-BgI" firstAttribute="top" secondItem="9dL-EQ-xLP" secondAttribute="top" constant="15" id="mEJ-HV-vkD"/>
                     <constraint firstItem="LH2-60-YPC" firstAttribute="top" secondItem="t1Y-D5-BgI" secondAttribute="top" id="smh-0Q-MVz"/>
+                    <constraint firstItem="cel-yV-qwd" firstAttribute="top" secondItem="vcL-9b-Mev" secondAttribute="bottom" constant="5" id="z0x-87-xBS"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="dYx-F0-IBT"/>
@@ -83,7 +116,10 @@
                 <outlet property="lblGoodCount" destination="pQ9-ct-lAs" id="hHk-09-2vm"/>
                 <outlet property="lblGoodName" destination="Q5B-Ob-KTt" id="ssJ-nh-47F"/>
                 <outlet property="lblGoodPrice" destination="cel-yV-qwd" id="F0E-lN-6rV"/>
+                <outlet property="lblPromotionMsg" destination="sHL-Xf-wQU" id="6QH-5p-UWX"/>
+                <outlet property="lblUnit" destination="HKw-XF-kUr" id="Z6b-NL-MPV"/>
                 <outlet property="promotionImg" destination="LH2-60-YPC" id="w8o-Mw-XN5"/>
+                <outlet property="promotionPromptImg" destination="vcL-9b-Mev" id="tXk-WV-iOU"/>
             </connections>
             <point key="canvasLocation" x="-198" y="-126"/>
         </tableViewCell>
@@ -91,5 +127,6 @@
     <resources>
         <image name="good_defualt" width="285" height="285"/>
         <image name="sales_promotion" width="50" height="50"/>
+        <image name="store_index_cx" width="64" height="64"/>
     </resources>
 </document>

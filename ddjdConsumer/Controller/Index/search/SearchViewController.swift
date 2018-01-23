@@ -278,7 +278,7 @@ extension SearchViewController{
         self.showSVProgressHUD(status:"正在加载...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.queryStoreAndGoodsByGoodsCode(goodsCode:goodsCode,bindstoreId:BINDSTOREID), successClosure: { (json) in
             let success=json["success"].stringValue
-            print(json)
+            
             if success == "success"{
                 let storeAndGoodsId=json["storeAndGoodsId"].intValue
                 let vc=self.storyboardPushView(type: .index, storyboardId:"GoodDetailsVC") as! GoodDetailsViewController

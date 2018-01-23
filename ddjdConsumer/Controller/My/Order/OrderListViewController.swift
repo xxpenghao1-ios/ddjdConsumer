@@ -432,7 +432,7 @@ extension OrderListViewController{
     private func orderConfirmTheGoods(orderId:Int){
         self.showSVProgressHUD(status:"正在加载中...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: CarApi.updateMemberOrderInfoStatusThe4(orderId:orderId, memberId:MEMBERID), successClosure: { (json) in
-            print(json)
+            
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"收货成功", type: HUD.success)

@@ -32,7 +32,7 @@ class PurchaseHistoryViewController:BaseViewController{
 extension PurchaseHistoryViewController{
     private func getGoodsOfBuyed(pageSize:Int,pageNumber:Int){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:GoodApi.getGoodsOfBuyed(memberId:MEMBERID, pageSize: pageSize, pageNumber:pageNumber), successClosure: { (json) in
-            print(json)
+            
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
                 self.arr.append(entity!)
@@ -43,7 +43,6 @@ extension PurchaseHistoryViewController{
             }else{
                 self.table.mj_footer.isHidden=true
             }
-            self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount: self.totalRow)
             self.setLoadingState(isLoading:false)
             self.table.reloadData()
         }) { (error) in

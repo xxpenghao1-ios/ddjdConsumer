@@ -93,16 +93,26 @@ extension HotGoodListViewController:UITableViewDelegate,UITableViewDataSource{
 extension HotGoodListViewController{
     
     /// 查询店铺首页推荐商品
-    private func getIndexGoodList(pageSize:Int,pageNumber:Int,isRefresh:Bool){
+    private func getIndexGoodList(pageSize:Int,pageNumber:Int,isRefresh:Bool,index:IndexPath?=nil){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:IndexApi.indexGoods(bindstoreId:STOREID, pageSize: pageSize, pageNumber: pageNumber), successClosure: { (json) in
             if isRefresh{
                 self.arr.removeAll()
             }
+            var arrCount=[GoodEntity]()
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
                 entity?.goodsFlag=nil
                 entity?.indexGoodsId=1
-                self.arr.append(entity!)
+                if index != nil{
+                    arrCount.append(entity!)
+                }else{
+                    self.arr.append(entity!)
+                }
+            }
+            if index != nil{
+                if arrCount.count > 0{
+                    self.arr.append(arrCount.last!)
+                }
             }
             self.totalRow=json["totalRow"].intValue
             if self.arr.count < self.totalRow{
@@ -123,12 +133,16 @@ extension HotGoodListViewController{
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"移除成功", type: HUD.success)
-                self.arr.remove(at:row)
-                self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
-                self.totalRow=self.totalRow-1
-                self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
-                if self.arr.count == 0{
-                    self.table.reloadData()
+                if self.arr.count == self.totalRow{
+                    self.arr.remove(at:row)
+                    self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
+                    self.totalRow=self.totalRow-1
+                    self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+                    if self.arr.count == 0{
+                        self.table.reloadData()
+                    }
+                }else{
+                    self.getIndexGoodList(pageSize:10, pageNumber:self.pageNumber, isRefresh:false,index:IndexPath.init(row:row, section:0))
                 }
             }else if success == "notExist" {
                 self.showSVProgressHUD(status:"不存在，不是首页热门推荐商品", type: HUD.info)

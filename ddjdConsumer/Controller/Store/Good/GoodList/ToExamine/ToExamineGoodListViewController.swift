@@ -91,7 +91,7 @@ extension ToExamineGoodListViewController{
 extension ToExamineGoodListViewController{
     private func queryExamineGoodsByStoreId(pageNumber:Int,pageSize:Int,isRefresh:Bool){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryExamineGoodsByStoreId(parameters:["examineGoodsFlag":examineGoodsFlag ?? 0,"storeId":STOREID,"pageNumber":pageNumber,"pageSize":pageSize]), successClosure: { (json) in
-            print(json)
+            
             if isRefresh{
                 self.arr.removeAll()
             }

@@ -344,10 +344,10 @@
                                             <rect key="frame" x="125" y="0.0" width="125.33333333333331" height="130"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3a-Fy-5e2">
-                                                    <rect key="frame" x="48" y="42.666666666666664" width="30" height="20"/>
+                                                    <rect key="frame" x="0.0" y="42.666666666666664" width="125.33333333333333" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="HzX-Xr-ZTp"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="XlI-pW-aA7"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="XlI-pW-aA7"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -366,9 +366,10 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="r3a-Fy-5e2" firstAttribute="centerX" secondItem="wmb-h9-E99" secondAttribute="centerX" id="AUI-2L-L1J"/>
                                                 <constraint firstItem="CiE-Qn-zil" firstAttribute="centerX" secondItem="wmb-h9-E99" secondAttribute="centerX" id="BDI-44-I5f"/>
+                                                <constraint firstItem="r3a-Fy-5e2" firstAttribute="leading" secondItem="wmb-h9-E99" secondAttribute="leading" id="JnZ-cV-P11"/>
                                                 <constraint firstItem="CiE-Qn-zil" firstAttribute="top" secondItem="r3a-Fy-5e2" secondAttribute="bottom" constant="5" id="RAE-3T-CQI"/>
+                                                <constraint firstAttribute="trailing" secondItem="r3a-Fy-5e2" secondAttribute="trailing" id="Xgz-rd-TJb"/>
                                                 <constraint firstItem="r3a-Fy-5e2" firstAttribute="top" secondItem="wmb-h9-E99" secondAttribute="top" constant="42.5" id="kXo-TE-blu"/>
                                             </constraints>
                                         </view>

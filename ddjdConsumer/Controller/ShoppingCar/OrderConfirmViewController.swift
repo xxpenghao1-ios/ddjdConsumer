@@ -241,7 +241,7 @@ extension OrderConfirmViewController{
         ///加上配送费
         let moblieSumPrice=PriceComputationsUtil.decimalNumberWithString(multiplierValue: sumPrice,multiplicandValue:"\(deliveryFee)", type: ComputationsType.addition, position:2)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.saveOrder(memberId:MEMBERID, shipaddressId:addressEntity!.shippAddressId!, platform:2, payType:payType, moblieSumPrice:moblieSumPrice,payMessage:payMessage), successClosure: { (json) in
-            print(json)
+
             let success=json["success"].stringValue
             if success == "success"{
                 self.dismissHUD {
@@ -321,7 +321,7 @@ extension OrderConfirmViewController{
     private func queryMemberBalanceMoney(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceMoney(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description)), successClosure: { (json) in
             let success=json["success"].string
-            print(json)
+            
             if success == "success"{
                 self.memberBalanceMoney=json["memberBalanceMoney"].double
                 self.memberDiscount=json["memberDiscount"].int

@@ -208,7 +208,7 @@ extension UpdateToExamineGoodDetailsViewController{
 extension UpdateToExamineGoodDetailsViewController{
     private func validateGoodInfo(formValues:[String : AnyObject]){
         let json=JSON(formValues)
-        print(json)
+
         goodEntity!.goodsCode=json[Static.goodsCodeTag].string
         goodEntity!.goodsName=json[Static.goodsNameTag].string
         goodEntity!.goodsUnit=json[Static.goodsUnitTag].string
@@ -268,7 +268,7 @@ extension UpdateToExamineGoodDetailsViewController{
     }
     private func uploadGood(goodsPic:String){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.updateExamineGoodsByStoreId(examineGoodsId:goodEntity!.examineGoodsId ?? 0,goodsCode:goodEntity!.goodsCode!, storeId:STOREID, goodsName: goodEntity!.goodsName!, goodsUnit:goodEntity!.goodsUnit!, goodsLift: goodEntity!.goodsLift!,goodUcode:goodEntity!.goodUcode!, fCategoryId:goodEntity!.fCategoryId ?? 0, sCategoryId: goodEntity!.sCategoryId ?? 0, tCategoryId:goodEntity!.tCategoryId ?? 0, goodsPic:goodsPic,goodsPrice:"\(goodEntity!.goodsPrice!)", goodsFlag:goodEntity!.goodsFlag!+1,stock:goodEntity!.stock ?? 0,remark:nil, weight:nil,brand:goodEntity!.brand,goodsMixed:goodEntity!.goodsMixed,purchasePrice:goodEntity!.purchasePrice!.description,offlineStock:goodEntity!.offlineStock ?? 0), successClosure: { (json) in
-            print(json)
+            
             let success = json["success"].stringValue
             if success == "success"{
                 SVProgressHUD.dismiss()

@@ -66,7 +66,7 @@ class LBXPermissions: NSObject {
 
                 UIApplication.shared.open(appSetting!, options: [:], completionHandler:{
                     (success) in
-                    print(success)
+                    
                 })
 
             }

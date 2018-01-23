@@ -83,6 +83,8 @@ class SpecialPriceTableViewCell: UITableViewCell {
             if entity.promotionStock == nil || entity.promotionStock! <= 0{//如果促销库存为0
                 showPromptImg(named: "to_sell_out")
                 addCarImg.isHidden=true
+            }else{
+                self.contentView.isUserInteractionEnabled=true
             }
         }
         //赋值

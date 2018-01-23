@@ -65,7 +65,7 @@ extension AddPartnerViewController{
 
     private func addPartnerByStore(){
         let json=self.form.formValues()
-        print(json)
+        
         let memberAcc=json[Static.memberAccTag] as? String
         let memberTel=json[Static.memberTelTag] as? String
         let BFB=json[Static.BFBTag] as? String

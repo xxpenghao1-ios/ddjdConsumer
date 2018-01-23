@@ -318,7 +318,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aiJ-eZ-Cfh">
                                         <rect key="frame" x="203" y="14.666666666666629" width="42" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="42" id="b9o-CU-psU"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="b9o-CU-psU"/>
                                             <constraint firstAttribute="height" constant="20" id="nDJ-U3-sHS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>

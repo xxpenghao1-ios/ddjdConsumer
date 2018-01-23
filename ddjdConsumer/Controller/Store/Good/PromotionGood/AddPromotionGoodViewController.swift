@@ -72,7 +72,7 @@ extension AddPromotionGoodViewController{
 extension AddPromotionGoodViewController{
     private func addPromotiongoods(){
         let json=self.form.formValues()
-        print(json)
+
         let promotionStartTime=json[Static.promotionStartTimeTag] as? Date
         let promotionEndTime=json[Static.promotionEndTimeTag] as? Date
         let promotionMsg=json[Static.promotionMsgTag] as? String
@@ -102,11 +102,9 @@ extension AddPromotionGoodViewController{
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        print(dateFormatter.string(from:promotionStartTime!))
         SVProgressHUD.show(withStatus:"正在提交...")
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.addPromotiongoods(storeAndGoodsId:storeAndGoodsId ?? 0, storeId:STOREID, promotionStartTime:dateFormatter.string(from:promotionStartTime!), promotionEndTime:dateFormatter.string(from:promotionEndTime!), promotionMsg:promotionMsg!, promotionStock:Int(promotionStock!)!), successClosure: { (json) in
-            print(json)
             let success=json["success"].stringValue
             if success == "success"{
                 SVProgressHUD.showSuccess(withStatus:"成功加入促销")

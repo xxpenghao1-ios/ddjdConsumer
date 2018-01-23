@@ -26,6 +26,8 @@ public enum StoreInfoApi{
     case addPartnerByStore(storeId:Int,memberAcc:String,memberTel:String,BFB:Int,nickName:String,storeAndPartneAmountOfPayment:String)
     ///查询店铺待发和代收订单的数量
     case queryOrderAmount(storeId:Int)
+    ///查询店铺粉丝总数
+    case queryBindStoreMemberCount(parameters:[String:Any])
 }
 extension StoreInfoApi:TargetType{
     public var baseURL: URL {
@@ -50,12 +52,14 @@ extension StoreInfoApi:TargetType{
             return "/front/partner/addPartnerByStore"
         case .queryOrderAmount(_):
             return "/front/storeAndOrderInfo/queryOrderAmount"
+        case .queryBindStoreMemberCount(_):
+            return "/front/storeAndMember/queryBindStoreMemberCount"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .queryStoreById(_),.queryStoreForLocation(_,_,_),.queryStoreTurnover(_),.queryStoreTransferaccountsrecord(_,_,_,_),.queryStoreBindPartner(_),.queryOrderAmount(_):
+        case .queryStoreById(_),.queryStoreForLocation(_,_,_),.queryStoreTurnover(_),.queryStoreTransferaccountsrecord(_,_,_,_),.queryStoreBindPartner(_),.queryOrderAmount(_),.queryBindStoreMemberCount(_):
             return .get
         case .updateStoreInfo(_,_,_,_,_,_,_,_),.addPartnerByStore(_,_,_,_,_,_):
             return .post
@@ -107,6 +111,8 @@ extension StoreInfoApi:TargetType{
             return .requestParameters(parameters:["storeId":storeId,"memberAcc":memberAcc,"memberTel":memberTel,"BFB":BFB,"nickName":nickName,"storeAndPartneAmountOfPayment":storeAndPartneAmountOfPayment], encoding: URLEncoding.default)
         case let .queryOrderAmount(storeId):
             return .requestParameters(parameters:["storeId":storeId], encoding: URLEncoding.default)
+        case let .queryBindStoreMemberCount(parameters):
+            return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         }
     }
     

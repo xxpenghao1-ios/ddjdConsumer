@@ -26,7 +26,7 @@ class BindStoreListViewController:BaseViewController{
 extension BindStoreListViewController{
     private func queryStoreForLocation(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryStoreForLocation(distributionScope:0, lat:self.pt!.latitude, lon:self.pt!.longitude), successClosure: { (json) in
-            print(json)
+
             for(_,value) in json{
                 let entity=self.jsonMappingEntity(entity:StoreEntity.init(), object:value.object)
                 self.arr.append(entity!)
@@ -57,7 +57,7 @@ extension BindStoreListViewController{
     //保存收货地址
     private func saveAddress(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: MyApi.saveShippAddress(lat:addressEntity!.lat!, lon:addressEntity!.lon!, address:addressEntity!.address!, detailAddress:addressEntity!.detailAddress!,shippName:addressEntity!.shippName!, phoneNumber:addressEntity!.phoneNumber!, memberId: MEMBERID, shippAddressId:addressEntity!.shippAddressId, defaultFlag:addressEntity!.defaultFlag!), successClosure: { (json) in
-            print(json)
+            
         }) { (error) in
             
         }

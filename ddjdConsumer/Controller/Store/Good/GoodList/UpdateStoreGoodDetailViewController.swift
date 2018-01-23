@@ -160,7 +160,7 @@ extension UpdateStoreGoodDetailViewController{
         SVProgressHUD.show(withStatus:"正在加载...")
         SVProgressHUD.setDefaultMaskType(.clear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryStoreAndGoodsDetail(storeAndGoodsId:goodEntity!.storeAndGoodsId ?? 0, storeId:STOREID), successClosure: { (json) in
-            print(json)
+
             self.goodEntity=Mapper<GoodEntity>().map(JSONObject:json.object)
             SVProgressHUD.dismiss()
             self.setFormEntity()
@@ -206,7 +206,7 @@ extension UpdateStoreGoodDetailViewController{
         SVProgressHUD.show(withStatus:"正在加载...")
         SVProgressHUD.setDefaultMaskType(.clear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryGoodsInfoByGoodsId_store(goodsId:goodEntity!.goodsId ?? 0), successClosure: { (json) in
-            print(json)
+            
             self.goodEntity=Mapper<GoodEntity>().map(JSONObject:json.object)
             SVProgressHUD.dismiss()
             self.setFormEntity()

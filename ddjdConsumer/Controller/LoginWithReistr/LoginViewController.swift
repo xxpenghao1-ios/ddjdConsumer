@@ -118,7 +118,7 @@ extension LoginViewController{
         self.showSVProgressHUD(status:"登录中...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.memberLogin(account:memberName!, password: password!, deviceToken:deviceToken,deviceName:UIDevice().name), successClosure: { (json) in
             let success=json["success"].stringValue
-            print(json)
+            
             if success == "success"{
                 let memberEntity=self.jsonMappingEntity(entity:MemberEntity(), object:json["member"].object)
                 userDefaults.set(memberEntity!.memberId, forKey:"memberId")
@@ -127,10 +127,12 @@ extension LoginViewController{
                 userDefaults.set(memberEntity!.bindstoreId, forKey:"bindstoreId")
                 userDefaults.set(memberEntity!.token,forKey:"token")
                 userDefaults.set(memberEntity!.payPw, forKey:"payPw")
+                userDefaults.set(memberEntity!.vipStatu, forKey:"vipStatu")
                 userDefaults.synchronize()
                 self.dismissHUD {
                     //登录成功设置应用程序别名
                     JPUSHService.setAlias("m_\(memberEntity!.memberId ?? -1)", completion:nil,seq:22)
+                    JPUSHService.setTags(["10"], completion:nil,seq: 11)
                     //登录成功设置应用程序别名
                     if memberEntity!.bindstoreId != nil{//如果用户绑定了店铺
                         //跳转到主页面

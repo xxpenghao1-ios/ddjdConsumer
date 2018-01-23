@@ -128,16 +128,15 @@ extension BalanceMoneyWithdrawalViewController{
         if memberSumWithdrawalsMoney == nil || memberSumWithdrawalsMoney! < 2000{//如果累计提现金额小于2000
             ///免费可提余额
             let  freeCanCarryMoney=2000-(memberSumWithdrawalsMoney ?? 0)
-            print("免费可提余额\(freeCanCarryMoney)")
             if memberBalanceMoney > freeCanCarryMoney{//如果可提金额大于 免费额度
                 ///需要计算手续费的余额
                 let needToBePoundageMoney=(memberBalanceMoney-freeCanCarryMoney).description
-                print("需要计算手续费的余额\(needToBePoundageMoney)")
+
                 ///手续费扣除
                 let poundageMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue: needToBePoundageMoney, multiplicandValue: poundage, type: ComputationsType.multiplication, position: 2)
                 ///如果手续费小于0.1 收0.1
                 poundageMoneyStr=Double(poundageMoney) ?? 0.0 < 0.1 ? "0.1":poundageMoney
-                print("手续费扣除后的余额\(poundageMoneyStr ?? "0")")
+
                 ///计算当前可提余额 (可提余额-手续费扣除后)
                 returnMemberBalanceMoney=PriceComputationsUtil.decimalNumberWithString(multiplierValue:memberBalanceMoney.description, multiplicandValue: poundageMoneyStr ?? "0", type: ComputationsType.subtraction, position:2)
                 if isAllWithdrawal == 1{//如果是全部提现
@@ -233,7 +232,7 @@ extension BalanceMoneyWithdrawalViewController{
     ///查询会员提现信息
     private func queryMemberWithdrawalsBalance(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberWithdrawalsBalance(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description)), successClosure: { (json) in
-            print(json)
+
             let success=json["success"].stringValue
             if success == "success"{
                 self.maxWithdrawalsMoney=json["maxWithdrawalsMoney"].doubleValue
@@ -320,7 +319,7 @@ extension BalanceMoneyWithdrawalViewController{
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreBindWxOrAlipayApi.query_ali_AuthParams(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description, dicAny: ["storeId":STOREID])),successClosure: { (json) in
             self.dismissHUD()
             let str=json["ali_auth_app_login"].stringValue
-            print(json)
+
             AliPayManager.shared.login(self, withInfo:str, loginSuccess: { (str) in
                 let resultArr=str.components(separatedBy:"&")
                 for(subResult) in resultArr{
@@ -342,7 +341,7 @@ extension BalanceMoneyWithdrawalViewController{
     private func memberStartWithdrawalsBalance(){
         self.showSVProgressHUD(status:"正在提现...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.memberStartWithdrawalsBalance(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description, dicAny:["withdrawalsMoney":self.withdrawalsMoney ?? "0.0","serviceCharge":self.poundageMoneyStr ?? "0.0"])), successClosure: { (json) in
-            print(json)
+            
             let success=json["success"].stringValue
             self.dismissHUD()
             switch success{

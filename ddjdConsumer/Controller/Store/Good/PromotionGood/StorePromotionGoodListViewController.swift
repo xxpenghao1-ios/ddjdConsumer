@@ -92,19 +92,29 @@ extension StorePromotionGoodListViewController:UITableViewDelegate,UITableViewDa
 }
 // MARK: - 网络请求
 extension StorePromotionGoodListViewController{
-    private func  queryPromotiongoodsPaginate(pageNumber:Int,pageSize:Int,isRefresh:Bool){
+    private func  queryPromotiongoodsPaginate(pageNumber:Int,pageSize:Int,isRefresh:Bool,index:IndexPath?=nil){
         let dfmatter = DateFormatter()
         dfmatter.dateFormat="yyyy-MM-dd HH:mm:ss"
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryPromotiongoodsPaginateStore(storeId:STOREID, pageNumber: pageNumber, pageSize: pageSize, salesCountFlag:nil, priceFlag:nil), successClosure: { (json) in
-            print(json)
+    
             if isRefresh{
                 self.arr.removeAll()
             }
+            var arrCount=[GoodEntity]()
             for(_,value) in json["goodsList"]["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
                 let date=dfmatter.date(from:entity!.promotionEndTime ?? "")
                 entity?.promotionEndTimeSeconds=date==nil ? 0 : Int(date!.timeIntervalSince1970) - Int(Date().timeIntervalSince1970)
-                self.arr.append(entity!)
+                if index != nil{
+                    arrCount.append(entity!)
+                }else{
+                    self.arr.append(entity!)
+                }
+            }
+            if index != nil{
+                if arrCount.count > 0{
+                    self.arr.append(arrCount.last!)
+                }
             }
             self.totalRow=json["goodsList"]["totalRow"].intValue
             if self.arr.count < self.totalRow{
@@ -125,13 +135,17 @@ extension StorePromotionGoodListViewController{
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.removePromotiongoods(storeAndGoodsId:storeAndGoodsId, storeId:STOREID), successClosure: { (json) in
             let success=json["success"].stringValue
             if success == "success"{
-                self.arr.remove(at:index.row)
-                self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
                 self.showSVProgressHUD(status:"移除成功", type: HUD.success)
-                self.totalRow=self.totalRow-1
-                self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
-                if self.arr.count == 0{//如果数据为空
-                    self.table.reloadData()
+                if self.arr.count == self.totalRow{
+                    self.arr.remove(at:index.row)
+                    self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
+                    self.totalRow=self.totalRow-1
+                    self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+                    if self.arr.count == 0{
+                        self.table.reloadData()
+                    }
+                }else{
+                    self.queryPromotiongoodsPaginate(pageNumber:self.pageNumber, pageSize:10,isRefresh:false,index:index)
                 }
             }else if success == "notExist"{
                 self.showSVProgressHUD(status:"商品不存在", type: HUD.error)

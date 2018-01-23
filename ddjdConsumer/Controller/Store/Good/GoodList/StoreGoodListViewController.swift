@@ -56,6 +56,10 @@ class StoreGoodListViewController:BaseViewController{
             return goodsFlag==1 ? 200:100
         }
     }
+    ///商品名称
+    private var goodsName:String?
+    ///搜索控制器
+    private var searchController:UISearchController!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor=UIColor.viewBackgroundColor()
@@ -94,6 +98,7 @@ class StoreGoodListViewController:BaseViewController{
         if userInfo != nil{
             let index=userInfo!["index"] as? IndexPath
             let goodsFlag=userInfo!["goodsFlag"] as? Int
+
             if index != nil{
                 if self.goodsFlag == goodsFlag{//当前页面状态等于当前刷新状态
                     self.queryStoreAndGoodsDetail(index:index!)
@@ -144,13 +149,30 @@ extension StoreGoodListViewController{
         returnImg.isUserInteractionEnabled=true
         returnImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(returnTop)))
         returnImg.isHidden=true
-        
+        setUpTableheaderView()
         setUpPickerView()
+    }
+    ///设置table头部
+    private func setUpTableheaderView(){
+        //配置搜索控制器
+        self.searchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            //设置searchBar的代理
+            controller.searchBar.delegate = self
+            controller.hidesNavigationBarDuringPresentation = false
+            controller.dimsBackgroundDuringPresentation = true
+            controller.searchBar.placeholder="按商品名称搜索"
+            controller.searchBar.sizeToFit()
+            controller.searchBar.searchBarStyle = .minimal
+            controller.searchBar.autocorrectionType = .no
+            self.table.tableHeaderView = controller.searchBar
+            return controller
+        })()
     }
     ///返回顶部
     @objc private func returnTop(){
         let at=IndexPath(item:0, section:0)
-        self.table.scrollToRow(at:at, at: UITableViewScrollPosition.bottom, animated:true)
+        self.table.scrollToRow(at:at, at: UITableViewScrollPosition.top, animated:true)
     }
     ///筛选分类
     @objc private func screening(sender:UIButton){
@@ -158,9 +180,13 @@ extension StoreGoodListViewController{
         if sender.tag == 1{
             btnScreening.isSelected=false
             tCategoryId=nil
+            self.goodsName=nil
+            searchController.searchBar.text=nil
             btnScreening.setTitle("筛选", for: UIControlState.normal)
             table.mj_header.beginRefreshing()
         }else{
+            self.goodsName=nil
+            searchController.searchBar.text=nil
             btnAll.isSelected=false
             showPickerView()
         }
@@ -171,6 +197,31 @@ extension StoreGoodListViewController{
         self.table.reloadData()
         self.table.mj_footer.endRefreshing()
         self.table.mj_header.endRefreshing()
+
+    }
+}
+///搜索协议
+extension StoreGoodListViewController:UISearchBarDelegate{
+    //点击Cancel按钮
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text=nil
+    }
+    //点击搜索按钮
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar.text != nil || searchBar.text!.count == 0{
+            goodsName=searchBar.text!.check()
+            if goodsName!.count == 0{
+                self.showSVProgressHUD(status:"不能输入特殊字符", type: HUD.info)
+                return
+            }else{
+                tCategoryId=nil
+                btnScreening.setTitle("筛选", for: UIControlState.normal)
+                self.table.mj_header.beginRefreshing()
+            }
+        }
+        searchController.isActive=false
+        searchBar.resignFirstResponder()
+        searchBar.text=goodsName
     }
 }
 ///设置商品操作 (上下架,查看商品信息,加入促销,加入首页推荐)
@@ -291,6 +342,7 @@ extension StoreGoodListViewController{
     }
     ///确认选择
     @objc private func confirmSelected(){
+        self.goodsName=nil
         if categoryArr3.count > 0{//如果有数据刷新数据
             tCategoryId=categoryArr3[index3].goodsCategoryId
             goodsCategoryName=categoryArr3[index3].goodsCategoryName
@@ -554,15 +606,26 @@ extension StoreGoodListViewController{
     }
     //查询商品
     private func queryStoreAndGoodsList(pageNumber:Int,pageSize:Int,isRefresh:Bool,index:IndexPath?=nil){
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryStoreAndGoodsList(storeId:STOREID, goodsFlag:goodsFlag!, pageNumber: pageNumber, pageSize: pageSize,tCategoryId:tCategoryId), successClosure: { (json) in
-            print(json)
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryStoreAndGoodsList(storeId:STOREID, goodsFlag:goodsFlag!, pageNumber: pageNumber, pageSize: pageSize,tCategoryId:tCategoryId, goodsName:goodsName), successClosure: { (json) in
+            
             if isRefresh{
                 self.arr.removeAll()
             }
+            ///保存每次加载的数据
+            var arrCount=[GoodEntity]()
             for(_,value) in json["list"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:value.object)
                 entity!.goodsFlag=self.goodsFlag
-                self.arr.append(entity!)
+                if index != nil{
+                    arrCount.append(entity!)
+                }else{
+                    self.arr.append(entity!)
+                }
+            }
+            if index != nil{
+                if arrCount.count > 0{
+                    self.arr.append(arrCount.last!)
+                }
             }
             self.totalRow=json["totalRow"].intValue
             if self.arr.count < self.totalRow{
@@ -579,33 +642,41 @@ extension StoreGoodListViewController{
     }
     ///查询店铺商品详情
     private func queryStoreAndGoodsDetail(index:IndexPath){
-        let goodEntity=self.arr[index.row]
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryStoreAndGoodsDetail(storeAndGoodsId:goodEntity.storeAndGoodsId ?? 0, storeId:STOREID), successClosure: { (json) in
-            let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:json.object)
-            entity?.indexGoodsId=goodEntity.indexGoodsId
-            entity?.goodsStutas=goodEntity.goodsStutas
-            if self.goodsFlag != entity?.goodsFlag{//如果上下架状态不匹配  表示已经在修改中更改 删除当前行数据
-                if self.arr.count == self.totalRow{//如果服务器已经没有数据 直接删除本条数据
+        if index.row <= self.arr.count-1{
+            let goodEntity=self.arr[index.row]
+            PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreGoodApi.queryStoreAndGoodsDetail(storeAndGoodsId:goodEntity.storeAndGoodsId ?? 0, storeId:STOREID), successClosure: { (json) in
+                let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object:json.object)
+                entity?.indexGoodsId=goodEntity.indexGoodsId
+                entity?.goodsStutas=goodEntity.goodsStutas
+                if self.goodsFlag != entity?.goodsFlag{//如果上下架状态不匹配  表示已经在修改中更改 删除当前行数据
+                    if self.arr.count == self.totalRow{//如果服务器已经没有数据 直接删除本条数据
+                        ///删除原有数据
+                        self.arr.remove(at:index.row)
+                        self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
+                        self.totalRow=self.totalRow-1
+                        self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+                        if self.arr.count == 0{
+                            self.table.reloadData()
+                        }
+                    }else{
+                        ///删除原有数据
+                        self.arr.remove(at:index.row)
+                        self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
+                        ///重新查询10条数据
+                        self.queryStoreAndGoodsList(pageNumber:self.pageNumber,pageSize:10,isRefresh:false,index:index)
+                    }
+                    return
+                }
+                if entity != nil{
                     ///删除原有数据
                     self.arr.remove(at:index.row)
-                    self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
-                    self.totalRow=self.totalRow-1
-                    self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
-                }else{
-//                    ///重新查询10条数据
-//                    self.queryStoreAndGoodsList(pageNumber:self.pageNumber, pageSize:10,isRefresh:false,index:index)
+                    //重新插入新数据
+                    self.arr.insert(entity!, at:index.row)
+                    self.table.reloadRows(at:[index], with: UITableViewRowAnimation.fade)
                 }
-                return
+            }) { (error) in
+                self.showSVProgressHUD(status:"获取\(goodEntity.goodsName ?? "")修改信息失败", type: HUD.error)
             }
-            if entity != nil{
-                ///删除原有数据
-                self.arr.remove(at:index.row)
-                //重新插入新数据
-                self.arr.insert(entity!, at:index.row)
-                self.table.reloadRows(at:[index], with: UITableViewRowAnimation.fade)
-            }
-        }) { (error) in
-            self.showSVProgressHUD(status:"获取\(goodEntity.goodsName ?? "")修改信息失败", type: HUD.error)
         }
     }
     ///商品上下架
@@ -615,10 +686,18 @@ extension StoreGoodListViewController{
             let success=json["success"].stringValue
             if success == "success"{
                 self.showSVProgressHUD(status:"操作成功", type: HUD.success)
-                self.arr.remove(at:row)
-                self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
-                self.totalRow=self.totalRow-1
-                self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+                if self.arr.count == self.totalRow{
+                    self.arr.remove(at:row)
+                    self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
+                    self.totalRow=self.totalRow-1
+                    self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+                }else{
+                    self.arr.remove(at:row)
+                    self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
+                    ///重新查询10条数据
+                    self.queryStoreAndGoodsList(pageNumber:self.pageNumber,pageSize:10,isRefresh:false,index:IndexPath.init(row:row, section:0))
+                }
+
             }else if success == "incomplete"{
                 self.showSVProgressHUD(status:"部分参数没有填写或填写的值小于等于0,（零售价，进货价，库存),不能上架",type: HUD.error)
             }else{
