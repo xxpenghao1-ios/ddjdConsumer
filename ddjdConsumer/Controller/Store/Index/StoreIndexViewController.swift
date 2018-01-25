@@ -31,11 +31,29 @@ class StoreIndexViewController:BaseViewController{
         super.viewDidLoad()
         self.title=userDefaults.object(forKey:"storeName") as? String ?? "门店首页"
         setUpView()
+        isOpenNotifications()
         queryOrderAmount()
+
     }
 }
 ///设置页面
 extension StoreIndexViewController{
+    ///是否开启通知
+    private func isOpenNotifications(){
+        let settings = UIUserNotificationSettings(
+            types: [.alert, .badge, .sound],
+            categories: nil
+        )
+        let notifications: PrivateResource = .notifications(settings)
+        let propose: Propose = {
+            proposeToAccess(notifications, agreed: {
+                print("I can send Notifications. :]\n")
+            }, rejected: {
+                self.alertNoPermissionToAccess(notifications)
+            })
+        }
+        showProposeMessageIfNeedFor(notifications, andTryPropose: propose)
+    }
     private func setUpView(){
         collection.layer.cornerRadius=10
         //初始化UICollectionViewFlowLayout.init对象
@@ -46,7 +64,7 @@ extension StoreIndexViewController{
         flowLayout.minimumInteritemSpacing = 0;//每个相邻layout的左右
         collection.collectionViewLayout = flowLayout
         collection.register(UINib(nibName: "StoreIndexCollectionViewCell", bundle: nil), forCellWithReuseIdentifier:"StoreIndexCollectionViewCellId")
-        self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(image:UIImage.init(named:"contact_service"), style: UIBarButtonItemStyle.done, target:self, action:#selector(contactCustomer))
+        self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(image:UIImage.init(named:"contact_service")!.reSizeImage(reSize:CGSize(width:25, height: 25)), style: UIBarButtonItemStyle.done, target:self, action:#selector(contactCustomer))
     }
     ///联系客服
     @objc private func contactCustomer(){

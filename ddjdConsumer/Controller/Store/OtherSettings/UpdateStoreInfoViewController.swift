@@ -32,6 +32,12 @@ class UpdateStoreInfoViewController:FormViewController{
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         setUpView()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if SVProgressHUD.isVisible(){
+            SVProgressHUD.dismiss(withDelay:0.5)
+        }
+    }
 }
 ///设置页面
 extension UpdateStoreInfoViewController{
@@ -52,7 +58,7 @@ extension UpdateStoreInfoViewController{
             section1.rows.append(row)
         }
         if type == 3{
-            let row = FormRowDescriptor(tag:Static.telTag, type:.text, title:"联系方式:")
+            let row = FormRowDescriptor(tag:Static.telTag, type:.phone, title:"联系方式:")
             row.configuration.cell.placeholder="请输入联系方式"
             row.value=entity?.tel as AnyObject
             section1.rows.append(row)

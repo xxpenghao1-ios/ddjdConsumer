@@ -103,13 +103,17 @@ extension MyInformationViewController{
         alertController.addTextField {
             (textField: UITextField!) -> Void in
             textField.keyboardType=UIKeyboardType.default
-            textField.placeholder="请输入昵称"
+            textField.placeholder="请输入昵称(数字_字母_中文)"
             NotificationCenter.default.addObserver(self, selector: #selector(self.alertTextFieldDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: textField)
         }
         //确定
         let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default,handler:{ Void in
             let text=(alertController.textFields?.first)! as UITextField
-            self.updateHeadportraiturl(headportraiturl:nil, nickName:text.text)
+            if text.text!.check().count > 0{
+                self.updateHeadportraiturl(headportraiturl:nil, nickName:text.text)
+            }else{
+                self.showSVProgressHUD(status:"不能输入特殊字符", type: HUD.info)
+            }
         })
         //取消
         let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)

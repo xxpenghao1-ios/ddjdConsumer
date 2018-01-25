@@ -256,6 +256,10 @@ extension UpdateToExamineGoodDetailsViewController{
             self.showInfo(withStatus:"库存下限不能为空")
             return
         }
+        if goodEntity!.offlineStock! >= goodEntity!.stock!{
+            self.showInfo(withStatus:"库存下限不能大于等于库存")
+            return
+        }
         if goodEntity!.purchasePrice == nil || goodEntity!.purchasePrice! <= 0{
             self.showInfo(withStatus:"进货价不能为空/不能为0")
             return
@@ -282,6 +286,8 @@ extension UpdateToExamineGoodDetailsViewController{
                 SVProgressHUD.showInfo(withStatus:"审核信息不存在")
             }else if success == "examineGoodsFlag"{
                 SVProgressHUD.showInfo(withStatus:"状态不是审核失败，不能修改")
+            }else if success == "offlineStockMaxError"{
+                SVProgressHUD.showInfo(withStatus:"库存下限填写的数量不能等于或超过库存")
             }else{
                 self.showInfo(withStatus:"上传商品信息失败")
             }

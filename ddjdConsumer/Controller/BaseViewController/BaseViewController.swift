@@ -71,6 +71,12 @@ class BaseViewController:UIViewController{
         }
         return nil
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if SVProgressHUD.isVisible(){
+            SVProgressHUD.dismiss(withDelay:1)
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

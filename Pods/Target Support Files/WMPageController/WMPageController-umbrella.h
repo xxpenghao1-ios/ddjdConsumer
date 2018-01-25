@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "UIViewController+WMPageController.h"
 #import "WMPageController.h"
 #import "WMMenuItem.h"
 #import "WMMenuView.h"

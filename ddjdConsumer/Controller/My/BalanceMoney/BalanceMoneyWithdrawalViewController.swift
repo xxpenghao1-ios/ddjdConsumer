@@ -89,7 +89,7 @@ extension BalanceMoneyWithdrawalViewController{
             }
             ///获取支付密码
             let payPw=userDefaults.object(forKey:"payPw") as? String
-            if payPw == nil{//提示用户设置支付密码
+            if payPw == nil || payPw!.count == 0{//提示用户设置支付密码
                 UIAlertController.showAlertYesNo(self, title:"温馨提示", message:"您还没有设置支付密码,为确保您余额安全,请设置支付密码。", cancelButtonTitle:"取消",okButtonTitle:"设置支付密码", okHandler: { (action) in
                     let vc=self.storyboardPushView(type:.my, storyboardId:"SetThePaymentPasswordVC") as! SetThePaymentPasswordViewController
                     self.navigationController?.pushViewController(vc, animated:true)

@@ -98,8 +98,9 @@
     
     _previewView.frame = self.view.bounds;
     _previewView.scrollView.frame = self.view.bounds;
+    CGFloat toolBarHeight = [TZCommonTools tz_isIPhoneX] ? 44 + (83 - 49) : 44;
+    _toolBar.frame = CGRectMake(0, self.view.tz_height - toolBarHeight, self.view.tz_width, toolBarHeight);
     _doneButton.frame = CGRectMake(self.view.tz_width - 44 - 12, 0, 44, 44);
-    _toolBar.frame = CGRectMake(0, self.view.tz_height - 44, self.view.tz_width, 44);
 }
 
 #pragma mark - Click Event
@@ -107,9 +108,13 @@
 - (void)signleTapAction {
     _toolBar.hidden = !_toolBar.isHidden;
     [self.navigationController setNavigationBarHidden:_toolBar.isHidden];
-    
-    if (!TZ_isGlobalHideStatusBar) {
-        if (iOS7Later) [UIApplication sharedApplication].statusBarHidden = _toolBar.isHidden;
+    TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
+    if (iOS7Later) {
+        if (_toolBar.isHidden) {
+            [UIApplication sharedApplication].statusBarHidden = YES;
+        } else if (tzImagePickerVc.needShowStatusBar) {
+            [UIApplication sharedApplication].statusBarHidden = NO;
+        }
     }
 }
 

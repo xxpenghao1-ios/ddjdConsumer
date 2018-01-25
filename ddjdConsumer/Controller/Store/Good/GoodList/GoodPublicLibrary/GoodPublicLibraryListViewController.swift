@@ -122,7 +122,7 @@ extension GoodPublicLibraryListViewController{
         table.emptyDataSetSource=self
         table.emptyDataSetDelegate=self
         self.setLoadingState(isLoading:true)
-        self.setEmptyDataSetInfo(text:"平台商品库中已经没有商品可以加入了")
+        self.setEmptyDataSetInfo(text:"商品库中没有商品可以加入了")
         table.tableFooterView=UIView.init(frame: CGRect.zero)
         
         returnImg.isUserInteractionEnabled=true
@@ -234,8 +234,7 @@ extension GoodPublicLibraryListViewController{
     private func setUpPickerView(){
         index1=categoryArr.count/2
         calculateFirstData()
-        
-        pickerMaskView=UIView(frame:table.bounds)
+        pickerMaskView=UIView(frame:self.view.bounds)
         pickerMaskView.backgroundColor = UIColor.init(white:0, alpha:0.5)
         pickerMaskView.isUserInteractionEnabled=true
         let gesture=UITapGestureRecognizer(target:self, action:#selector(hidePickerView))
@@ -245,7 +244,7 @@ extension GoodPublicLibraryListViewController{
         ///默认隐藏
         pickerMaskView.isHidden=true
         
-        contentPickerView=UIView(frame: CGRect.init(x:0,y:pickerMaskView.frame.height,width:boundsWidth, height:340))
+        contentPickerView=UIView(frame: CGRect.init(x:0,y:pickerMaskView.frame.height-bottomSafetyDistanceHeight,width:boundsWidth, height:340))
         contentPickerView.backgroundColor=UIColor.white
         pickerMaskView.addSubview(contentPickerView)
         
@@ -280,15 +279,16 @@ extension GoodPublicLibraryListViewController{
     }
     ///显示
     private func showPickerView(){
+        self.view.bringSubview(toFront:pickerMaskView)
         pickerMaskView.isHidden=false
         UIView.animate(withDuration:0.5, delay:0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.contentPickerView.frame=CGRect.init(x:0, y:self.pickerMaskView.frame.height-340, width:boundsWidth,height:340)
+            self.contentPickerView.frame=CGRect.init(x:0, y:self.pickerMaskView.frame.height-340-bottomSafetyDistanceHeight, width:boundsWidth,height:340)
         })
     }
     ///隐藏
     @objc private func hidePickerView(){
         UIView.animate(withDuration:0.5, delay:0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.contentPickerView.frame=CGRect.init(x:0, y:self.pickerMaskView.frame.height,width:boundsWidth,height:340)
+            self.contentPickerView.frame=CGRect.init(x:0, y:self.pickerMaskView.frame.height-bottomSafetyDistanceHeight,width:boundsWidth,height:340)
         }, completion: { (b) in
             UIView.animate(withDuration:0.1, delay:0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
                 self.pickerMaskView.isHidden=true

@@ -94,10 +94,10 @@ class SpecialPriceTableViewCell: UITableViewCell {
     private func showPromptImg(named:String){
         promptImg.isHidden=false
         promptImg.image=UIImage.init(named:named)
-        self.contentView.isUserInteractionEnabled=false
         lblPromotionMsg.isHidden=true
         promotionMsgImg.isHidden=true
         self.addCarImg.isHidden=true
+        self.contentView.isUserInteractionEnabled=false
     }
     ///每次倒计时
     @objc private func countDownNotification() {

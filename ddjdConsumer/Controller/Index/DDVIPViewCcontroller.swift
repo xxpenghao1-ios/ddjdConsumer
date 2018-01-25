@@ -30,10 +30,12 @@ class DDVIPViewCcontroller:BaseViewController {
         btnVIP.layer.cornerRadius=5
         btnPartner.layer.cornerRadius=5
         if vipStatu == 2{
+            btnVIP.setTitle("您已是VIP", for: UIControlState.normal)
             btnVIP.disable()
         }
         if partnerStatu == 2{
-            btnVIP.disable()
+            btnPartner.setTitle("您已是合伙人", for: UIControlState.normal)
+            btnPartner.disable()
         }
         getVIP()
     }

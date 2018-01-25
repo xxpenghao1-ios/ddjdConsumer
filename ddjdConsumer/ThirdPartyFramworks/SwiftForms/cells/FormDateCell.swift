@@ -60,7 +60,7 @@ open class FormDateCell: FormValueCell {
         }
         
         if let date = rowDescriptor?.value as? Date {
-            datePicker.date = date
+            datePicker.date=date
             valueLabel.text = getDateFormatter().string(from: date)
             if titleLabel.text == "开始营业时间" || titleLabel.text == "结束营业时间"{
                 rowDescriptor?.value=valueLabel.text as AnyObject

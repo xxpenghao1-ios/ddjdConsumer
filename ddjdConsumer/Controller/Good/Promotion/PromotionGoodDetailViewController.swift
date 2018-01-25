@@ -79,6 +79,7 @@ class PromotionGoodDetailViewController:BaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="商品详情"
+        goodEntity=goodEntity ?? GoodEntity()
         storeAndGoodsId=storeAndGoodsId ?? 0
         setUpView()
         setUpNav()
@@ -86,6 +87,10 @@ class PromotionGoodDetailViewController:BaseViewController{
     }
     //添加商品数量
     @IBAction func addCount(_ sender: UIButton) {
+        if goodCount >= goodEntity!.promotionStock ?? 0{
+            self.showSVProgressHUD(status:"库存不足", type: HUD.info)
+            return
+        }
         goodCount+=1
         lblCount.text="\(goodCount)"
     }
@@ -94,6 +99,49 @@ class PromotionGoodDetailViewController:BaseViewController{
         if goodCount > 1{
             goodCount-=1
             lblCount.text="\(goodCount)"
+        }
+    }
+    ///商品数量选择
+    @objc private func showGoodCountSelected(){
+        let alertController = UIAlertController(title:"", message:"请输入商品数量(不能大于9999)", preferredStyle: UIAlertControllerStyle.alert);
+        alertController.addTextField {
+            (textField: UITextField!) -> Void in
+            textField.keyboardType=UIKeyboardType.numberPad
+            textField.placeholder="库存:\(self.goodEntity!.promotionStock ?? 0)"
+            NotificationCenter.default.addObserver(self, selector: #selector(self.alertTextFieldDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: textField)
+        }
+        //确定
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default,handler:{ Void in
+            let text=(alertController.textFields?.first)! as UITextField
+            self.goodCount=Int(text.text!) ?? 0
+            self.lblCount.text="\(self.goodCount)"
+        })
+        //取消
+        let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        okAction.isEnabled = false
+        self.present(alertController, animated: true, completion: nil)
+    }
+    //检测输入框的字符是否大于库存数量 是解锁确定按钮
+    @objc func alertTextFieldDidChange(_ notification: Notification){
+        let alertController = self.presentedViewController as! UIAlertController?
+        if (alertController != nil) {
+            let text = (alertController!.textFields?.first)! as UITextField
+            let okAction = alertController!.actions.last! as UIAlertAction
+            if text.text != nil && text.text! != ""{
+                if Int(text.text!) ?? 0 > 0 && Int(text.text!) ?? 0 <= self.goodEntity!.promotionStock ?? 0{
+                    if text.text!.count > 4{
+                        okAction.isEnabled = false
+                    }else{
+                        okAction.isEnabled = true
+                    }
+                }else{
+                    okAction.isEnabled=false
+                }
+            }else{
+                okAction.isEnabled=false
+            }
         }
     }
 }
@@ -108,6 +156,8 @@ extension PromotionGoodDetailViewController:WaterFlowViewLayoutDelegate{
         lblCount.layer.borderWidth=1
         lblCount.layer.borderColor=UIColor.borderColor().cgColor
         lblCount.text="\(goodCount)"
+        lblCount.isUserInteractionEnabled=true
+        lblCount.addGestureRecognizer(UITapGestureRecognizer.init(target:self, action:#selector(showGoodCountSelected)))
         lblCount.backgroundColor=UIColor.RGBFromHexColor(hexString: "f1f2f6")
         btnAddCount.setTitleColor(UIColor.color666(), for: UIControlState.normal)
         btnReduceCount.setTitleColor(UIColor.color666(), for: .normal)
@@ -165,7 +215,11 @@ extension PromotionGoodDetailViewController:WaterFlowViewLayoutDelegate{
             lblBrands.text=goodEntity!.brand
             //保质期
             if goodEntity!.goodsLift != nil{
-                lblShelfLife.text="\(goodEntity!.goodsLift!)天"
+                if goodEntity!.goodsLift! >= 365{
+                    lblShelfLife.text="\(goodEntity!.goodsLift!/365)年"
+                }else{
+                    lblShelfLife.text="\(goodEntity!.goodsLift!)天"
+                }
             }
             //条形码
             lblBarcode.text=goodEntity!.goodsCode

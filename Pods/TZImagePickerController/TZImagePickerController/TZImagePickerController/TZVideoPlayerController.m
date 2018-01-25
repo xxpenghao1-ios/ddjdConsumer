@@ -119,10 +119,13 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
+    CGFloat statusBarHeight = [TZCommonTools tz_statusBarHeight];
+    CGFloat statusBarAndNaviBarHeight = statusBarHeight + self.navigationController.navigationBar.tz_height;
     _playerLayer.frame = self.view.bounds;
-    _playButton.frame = CGRectMake(0, 64, self.view.tz_width, self.view.tz_height - 64 - 44);
+    CGFloat toolBarHeight = [TZCommonTools tz_isIPhoneX] ? 44 + (83 - 49) : 44;
+    _toolBar.frame = CGRectMake(0, self.view.tz_height - toolBarHeight, self.view.tz_width, toolBarHeight);
     _doneButton.frame = CGRectMake(self.view.tz_width - 44 - 12, 0, 44, 44);
-    _toolBar.frame = CGRectMake(0, self.view.tz_height - 44, self.view.tz_width, 44);
+    _playButton.frame = CGRectMake(0, statusBarAndNaviBarHeight, self.view.tz_width, self.view.tz_height - statusBarAndNaviBarHeight - toolBarHeight);
 }
 
 #pragma mark - Click Event
@@ -136,9 +139,7 @@
         [self.navigationController setNavigationBarHidden:YES];
         _toolBar.hidden = YES;
         [_playButton setImage:nil forState:UIControlStateNormal];
-        if (!TZ_isGlobalHideStatusBar) {
-            if (iOS7Later) [UIApplication sharedApplication].statusBarHidden = YES;
-        }
+        if (iOS7Later) [UIApplication sharedApplication].statusBarHidden = YES;
     } else {
         [self pausePlayerAndShowNaviBar];
     }
@@ -179,8 +180,9 @@
     [self.navigationController setNavigationBarHidden:NO];
     [_playButton setImage:[UIImage imageNamedFromMyBundle:@"MMVideoPreviewPlay"] forState:UIControlStateNormal];
     
-    if (!TZ_isGlobalHideStatusBar) {
-        if (iOS7Later) [UIApplication sharedApplication].statusBarHidden = NO;
+    TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
+    if (tzImagePickerVc.needShowStatusBar && iOS7Later) {
+        [UIApplication sharedApplication].statusBarHidden = NO;
     }
 }
 

@@ -242,6 +242,10 @@ extension UpdateStoreGoodDetailViewController{
             self.showInfo(withStatus:"库存下限不能为空")
             return
         }
+        if Int(offlineStock!)! >= Int(stock!)!{
+            self.showInfo(withStatus:"库存下限不能大于等于库存")
+            return
+        }
         if purchasePrice == nil || purchasePrice!.count == 0{
             self.showInfo(withStatus:"商品进货价不能为空")
             return
@@ -265,6 +269,8 @@ extension UpdateStoreGoodDetailViewController{
                     })
                 }else if success == "error"{
                     self.showError(withStatus:"商品价格或进货价填写有误")
+                }else if success == "offlineStockMaxError"{
+                    self.showError(withStatus:"库存下限填写的数量不能等于或超过库存")
                 }else{
                     self.showError(withStatus:"修改失败")
                 }
@@ -283,6 +289,8 @@ extension UpdateStoreGoodDetailViewController{
                     NotificationCenter.default.post(name:notificationNameUpdateStoreGoodList, object:nil, userInfo:nil)
                 }else if success == "storeGoodsPrice_error"{
                     self.showError(withStatus:"商品价格或进货价填写有误")
+                }else if success == "offlineStockMaxError"{
+                    self.showError(withStatus:"库存下限填写的数量不能等于或超过库存")
                 }else{
                     self.showError(withStatus:"提交失败")
                 }

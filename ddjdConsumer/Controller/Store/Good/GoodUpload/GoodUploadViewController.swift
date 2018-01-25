@@ -250,6 +250,10 @@ extension GoodUploadViewController{
             self.showInfo(withStatus:"库存下限不能为空")
             return
         }
+        if Int(goodEntity!.offlineStock!)! >= Int(goodEntity!.stock!)!{
+            self.showInfo(withStatus:"库存下限不能大于等于库存")
+            return
+        }
         if goodEntity!.purchasePrice == nil || goodEntity!.purchasePrice!.count == 0{
             self.showInfo(withStatus:"进货价不能为空")
             return
@@ -280,6 +284,8 @@ extension GoodUploadViewController{
                 SVProgressHUD.showError(withStatus:"商品价格或进货价填写有误")
             }else if success == "examineExist"{
                 SVProgressHUD.showInfo(withStatus:"此商品正在审核中,请稍后再试")
+            }else if success == "offlineStockMaxError"{
+                SVProgressHUD.showInfo(withStatus:"库存下限填写的数量不能等于或超过库存")
             }else{
                 self.showInfo(withStatus:"上传失败")
             }

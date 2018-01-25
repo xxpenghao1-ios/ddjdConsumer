@@ -102,16 +102,16 @@ extension OrderConfirmViewController{
         //提交订单
         btnSubmit.addTarget(self, action:#selector(saveOrder), for: UIControlEvents.touchUpInside)
         
-        let sumCountStr="共\(sumCount!)件商品"
-        lblSumCount.attributedText=UILabel.setAttributedText(str:sumCountStr, textColor:UIColor.applicationMainColor(), font: 14, range: NSRange.init(location:1, length:sumCountStr.count-4))
+        let sumCountStr="共\(sumCount!)件"
+        lblSumCount.attributedText=UILabel.setAttributedText(str:sumCountStr, textColor:UIColor.applicationMainColor(), font: 13, range: NSRange.init(location:1, length:sumCountStr.count-2))
         //商品小计
         let
         goodSumPriceStr="商品小计:￥\(sumPrice!)"
         lblGoodSumPrice.attributedText=UILabel.setAttributedText(str:goodSumPriceStr, textColor:UIColor.applicationMainColor(), font: 15, range: NSRange.init(location:5, length:goodSumPriceStr.count-5))
         ///商品总价加上配送费
-        let sumPriceStr="总金额:￥"+PriceComputationsUtil.decimalNumberWithString(multiplierValue: sumPrice!, multiplicandValue:"\(deliveryFee)", type: ComputationsType.addition, position:2)
+        let sumPriceStr="总计:￥"+PriceComputationsUtil.decimalNumberWithString(multiplierValue: sumPrice!, multiplicandValue:"\(deliveryFee)", type: ComputationsType.addition, position:2)
         ///订单总价
-        lblSumPrice.attributedText=UILabel.setAttributedText(str:sumPriceStr, textColor:UIColor.applicationMainColor(), font: 15, range: NSRange.init(location:4, length:sumPriceStr.count-4))
+        lblSumPrice.attributedText=UILabel.setAttributedText(str:sumPriceStr, textColor:UIColor.applicationMainColor(), font: 13, range: NSRange.init(location:3, length:sumPriceStr.count-3))
         if deliveryFee == 0{//如果配送费为0 隐藏
             lblDeliveryFee.isHidden=true
         }else{
@@ -345,7 +345,7 @@ extension OrderConfirmViewController{
         }else{//去支付
             ///获取支付密码
             let payPw=userDefaults.object(forKey:"payPw") as? String
-            if payPw == nil{//提示用户设置支付密码
+            if payPw == nil || payPw!.count == 0{//提示用户设置支付密码
                 UIAlertController.showAlertYesNo(self, title:"温馨提示", message:"您还没有设置支付密码,为确保您余额安全,请设置支付密码。", cancelButtonTitle:"取消",okButtonTitle:"设置支付密码", okHandler: { (action) in
                     let vc=self.storyboardPushView(type:.my, storyboardId:"SetThePaymentPasswordVC") as! SetThePaymentPasswordViewController
                     self.navigationController?.pushViewController(vc, animated:true)
@@ -389,7 +389,7 @@ extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
                 cell=UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier:"payId")
             }
             cell!.textLabel!.font=UIFont.systemFont(ofSize: 14)
-            cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:13)
+            cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:12)
             cell!.textLabel!.text=payTitle[indexPath.row]
             cell!.imageView!.image=UIImage.init(named:payImgArr[indexPath.row])?.reSizeImage(reSize: CGSize.init(width:30, height:30))
             cell!.accessoryType = .disclosureIndicator
@@ -397,7 +397,7 @@ extension OrderConfirmViewController:UITableViewDelegate,UITableViewDataSource{
                 if self.memberDiscount != nil{
                     cell!.textLabel!.text=payTitle[indexPath.row]+"(\(self.memberDiscount!==100 ? "不打" : self.memberDiscount!.description)折)"
                 }
-                cell!.detailTextLabel!.text="(剩余￥\(self.memberBalanceMoney ?? 0))"
+                cell!.detailTextLabel!.text="￥\(self.memberBalanceMoney ?? 0)"
             }
             return cell!
         }else{

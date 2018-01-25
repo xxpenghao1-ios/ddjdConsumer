@@ -53,7 +53,7 @@ extension String{
             
             // - 3、开始匹配
             
-            let res = regex.matches(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count))
+            let res = regex.matches(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count))
             
             // 输出结果
             

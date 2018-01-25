@@ -12,7 +12,7 @@ class OtherSettingsViewController:BaseViewController{
     
     @IBOutlet weak var table: UITableView!
     
-    private var nameArr=["提现账户信息","订单起送金额","配送范围","联系方式","营业时间","会员折扣","门店二维码"]
+    private var nameArr=["提现账户信息","订单起送金额","配送范围","联系方式","营业时间","会员折扣"]
     
     private var entity=StoreEntity()
     
@@ -28,6 +28,12 @@ class OtherSettingsViewController:BaseViewController{
         table.dataSource=self
         table.delegate=self
         table.tableFooterView=UIView(frame: CGRect.zero)
+        self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(image:UIImage.init(named:"about_store")!.reSizeImage(reSize: CGSize.init(width:25, height:25)), style: UIBarButtonItemStyle.done, target:self, action: #selector(showCodeVC))
+    }
+    @objc private func showCodeVC(){
+        let vc=self.storyboardPushView(type:.store, storyboardId: "StoreCodeInfoVC") as! StoreCodeInfoViewController
+        vc.storeEntity=entity
+        self.navigationController?.pushViewController(vc, animated:true)
     }
 }
 extension OtherSettingsViewController:UITableViewDataSource,UITableViewDelegate{
@@ -91,11 +97,6 @@ extension OtherSettingsViewController:UITableViewDataSource,UITableViewDelegate{
             break
         case 5:
             pushUpdateInfoVC(type:5)
-            break
-        case 6:
-            let vc=self.storyboardPushView(type:.store, storyboardId: "StoreCodeInfoVC") as! StoreCodeInfoViewController
-            vc.storeEntity=entity
-            self.navigationController?.pushViewController(vc, animated:true)
             break
         default:
             break

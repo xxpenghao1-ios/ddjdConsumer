@@ -279,7 +279,7 @@ extension StoreGoodListViewController{
         index1=categoryArr.count/2
         calculateFirstData()
         
-        pickerMaskView=UIView(frame:table.bounds)
+        pickerMaskView=UIView(frame:self.view.bounds)
         pickerMaskView.backgroundColor = UIColor.init(white:0, alpha:0.5)
         pickerMaskView.isUserInteractionEnabled=true
         let gesture=UITapGestureRecognizer(target:self, action:#selector(hidePickerView))
@@ -289,7 +289,7 @@ extension StoreGoodListViewController{
         ///默认隐藏
         pickerMaskView.isHidden=true
         
-        contentPickerView=UIView(frame: CGRect.init(x:0,y:pickerMaskView.frame.height,width:boundsWidth, height:340))
+        contentPickerView=UIView(frame: CGRect.init(x:0,y:pickerMaskView.frame.height-bottomSafetyDistanceHeight,width:boundsWidth,height:340))
         contentPickerView.backgroundColor=UIColor.white
         pickerMaskView.addSubview(contentPickerView)
         
@@ -327,13 +327,13 @@ extension StoreGoodListViewController{
         self.view.bringSubview(toFront:pickerMaskView)
         pickerMaskView.isHidden=false
         UIView.animate(withDuration:0.5, delay:0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.contentPickerView.frame=CGRect.init(x:0, y:self.pickerMaskView.frame.height-340, width:boundsWidth,height:340)
+            self.contentPickerView.frame=CGRect.init(x:0, y:self.pickerMaskView.frame.height-340-bottomSafetyDistanceHeight, width:boundsWidth,height:340)
         })
     }
     ///隐藏
     @objc private func hidePickerView(){
         UIView.animate(withDuration:0.5, delay:0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.contentPickerView.frame=CGRect.init(x:0, y:self.pickerMaskView.frame.height,width:boundsWidth,height:340)
+            self.contentPickerView.frame=CGRect.init(x:0, y:self.pickerMaskView.frame.height-bottomSafetyDistanceHeight,width:boundsWidth,height:340)
         }, completion: { (b) in
             UIView.animate(withDuration:0.1, delay:0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
                 self.pickerMaskView.isHidden=true
@@ -691,13 +691,15 @@ extension StoreGoodListViewController{
                     self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
                     self.totalRow=self.totalRow-1
                     self.showBaseVCGoodCountPromptView(currentCount:self.arr.count, totalCount:self.totalRow)
+                    if self.arr.count == 0{
+                        self.table.reloadData()
+                    }
                 }else{
                     self.arr.remove(at:row)
                     self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
                     ///重新查询10条数据
                     self.queryStoreAndGoodsList(pageNumber:self.pageNumber,pageSize:10,isRefresh:false,index:IndexPath.init(row:row, section:0))
                 }
-
             }else if success == "incomplete"{
                 self.showSVProgressHUD(status:"部分参数没有填写或填写的值小于等于0,（零售价，进货价，库存),不能上架",type: HUD.error)
             }else{

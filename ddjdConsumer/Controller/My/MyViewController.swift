@@ -36,6 +36,7 @@ class MyViewController:BaseViewController{
     private var topView:UIView!
     //会员vip标识图片
     private var vipImg:UIImageView!
+    private var flag=false
     ///保存会员信息
     private var memberEntity:MemberEntity?{
         willSet{
@@ -55,7 +56,10 @@ class MyViewController:BaseViewController{
         super.viewWillAppear(animated)
         self.setUpNavColor()
         getMember()
-        queryOrderNum()
+        if flag{
+            queryOrderNum()
+        }
+        flag=true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -65,6 +69,7 @@ class MyViewController:BaseViewController{
         super.viewDidLoad()
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         setUpView()
+        queryOrderNum()
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //获取偏移量
@@ -92,8 +97,8 @@ extension MyViewController{
     private func setUpNav(){
         //设置按钮
         self.navigationItem.leftBarButtonItem=UIBarButtonItem(image:UIImage(named:"setting")!.reSizeImage(reSize:CGSize(width:25, height: 25)), style: UIBarButtonItemStyle.done, target:self, action:#selector(pushSettingVC))
-       //消息按钮
-        self.navigationItem.rightBarButtonItem=UIBarButtonItem(image:UIImage(named:"news")!.reSizeImage(reSize:CGSize(width:25, height: 25)), style: UIBarButtonItemStyle.done, target:self, action:#selector(pushNewsVC))
+//       //消息按钮
+//        self.navigationItem.rightBarButtonItem=UIBarButtonItem(image:UIImage(named:"news")!.reSizeImage(reSize:CGSize(width:25, height: 25)), style: UIBarButtonItemStyle.done, target:self, action:#selector(pushNewsVC))
     }
     //table头部
     private func setHeaderView() -> UIView{
@@ -328,9 +333,13 @@ extension MyViewController{
     ///查询会员信息
     private func getMember(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.getMember(memberId:MEMBERID), successClosure: { (json) in
+            print(json)
             self.memberEntity=self.jsonMappingEntity(entity:MemberEntity.init(), object:json.object)
             if self.memberEntity!.vipStatu == 2{
                 self.vipImg.image=UIImage.init(named:"member_vip")
+            }
+            if self.memberEntity!.partnerStatu == 2{
+                self.vipImg.image=UIImage.init(named:"my_hhr")
             }
             userDefaults.set(self.memberEntity!.vipStatu, forKey:"vipStatu")
             userDefaults.set(self.memberEntity!.partnerStatu, forKey:"partnerStatu")

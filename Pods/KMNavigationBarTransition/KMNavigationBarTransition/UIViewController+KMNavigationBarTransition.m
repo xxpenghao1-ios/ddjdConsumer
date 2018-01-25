@@ -25,7 +25,7 @@
 #import "UINavigationController+KMNavigationBarTransition.h"
 #import "UINavigationController+KMNavigationBarTransition_internal.h"
 #import "UINavigationBar+KMNavigationBarTransition_internal.h"
-#import "UIScrollView+KMNavigationBarTransition.h"
+#import "UIScrollView+KMNavigationBarTransition_internal.h"
 #import <objc/runtime.h>
 #import "KMSwizzle.h"
 
@@ -56,8 +56,8 @@
     id<UIViewControllerTransitionCoordinator> tc = self.transitionCoordinator;
     UIViewController *toViewController = [tc viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    if ([self isEqual:self.navigationController.viewControllers.lastObject] && [toViewController isEqual:self]) {
-         [self km_adjustScrollViewContentInsetAdjustmentBehavior];
+    if ([self isEqual:self.navigationController.viewControllers.lastObject] && [toViewController isEqual:self]  && tc.presentationStyle == UIModalPresentationNone) {
+        [self km_adjustScrollViewContentInsetAdjustmentBehavior];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.navigationController.navigationBarHidden) {
                 [self km_restoreScrollViewContentInsetAdjustmentBehaviorIfNeeded];
@@ -68,17 +68,18 @@
 
 - (void)km_viewDidAppear:(BOOL)animated {
     [self km_restoreScrollViewContentInsetAdjustmentBehaviorIfNeeded];
+    UIViewController *transitionViewController = self.navigationController.km_transitionContextToViewController;
     if (self.km_transitionNavigationBar) {
         self.navigationController.navigationBar.barTintColor = self.km_transitionNavigationBar.barTintColor;
         [self.navigationController.navigationBar setBackgroundImage:[self.km_transitionNavigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setShadowImage:self.km_transitionNavigationBar.shadowImage];
-        
-        UIViewController *transitionViewController = self.navigationController.km_transitionContextToViewController;
         if (!transitionViewController || [transitionViewController isEqual:self]) {
             [self.km_transitionNavigationBar removeFromSuperview];
-            self.km_transitionNavigationBar = nil;
-            self.navigationController.km_transitionContextToViewController = nil;
+            self.km_transitionNavigationBar = nil; 
         }
+    }
+    if ([transitionViewController isEqual:self]) {
+        self.navigationController.km_transitionContextToViewController = nil;
     }
     self.navigationController.km_backgroundViewHidden = NO;
     [self km_viewDidAppear:animated];
@@ -89,7 +90,7 @@
     UIViewController *fromViewController = [tc viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [tc viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    if ([self isEqual:self.navigationController.viewControllers.lastObject] && [toViewController isEqual:self] && self.navigationController.km_transitionContextToViewController) {
+    if ([self isEqual:self.navigationController.viewControllers.lastObject] && [toViewController isEqual:self] && tc.presentationStyle == UIModalPresentationNone) {
         if (self.navigationController.navigationBar.translucent) {
             [tc containerView].backgroundColor = [self.navigationController km_containerViewBackgroundColor];
         }
@@ -97,7 +98,6 @@
         toViewController.view.clipsToBounds = NO;
         if (!self.km_transitionNavigationBar) {
             [self km_addTransitionNavigationBarIfNeeded];
-            
             self.navigationController.km_backgroundViewHidden = YES;
         }
         [self km_resizeTransitionNavigationBarFrame];
@@ -116,6 +116,7 @@
     CGRect rect = [backgroundView.superview convertRect:backgroundView.frame toView:self.view];
     self.km_transitionNavigationBar.frame = rect;
 }
+
 - (void)km_addTransitionNavigationBarIfNeeded {
     if (!self.isViewLoaded || !self.view.window) {
         return;

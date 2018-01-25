@@ -126,11 +126,13 @@ public class PHMoyaHttp{
     //设置请求超时时间
     private func requestTimeoutClosure<T:TargetType>(target:T) -> MoyaProvider<T>.RequestClosure{
         let requestTimeoutClosure = { (endpoint:Endpoint<T>, done: @escaping MoyaProvider<T>.RequestResultClosure) in
-            guard var request = endpoint.urlRequest else {
-                return
+            do{
+                var request = try endpoint.urlRequest()
+                request.timeoutInterval = 20 //设置请求超时时间
+                done(.success(request))
+            }catch{
+               return
             }
-            request.timeoutInterval = 20 //设置请求超时时间
-            done(.success(request))
         }
         return requestTimeoutClosure
     }

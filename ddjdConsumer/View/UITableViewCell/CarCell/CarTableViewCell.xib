@@ -43,16 +43,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zfs-Bu-hTk">
-                        <rect key="frame" x="145" y="70" width="107" height="35"/>
+                        <rect key="frame" x="145" y="70" width="110" height="35"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhM-5J-l73">
-                                <rect key="frame" x="35" y="0.0" width="37" height="35"/>
+                                <rect key="frame" x="35" y="0.0" width="40" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiH-kN-YZa">
-                                <rect key="frame" x="72" y="0.0" width="35" height="35"/>
+                                <rect key="frame" x="75" y="0.0" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="5Ua-Lc-Ker"/>
                                 </constraints>
@@ -72,7 +72,7 @@
                         <constraints>
                             <constraint firstItem="uhM-5J-l73" firstAttribute="leading" secondItem="vxB-cg-RmP" secondAttribute="trailing" id="1qk-f0-Rip"/>
                             <constraint firstItem="vxB-cg-RmP" firstAttribute="top" secondItem="Zfs-Bu-hTk" secondAttribute="top" id="6An-62-P6s"/>
-                            <constraint firstAttribute="width" constant="107" id="8K9-Ob-r71"/>
+                            <constraint firstAttribute="width" constant="110" id="8K9-Ob-r71"/>
                             <constraint firstAttribute="bottom" secondItem="vxB-cg-RmP" secondAttribute="bottom" id="8cO-Wc-bkP"/>
                             <constraint firstItem="IiH-kN-YZa" firstAttribute="top" secondItem="Zfs-Bu-hTk" secondAttribute="top" id="C5T-MN-ZmF"/>
                             <constraint firstItem="IiH-kN-YZa" firstAttribute="leading" secondItem="uhM-5J-l73" secondAttribute="trailing" id="LXH-62-aG0"/>
@@ -85,7 +85,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥4.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOz-So-fOF">
-                        <rect key="frame" x="257" y="85" width="146" height="20"/>
+                        <rect key="frame" x="260" y="85" width="143" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Rdf-VB-9S5"/>
                         </constraints>
@@ -178,7 +178,7 @@
                 <outlet property="promtionPromptImg" destination="iyf-bI-akc" id="YY3-Ss-HHf"/>
                 <outlet property="stockBacView" destination="xUS-Oc-QQq" id="Ysi-6f-KYN"/>
             </connections>
-            <point key="canvasLocation" x="-585" y="-155"/>
+            <point key="canvasLocation" x="-706" y="-165"/>
         </tableViewCell>
     </objects>
     <resources>

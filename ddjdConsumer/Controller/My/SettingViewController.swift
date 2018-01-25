@@ -18,10 +18,10 @@ class SettingViewController:BaseViewController{
     //获取缓存
     let cache = KingfisherManager.shared.cache
     
-    private var nameArr=["清除缓存","关于我们","当前版本"]
+    private var nameArr=["清除缓存","联系客服"]
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title="设置"
+        self.title="其他"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         setUpView()
     }
@@ -76,6 +76,8 @@ extension SettingViewController:UITableViewDelegate,UITableViewDataSource{
                     self.table.reloadData()
                 })
             })
+        }else{
+            UIApplication.shared.openURL(Foundation.URL(string :"tel://4008356878")!)
         }
     }
 }

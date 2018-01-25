@@ -5,6 +5,13 @@
 //  Created by NIX on 15/7/11.
 //  Copyright (c) 2015年 nixWork. All rights reserved.
 //
+//
+//  Proposer.swift
+//  Lady
+//
+//  Created by NIX on 15/7/11.
+//  Copyright (c) 2015年 nixWork. All rights reserved.
+//
 
 import UIKit
 import AVFoundation
@@ -62,11 +69,11 @@ public enum PrivateResource {
         case .microphone:
             return AVAudioSession.sharedInstance().recordPermission() == .granted
         case .contacts:
-             if #available(iOS 9.0, *) {
-                return CNContactStore.authorizationStatus(for: .contacts) == .authorized
-             }else{
-                return ABAddressBookGetAuthorizationStatus() == .authorized
-             }
+            if #available(iOS 9.0, *) {
+                return CNContactStore.authorizationStatus(for: .contacts) == .notDetermined
+            }else{
+                return ABAddressBookGetAuthorizationStatus() == .notDetermined
+            }
         case .reminders:
             return EKEventStore.authorizationStatus(for: .reminder) == .authorized
         case .calendar:
@@ -242,6 +249,7 @@ private func proposeToSendNotifications(_ settings: UIUserNotificationSettings, 
         }
         _notificationMan = notificationMan
         UIApplication.shared.registerUserNotificationSettings(settings)
+        
     case .authorized:
         UIApplication.shared.registerUserNotificationSettings(settings)
         successAction()
@@ -336,4 +344,3 @@ private class NotificationMan: NSObject {
         }
     }
 }
-

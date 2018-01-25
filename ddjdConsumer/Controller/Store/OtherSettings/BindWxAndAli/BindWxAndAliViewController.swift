@@ -24,6 +24,10 @@ class BindWxAndAliViewController:BaseViewController{
     private var wx_headimgurl:String?
     ///保存获取验证码
     private var randCode:String?
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        queryStoreBindWxOrAliStatu()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="收款账号信息"
@@ -31,7 +35,6 @@ class BindWxAndAliViewController:BaseViewController{
         table.dataSource=self
         table.delegate=self
         table.tableFooterView=UIView(frame: CGRect.zero)
-        queryStoreBindWxOrAliStatu()
     }
 }
 extension BindWxAndAliViewController:UITableViewDataSource,UITableViewDelegate{

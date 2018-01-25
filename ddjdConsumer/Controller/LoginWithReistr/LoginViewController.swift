@@ -114,7 +114,7 @@ extension LoginViewController{
             self.showSVProgressHUD(status:"密码不能为空", type: HUD.info)
             return
         }
-        let deviceToken=userDefaults.object(forKey:"deviceToken") as? String ?? "entity"
+        let deviceToken=userDefaults.object(forKey:"deviceToken") as? String ?? ""
         self.showSVProgressHUD(status:"登录中...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.memberLogin(account:memberName!, password: password!, deviceToken:deviceToken,deviceName:UIDevice().name), successClosure: { (json) in
             let success=json["success"].stringValue
@@ -132,7 +132,7 @@ extension LoginViewController{
                 self.dismissHUD {
                     //登录成功设置应用程序别名
                     JPUSHService.setAlias("m_\(memberEntity!.memberId ?? -1)", completion:nil,seq:22)
-                    JPUSHService.setTags(["10"], completion:nil,seq: 11)
+//                    JPUSHService.setTags(["10"], completion:nil,seq: 11)
                     //登录成功设置应用程序别名
                     if memberEntity!.bindstoreId != nil{//如果用户绑定了店铺
                         //跳转到主页面
