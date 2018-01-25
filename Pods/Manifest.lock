@@ -1,24 +1,24 @@
 PODS:
-  - Alamofire (4.5.1)
-  - BaiduMapKit (3.4.0)
-  - BaiduMobStat (4.6.3)
-  - Charts (3.0.4):
-    - Charts/Core (= 3.0.4)
-  - Charts/Core (3.0.4)
-  - IQKeyboardManagerSwift (5.0.3)
-  - JCore (1.1.5)
+  - Alamofire (4.6.0)
+  - BaiduMapKit (3.4.2)
+  - BaiduMobStat (4.6.5)
+  - Charts (3.0.5):
+    - Charts/Core (= 3.0.5)
+  - Charts/Core (3.0.5)
+  - IQKeyboardManagerSwift (5.0.7)
+  - JCore (1.1.7)
   - JNDropDownMenu (0.1.6)
-  - JPush (3.0.6):
-    - JCore (~> 1.1.1)
-  - Kingfisher (4.1.0)
-  - KMNavigationBarTransition (1.1.1)
-  - MJRefresh (3.1.14)
-  - Moya (9.0.0):
-    - Moya/Core (= 9.0.0)
-  - Moya/Core (9.0.0):
+  - JPush (3.0.8):
+    - JCore (~> 1.1.7)
+  - Kingfisher (4.6.1)
+  - KMNavigationBarTransition (1.1.5)
+  - MJRefresh (3.1.15.3)
+  - Moya (10.0.1):
+    - Moya/Core (= 10.0.1)
+  - Moya/Core (10.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
-  - ObjectMapper (3.0.0)
+  - ObjectMapper (3.1.0)
   - Onboard (2.3.1)
   - RealReachability (1.1.9):
     - RealReachability/Connection (= 1.1.9)
@@ -26,20 +26,20 @@ PODS:
   - RealReachability/Connection (1.1.9)
   - RealReachability/Ping (1.1.9)
   - Result (3.2.4)
-  - Siren (3.0.1)
+  - Siren (3.2.0)
   - SnapKit (4.0.0)
   - SQLite.swift (0.11.4):
     - SQLite.swift/standard (= 0.11.4)
   - SQLite.swift/standard (0.11.4)
-  - SVProgressHUD (2.2.1)
-  - SwiftyJSON (3.1.4)
-  - TZImagePickerController (1.9.3)
-  - WechatOpenSDK (1.8.0)
-  - WMPageController (2.4.3)
+  - SVProgressHUD (2.2.2)
+  - SwiftyJSON (4.0.0)
+  - TZImagePickerController (1.9.8)
+  - WechatOpenSDK (1.8.1)
+  - WMPageController (2.5.2)
 
 DEPENDENCIES:
   - Alamofire
-  - BaiduMapKit
+  - BaiduMapKit (= 3.4.2)
   - BaiduMobStat
   - Charts
   - IQKeyboardManagerSwift
@@ -63,31 +63,31 @@ DEPENDENCIES:
   - WMPageController
 
 SPEC CHECKSUMS:
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  BaiduMapKit: 0a5e5e0b1e3fd8dc5aceb40ab9b89e52e1d13df9
-  BaiduMobStat: 0b90ece449274a310d2c37eec949c6da3602a995
-  Charts: 0705898046257443f0afbbc3179f4b67507b6e48
-  IQKeyboardManagerSwift: e257e513744cf32123eca7061272acea0246fc83
-  JCore: 9bd9c770c877c583d98b90a68792b8361974c231
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  BaiduMapKit: f61b19ecf07a3f2deede72b221b366bf698739ed
+  BaiduMobStat: 41c1a17c89397d80e96eff37da5dab9e600fc7a2
+  Charts: 45cdc985b764c838b35ee47eb1365d15735f6d1a
+  IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
+  JCore: f7459c81c135281a874a6beafdd321666adcc834
   JNDropDownMenu: 5f24544b002e01289818d1c56d56ae2de11cb931
-  JPush: c41be50eb1a574a66aeb68d237f00a4ec6ec3a82
-  Kingfisher: f14df8cbe576bf55f211fa589e9869bceb4ea87d
-  KMNavigationBarTransition: 79715a1aeb07a7b0aae45e7e4b02d29db1ea8107
-  MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
-  Moya: cf5e6ee93af526532f92614004b8ad2ea60fd845
-  ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
+  JPush: 9574d072cc37e93fa293ba69b43ce763c440943a
+  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
+  KMNavigationBarTransition: 7a52c9bc25b39b6e3343e980b453facee1591b82
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  Moya: 9e621707ff754eeb51ff3ec51a3d54e517c0733a
+  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   Onboard: b6871f25ac753175b2ab9a362fb2feb26a81a311
   RealReachability: a8c483900986a0f3305733961effbfbb00637a02
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  Siren: 1fe6c89c268bb5abe684120142e2ad3e7fb0ca1a
+  Siren: 964f57553cf6a39d1bada4e403557523a213b397
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SQLite.swift: 3e3bee21da701b5b9f87c4a672cb54f233505692
-  SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
-  TZImagePickerController: 079ab986018c22793462e531045a75e366b18252
-  WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
-  WMPageController: 4c7f2c636675a71aea5eecf8fdc07a0ce86954e3
+  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  TZImagePickerController: 3b9413ae5d049b1fdc5b0c720ad283f35b679a50
+  WechatOpenSDK: 491d965d79335070328571d3e79f714549e79a5e
+  WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
 
-PODFILE CHECKSUM: 5c6a1dbfc33b2b3ce7d9cff6884a3833df26dafe
+PODFILE CHECKSUM: f2f242835b2e39b2e0e6d30ea42f43deaf65b81f
 
 COCOAPODS: 1.4.0.beta.1
