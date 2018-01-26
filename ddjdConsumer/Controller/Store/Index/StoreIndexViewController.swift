@@ -25,6 +25,7 @@ class StoreIndexViewController:BaseViewController{
         setUpNavColor()
         queryStoreTurnover()
         queryStoreBindWxOrAliStatu()
+        queryOrderAmount()
     }
     
     override func viewDidLoad() {
@@ -32,8 +33,6 @@ class StoreIndexViewController:BaseViewController{
         self.title=userDefaults.object(forKey:"storeName") as? String ?? "门店首页"
         setUpView()
         isOpenNotifications()
-        queryOrderAmount()
-
     }
 }
 ///设置页面
@@ -159,9 +158,9 @@ extension StoreIndexViewController{
 
             self.sumOrderPromptCount=json["yifa"].intValue
             self.sumOrderPromptCount!+=json["daifa"].intValue
-            DispatchQueue.main.async {
+            DispatchQueue.main.async(execute: {
                 self.collection.reloadData()
-            }
+            })
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }

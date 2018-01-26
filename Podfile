@@ -20,7 +20,7 @@ target ‘ddjdConsumer’ do
     pod 'BaiduMobStat' #百度统计
     pod 'Kingfisher' #图片缓存
     pod 'SnapKit' #自动布局
-    pod 'BaiduMapKit' #百度地图SDK
+#    pod 'BaiduMapKit' #百度地图SDK
     pod 'WechatOpenSDK' #微信SDK
     pod 'KMNavigationBarTransition' #一个用来统一管理导航栏转场以及当 push 或者 pop 的时候使动画效果更加顺滑的通用库，并且同时支持竖屏和横屏。你不用为这个库写一行代码，所有的改变都悄然发生。
     pod 'JNDropDownMenu' #对页面排序

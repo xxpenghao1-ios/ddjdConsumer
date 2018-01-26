@@ -29,7 +29,6 @@
 		6316BAEE1FA95BD500D91BA1 /* publicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6316BAED1FA95BD500D91BA1 /* publicView.swift */; };
 		6316BAF21FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6316BAF11FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m */; };
 		631E9A59201B047B0061C37B /* xindingdan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 631E9A58201B047B0061C37B /* xindingdan.mp3 */; };
-		631E9A60201B13450061C37B /* bdMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 631E9A5F201B13450061C37B /* bdMap.mm */; };
 		631F29D31F622D6A00E46C19 /* IndexNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F29D21F622D6A00E46C19 /* IndexNetWork.swift */; };
 		631F29D51F622DCB00E46C19 /* GoodsClassificationNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F29D41F622DCB00E46C19 /* GoodsClassificationNetWork.swift */; };
 		631F29D71F622DF400E46C19 /* ShoppingCartNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F29D61F622DF400E46C19 /* ShoppingCartNetWork.swift */; };
@@ -113,7 +112,6 @@
 		63A30C1E1FD275F8007E6D9F /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A30C1D1FD275F8007E6D9F /* FeedbackViewController.swift */; };
 		63A30C221FD2920C007E6D9F /* FeedbackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A30C201FD2920C007E6D9F /* FeedbackCollectionViewCell.swift */; };
 		63A30C231FD2920C007E6D9F /* FeedbackCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A30C211FD2920C007E6D9F /* FeedbackCollectionViewCell.xib */; };
-		63A3D9041FD5156D00649AA9 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 63A3D9031FD5156D00649AA9 /* mapapi.bundle */; };
 		63A6C53B1FCC01840041F012 /* OrderListPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A6C53A1FCC01840041F012 /* OrderListPageController.swift */; };
 		63AB90221F66739B0070AEED /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB90211F66739B0070AEED /* BaseViewController.swift */; };
 		63BB8BC01FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BB8BBF1FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift */; };
@@ -194,6 +192,19 @@
 		63F85F3F1FFDFA7900759141 /* BalanceRecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F85F3E1FFDFA7900759141 /* BalanceRecordEntity.swift */; };
 		63F941C41FD8EA70007BB96A /* CategorySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F941C31FD8EA70007BB96A /* CategorySelectionViewController.swift */; };
 		63F941C61FD90525007BB96A /* NSNotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F941C51FD90525007BB96A /* NSNotificationName.swift */; };
+		63F94254201B5D6F001F32A4 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 63F94253201B5D6F001F32A4 /* mapapi.bundle */; };
+		63F94272201B5F0F001F32A4 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F94271201B5F0F001F32A4 /* libstdc++.6.0.9.tbd */; };
+		63F94274201B5F32001F32A4 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F94273201B5F32001F32A4 /* OpenGLES.framework */; };
+		63F94276201B5F4B001F32A4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F94275201B5F4B001F32A4 /* CoreLocation.framework */; };
+		63F94292201B609B001F32A4 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F94288201B609B001F32A4 /* BaiduMapAPI_Base.framework */; };
+		63F94293201B609B001F32A4 /* BaiduMapAPI_Cloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F94289201B609B001F32A4 /* BaiduMapAPI_Cloud.framework */; };
+		63F94294201B609B001F32A4 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F9428A201B609B001F32A4 /* BaiduMapAPI_Location.framework */; };
+		63F94295201B609B001F32A4 /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F9428B201B609B001F32A4 /* BaiduMapAPI_Map.framework */; };
+		63F94296201B609B001F32A4 /* BaiduMapAPI_Radar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F9428C201B609B001F32A4 /* BaiduMapAPI_Radar.framework */; };
+		63F94297201B609B001F32A4 /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F9428D201B609B001F32A4 /* BaiduMapAPI_Search.framework */; };
+		63F94298201B609B001F32A4 /* BaiduMapAPI_Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F9428E201B609B001F32A4 /* BaiduMapAPI_Utils.framework */; };
+		63F94299201B609B001F32A4 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F94290201B609B001F32A4 /* libcrypto.a */; };
+		63F9429A201B609B001F32A4 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F94291201B609B001F32A4 /* libssl.a */; };
 		63F9C8D01FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C8CF1FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift */; };
 		63F9C91B1FAB3E5500A3732D /* SpecialPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9C9191FAB3E5500A3732D /* SpecialPriceTableViewCell.swift */; };
 		63F9C91C1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F9C91A1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib */; };
@@ -290,7 +301,6 @@
 		6316BAF01FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		6316BAF11FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		631E9A58201B047B0061C37B /* xindingdan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = xindingdan.mp3; sourceTree = "<group>"; };
-		631E9A5F201B13450061C37B /* bdMap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = bdMap.mm; sourceTree = "<group>"; };
 		631F29D21F622D6A00E46C19 /* IndexNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexNetWork.swift; sourceTree = "<group>"; };
 		631F29D41F622DCB00E46C19 /* GoodsClassificationNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsClassificationNetWork.swift; sourceTree = "<group>"; };
 		631F29D61F622DF400E46C19 /* ShoppingCartNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingCartNetWork.swift; sourceTree = "<group>"; };
@@ -386,7 +396,6 @@
 		63A30C1D1FD275F8007E6D9F /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		63A30C201FD2920C007E6D9F /* FeedbackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A30C211FD2920C007E6D9F /* FeedbackCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackCollectionViewCell.xib; sourceTree = "<group>"; };
-		63A3D9031FD5156D00649AA9 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = Pods/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle; sourceTree = SOURCE_ROOT; };
 		63A6C53A1FCC01840041F012 /* OrderListPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListPageController.swift; sourceTree = "<group>"; };
 		63AB90211F66739B0070AEED /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		63BB8BBF1FC677D3003BB38D /* StoreBindWxOrAlipayNetWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreBindWxOrAlipayNetWork.swift; sourceTree = "<group>"; };
@@ -468,6 +477,23 @@
 		63F85F3E1FFDFA7900759141 /* BalanceRecordEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceRecordEntity.swift; sourceTree = "<group>"; };
 		63F941C31FD8EA70007BB96A /* CategorySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionViewController.swift; sourceTree = "<group>"; };
 		63F941C51FD90525007BB96A /* NSNotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationName.swift; sourceTree = "<group>"; };
+		63F94253201B5D6F001F32A4 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = ddjdConsumer/ThirdPartyFramworks/BaiduMapAPI/BaiduMapAPI_Map.framework/Resources/mapapi.bundle; sourceTree = SOURCE_ROOT; };
+		63F94255201B5DBA001F32A4 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ddjdConsumer/ThirdPartyFramworks/BaiduMapAPI/thirdlibs/libcrypto.a; sourceTree = "<group>"; };
+		63F94257201B5DD1001F32A4 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ddjdConsumer/ThirdPartyFramworks/BaiduMapAPI/thirdlibs/libssl.a; sourceTree = "<group>"; };
+		63F94259201B5E6A001F32A4 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = ddjdConsumer/ThirdPartyFramworks/BaiduMapAPI/BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
+		63F9425B201B5E79001F32A4 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Cloud.framework; path = ddjdConsumer/ThirdPartyFramworks/BaiduMapAPI/BaiduMapAPI_Cloud.framework; sourceTree = "<group>"; };
+		63F94271201B5F0F001F32A4 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		63F94273201B5F32001F32A4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		63F94275201B5F4B001F32A4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		63F94288201B609B001F32A4 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
+		63F94289201B609B001F32A4 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Cloud.framework; sourceTree = "<group>"; };
+		63F9428A201B609B001F32A4 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
+		63F9428B201B609B001F32A4 /* BaiduMapAPI_Map.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Map.framework; sourceTree = "<group>"; };
+		63F9428C201B609B001F32A4 /* BaiduMapAPI_Radar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Radar.framework; sourceTree = "<group>"; };
+		63F9428D201B609B001F32A4 /* BaiduMapAPI_Search.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Search.framework; sourceTree = "<group>"; };
+		63F9428E201B609B001F32A4 /* BaiduMapAPI_Utils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Utils.framework; sourceTree = "<group>"; };
+		63F94290201B609B001F32A4 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		63F94291201B609B001F32A4 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		63F9C8CF1FDE7C51006477B8 /* UpdateStoreGoodDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStoreGoodDetailViewController.swift; sourceTree = "<group>"; };
 		63F9C9191FAB3E5500A3732D /* SpecialPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialPriceTableViewCell.swift; sourceTree = "<group>"; };
 		63F9C91A1FAB3E5500A3732D /* SpecialPriceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpecialPriceTableViewCell.xib; sourceTree = "<group>"; };
@@ -532,20 +558,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				632D817E1FEBB1D800E4A89A /* libresolv.tbd in Frameworks */,
-				63F4B1081F6FB25F00BBDD84 /* libc++.tbd in Frameworks */,
-				63FD9B461FBD341800BEE45F /* CoreData.framework in Frameworks */,
-				63F4B11A1F6FB2D900BBDD84 /* CFNetwork.framework in Frameworks */,
 				63F4B10E1F6FB28200BBDD84 /* CoreTelephony.framework in Frameworks */,
 				63351D5E1FB5C29E004B12A3 /* Security.framework in Frameworks */,
-				63F4B10A1F6FB26800BBDD84 /* libz.tbd in Frameworks */,
+				63F4B1141F6FB2AE00BBDD84 /* CoreGraphics.framework in Frameworks */,
 				63F4B10C1F6FB27200BBDD84 /* SystemConfiguration.framework in Frameworks */,
+				63F94276201B5F4B001F32A4 /* CoreLocation.framework in Frameworks */,
+				63F94292201B609B001F32A4 /* BaiduMapAPI_Base.framework in Frameworks */,
+				63F4B1101F6FB28E00BBDD84 /* QuartzCore.framework in Frameworks */,
+				63F94295201B609B001F32A4 /* BaiduMapAPI_Map.framework in Frameworks */,
+				63F94299201B609B001F32A4 /* libcrypto.a in Frameworks */,
+				63F94274201B5F32001F32A4 /* OpenGLES.framework in Frameworks */,
+				63F94293201B609B001F32A4 /* BaiduMapAPI_Cloud.framework in Frameworks */,
+				63F94294201B609B001F32A4 /* BaiduMapAPI_Location.framework in Frameworks */,
+				63F94272201B5F0F001F32A4 /* libstdc++.6.0.9.tbd in Frameworks */,
+				63F94296201B609B001F32A4 /* BaiduMapAPI_Radar.framework in Frameworks */,
+				63F4B1081F6FB25F00BBDD84 /* libc++.tbd in Frameworks */,
+				63F9429A201B609B001F32A4 /* libssl.a in Frameworks */,
+				63FD9B461FBD341800BEE45F /* CoreData.framework in Frameworks */,
+				63F4B11A1F6FB2D900BBDD84 /* CFNetwork.framework in Frameworks */,
+				63F4B10A1F6FB26800BBDD84 /* libz.tbd in Frameworks */,
 				63351D5C1FB5C27F004B12A3 /* libsqlite3.0.tbd in Frameworks */,
 				63F4B11C1F6FB2E800BBDD84 /* CoreMotion.framework in Frameworks */,
 				63F4B1161F6FB2BB00BBDD84 /* UIKit.framework in Frameworks */,
-				63F4B1141F6FB2AE00BBDD84 /* CoreGraphics.framework in Frameworks */,
+				63F94297201B609B001F32A4 /* BaiduMapAPI_Search.framework in Frameworks */,
 				63BB8BCC1FC6908D003BB38D /* AlipaySDK.framework in Frameworks */,
 				63F4B1121F6FB29B00BBDD84 /* CoreText.framework in Frameworks */,
-				63F4B1101F6FB28E00BBDD84 /* QuartzCore.framework in Frameworks */,
+				63F94298201B609B001F32A4 /* BaiduMapAPI_Utils.framework in Frameworks */,
 				953DB8707FBC5AF5D79F089E /* Pods_ddjdConsumer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -570,6 +608,13 @@
 		2646F05185820A03B8983576 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63F94275201B5F4B001F32A4 /* CoreLocation.framework */,
+				63F94273201B5F32001F32A4 /* OpenGLES.framework */,
+				63F94271201B5F0F001F32A4 /* libstdc++.6.0.9.tbd */,
+				63F9425B201B5E79001F32A4 /* BaiduMapAPI_Cloud.framework */,
+				63F94259201B5E6A001F32A4 /* BaiduMapAPI_Base.framework */,
+				63F94257201B5DD1001F32A4 /* libssl.a */,
+				63F94255201B5DBA001F32A4 /* libcrypto.a */,
 				632D817D1FEBB1D800E4A89A /* libresolv.tbd */,
 				63FD9B451FBD340F00BEE45F /* CoreData.framework */,
 				63351D5D1FB5C296004B12A3 /* Security.framework */,
@@ -865,6 +910,7 @@
 		636925B11F5FFE01007EFDB7 /* ThirdPartyFramworks */ = {
 			isa = PBXGroup;
 			children = (
+				63F94287201B609B001F32A4 /* BaiduMapAPI */,
 				63FA211F2000B57E001F2240 /* CountDownManager */,
 				63395A7E1FE786A6005EE80A /* HooDatePicker */,
 				63FACD191FDA261A007678B8 /* Scan */,
@@ -1084,7 +1130,6 @@
 				6395DE4E1F5D431F008149DD /* Assets.xcassets */,
 				6395DE531F5D431F008149DD /* Info.plist */,
 				6395DE751F5D436F008149DD /* ddjdConsumer-Bridging-Header.h */,
-				631E9A5F201B13450061C37B /* bdMap.mm */,
 			);
 			path = ddjdConsumer;
 			sourceTree = "<group>";
@@ -1119,7 +1164,7 @@
 		63A3D9021FD513C400649AA9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				63A3D9031FD5156D00649AA9 /* mapapi.bundle */,
+				63F94253201B5D6F001F32A4 /* mapapi.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1390,6 +1435,30 @@
 				63F85F3B1FFDF7CF00759141 /* BalanceMoneyRecordTableViewCell.xib */,
 			);
 			path = BalanceMoneyCell;
+			sourceTree = "<group>";
+		};
+		63F94287201B609B001F32A4 /* BaiduMapAPI */ = {
+			isa = PBXGroup;
+			children = (
+				63F94288201B609B001F32A4 /* BaiduMapAPI_Base.framework */,
+				63F94289201B609B001F32A4 /* BaiduMapAPI_Cloud.framework */,
+				63F9428A201B609B001F32A4 /* BaiduMapAPI_Location.framework */,
+				63F9428B201B609B001F32A4 /* BaiduMapAPI_Map.framework */,
+				63F9428C201B609B001F32A4 /* BaiduMapAPI_Radar.framework */,
+				63F9428D201B609B001F32A4 /* BaiduMapAPI_Search.framework */,
+				63F9428E201B609B001F32A4 /* BaiduMapAPI_Utils.framework */,
+				63F9428F201B609B001F32A4 /* thirdlibs */,
+			);
+			path = BaiduMapAPI;
+			sourceTree = "<group>";
+		};
+		63F9428F201B609B001F32A4 /* thirdlibs */ = {
+			isa = PBXGroup;
+			children = (
+				63F94290201B609B001F32A4 /* libcrypto.a */,
+				63F94291201B609B001F32A4 /* libssl.a */,
+			);
+			path = thirdlibs;
 			sourceTree = "<group>";
 		};
 		63F9C9161FAB3DE300A3732D /* UITableViewCell */ = {
@@ -1746,6 +1815,7 @@
 				63300F45200DFAC5004587E0 /* StoreGood.storyboard in Resources */,
 				631E9A59201B047B0061C37B /* xindingdan.mp3 in Resources */,
 				63A30C231FD2920C007E6D9F /* FeedbackCollectionViewCell.xib in Resources */,
+				63F94254201B5D6F001F32A4 /* mapapi.bundle in Resources */,
 				6394F6361FAAFEA000D1795A /* CarTableViewCell.xib in Resources */,
 				63CC8E991FC06A45005C5FB6 /* NewsTableViewCell.xib in Resources */,
 				6395DE4F1F5D431F008149DD /* Assets.xcassets in Resources */,
@@ -1762,7 +1832,6 @@
 				63BB8BCB1FC6908D003BB38D /* AlipaySDK.bundle in Resources */,
 				63924F3E1FB99A90007872F6 /* AddressListTableViewCell.xib in Resources */,
 				632D817C1FEB5BAB00E4A89A /* GoodPublicLibraryListTableViewCell.xib in Resources */,
-				63A3D9041FD5156D00649AA9 /* mapapi.bundle in Resources */,
 				63FC07801FD4F39B00C24DF9 /* BindStoreListTableViewCell.xib in Resources */,
 				63FEDA0E1FC5A11E000EF4DF /* poiTableViewCell.xib in Resources */,
 				63FACD221FDA261A007678B8 /* CodeScan.bundle in Resources */,
@@ -2052,7 +2121,6 @@
 				63BB8BC81FC69070003BB38D /* AliSdkManager.swift in Sources */,
 				63741CD41F7897F500946979 /* WRCycleScrollView.swift in Sources */,
 				63F7C1191FCA5B0400C74544 /* OrderListTableViewCell.swift in Sources */,
-				631E9A60201B13450061C37B /* bdMap.mm in Sources */,
 				63E8B27F1FD3D05C003FCF1E /* FormTextViewCell.swift in Sources */,
 				632FB4311FE9F20C0007B86C /* GoodPublicLibraryListViewController.swift in Sources */,
 				63FACD231FDA261A007678B8 /* LBXPermissions.swift in Sources */,
@@ -2319,6 +2387,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ddjdConsumer/ThirdPartyFramworks/pay/AlipaySDK",
 					"$(PROJECT_DIR)/ddjdConsumer/Utility/pay",
+					"$(PROJECT_DIR)/ddjdConsumer/ThirdPartyFramworks/BaiduMapAPI",
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
@@ -2334,6 +2403,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ddjdConsumer/Utility/pay\"",
+					"$(PROJECT_DIR)/ddjdConsumer/ThirdPartyFramworks/BaiduMapAPI/thirdlibs",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zltx.ddjdConsumer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2362,6 +2432,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ddjdConsumer/ThirdPartyFramworks/pay/AlipaySDK",
 					"$(PROJECT_DIR)/ddjdConsumer/Utility/pay",
+					"$(PROJECT_DIR)/ddjdConsumer/ThirdPartyFramworks/BaiduMapAPI",
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
@@ -2377,6 +2448,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ddjdConsumer/Utility/pay\"",
+					"$(PROJECT_DIR)/ddjdConsumer/ThirdPartyFramworks/BaiduMapAPI/thirdlibs",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zltx.ddjdConsumer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
