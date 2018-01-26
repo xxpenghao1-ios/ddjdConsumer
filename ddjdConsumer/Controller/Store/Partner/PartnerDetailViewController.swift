@@ -7,14 +7,14 @@
 //
 
 import Foundation
-///合伙人详情
+///众筹人详情
 class PartnerDetailViewController:BaseViewController{
     var entity:PartnerEntity?
     private var table:UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         entity=entity ?? PartnerEntity()
-        self.title="合伙人-\(entity?.storeAndPartnerNickName ?? "")"
+        self.title="众筹人-\(entity?.storeAndPartnerNickName ?? "")"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         setUpView()
     }
@@ -85,7 +85,7 @@ extension PartnerDetailViewController:UITableViewDelegate,UITableViewDataSource{
         return 1
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "合伙人详细信息"
+        return "众筹人详细信息"
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 8

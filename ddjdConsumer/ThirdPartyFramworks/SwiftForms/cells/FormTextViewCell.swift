@@ -86,7 +86,7 @@ open class FormTextViewCell : FormBaseCell, UITextViewDelegate {
     // MARK: UITextViewDelegate
     
     open func textViewDidChange(_ textView: UITextView) {
-        print(textView.text)
+        
         guard let text = textView.text, text.count > 0 else { rowDescriptor?.value = nil; update(); return }
         rowDescriptor?.value = text as AnyObject
     }

@@ -8,24 +8,24 @@
 
 import Foundation
 import ObjectMapper
-///合伙人
+///众筹人
 class PartnerEntity:Mappable {
     var storeAndPartnerId:Int?
-    ///‘添加合伙人的时间’,
+    ///‘添加众筹人的时间’,
     var storeAndPartnerAddTime:String?
-    /// ‘添加合伙人时填写的合伙人联系方式’,
+    /// ‘添加众筹人时填写的众筹人联系方式’,
     var storeAndPartnerMemberTel:String?
     ///‘联系名称’,
     var storeAndPartnerNickName:String?
-    /// ‘合伙人占利润的百分比； 整数’,
+    /// ‘众筹人占利润的百分比； 整数’,
     var storeAndPartnerBFB:Int?
-    ///  ‘合伙人的出资金额 ； ‘,
+    ///  ‘众筹人的出资金额 ； ‘,
     var storeAndPartneAmountOfPayment:Double?
-    /// ‘为合伙人总共返回余额的月数’,
+    /// ‘为众筹人总共返回余额的月数’,
     var storeAndPartneMonthCount:Int?
-    /// ‘还需要为合伙人返回多少月的余额’,
+    /// ‘还需要为众筹人返回多少月的余额’,
     var storeAndPartneSurplusMonthCount:Int?
-    ///  ‘为合伙人每月返回多少余额’,
+    ///  ‘为众筹人每月返回多少余额’,
     var storeAndPartneMonthMoney:Double?
     init(){}
     required init?(map: Map) {

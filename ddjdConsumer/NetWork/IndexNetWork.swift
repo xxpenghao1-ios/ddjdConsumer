@@ -15,7 +15,7 @@ public enum IndexApi{
     case indexGoods(bindstoreId:Int,pageSize:Int,pageNumber:Int)
     //查询首页广告
     case getAllAdvertising()
-    ///成为VIP或合伙人资料
+    ///成为VIP或众筹人资料
     case ddjdvip(storeId:Int)
 }
 extension IndexApi:TargetType{

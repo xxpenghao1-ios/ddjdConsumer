@@ -65,7 +65,7 @@ extension MyInformationViewController:UITableViewDelegate,UITableViewDataSource{
         }else if indexPath.row == 2{
             cell!.textLabel!.text="修改支付密码"
         }else if indexPath.row == 3{
-            cell!.textLabel!.text="合伙人福利信息"
+            cell!.textLabel!.text="众筹人福利信息"
         }
         
         return cell!

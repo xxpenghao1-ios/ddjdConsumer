@@ -20,11 +20,6 @@ PODS:
     - Result (~> 3.0)
   - ObjectMapper (3.1.0)
   - Onboard (2.3.1)
-  - RealReachability (1.1.9):
-    - RealReachability/Connection (= 1.1.9)
-    - RealReachability/Ping (= 1.1.9)
-  - RealReachability/Connection (1.1.9)
-  - RealReachability/Ping (1.1.9)
   - Result (3.2.4)
   - Siren (3.2.0)
   - SnapKit (4.0.0)
@@ -39,7 +34,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - BaiduMapKit (= 3.4.2)
+  - BaiduMapKit
   - BaiduMobStat
   - Charts
   - IQKeyboardManagerSwift
@@ -51,7 +46,6 @@ DEPENDENCIES:
   - Moya
   - ObjectMapper
   - Onboard
-  - RealReachability
   - Result
   - Siren
   - SnapKit
@@ -77,7 +71,6 @@ SPEC CHECKSUMS:
   Moya: 9e621707ff754eeb51ff3ec51a3d54e517c0733a
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   Onboard: b6871f25ac753175b2ab9a362fb2feb26a81a311
-  RealReachability: a8c483900986a0f3305733961effbfbb00637a02
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   Siren: 964f57553cf6a39d1bada4e403557523a213b397
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
@@ -88,6 +81,6 @@ SPEC CHECKSUMS:
   WechatOpenSDK: 491d965d79335070328571d3e79f714549e79a5e
   WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
 
-PODFILE CHECKSUM: f2f242835b2e39b2e0e6d30ea42f43deaf65b81f
+PODFILE CHECKSUM: d3c932db44cea302ad7ff8099e0ccac3063bea82
 
 COCOAPODS: 1.4.0.beta.1

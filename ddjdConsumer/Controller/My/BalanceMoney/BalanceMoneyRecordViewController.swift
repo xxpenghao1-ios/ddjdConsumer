@@ -9,7 +9,7 @@
 import Foundation
 ///余额明细
 class BalanceMoneyRecordViewController:BaseViewController{
-    var partnerStatu:Int?  ///‘是否为店铺合伙人；默认1不是；2是’,
+    var partnerStatu:Int?  ///‘是否为店铺众筹人；默认1不是；2是’,
     @IBOutlet weak var table: UITableView!
     ///余额
     @IBOutlet weak var lblBlanceMoney: UILabel!
@@ -70,7 +70,7 @@ class BalanceMoneyRecordViewController:BaseViewController{
     //跳转到提现页面
     @IBAction func pushWithdrawal(_ sender: UIButton) {
         if partnerStatu == 2{
-            self.showSVProgressHUD(status:"合伙人不能提现", type: HUD.info)
+            self.showSVProgressHUD(status:"众筹人不能提现", type: HUD.info)
             return
         }
         let vc=self.storyboardPushView(type:.my, storyboardId:"BalanceMoneyWithdrawalVC") as! BalanceMoneyWithdrawalViewController

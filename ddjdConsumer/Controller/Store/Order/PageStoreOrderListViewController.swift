@@ -16,7 +16,7 @@ class PageStoreOrderListViewController:WMPageController{
     override func viewDidLoad() {
         setUpMenuView()
         super.viewDidLoad()
-        self.title="我的订单"
+        self.title="店铺订单"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         if isCancelItem != nil{
             self.navigationItem.leftBarButtonItem=UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.cancel, target:self, action: #selector(cancel))

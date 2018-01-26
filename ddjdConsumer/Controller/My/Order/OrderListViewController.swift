@@ -382,11 +382,11 @@ extension OrderListViewController{
             }else if success == "lowestMoneyError"{
                 self.showSVProgressHUD(status:"订单价格低于店铺设置的最低起送额", type: HUD.info)
             }else if success == "partnerBalanceError"{
-                self.showSVProgressHUD(status:"合伙人余额信息错误", type: HUD.error)
+                self.showSVProgressHUD(status:"众筹人余额信息错误", type: HUD.error)
             }else if success == "deductPartnerBalanceFail"{
-                self.showSVProgressHUD(status:"扣除合伙人余额失败", type: HUD.error)
+                self.showSVProgressHUD(status:"扣除众筹人余额失败", type: HUD.error)
             }else if success == "partnerBalanceNotEnough"{
-                self.showSVProgressHUD(status:"合伙人余额不充足", type: HUD.error)
+                self.showSVProgressHUD(status:"众筹人余额不充足", type: HUD.error)
             }else if success == "deductMemberBalanceFail"{
                 self.showSVProgressHUD(status:"扣除会员余额失败", type: HUD.error)
             }else if success == "memberBalanceNotEnough"{

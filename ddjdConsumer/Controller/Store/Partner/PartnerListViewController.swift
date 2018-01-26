@@ -7,7 +7,7 @@
 //
 
 import Foundation
-///合伙人管理
+///众筹人管理
 class PartnerListViewController:BaseViewController{
     ///table
     @IBOutlet weak var table: UITableView!
@@ -18,12 +18,12 @@ class PartnerListViewController:BaseViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title="合伙人管理"
+        self.title="众筹人管理"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target:self, action:#selector(pushAddPartnerVC))
         setUpView()
     }
-    /// 跳转到添加合伙人页面
+    /// 跳转到添加众筹人页面
     @objc private func pushAddPartnerVC(){
         let vc=self.storyboardPushView(type:.store, storyboardId:"AddPartnerVC") as! AddPartnerViewController
         self.navigationController?.pushViewController(vc, animated:true)
@@ -37,7 +37,7 @@ extension PartnerListViewController{
         table.emptyDataSetSource=self
         table.emptyDataSetDelegate=self
         self.setLoadingState(isLoading:true)
-        self.setEmptyDataSetInfo(text:"还木有合伙人")
+        self.setEmptyDataSetInfo(text:"还木有众筹人")
         self.table.tableFooterView=UIView.init(frame: CGRect.zero)
     }
 }
@@ -54,7 +54,7 @@ extension PartnerListViewController:UITableViewDelegate,UITableViewDataSource{
         cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:14)
         if arr.count > 0{
             let entity=arr[indexPath.row]
-            cell!.textLabel!.text="合伙人-\(entity.storeAndPartnerNickName ?? "")"
+            cell!.textLabel!.text="众筹人-\(entity.storeAndPartnerNickName ?? "")"
             cell!.detailTextLabel!.text=entity.storeAndPartnerMemberTel
         }
         return cell!
@@ -75,7 +75,7 @@ extension PartnerListViewController:UITableViewDelegate,UITableViewDataSource{
 }
 ///网络请求
 extension PartnerListViewController{
-    ///查询合伙人
+    ///查询众筹人
     private func queryStoreBindPartner(){
         self.arr.removeAll()
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryStoreBindPartner(storeId:STOREID), successClosure: { (json) in

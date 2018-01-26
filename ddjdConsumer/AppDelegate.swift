@@ -321,7 +321,7 @@ extension AppDelegate{
                 self.window?.rootViewController?.present(alert, animated:true, completion:nil)
             }
         }) { (error) in
-            print(error!)
+            
         }
     }
 }

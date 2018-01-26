@@ -18,7 +18,7 @@ class AddPartnerViewController:FormViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title="添加合伙人"
+        self.title="添加众筹人"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         setUpView()
     }
@@ -27,25 +27,25 @@ class AddPartnerViewController:FormViewController{
 extension AddPartnerViewController{
     private func setUpView(){
         let form = FormDescriptor()
-        let section1 = FormSectionDescriptor(headerTitle:"请填写合伙人相关信息", footerTitle: nil)
+        let section1 = FormSectionDescriptor(headerTitle:"请填写众筹人相关信息", footerTitle: nil)
         var row = FormRowDescriptor(tag: Static.nickNameTag, type:.text, title:"姓名:")
-        row.configuration.cell.placeholder="请输入合伙人姓名"
+        row.configuration.cell.placeholder="请输入众筹人姓名"
         section1.rows.append(row)
 
         row = FormRowDescriptor(tag: Static.memberAccTag, type:.phone, title:"账号:")
-        row.configuration.cell.placeholder="请输入合伙人账号"
+        row.configuration.cell.placeholder="请输入众筹人账号"
         section1.rows.append(row)
 
         row = FormRowDescriptor(tag: Static.memberTelTag, type:.phone, title:"联系方式:")
-        row.configuration.cell.placeholder="请输入合伙人联系方式"
+        row.configuration.cell.placeholder="请输入众筹人联系方式"
         section1.rows.append(row)
 
         row = FormRowDescriptor(tag: Static.storeAndPartneAmountOfPaymentTag, type:.decimal, title:"出资金额:")
-        row.configuration.cell.placeholder="请输入合伙人出资金额"
+        row.configuration.cell.placeholder="请输入众筹人出资金额"
         section1.rows.append(row)
 
-        row = FormRowDescriptor(tag: Static.BFBTag, type:.number, title:"合伙人利润百分比(%):")
-        row.configuration.cell.placeholder="请输入合伙人利润百分比"
+        row = FormRowDescriptor(tag: Static.BFBTag, type:.number, title:"众筹人利润百分比(%):")
+        row.configuration.cell.placeholder="请输入众筹人利润百分比"
         section1.rows.append(row)
 
 
@@ -72,27 +72,27 @@ extension AddPartnerViewController{
         let nickName=json[Static.nickNameTag] as? String
         let storeAndPartneAmountOfPayment=json[Static.storeAndPartneAmountOfPaymentTag] as? String
         if memberAcc == nil || memberAcc!.count == 0{
-            self.showInfo(withStatus:"合伙人账号不能为空")
+            self.showInfo(withStatus:"众筹人账号不能为空")
             return
         }
         if memberTel == nil || memberTel!.count == 0{
-            self.showInfo(withStatus:"合伙人联系方式不能为空")
+            self.showInfo(withStatus:"众筹人联系方式不能为空")
             return
         }
         if BFB == nil || BFB!.count == 0{
-            self.showInfo(withStatus:"合伙人利润百分比不能为空")
+            self.showInfo(withStatus:"众筹人利润百分比不能为空")
             return
         }
         if nickName == nil || nickName!.count == 0{
-            self.showInfo(withStatus:"合伙人名称不能为空")
+            self.showInfo(withStatus:"众筹人名称不能为空")
             return
         }
         if storeAndPartneAmountOfPayment == nil || storeAndPartneAmountOfPayment!.count == 0{
-            self.showInfo(withStatus:"合伙人的出资金额不能为空")
+            self.showInfo(withStatus:"众筹人的出资金额不能为空")
             return
         }
         if Int(storeAndPartneAmountOfPayment!)! > 1000000{
-            self.showInfo(withStatus:"合伙人的出资金额不能大于1百万")
+            self.showInfo(withStatus:"众筹人的出资金额不能大于1百万")
             return
         }
         SVProgressHUD.show(withStatus:"正在请求...")
@@ -101,12 +101,12 @@ extension AddPartnerViewController{
             let success=json["success"].stringValue
             switch success{
             case "success":
-                SVProgressHUD.showSuccess(withStatus:"添加合伙人成功")
+                SVProgressHUD.showSuccess(withStatus:"添加众筹人成功")
                 SVProgressHUD.setDefaultMaskType(.none)
                 self.navigationController?.popViewController(animated:true)
                 break
             case "bindPartnerExist":
-                self.showInfo(withStatus:"此账号已经绑定合伙人信息,不能再绑定")
+                self.showInfo(withStatus:"此账号已经绑定众筹人信息,不能再绑定")
                 break
             case "bindStoreError":
                 self.showInfo(withStatus:"账号绑定店铺错误— 此账号并不是绑定的此店铺")
@@ -118,7 +118,7 @@ extension AddPartnerViewController{
                 self.showInfo(withStatus:"账号信息不存在")
                 break
             case "exist":
-                self.showInfo(withStatus:"合伙人数量已满，不能在添加")
+                self.showInfo(withStatus:"众筹人数量已满，不能在添加")
                 break
             case "error":
                 self.showInfo(withStatus:"店铺已关闭")

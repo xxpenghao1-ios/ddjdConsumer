@@ -1230,14 +1230,14 @@
                                         <rect key="frame" x="0.0" y="386.66666666666663" width="375" height="276.66666666666663"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ddjd_vip" translatesAutoresizingMaskIntoConstraints="NO" id="Ec6-Rs-Ic4">
-                                                <rect key="frame" x="144.66666666666666" y="5.6666666666666288" width="86" height="24"/>
+                                                <rect key="frame" x="144.66666666666666" y="5.3333333333333144" width="86" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="86" id="9qi-mO-8KQ"/>
                                                     <constraint firstAttribute="height" constant="23.699999999999999" id="gr7-F5-Com"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="是的发放是的发放是的发放是的发放是的发放是的发放是的发放是的发放是的发放是的发放是的发放是的发放是的发放是的发放是的发放" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNY-Et-lg7">
-                                                <rect key="frame" x="30" y="49.666666666666629" width="315" height="46.666666666666657"/>
+                                                <rect key="frame" x="30" y="49.333333333333314" width="315" height="46.666666666666657"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Xlr-fk-Qdg"/>
                                                 </constraints>
@@ -1246,14 +1246,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ddjd_hhr" translatesAutoresizingMaskIntoConstraints="NO" id="bbl-0f-M0A">
-                                                <rect key="frame" x="136.66666666666666" y="111.33333333333331" width="102" height="26"/>
+                                                <rect key="frame" x="136.66666666666666" y="110.99999999999994" width="102" height="26"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25.5" id="ZkD-ke-hMC"/>
                                                     <constraint firstAttribute="width" constant="102" id="kIF-NX-lAJ"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YnX-s3-smB">
-                                                <rect key="frame" x="30" y="152.33333333333331" width="315" height="20"/>
+                                                <rect key="frame" x="30" y="151.99999999999994" width="315" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="S4E-bS-UDg"/>
                                                 </constraints>
@@ -1262,10 +1262,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RA1-rm-Ryj">
-                                                <rect key="frame" x="0.0" y="202.33333333333331" width="187.66666666666666" height="60"/>
+                                                <rect key="frame" x="0.0" y="201.99999999999994" width="187.66666666666666" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEm-xq-xgg">
-                                                        <rect key="frame" x="40.000000000000007" y="10.333333333333371" width="127.66666666666669" height="40"/>
+                                                        <rect key="frame" x="40.000000000000007" y="10.666666666666742" width="127.66666666666669" height="40"/>
                                                         <color key="backgroundColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" title="开通点单VIP">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1286,12 +1286,12 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSq-VW-Rao">
-                                                <rect key="frame" x="187.66666666666663" y="202.33333333333331" width="187.33333333333337" height="60"/>
+                                                <rect key="frame" x="187.66666666666663" y="201.99999999999994" width="187.33333333333337" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rF-Ee-opg">
-                                                        <rect key="frame" x="19.999999999999993" y="10.333333333333371" width="127.33333333333331" height="40"/>
+                                                        <rect key="frame" x="19.999999999999993" y="10.666666666666742" width="127.33333333333331" height="40"/>
                                                         <color key="backgroundColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="成为合伙人">
+                                                        <state key="normal" title="成为众筹人">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -1926,7 +1926,7 @@
     </scenes>
     <resources>
         <image name="collect" width="96" height="96"/>
-        <image name="ddjd_hhr" width="179" height="44"/>
+        <image name="ddjd_hhr" width="162" height="35"/>
         <image name="ddjd_vip" width="151" height="41"/>
         <image name="ddjd_vip_bac" width="540" height="90"/>
         <image name="ddjd_zk_bac" width="509" height="476"/>

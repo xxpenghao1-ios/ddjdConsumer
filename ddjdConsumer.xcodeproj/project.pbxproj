@@ -28,6 +28,8 @@
 		6316BAEB1FA95AF200D91BA1 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6316BAEA1FA95AF200D91BA1 /* SearchCollectionViewCell.swift */; };
 		6316BAEE1FA95BD500D91BA1 /* publicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6316BAED1FA95BD500D91BA1 /* publicView.swift */; };
 		6316BAF21FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6316BAF11FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m */; };
+		631E9A59201B047B0061C37B /* xindingdan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 631E9A58201B047B0061C37B /* xindingdan.mp3 */; };
+		631E9A60201B13450061C37B /* bdMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 631E9A5F201B13450061C37B /* bdMap.mm */; };
 		631F29D31F622D6A00E46C19 /* IndexNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F29D21F622D6A00E46C19 /* IndexNetWork.swift */; };
 		631F29D51F622DCB00E46C19 /* GoodsClassificationNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F29D41F622DCB00E46C19 /* GoodsClassificationNetWork.swift */; };
 		631F29D71F622DF400E46C19 /* ShoppingCartNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F29D61F622DF400E46C19 /* ShoppingCartNetWork.swift */; };
@@ -287,6 +289,8 @@
 		6316BAED1FA95BD500D91BA1 /* publicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = publicView.swift; sourceTree = "<group>"; };
 		6316BAF01FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		6316BAF11FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
+		631E9A58201B047B0061C37B /* xindingdan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = xindingdan.mp3; sourceTree = "<group>"; };
+		631E9A5F201B13450061C37B /* bdMap.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = bdMap.mm; sourceTree = "<group>"; };
 		631F29D21F622D6A00E46C19 /* IndexNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexNetWork.swift; sourceTree = "<group>"; };
 		631F29D41F622DCB00E46C19 /* GoodsClassificationNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsClassificationNetWork.swift; sourceTree = "<group>"; };
 		631F29D61F622DF400E46C19 /* ShoppingCartNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingCartNetWork.swift; sourceTree = "<group>"; };
@@ -643,6 +647,14 @@
 				6316BAF11FA96DE400D91BA1 /* UIScrollView+EmptyDataSet.m */,
 			);
 			path = DZNEmptyDataSet;
+			sourceTree = "<group>";
+		};
+		631E9A57201B043A0061C37B /* music */ = {
+			isa = PBXGroup;
+			children = (
+				631E9A58201B047B0061C37B /* xindingdan.mp3 */,
+			);
+			path = music;
 			sourceTree = "<group>";
 		};
 		632655241FC19C0200559E66 /* Store */ = {
@@ -1057,6 +1069,7 @@
 		6395DE461F5D431E008149DD /* ddjdConsumer */ = {
 			isa = PBXGroup;
 			children = (
+				631E9A57201B043A0061C37B /* music */,
 				63A3D9021FD513C400649AA9 /* Resources */,
 				63FFD9D31F6126F400B56B89 /* NetWork */,
 				63AB902E1F66879E0070AEED /* storyboard */,
@@ -1071,6 +1084,7 @@
 				6395DE4E1F5D431F008149DD /* Assets.xcassets */,
 				6395DE531F5D431F008149DD /* Info.plist */,
 				6395DE751F5D436F008149DD /* ddjdConsumer-Bridging-Header.h */,
+				631E9A5F201B13450061C37B /* bdMap.mm */,
 			);
 			path = ddjdConsumer;
 			sourceTree = "<group>";
@@ -1730,6 +1744,7 @@
 				6395DE521F5D431F008149DD /* LaunchScreen.storyboard in Resources */,
 				6374F3691F67E7DA006551CE /* IndexClassifyCollectionViewCell.xib in Resources */,
 				63300F45200DFAC5004587E0 /* StoreGood.storyboard in Resources */,
+				631E9A59201B047B0061C37B /* xindingdan.mp3 in Resources */,
 				63A30C231FD2920C007E6D9F /* FeedbackCollectionViewCell.xib in Resources */,
 				6394F6361FAAFEA000D1795A /* CarTableViewCell.xib in Resources */,
 				63CC8E991FC06A45005C5FB6 /* NewsTableViewCell.xib in Resources */,
@@ -1834,7 +1849,6 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Onboard/Onboard.framework",
-				"${BUILT_PRODUCTS_DIR}/RealReachability/RealReachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
@@ -1856,7 +1870,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Onboard.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealReachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
@@ -2039,6 +2052,7 @@
 				63BB8BC81FC69070003BB38D /* AliSdkManager.swift in Sources */,
 				63741CD41F7897F500946979 /* WRCycleScrollView.swift in Sources */,
 				63F7C1191FCA5B0400C74544 /* OrderListTableViewCell.swift in Sources */,
+				631E9A60201B13450061C37B /* bdMap.mm in Sources */,
 				63E8B27F1FD3D05C003FCF1E /* FormTextViewCell.swift in Sources */,
 				632FB4311FE9F20C0007B86C /* GoodPublicLibraryListViewController.swift in Sources */,
 				63FACD231FDA261A007678B8 /* LBXPermissions.swift in Sources */,
@@ -2300,11 +2314,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5A79UN6C3M;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ddjdConsumer/ThirdPartyFramworks/pay/AlipaySDK",
 					"$(PROJECT_DIR)/ddjdConsumer/Utility/pay",
 				);
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -2337,14 +2353,17 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ddjdConsumer/ddjdConsumer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5A79UN6C3M;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ddjdConsumer/ThirdPartyFramworks/pay/AlipaySDK",
 					"$(PROJECT_DIR)/ddjdConsumer/Utility/pay",
 				);
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",

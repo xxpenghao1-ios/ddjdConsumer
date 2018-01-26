@@ -15,11 +15,11 @@ class DDVIPViewCcontroller:BaseViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     ///vip内容
     @IBOutlet weak var lblVIP: UILabel!
-    ///合伙人内容
+    ///众筹人内容
     @IBOutlet weak var lblPartner: UILabel!
     ///vip按钮
     @IBOutlet weak var btnVIP: UIButton!
-    ///合伙人按钮
+    ///众筹人按钮
     @IBOutlet weak var btnPartner: UIButton!
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,7 +34,7 @@ class DDVIPViewCcontroller:BaseViewController {
             btnVIP.disable()
         }
         if partnerStatu == 2{
-            btnPartner.setTitle("您已是合伙人", for: UIControlState.normal)
+            btnPartner.setTitle("您已是众筹人", for: UIControlState.normal)
             btnPartner.disable()
         }
         getVIP()
@@ -44,9 +44,9 @@ class DDVIPViewCcontroller:BaseViewController {
         let vc=self.storyboardPushView(type:.my, storyboardId:"BalanceMoneyTopUpVC") as! BalanceMoneyTopUpViewController
         self.navigationController?.pushViewController(vc, animated:true)
     }
-    ///联系店铺成为合伙人
+    ///联系店铺成为众筹人
     @IBAction func contactStorePartner(_ sender: UIButton) {
-        UIAlertController.showAlertYesNo(self, title:"联系店铺老板", message:"您确定要联系店铺老板成为合伙人吗?", cancelButtonTitle:"取消", okButtonTitle:"确定") { (action) in
+        UIAlertController.showAlertYesNo(self, title:"联系店铺老板", message:"您确定要联系店铺老板成为众筹人吗?", cancelButtonTitle:"取消", okButtonTitle:"确定") { (action) in
             if self.storeTel != nil{
                 UIApplication.shared.openURL(Foundation.URL(string :"tel://\(self.storeTel!)")!)
             }else{

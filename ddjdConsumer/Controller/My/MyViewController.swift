@@ -206,7 +206,7 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
             var storeName=userDefaults.object(forKey:"storeName") as? String
             storeName=storeName ?? ""
             if memberEntity?.partnerStatu == 2{
-                self.showSVProgressHUD(status:"合伙人不能解绑", type: HUD.info)
+                self.showSVProgressHUD(status:"众筹人不能解绑", type: HUD.info)
                 return
             }
             if memberEntity?.storeFlag == 1{
@@ -367,7 +367,7 @@ extension MyViewController{
             }else if success == "isStore"{
                 self.showSVProgressHUD(status:"这个会员是店铺，不能解绑自己", type: HUD.error)
             }else if success == "partnerNotUnBind"{
-                self.showSVProgressHUD(status:"会员是店铺的合伙人，不能解绑", type: HUD.error)
+                self.showSVProgressHUD(status:"会员是店铺的众筹人，不能解绑", type: HUD.error)
             }else{
                 self.showSVProgressHUD(status:"解绑失败", type: HUD.error)
             }

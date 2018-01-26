@@ -17,7 +17,6 @@ class StoreIndexCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        btnBadge.isHidden=true
     }
     //更新cell
     func updateCell(imgStr:String,str:String,count:Int?){
@@ -25,10 +24,7 @@ class StoreIndexCollectionViewCell: UICollectionViewCell {
         lblName.text=str
         if count != nil{
             btnBadge.badgeValue=(count! == 0 ? "" : count!.description)
-            btnBadge.isHidden=false
-
         }else{
-            btnBadge.isHidden=true
             btnBadge.badgeValue=""
         }
     }

@@ -20,9 +20,9 @@ public enum StoreInfoApi{
     case queryStoreTransferaccountsrecord(storeId:Int,pageNumber:Int,pageSize:Int,queryStatu:Int)
     ///修改店铺信息
     case updateStoreInfo(storeId:Int,storeMsg:String?,tel:String?,distributionScope:Int?,lowestMoney:Int?,distributionStartTime:String?,distributionEndTime:String?,memberDiscount:Int?)
-    ///店铺查询合伙人
+    ///店铺查询众筹人
     case queryStoreBindPartner(storeId:Int)
-    ///添加合伙人
+    ///添加众筹人
     case addPartnerByStore(storeId:Int,memberAcc:String,memberTel:String,BFB:Int,nickName:String,storeAndPartneAmountOfPayment:String)
     ///查询店铺待发和代收订单的数量
     case queryOrderAmount(storeId:Int)

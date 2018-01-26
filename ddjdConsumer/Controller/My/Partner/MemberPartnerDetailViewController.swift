@@ -7,14 +7,14 @@
 //
 
 import Foundation
-///合伙人信息
+///众筹人信息
 class MemberPartnerDetailViewController:BaseViewController{
     private let storeTel=userDefaults.object(forKey:"storeTel") as? String
     private var entity:PartnerEntity?
     private var table:UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title="合伙人福利信息"
+        self.title="众筹人福利信息"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         setUpView()
         queryPartnerInfoByMemberId()
@@ -93,7 +93,7 @@ extension MemberPartnerDetailViewController:UITableViewDelegate,UITableViewDataS
         return 1
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "合伙人福利信息"
+        return "众筹人福利信息"
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 8

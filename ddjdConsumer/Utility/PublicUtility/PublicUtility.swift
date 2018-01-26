@@ -26,10 +26,10 @@ import Foundation
 import UIKit
 //app公用常量
 ///图片请求路径
-let urlImg="http://cs.houjue.me";
+let urlImg="http://c.hnddjd.com";
 ///cs.houjue.me
 ///数据请求路径
-let url="http://cs.houjue.me";
+let url="http://c.hnddjd.com";
 
 /// 屏幕宽
 let boundsWidth=UIScreen.main.bounds.width

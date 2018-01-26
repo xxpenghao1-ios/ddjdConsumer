@@ -34,7 +34,7 @@ class PHJPushHelper:NSObject{
                 UIRemoteNotificationType.alert.rawValue
             JPUSHService.register(forRemoteNotificationTypes: type, categories: nil)
         }
-        JPUSHService.setup(withOption:launchOptions, appKey:"4506fc9c3d44e38901f81786", channel:"ddjdIOS", apsForProduction:false)
+        JPUSHService.setup(withOption:launchOptions, appKey:"4506fc9c3d44e38901f81786", channel:"ddjdCIOS", apsForProduction:true)
     }
     
 }

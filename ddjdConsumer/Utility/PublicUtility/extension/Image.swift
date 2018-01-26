@@ -55,8 +55,6 @@ extension UIImage{
         let filePath = docPath.appendingPathComponent("\(Int(arc4random()))\(Int(arc4random())).png")
         // 将图片写入文件
         try? imageData.write(to: Foundation.URL(fileURLWithPath: filePath), options: [])
-        let enumeratorAtPath = fileManager.enumerator(atPath:myDirectory)
-        print("enumeratorAtPath: \(enumeratorAtPath?.allObjects)")
         return filePath
     }
 }

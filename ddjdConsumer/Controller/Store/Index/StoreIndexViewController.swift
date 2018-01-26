@@ -19,7 +19,7 @@ class StoreIndexViewController:BaseViewController{
     ///店铺订单总提示数量
     private var sumOrderPromptCount:Int?
     private let imgArr=["store_index_good","store_index_order","store_index_xstj","store_index_tj","store_index_cx","store_index_zhmx","store_index_partner","store_index_lxkf","store_index_qt"]
-    private let strArr=["商品管理","订单管理","销售统计","热门推荐","限时促销","账户明细","合伙人管理","会员管理","其他设置"]
+    private let strArr=["商品管理","店铺订单","销售统计","热门推荐","限时促销","账户明细","众筹人管理","会员管理","其他设置"]
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpNavColor()
@@ -47,7 +47,7 @@ extension StoreIndexViewController{
         let notifications: PrivateResource = .notifications(settings)
         let propose: Propose = {
             proposeToAccess(notifications, agreed: {
-                print("I can send Notifications. :]\n")
+                
             }, rejected: {
                 self.alertNoPermissionToAccess(notifications)
             })
@@ -111,7 +111,7 @@ extension StoreIndexViewController:UICollectionViewDelegate,UICollectionViewData
             }else if indexPath.item == 5{//账户明细
                 let vc=self.storyboardPushView(type:.store, storyboardId:"AccountDetailsVC") as! AccountDetailsViewController
                 self.navigationController?.pushViewController(vc, animated:true)
-            }else if indexPath.item == 6{//合伙人管理
+            }else if indexPath.item == 6{//众筹人管理
                 let vc=self.storyboardPushView(type:.store, storyboardId:"PartnerListVC") as! PartnerListViewController
                 self.navigationController?.pushViewController(vc, animated:true)
             }else if indexPath.item == 7{//联系客服
@@ -156,9 +156,12 @@ extension StoreIndexViewController{
     private func queryOrderAmount(){
         self.sumOrderPromptCount=0
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreInfoApi.queryOrderAmount(storeId:STOREID), successClosure: { (json) in
+
             self.sumOrderPromptCount=json["yifa"].intValue
             self.sumOrderPromptCount!+=json["daifa"].intValue
-            self.collection.reloadData()
+            DispatchQueue.main.async {
+                self.collection.reloadData()
+            }
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
