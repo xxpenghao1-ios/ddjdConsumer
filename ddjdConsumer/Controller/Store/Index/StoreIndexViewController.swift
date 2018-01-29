@@ -33,6 +33,7 @@ class StoreIndexViewController:BaseViewController{
         self.title=userDefaults.object(forKey:"storeName") as? String ?? "门店首页"
         setUpView()
         isOpenNotifications()
+        queryOrderAmount()
     }
 }
 ///设置页面

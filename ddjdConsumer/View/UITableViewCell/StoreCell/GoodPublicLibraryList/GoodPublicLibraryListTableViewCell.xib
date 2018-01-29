@@ -16,18 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KYx-1B-ipe" id="iGl-JE-3qD">
-                <rect key="frame" x="0.0" y="0.0" width="286" height="120"/>
+                <rect key="frame" x="0.0" y="0.0" width="286" height="119.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o1W-1E-XMZ">
-                        <rect key="frame" x="50" y="15" width="90" height="90"/>
+                        <rect key="frame" x="55" y="15" width="90" height="90"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="90" id="1ct-Zw-fRQ"/>
                             <constraint firstAttribute="width" constant="90" id="Qj0-Ir-unu"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="玩哈哈" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOD-ve-zWp">
-                        <rect key="frame" x="145" y="15" width="126" height="20"/>
+                        <rect key="frame" x="150" y="15" width="121" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Ne1-I1-hDJ"/>
                         </constraints>
@@ -36,7 +36,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/包" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsY-yx-mjD">
-                        <rect key="frame" x="182.5" y="85" width="18" height="20"/>
+                        <rect key="frame" x="187.5" y="85" width="18" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="UCO-fu-l6t"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" id="ver-LR-1cf"/>
@@ -46,7 +46,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥4.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILL-rp-aWh">
-                        <rect key="frame" x="145" y="85" width="37.5" height="20"/>
+                        <rect key="frame" x="150" y="85" width="37.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="XVO-ht-NgX"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" id="aeL-lN-tcW"/>
@@ -64,10 +64,10 @@
                         <color key="tintColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5i-v7-30x">
-                        <rect key="frame" x="15" y="47.5" width="25" height="25"/>
+                        <rect key="frame" x="15" y="45" width="30" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="25" id="5tq-rI-Y8l"/>
-                            <constraint firstAttribute="height" constant="25" id="FAW-cY-144"/>
+                            <constraint firstAttribute="width" constant="30" id="5tq-rI-Y8l"/>
+                            <constraint firstAttribute="height" constant="30" id="FAW-cY-144"/>
                         </constraints>
                         <state key="normal" title="Button" image="uncheck"/>
                     </button>
@@ -101,6 +101,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="uncheck" width="20" height="20"/>
+        <image name="uncheck" width="30" height="30"/>
     </resources>
 </document>

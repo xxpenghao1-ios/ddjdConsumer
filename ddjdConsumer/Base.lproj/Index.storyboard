@@ -1227,7 +1227,7 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xus-Ql-UlG">
-                                        <rect key="frame" x="0.0" y="386.66666666666663" width="375" height="276.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="386.66666666666663" width="375" height="273.66666666666663"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ddjd_vip" translatesAutoresizingMaskIntoConstraints="NO" id="Ec6-Rs-Ic4">
                                                 <rect key="frame" x="144.66666666666666" y="5.3333333333333144" width="86" height="24"/>
@@ -1246,14 +1246,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ddjd_hhr" translatesAutoresizingMaskIntoConstraints="NO" id="bbl-0f-M0A">
-                                                <rect key="frame" x="136.66666666666666" y="110.99999999999994" width="102" height="26"/>
+                                                <rect key="frame" x="133.66666666666666" y="110.99999999999994" width="108" height="23"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="25.5" id="ZkD-ke-hMC"/>
-                                                    <constraint firstAttribute="width" constant="102" id="kIF-NX-lAJ"/>
+                                                    <constraint firstAttribute="height" constant="23" id="ZkD-ke-hMC"/>
+                                                    <constraint firstAttribute="width" constant="108" id="kIF-NX-lAJ"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YnX-s3-smB">
-                                                <rect key="frame" x="30" y="151.99999999999994" width="315" height="20"/>
+                                                <rect key="frame" x="30" y="148.99999999999994" width="315" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="S4E-bS-UDg"/>
                                                 </constraints>
@@ -1262,7 +1262,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RA1-rm-Ryj">
-                                                <rect key="frame" x="0.0" y="201.99999999999994" width="187.66666666666666" height="60"/>
+                                                <rect key="frame" x="0.0" y="198.99999999999994" width="187.66666666666666" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEm-xq-xgg">
                                                         <rect key="frame" x="40.000000000000007" y="10.666666666666742" width="127.66666666666669" height="40"/>
@@ -1286,7 +1286,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSq-VW-Rao">
-                                                <rect key="frame" x="187.66666666666663" y="201.99999999999994" width="187.33333333333337" height="60"/>
+                                                <rect key="frame" x="187.66666666666663" y="198.99999999999994" width="187.33333333333337" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rF-Ee-opg">
                                                         <rect key="frame" x="19.999999999999993" y="10.666666666666742" width="127.33333333333331" height="40"/>
@@ -1334,7 +1334,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活动最终解释权归湖南纵览天下网络科技有限公司所有" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hst-os-6ib">
-                                        <rect key="frame" x="0.0" y="693.33333333333337" width="375" height="20"/>
+                                        <rect key="frame" x="0.0" y="690.33333333333337" width="375" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="sh5-ue-Vew"/>
                                         </constraints>
