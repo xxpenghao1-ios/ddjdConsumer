@@ -28,6 +28,7 @@ public enum storyboardType:String{
     case store="Store"
     case storeGood="StoreGood"
     case storeOrder="StoreOrder"
+    case launch="LaunchScreen"
 }
 /// 基类
 class BaseViewController:UIViewController{
@@ -79,7 +80,10 @@ class BaseViewController:UIViewController{
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        print("内存报警了")
+        cache.clearMemoryCache()
+        cache.clearDiskCache()
+
     }
 }
 ///页面设置
@@ -110,6 +114,11 @@ extension BaseViewController{
         ///默认隐藏
         goodCountPromptView.isHidden=true
     }
+}
+
+// MARK: - tableViewCell图片加载优化(只加载当前显示cell的图片)
+extension BaseViewController{
+
 }
 ///页面控件赋值展示
 extension BaseViewController{

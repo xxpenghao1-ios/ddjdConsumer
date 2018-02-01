@@ -14,10 +14,7 @@ class SettingViewController:BaseViewController{
     @IBOutlet weak var table: UITableView!
     //退出登录
     @IBOutlet weak var btnReturnLogin: UIButton!
-    
-    //获取缓存
-    let cache = KingfisherManager.shared.cache
-    
+
     private var nameArr=["清除缓存","联系客服"]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +68,8 @@ extension SettingViewController:UITableViewDelegate,UITableViewDataSource{
         tableView.deselectRow(at:indexPath, animated:true)
         if indexPath.row == 0{
             UIAlertController.showAlertYesNo(self, title:"", message:"确认清除缓存吗?", cancelButtonTitle:"取消", okButtonTitle:"确定", okHandler: { (action) in
-                self.cache.clearDiskCache(completion: {
+                cache.clearDiskCache(completion: {
+                    cache.clearMemoryCache()
                     self.showSVProgressHUD(status:"缓存清除完毕", type: HUD.success)
                     self.table.reloadData()
                 })

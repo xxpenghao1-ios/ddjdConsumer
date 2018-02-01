@@ -58,6 +58,8 @@ public enum MyApi{
     case memberStartWithdrawalsBalance(parameters:[String:Any])
     ///会员当前是众筹人，查询基本信息
     case queryPartnerInfoByMemberId(parameters:[String:Any])
+    ///ios app 是否正在审核中。 默认1不在审核中； 2 正在审核中
+    case queryIosExamineStatu()
 
 
 }
@@ -116,13 +118,15 @@ extension MyApi:TargetType{
             return "/front/memberWithdrawals/memberStartWithdrawalsBalance"
         case .queryPartnerInfoByMemberId(_):
             return "/front/partner/queryPartnerInfoByMemberId"
+        case .queryIosExamineStatu():
+            return "/front/queryCommInfo/queryIosExamineStatu"
             
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_),.queryMemberBalanceRecord(_),.queryMemberbindrechargepaymenttools(_),.queryMemberWithdrawalsBalance(_),.queryPartnerInfoByMemberId(_):
+        case .getAllShippaddress(_),.queryRegion(_),.queryOrderPaginate(_,_,_,_),.queryOrderById(_),.queryOrderNum(_),.getMember(_),.queryMemberBalanceMoney(_),.queryMemberBalanceRecord(_),.queryMemberbindrechargepaymenttools(_),.queryMemberWithdrawalsBalance(_),.queryPartnerInfoByMemberId(_),.queryIosExamineStatu():
             return .get
         case .saveShippAddress(_,_,_,_,_,_,_,_,_),.delShippaddress(_,_),.pendingPaymentSubmit(_,_,_,_),.setDefault(_,_),.updateHeadportraiturl(_,_,_),.bindStore(_,_),.unBindStore(_),.updatePwd(_,_,_),.saveQuestionsorsuggestions(_,_,_,_),.memberRechargeBalance(_),.updateMemberBalancePayPassword(_),.updateBindMemberWithdrawalsInfo(_),.memberStartWithdrawalsBalance(_):
             return .post
@@ -206,6 +210,8 @@ extension MyApi:TargetType{
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
         case let .queryPartnerInfoByMemberId(parameters):
             return .requestParameters(parameters:parameters, encoding: URLEncoding.default)
+        case .queryIosExamineStatu():
+            return .requestPlain
         }
     }
     

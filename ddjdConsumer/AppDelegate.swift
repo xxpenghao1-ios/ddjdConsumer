@@ -17,12 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     var tab:ConsumerTabBarViewController!
     ///程序入口
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        print(2)
         //加载设置
         loadSetting(launchOptions:launchOptions)
-        if MEMBERID == -1 || BINDSTOREID == -1{//如果没有会员信息加载登录页面 || 或者会员没有绑定店铺
-            self.jumpToLoginVC()
-        }else{//加载主页面
-            self.jumpToIndexVC()
+        let iosExamineStatu=userDefaults.object(forKey:"iosExamineStatu") as? Int
+        if iosExamineStatu == nil || iosExamineStatu == 2{//如果正在ios审核中
+            let launchView=storyboardViewController(type:.launch, withIdentifier:"LaunchScreenVC")
+            self.window?.rootViewController=launchView
+            self.queryIosExamineStatu()
+        }else{
+            if MEMBERID == -1 || BINDSTOREID == -1{//如果没有会员信息加载登录页面 || 或者会员没有绑定店铺
+                self.jumpToLoginVC()
+            }else{//加载主页面
+                self.jumpToIndexVC()
+            }
         }
         return true
     }
@@ -137,7 +145,10 @@ extension AppDelegate{
         WXApi.registerApp(WX_APPID)
         ///刷新分类信息
         GoodClassificationDB.shared.refreshClassificationData()
-
+        //设置最大缓存时间为3天，默认为1周
+        cache.maxCachePeriodInSecond = 60 * 60 * 24 * 3
+        //清空失效和过大的缓存
+        cache.cleanExpiredDiskCache()
     }
 }
 ///百度地图
@@ -278,10 +289,10 @@ extension AppDelegate{
         tab=storyboardViewController(type:.main,withIdentifier:"ConsumerTabBarId") as! ConsumerTabBarViewController
         self.window?.rootViewController=tab
     }
-    //跳转到登录页面
+    //跳转到登录页面(切换根视图)
     func jumpToLoginVC(){
-        let loginNav=storyboardViewController(type:.loginWithRegistr,withIdentifier:"LoginId") as! UINavigationController
-        self.window?.rootViewController=loginNav
+        let login=storyboardViewController(type:.loginWithRegistr,withIdentifier:"LoginVC") as! LoginViewController
+        self.window?.rootViewController=UINavigationController.init(rootViewController:login)
     }
 }
 // MARK: - 极光推送自定义消息监听
@@ -302,7 +313,7 @@ extension AppDelegate{
     private func queryMemberLastLoginRecord(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.queryMemberLastLoginRecord(memberId:MEMBERID), successClosure: { (json) in
 
-            let memberLastLoginDeviceToken=json["memberLastLoginDeviceToken"].stringValue
+            let memberLastLoginDeviceToken=json["memberLastLoginDeviceToken"].string
             let memberLastLoginTime=json["memberLastLoginTime"].stringValue
             let memberLastLoginDeviceName=json["memberLastLoginDeviceName"].stringValue
             let deviceToken=userDefaults.object(forKey:"deviceToken") as? String
@@ -322,6 +333,15 @@ extension AppDelegate{
             }
         }) { (error) in
             
+        }
+    }
+    private func queryIosExamineStatu(){
+        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryIosExamineStatu(), successClosure: { (json) in
+            userDefaults.set(json["iosExamineStatu"].int, forKey:"iosExamineStatu")
+            userDefaults.synchronize()
+            self.jumpToIndexVC()
+        }) { (error) in
+
         }
     }
 }

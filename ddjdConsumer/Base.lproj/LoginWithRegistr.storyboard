@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hrm-6g-Utl">
-                                <rect key="frame" x="50" y="128" width="275" height="400"/>
+                                <rect key="frame" x="50" y="84" width="275" height="400"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_log" translatesAutoresizingMaskIntoConstraints="NO" id="eFP-BR-NcJ">
                                         <rect key="frame" x="87.666666666666657" y="0.0" width="100" height="100"/>
@@ -139,7 +139,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eqj-O6-Wt0">
-                                <rect key="frame" x="50" y="128" width="275" height="413"/>
+                                <rect key="frame" x="50" y="84" width="275" height="413"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_log" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-Ts-ORn">
                                         <rect key="frame" x="87.666666666666657" y="0.0" width="100" height="100"/>
@@ -269,13 +269,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="e3K-ZQ-MKh" kind="relationship" relationship="rootViewController" id="K4e-xk-1vw"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NBt-P1-eL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1132" y="317"/>
+            <point key="canvasLocation" x="-958" y="315"/>
         </scene>
         <!--Bind Store View Controller-->
         <scene sceneID="BeA-1v-55P">
@@ -386,6 +383,6 @@
     </scenes>
     <resources>
         <image name="bind_store" width="220" height="233"/>
-        <image name="login_log" width="90" height="90"/>
+        <image name="login_log" width="149" height="149"/>
     </resources>
 </document>

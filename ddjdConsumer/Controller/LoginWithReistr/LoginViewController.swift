@@ -9,6 +9,8 @@
 import Foundation
 ///登录
 class LoginViewController:BaseViewController{
+    ///MemberId是否为空
+    var isMemberIdNil:Int?
     //会员账号
     @IBOutlet weak var txtMemberName: UITextField!
     //密码
@@ -117,6 +119,7 @@ extension LoginViewController{
         let deviceToken=userDefaults.object(forKey:"deviceToken") as? String ?? "penghao"
         self.showSVProgressHUD(status:"登录中...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.memberLogin(account:memberName!, password: password!, deviceToken:deviceToken,deviceName:UIDevice().name), successClosure: { (json) in
+            print(json)
             let success=json["success"].stringValue
             
             if success == "success"{

@@ -68,7 +68,11 @@ var MEMBERID:Int{
 //会员绑定店铺id
 var BINDSTOREID:Int{
     get{
-        return userDefaults.object(forKey:"bindstoreId") as? Int ?? -1
+        if (userDefaults.object(forKey:"iosExamineStatu") as? Int) == 1{//如果不是审核状态
+            return userDefaults.object(forKey:"bindstoreId") as? Int ?? -1
+        }else{
+            return userDefaults.object(forKey:"bindstoreId") as? Int ?? 102
+        }
     }
 }
 //店铺id

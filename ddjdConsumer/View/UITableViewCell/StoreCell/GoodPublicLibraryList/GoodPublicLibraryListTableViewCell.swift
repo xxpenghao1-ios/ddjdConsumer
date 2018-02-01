@@ -40,7 +40,7 @@ class GoodPublicLibraryListTableViewCell: UITableViewCell {
         lblGoodsUnit.text="/\(entity.goodsUnit ?? "")"
         lblStoreGoodsPrice.text="￥\(entity.goodsPrice ?? 0.0)"
         entity.goodsPic=entity.goodsPic ?? ""
-        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+        goodImg.image=entity.image
         btnSelected.isSelected=entity.checkOrCance == 1 ? true:false
     }
     //是否选中

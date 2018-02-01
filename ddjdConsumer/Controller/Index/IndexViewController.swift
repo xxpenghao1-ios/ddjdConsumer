@@ -39,8 +39,10 @@ class IndexViewController:BaseViewController{
     fileprivate let calssifyImg=["classify_promotions","classify_ddvip","classify_order","classify_record"]
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ///每次进首页获取店铺信息
-        self.getStoreInfo()
+        if MEMBERID != -1{
+            ///每次进首页获取店铺信息
+            self.getStoreInfo()
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()

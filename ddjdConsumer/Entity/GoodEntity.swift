@@ -9,10 +9,10 @@
 import Foundation
 import ObjectMapper
 
-//// 这个枚举包含所有图片的状态
-//public enum MovieRecordState {
-//    case new, downloaded, filtered, failed
-//}
+// 这个枚举包含所有图片的状态
+public enum GoodEntityState {
+    case new, downloaded,failed
+}
 /// 商品entity
 class GoodEntity:Mappable{
     var goodsId:Int?
@@ -60,6 +60,9 @@ class GoodEntity:Mappable{
     var examineInfo:String? //‘审核信息； 如果审核失败，此处要填入审核失败的原因’,
     var examineGoodsFlag:Int? //1. 审核中 2. 审核失败 3 审核成功’,
     var examineGoodsId:Int? ///审核商品id
+    var state = GoodEntityState.new
+    //默认初始图片
+    var image = UIImage(named:goodDefaultImg)
     init(){}
     required init?(map: Map) {
         mapping(map: map)
