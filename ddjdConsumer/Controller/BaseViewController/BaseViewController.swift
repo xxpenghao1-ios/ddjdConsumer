@@ -359,7 +359,11 @@ extension BaseViewController:DZNEmptyDataSetSource,DZNEmptyDataSetDelegate{
         var text=""
         let attributes=[NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:self.emptyDataSetTextColor ?? UIColor.color666()] as [NSAttributedStringKey : Any]
         if !emptyDataSetIsLoading{ //如果不是加载状态 显示提示信息
-            text=emptyDataSetTextInfo
+            if MEMBERID == -1{
+                text="您还没有登录,相关数据需要登录后才能展示"
+            }else{
+                text=emptyDataSetTextInfo
+            }
         }
         return NSAttributedString(string:text, attributes:attributes)
     }

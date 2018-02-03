@@ -17,10 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     var tab:ConsumerTabBarViewController!
     ///程序入口
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        print(2)
         //加载设置
         loadSetting(launchOptions:launchOptions)
-        let iosExamineStatu=userDefaults.object(forKey:"iosExamineStatu") as? Int
         if iosExamineStatu == nil || iosExamineStatu == 2{//如果正在ios审核中
             let launchView=storyboardViewController(type:.launch, withIdentifier:"LaunchScreenVC")
             self.window?.rootViewController=launchView
@@ -293,6 +291,13 @@ extension AppDelegate{
     func jumpToLoginVC(){
         let login=storyboardViewController(type:.loginWithRegistr,withIdentifier:"LoginVC") as! LoginViewController
         self.window?.rootViewController=UINavigationController.init(rootViewController:login)
+    }
+    ///返回登录页面
+    func returnLoginVC() -> LoginViewController{
+        let vc=storyboardViewController(type:.loginWithRegistr,withIdentifier:"LoginVC") as! LoginViewController
+        vc.flag=1
+        vc.hidesBottomBarWhenPushed=true
+        return vc
     }
 }
 // MARK: - 极光推送自定义消息监听

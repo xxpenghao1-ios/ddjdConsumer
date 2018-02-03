@@ -9,8 +9,8 @@
 import Foundation
 ///登录
 class LoginViewController:BaseViewController{
-    ///MemberId是否为空
-    var isMemberIdNil:Int?
+    ///如果为空 没有返回按钮 不为空 有返回按钮
+    var flag:Int?
     //会员账号
     @IBOutlet weak var txtMemberName: UITextField!
     //密码
@@ -48,7 +48,14 @@ extension LoginViewController{
         btnLogin.disable()
         btnLogin.addTarget(self, action:#selector(submit), for: .touchUpInside)
         btnForgotPassword.addTarget(self,action:#selector(pushForgotPassword), for: UIControlEvents.touchUpInside)
+        if flag != nil{
+            self.navigationItem.leftBarButtonItem=UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.cancel, target:self, action: #selector(cancelVC))
+        }
         
+    }
+    @objc private func cancelVC(){
+        app.tab.selectedIndex=0
+        self.dismiss(animated:true, completion:nil)
     }
     //账号输入框
     private func setUpMemebrName(){
@@ -119,7 +126,7 @@ extension LoginViewController{
         let deviceToken=userDefaults.object(forKey:"deviceToken") as? String ?? "penghao"
         self.showSVProgressHUD(status:"登录中...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.memberLogin(account:memberName!, password: password!, deviceToken:deviceToken,deviceName:UIDevice().name), successClosure: { (json) in
-            print(json)
+//            print(json)
             let success=json["success"].stringValue
             
             if success == "success"{

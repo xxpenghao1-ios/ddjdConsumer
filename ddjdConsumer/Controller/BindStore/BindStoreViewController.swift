@@ -21,6 +21,11 @@ class BindStoreViewController:BaseViewController{
         super.viewWillDisappear(animated)
         reinstateNavColor()
     }
+    override func navigationShouldPopOnBackButton() -> Bool {
+        userDefaults.removeObject(forKey:"memberId")
+        userDefaults.synchronize()
+        return true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title="绑定门店"

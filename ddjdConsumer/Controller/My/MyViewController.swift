@@ -55,11 +55,17 @@ class MyViewController:BaseViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setUpNavColor()
-        getMember()
-        if flag{
-            queryOrderNum()
+        if MEMBERID == -1{
+            self.reinstateNavColor()
+            self.present(UINavigationController.init(rootViewController:app.returnLoginVC()), animated:true, completion:nil)
+
+        }else{
+            getMember()
+            if flag{
+                queryOrderNum()
+            }
+            flag=true
         }
-        flag=true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -333,7 +339,7 @@ extension MyViewController{
     ///查询会员信息
     private func getMember(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.getMember(memberId:MEMBERID), successClosure: { (json) in
-            print(json)
+//            print(json)
             self.memberEntity=self.jsonMappingEntity(entity:MemberEntity.init(), object:json.object)
             if self.memberEntity!.vipStatu == 2{
                 self.vipImg.image=UIImage.init(named:"member_vip")

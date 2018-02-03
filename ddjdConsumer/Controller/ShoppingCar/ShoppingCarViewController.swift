@@ -39,8 +39,12 @@ class ShoppingCarViewController:BaseViewController{
     private var pageNumber=1
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getStoreInfo()
-        self.getCarGoodList(pageSize:5000, pageNumber:self.pageNumber)
+        if MEMBERID == -1{
+            self.present(UINavigationController.init(rootViewController:app.returnLoginVC()), animated:true, completion:nil)
+        }else{
+            getStoreInfo()
+            self.getCarGoodList(pageSize:5000, pageNumber:self.pageNumber)
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()

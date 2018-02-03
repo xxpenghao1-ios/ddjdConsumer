@@ -68,4 +68,5 @@ class ConsumerTabBarViewController:UITabBarController{
         // 4.将子控制器添加到当前控制器上
         addChildViewController(childController)
     }
+
 }

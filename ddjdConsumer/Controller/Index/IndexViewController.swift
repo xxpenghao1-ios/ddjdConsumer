@@ -155,10 +155,18 @@ extension IndexViewController:UICollectionViewDelegate,UICollectionViewDataSourc
                 let entity=goodArr[indexPath.row]
                 cell.updateCell(entity:goodArr[indexPath.row])
                 cell.pushGoodDetailsVCClosure={
-                    self.pushGoodDetailsVC(entity:entity)
+                    if MEMBERID == -1{
+                        self.present(UINavigationController.init(rootViewController:app.returnLoginVC()), animated:true, completion:nil)
+                    }else{
+                        self.pushGoodDetailsVC(entity:entity)
+                    }
                 }
                 cell.goodAddCarClosure={
-                    self.addCar(storeAndGoodsId:entity.storeAndGoodsId ?? 0)
+                    if MEMBERID == -1{
+                        self.present(UINavigationController.init(rootViewController:app.returnLoginVC()), animated:true, completion:nil)
+                    }else{
+                        self.addCar(storeAndGoodsId:entity.storeAndGoodsId ?? 0)
+                    }
                 }
             }
             return cell
@@ -179,26 +187,30 @@ extension IndexViewController:UICollectionViewDelegate,UICollectionViewDataSourc
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView.tag == 1{
-            if indexPath.item == 0{
-                let vc=PromotionListViewController()
-                vc.hidesBottomBarWhenPushed=true
-                self.navigationController?.pushViewController(vc, animated:true)
-            }else if indexPath.item == 1{//跳转促销区
-                let vc=self.storyboardPushView(type:.index, storyboardId:"DDVIPVC") as! DDVIPViewCcontroller
-                vc.hidesBottomBarWhenPushed=true
-                self.navigationController?.pushViewController(vc, animated:true)
-            }else if indexPath.item == 2{//跳转到订单
-                let vc=OrderListPageController()
-                vc.orderStatus=0
-                vc.hidesBottomBarWhenPushed=true
-                self.navigationController?.pushViewController(vc, animated:true)
-            }else if indexPath.item == 3{
-                let vc=self.storyboardPushView(type:.my, storyboardId:"PurchaseHistoryVC") as! PurchaseHistoryViewController
-                vc.hidesBottomBarWhenPushed=true
-                self.navigationController?.pushViewController(vc, animated:true)
-                
+        if MEMBERID != -1{
+            if collectionView.tag == 1{
+                if indexPath.item == 0{
+                    let vc=PromotionListViewController()
+                    vc.hidesBottomBarWhenPushed=true
+                    self.navigationController?.pushViewController(vc, animated:true)
+                }else if indexPath.item == 1{//跳转促销区
+                    let vc=self.storyboardPushView(type:.index, storyboardId:"DDVIPVC") as! DDVIPViewCcontroller
+                    vc.hidesBottomBarWhenPushed=true
+                    self.navigationController?.pushViewController(vc, animated:true)
+                }else if indexPath.item == 2{//跳转到订单
+                    let vc=OrderListPageController()
+                    vc.orderStatus=0
+                    vc.hidesBottomBarWhenPushed=true
+                    self.navigationController?.pushViewController(vc, animated:true)
+                }else if indexPath.item == 3{
+                    let vc=self.storyboardPushView(type:.my, storyboardId:"PurchaseHistoryVC") as! PurchaseHistoryViewController
+                    vc.hidesBottomBarWhenPushed=true
+                    self.navigationController?.pushViewController(vc, animated:true)
+
+                }
             }
+        }else{
+            self.present(UINavigationController.init(rootViewController:app.returnLoginVC()), animated:true, completion:nil)
         }
     }
 }
