@@ -72,7 +72,7 @@ extension OrderListViewController{
         self.table.emptyDataSetSource=self
         self.table.emptyDataSetDelegate=self
         self.table.tableFooterView=UIView(frame: CGRect.zero)
-        self.setEmptyDataSetInfo(text:"一个订单都没有")
+        self.setEmptyDataSetInfo(text:"订单空空如也")
         self.setLoadingState(isLoading:true)
     }
     private func reloadTable(){

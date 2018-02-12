@@ -30,13 +30,13 @@ class IndexViewController:BaseViewController{
     //商品list
     @IBOutlet weak var goodCollectionView: UICollectionView!
     //分类数据源
-    fileprivate let classifyName=["促销专区","点单VIP","我的订单","购买历史"]
+    fileprivate let classifyName=["商品区","促销专区","我的订单","购买历史"]
     //幻灯片数组
     private var advertisingURLArr=[String]()
     //推荐商品
     private var goodArr=[GoodEntity]()
     private var pageNumber=1
-    fileprivate let calssifyImg=["classify_promotions","classify_ddvip","classify_order","classify_record"]
+    fileprivate let calssifyImg=["classify_goodsArea","classify_promotions","classify_order","classify_record"]
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if MEMBERID != -1{
@@ -189,12 +189,12 @@ extension IndexViewController:UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if MEMBERID != -1{
             if collectionView.tag == 1{
-                if indexPath.item == 0{
-                    let vc=PromotionListViewController()
+                if indexPath.item == 0{//商品区
+                    let vc=self.storyboardPushView(type:.goodsClassification, storyboardId:"GoodsClassificationVC") as! GoodsClassificationViewController
                     vc.hidesBottomBarWhenPushed=true
                     self.navigationController?.pushViewController(vc, animated:true)
                 }else if indexPath.item == 1{//跳转促销区
-                    let vc=self.storyboardPushView(type:.index, storyboardId:"DDVIPVC") as! DDVIPViewCcontroller
+                    let vc=PromotionListViewController()
                     vc.hidesBottomBarWhenPushed=true
                     self.navigationController?.pushViewController(vc, animated:true)
                 }else if indexPath.item == 2{//跳转到订单
@@ -202,7 +202,7 @@ extension IndexViewController:UICollectionViewDelegate,UICollectionViewDataSourc
                     vc.orderStatus=0
                     vc.hidesBottomBarWhenPushed=true
                     self.navigationController?.pushViewController(vc, animated:true)
-                }else if indexPath.item == 3{
+                }else if indexPath.item == 3{//购买历史
                     let vc=self.storyboardPushView(type:.my, storyboardId:"PurchaseHistoryVC") as! PurchaseHistoryViewController
                     vc.hidesBottomBarWhenPushed=true
                     self.navigationController?.pushViewController(vc, animated:true)
@@ -318,17 +318,21 @@ extension IndexViewController{
             
             if success == "success"{
                 let entity=self.jsonMappingEntity(entity:StoreEntity.init(), object:json["store"].object)
+                print(json)
                 if entity != nil{
                     if entity!.distributionStartTime != nil && entity!.distributionEndTime != nil{
                         self.lblBusinessTime.text=entity!.distributionStartTime!+"-"+entity!.distributionEndTime!
                     }else{
                         self.lblBusinessTime.text="24小时营业"
                     }
-                    ///把最低起送额保存
+                    ///保存店铺信息
                     userDefaults.set(entity?.lowestMoney, forKey:"lowestMoney")
                     userDefaults.set(entity?.deliveryFee, forKey:"deliveryFee")
                     userDefaults.set(entity?.storeName, forKey:"storeName")
                     userDefaults.set(entity?.tel, forKey:"storeTel")
+                    userDefaults.set(entity?.lat, forKey:"lat")
+                    userDefaults.set(entity?.lon, forKey:"lon")
+                    userDefaults.set(entity?.distributionScope, forKey:"distributionScope")
                     userDefaults.synchronize()
                 }
             }

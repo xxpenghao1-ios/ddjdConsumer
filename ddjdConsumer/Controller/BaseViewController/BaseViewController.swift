@@ -82,7 +82,6 @@ class BaseViewController:UIViewController{
         super.didReceiveMemoryWarning()
         print("内存报警了")
         cache.clearMemoryCache()
-        cache.clearDiskCache()
 
     }
 }

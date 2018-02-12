@@ -340,13 +340,14 @@ extension AppDelegate{
             
         }
     }
+    ///检查是否正在审核
     private func queryIosExamineStatu(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryIosExamineStatu(), successClosure: { (json) in
             userDefaults.set(json["iosExamineStatu"].int, forKey:"iosExamineStatu")
             userDefaults.synchronize()
             self.jumpToIndexVC()
         }) { (error) in
-
+            self.jumpToIndexVC()
         }
     }
 }

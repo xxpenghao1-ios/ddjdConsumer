@@ -16,9 +16,9 @@ class ConsumerTabBarViewController:UITabBarController{
         //首页
         let indexViewController = storyboardViewController(type:.index, withIdentifier:"IndexId") as! UINavigationController
         addChildViewController(childController:indexViewController, title:"首页", imageName:"index")
-        //分类
-        let goodsClassificationViewController=storyboardViewController(type:.goodsClassification, withIdentifier:"GoodsClassificationId") as! UINavigationController
-        addChildViewController(childController:goodsClassificationViewController, title:"商品分类", imageName:"goodsClass")
+        //点单VIP
+        let VIPViewController=storyboardViewController(type:.index, withIdentifier:"VIPId") as! UINavigationController
+        addChildViewController(childController:VIPViewController, title:"点单VIP", imageName:"vip")
         //购物车
         addChildViewController(childController:shoppingCarViewController, title:"购物车", imageName:"car")
         //我的

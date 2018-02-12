@@ -23,25 +23,34 @@ class ImageDownloader: Operation {
             return
         }
         entity.goodsPic=entity.goodsPic ?? ""
-        //下载图片。
-        let imageData = try? Data(contentsOf:URL.init(string:urlImg+entity.goodsPic!)!)
-
-        //再一次检查撤销状态。
-        if self.isCancelled {
-            return
-        }
-
-        //如果有数据，创建一个图片对象并加入记录，然后更改状态。如果没有数据，将记录标记为失败并设置失败图片。
-        if imageData != nil {
-            self.entity.image = UIImage(data:imageData!)
-            ///存入缓存
-            cache.store(self.entity.image!, forKey:urlImg+entity.goodsPic!)
+        //检索图片是否已经在磁盘缓存中
+        let img=cache.retrieveImageInDiskCache(forKey:urlImg+entity.goodsPic!)
+        if img == nil{//不在
+            //下载图片。
+            let imageData = try? Data(contentsOf:URL.init(string:urlImg+entity.goodsPic!)!)
+            //再一次检查撤销状态。
+            if self.isCancelled {
+                return
+            }
+            //如果有数据，创建一个图片对象并加入记录，然后更改状态。如果没有数据，将记录标记为失败并设置失败图片。
+            if imageData != nil {
+                self.entity.image = UIImage(data:imageData!)
+                ///存入缓存
+                cache.store(self.entity.image!, forKey:urlImg+entity.goodsPic!)
+                self.entity.state = .downloaded
+            }
+            else
+            {
+                self.entity.state = .failed
+                self.entity.image = UIImage(named:goodDefaultImg)
+            }
+        }else{//如果在缓存中 直接读取
+            //再一次检查撤销状态。
+            if self.isCancelled {
+                return
+            }
+            self.entity.image = img
             self.entity.state = .downloaded
-        }
-        else
-        {
-            self.entity.state = .failed
-            self.entity.image = UIImage(named:goodDefaultImg)
         }
     }
 }

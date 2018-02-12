@@ -21,8 +21,13 @@ class DDVIPViewCcontroller:BaseViewController {
     @IBOutlet weak var btnVIP: UIButton!
     ///众筹人按钮
     @IBOutlet weak var btnPartner: UIButton!
+    private var flag=false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if flag{
+            getVIP()
+        }
+        flag=true
     }
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -150,6 +150,10 @@ extension OrderDetailsViewController{
         self.table.emptyDataSetSource=self
         self.table.emptyDataSetDelegate=self
         self.table.sectionFooterHeight=0
+//        if storeFlag != nil{//如果显示导航
+//            self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(image:UIImage.init(named:"order_mapNav")!.reSizeImage(reSize:CGSize.init(width:25, height:25)), style: UIBarButtonItemStyle.done, target:self, action:#selector(selectedMapNav))
+//        }
+        ///打电话
         callMemberImg.isUserInteractionEnabled=true
         callMemberImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(self.callMember)))
     }
@@ -239,6 +243,10 @@ extension OrderDetailsViewController:UITableViewDelegate,UITableViewDataSource{
             return view
         }
     }
+}
+
+// MARK: - 页面逻辑方法
+extension OrderDetailsViewController{
     ///呼叫店铺
     @objc private func callStore(){
         if orderEntity == nil{
@@ -259,8 +267,32 @@ extension OrderDetailsViewController:UITableViewDelegate,UITableViewDataSource{
         }
         UIApplication.shared.openURL(Foundation.URL(string :"tel://\(orderEntity!.tel!)")!)
     }
-}
+    ///选择地图导航 目前只有百度地图
+    @objc private func selectedMapNav(){
+        let coordinate=CLLocationCoordinate2D.init(latitude: CLLocationDegrees.init(28.251691), longitude: CLLocationDegrees.init(113.087765))
+        self.openMapNativeNavi(coordinate:coordinate)
 
+    }
+    // 调启百度地图 APP 导航
+    private func openMapNativeNavi(coordinate:CLLocationCoordinate2D) {
+        // 初始化调启导航的参数管理类
+        let parameter = BMKNaviPara()
+        // 指定导航类型
+        //        parameter.naviType = BMK_NAVI_TYPE_NATIVE
+        // 初始化终点节点
+        let end = BMKPlanNode()
+        // 指定终点经纬度
+        end.pt = coordinate
+        // 指定终点名称
+        end.name = orderEntity?.shipaddress
+        // 指定终点
+        parameter.endPoint = end
+        //指定返回自定义 scheme
+        parameter.appScheme = "baidumapddjdconsumer://c.ddjd.com"
+        // 调启百度地图客户端导航
+        BMKNavigation.openBaiduMapNavigation(parameter)
+    }
+}
 ///网络请求
 extension OrderDetailsViewController{
     ///查询消费者订单

@@ -27,7 +27,7 @@ import UIKit
 //app公用常量
 ///图片请求路径
 let urlImg="http://c.hnddjd.com";
-///cs.houjue.me
+///c.hnddjd.com
 ///数据请求路径
 let url="http://c.hnddjd.com";
 

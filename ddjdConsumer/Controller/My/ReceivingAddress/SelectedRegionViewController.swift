@@ -121,6 +121,26 @@ extension SelectedRegionViewController{
         //设置显示尺寸
         bmkMapView!.zoomLevel=19;
         self.view.addSubview(bmkMapView!);
+        ///店铺配送范围
+        let distributionScope=userDefaults.object(forKey:"distributionScope") as? Int
+        let lat=userDefaults.object(forKey:"lat") as? String
+        let lon=userDefaults.object(forKey:"lon") as? String
+
+        if distributionScope != nil && distributionScope! > 0{
+            if lat == nil || lon == nil{
+                return
+            }
+            let latitude=CLLocationDegrees.init(lat!)
+            let longitude=CLLocationDegrees.init(lon!)
+            if latitude == nil || longitude == nil{
+                return
+            }
+            let center=CLLocationCoordinate2D.init(latitude:latitude!, longitude: longitude!)
+            ///显示圆形覆盖物
+            let circle=BMKCircle(center:center,radius:CLLocationDistance(distributionScope!*1000))
+            bmkMapView!.add(circle)
+        }
+
     }
     //启动LocationService
     func startLocationService(){
@@ -193,6 +213,23 @@ extension SelectedRegionViewController:UITableViewDelegate,UITableViewDataSource
 }
 ///百度地图
 extension SelectedRegionViewController:BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate{
+    /**
+     *根据overlay生成对应的View
+     *@param mapView 地图View
+     *@param overlay 指定的overlay
+     *@return 生成的覆盖物View
+     */
+    func mapView(_ mapView: BMKMapView!, viewFor overlay: BMKOverlay!) -> BMKOverlayView! {
+        if (overlay as? BMKCircle) != nil {
+            let circleView = BMKCircleView(overlay: overlay)
+//            circleView?.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
+            circleView?.strokeColor = UIColor(red:227/255, green: 62/255, blue:104/255, alpha:1)
+            circleView?.lineWidth = 1
+
+            return circleView
+        }
+        return nil
+    }
     func mapView(_ mapView: BMKMapView!, viewFor annotation: BMKAnnotation!) -> BMKAnnotationView! {
         // 从缓存池取出大头针数据视图
         var customView=mapView.dequeueReusableAnnotationView(withIdentifier:"pinId")
