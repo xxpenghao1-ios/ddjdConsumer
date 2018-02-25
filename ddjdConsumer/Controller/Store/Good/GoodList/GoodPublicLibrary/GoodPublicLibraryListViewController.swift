@@ -54,8 +54,6 @@ class GoodPublicLibraryListViewController:BaseViewController{
     private var searchController:UISearchController!
     ///搜索商品名称
     private var goodsName:String?
-    ///队列管理类，追踪每个操作的状态
-    let movieOperations = MovieOperations()
     ///返回上一页 刷新数据
     override func navigationShouldPopOnBackButton() -> Bool {
         NotificationCenter.default.removeObserver(self)
@@ -435,7 +433,9 @@ extension GoodPublicLibraryListViewController:UITableViewDataSource,UITableViewD
             case .new, .downloaded:
                 //只有停止拖动的时候才加载
                 if (!tableView.isDragging && !tableView.isDecelerating) {
-                    self.startOperationsForMovieRecord(entity, indexPath: indexPath)
+                    self.startOperationsForMovieRecord(entity, indexPath: indexPath, completion:{
+                        self.table.reloadRows(at:[indexPath], with: UITableViewRowAnimation.fade)
+                    })
                 }
             case .failed:
                  NSLog("do nothing")
@@ -471,39 +471,8 @@ extension GoodPublicLibraryListViewController:UITableViewDataSource,UITableViewD
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
+///优化图片加载
 extension GoodPublicLibraryListViewController{
-    //图片任务
-    func startOperationsForMovieRecord(_ entity: GoodEntity, indexPath: IndexPath){
-        switch (entity.state) {
-        case .new:
-            startDownloadForRecord(entity, indexPath: indexPath)
-        default:break
-        }
-    }
-    //执行图片下载任务
-    func startDownloadForRecord(_ entity:GoodEntity, indexPath: IndexPath){
-        //判断队列中是否已有该图片任务
-        if let _ = movieOperations.downloadsInProgress[indexPath] {
-            return
-        }
-
-        //创建一个下载任务
-        let downloader = ImageDownloader.init(entity:entity)
-        //任务完成后重新加载对应的单元格
-        downloader.completionBlock = {
-            if downloader.isCancelled {
-                return
-            }
-            DispatchQueue.main.async(execute: {
-                self.movieOperations.downloadsInProgress.removeValue(forKey: indexPath)
-                self.table.reloadRows(at: [indexPath], with:.none)
-            })
-        }
-        //记录当前下载任务
-        movieOperations.downloadsInProgress[indexPath] = downloader
-        //将任务添加到队列中
-        movieOperations.downloadQueue.addOperation(downloader)
-    }
     //视图开始滚动
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         //一旦用户开始滚动屏幕，你将挂起所有任务并留意用户想要看哪些行。
@@ -516,65 +485,13 @@ extension GoodPublicLibraryListViewController{
         //如果减速（decelerate）是 false ，表示用户停止拖拽tableview。
         //此时你要继续执行之前挂起的任务，撤销不在屏幕中的cell的任务并开始在屏幕中的cell的任务。
         if !decelerate {
-            loadImagesForOnscreenCells()
-            resumeAllOperations()
+            resumeAllOperationsAndloadImagesForOnscreenCells(type:.tableView, scrollView: self.table, arr:arr)
         }
     }
     //视图停止减速
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         //这个代理方法告诉你tableview停止滚动，执行操作同上
-        loadImagesForOnscreenCells()
-        resumeAllOperations()
-    }
-
-    //暂停所有队列
-    func suspendAllOperations () {
-        movieOperations.downloadQueue.isSuspended = true
-        movieOperations.filtrationQueue.isSuspended = true
-    }
-
-    //恢复运行所有队列
-    func resumeAllOperations () {
-        movieOperations.downloadQueue.isSuspended = false
-        movieOperations.filtrationQueue.isSuspended = false
-    }
-
-    //加载可见区域的单元格图片
-    func loadImagesForOnscreenCells () {
-        //开始将tableview可见行的index path放入数组中。
-        if let pathsArray = self.table.indexPathsForVisibleRows {
-            //通过组合所有下载队列来创建一个包含所有等待任务的集合
-            let allMovieOperations = NSMutableSet()
-            for key in movieOperations.downloadsInProgress.keys{
-                allMovieOperations.add(key)
-            }
-
-            //构建一个需要撤销的任务的集合。从所有任务中除掉可见行的index path，
-            //剩下的就是屏幕外的行所代表的任务。
-            let toBeCancelled = allMovieOperations.mutableCopy() as! NSMutableSet
-            let visiblePaths = NSSet(array: pathsArray)
-            toBeCancelled.minus(visiblePaths as Set<NSObject>)
-
-            //创建一个需要执行的任务的集合。从所有可见index path的集合中除去那些已经在等待队列中的。
-            let toBeStarted = visiblePaths.mutableCopy() as! NSMutableSet
-            toBeStarted.minus(allMovieOperations as Set<NSObject>)
-
-            // 遍历需要撤销的任务，撤消它们，然后从 movieOperations 中去掉它们
-            for indexPath in toBeCancelled {
-                let indexPath = indexPath as! IndexPath
-                if let movieDownload = movieOperations.downloadsInProgress[indexPath] {
-                    movieDownload.cancel()
-                }
-                movieOperations.downloadsInProgress.removeValue(forKey: indexPath)
-            }
-
-            // 遍历需要开始的任务，调用 startOperationsForPhotoRecord
-            for indexPath in toBeStarted {
-                let indexPath = indexPath as! IndexPath
-                let entity = self.arr[indexPath.row]
-                startOperationsForMovieRecord(entity, indexPath: indexPath)
-            }
-        }
+        resumeAllOperationsAndloadImagesForOnscreenCells(type:.tableView, scrollView: self.table, arr:arr)
     }
 }
 extension GoodPublicLibraryListViewController{

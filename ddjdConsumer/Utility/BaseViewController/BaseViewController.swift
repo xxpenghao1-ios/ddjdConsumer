@@ -32,6 +32,7 @@ public enum storyboardType:String{
 }
 /// 基类
 class BaseViewController:UIViewController{
+    /*****默认加载页参数*****/
     //是否显示加载状态 默认不加载
     private var emptyDataSetIsLoading=false
     //是否显示空白页 默认显示
@@ -42,13 +43,23 @@ class BaseViewController:UIViewController{
     private var emptyDataSetImage:String?
     //空视图文字颜色
     private var emptyDataSetTextColor:UIColor?
+    /************end**************/
+
+    /******商品提示数量******/
     ///商品数量提示
     private var lblGoodCountPrompt:UILabel!
     private var goodCountPromptView:UIView!
     // 保存约束（引用约束）
-    var updateConstraint: Constraint?
+    private var updateConstraint: Constraint?
     ///总数量
-    var totalRow=0
+    open var totalRow=0
+    /*******end*************/
+
+    /******图片cell加载优化只加载UITableView/UICollectView当前可见区域图片******/
+    ///图片队列管理类，追踪每个操作的状态
+    let movieOperations=MovieOperations.shared
+    /********end**********/
+
     override func viewDidLoad() {
         super.viewDidLoad()
         ///去掉返回按钮文字
@@ -57,20 +68,6 @@ class BaseViewController:UIViewController{
         self.navigationItem.backBarButtonItem=bark
         setUpView()
 
-    }
-    // MARK: - 其他内部方法
-    //寻找导航栏下的横线  （递归查询导航栏下边那条分割线）
-    func findNavLineImageViewOn(_ view: UIView) -> UIImageView? {
-        if view.isKind(of: UIImageView.classForCoder()) && view.bounds.size.height <= 1.0{
-            return view as? UIImageView
-        }
-        for subView in view.subviews {
-            let imageView = findNavLineImageViewOn(subView)
-            if imageView != nil {
-                return imageView
-            }
-        }
-        return nil
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -87,6 +84,20 @@ class BaseViewController:UIViewController{
 }
 ///页面设置
 extension BaseViewController{
+    // MARK: - 其他内部方法
+    //寻找导航栏下的横线  （递归查询导航栏下边那条分割线）
+    func findNavLineImageViewOn(_ view: UIView) -> UIImageView? {
+        if view.isKind(of: UIImageView.classForCoder()) && view.bounds.size.height <= 1.0{
+            return view as? UIImageView
+        }
+        for subView in view.subviews {
+            let imageView = findNavLineImageViewOn(subView)
+            if imageView != nil {
+                return imageView
+            }
+        }
+        return nil
+    }
     ///设置页面view
     private func setUpView(){
         setUpGoodCountPromptView()
@@ -115,10 +126,6 @@ extension BaseViewController{
     }
 }
 
-// MARK: - tableViewCell图片加载优化(只加载当前显示cell的图片)
-extension BaseViewController{
-
-}
 ///页面控件赋值展示
 extension BaseViewController{
 
@@ -192,122 +199,6 @@ extension BaseViewController{
         let storyboard=UIStoryboard(name:type.rawValue, bundle:nil);
         let vc=storyboard.instantiateViewController(withIdentifier: storyboardId)
         return vc
-    }
-}
-/**
- 弹出对应的窗体
- 
- - Error:   错误提示
- - Success: 成功提示
- - Info:    警告提示
- - Text:    文本提示
- - TextClear:文本提示(不允许用户交互)
- - TextGradient:文本提示(带背景不允许用户交互)
- */
-public enum HUD {
-    case error
-    case success
-    case info
-    case text
-    case textClear
-    case textGradient
-}
-// MARK: - SVProgressHUD
-extension BaseViewController{
-    /**
-     弹出对应的提示视图
-     
-     - parameter status: 内容
-     - parameter type:   弹出类型(HUD)
-     */
-    func showSVProgressHUD(status:String,type:HUD){
-        switch type {
-        case .error:
-            return showError(status:status)
-        case .success:
-            return showSuccess(status:status)
-        case .info:
-            return showInfo(status: status)
-        case .text:
-            return showText(status: status)
-        case .textClear:
-            return showTextClear(status: status)
-        case .textGradient:
-            return showTextGradient(status: status)
-        }
-    }
-    /**
-     关闭弹出视图
-     */
-    func dismissHUD(){
-        SVProgressHUD.dismiss()
-    }
-    func dismissHUD(delay:TimeInterval){
-        SVProgressHUD.dismiss(withDelay:delay)
-    }
-    func dismissHUD(completion:@escaping () -> Swift.Void){
-        SVProgressHUD.dismiss(completion:completion)
-    }
-    func dismissHUD(delay:TimeInterval,completion:@escaping () -> Swift.Void){
-        SVProgressHUD.dismiss(withDelay:delay,completion: completion)
-    }
-    /**
-     弹出错误
-     
-     - parameter status: 内容
-     */
-    private func showError(status:String){
-        SVProgressHUD.showError(withStatus:status)
-        dismissTimeDelay()
-    }
-    /**
-     弹出成功
-     
-     - parameter status: 内容
-     */
-    private func showSuccess(status:String){
-        SVProgressHUD.showSuccess(withStatus: status)
-        dismissTimeDelay()
-    }
-    /**
-     弹出警告
-     
-     - parameter status: 内容
-     */
-    private func showInfo(status:String){
-        SVProgressHUD.showInfo(withStatus: status)
-        dismissTimeDelay()
-    }
-    /**
-     弹出文字
-     
-     - parameter status: 内容
-     */
-    private func showText(status:String){
-        SVProgressHUD.show(withStatus: status)
-    }
-    /**
-     弹出文字(用户不可交互)
-     
-     - parameter status: 内容
-     */
-    private func showTextClear(status:String){
-        SVProgressHUD.show(withStatus: status)
-        SVProgressHUD.setDefaultMaskType(.clear)
-    }
-    /**
-     弹出文字(用户不可交互)带背景
-     
-     - parameter status: 内容
-     */
-    private func showTextGradient(status:String){
-       SVProgressHUD.show(withStatus: status)
-       SVProgressHUD.setDefaultMaskType(.gradient)
-    }
-    //延时2秒关闭
-    private func dismissTimeDelay(){
-        SVProgressHUD.setDefaultMaskType(.none)
-        SVProgressHUD.dismiss(withDelay:2)
     }
 }
 ///实现默认视图协议
@@ -385,6 +276,119 @@ extension BaseViewController:DZNEmptyDataSetSource,DZNEmptyDataSetDelegate{
     ///是否显示
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView) -> Bool {
         return emptyDataSetIsDisplay
+    }
+}
+///滚动类型
+public enum ScrollType{
+    case tableView
+    case collectView
+}
+// MARK: - UITableView/UICollectView图片加载优化(只加载当前显示cell的图片)
+extension BaseViewController{
+    //图片任务
+    func startOperationsForMovieRecord(_ entity: GoodEntity, indexPath: IndexPath,completion:@escaping () -> Void){
+        switch (entity.state) {
+        case .new:
+            startDownloadForRecord(entity, indexPath: indexPath,completion:completion)
+        default:break
+        }
+    }
+    //执行图片下载任务
+    func startDownloadForRecord(_ entity:GoodEntity, indexPath: IndexPath,completion:@escaping () -> Void){
+        //判断队列中是否已有该图片任务
+        if let _ = movieOperations.downloadsInProgress[indexPath] {
+            return
+        }
+
+        //创建一个下载任务
+        let downloader = ImageDownloader.init(entity:entity)
+        //任务完成后重新加载对应的单元格
+        downloader.completionBlock = {
+            if downloader.isCancelled {
+                return
+            }
+            DispatchQueue.main.async(execute: {
+                self.movieOperations.downloadsInProgress.removeValue(forKey: indexPath)
+                ///回调
+                completion()
+            })
+        }
+        //记录当前下载任务
+        movieOperations.downloadsInProgress[indexPath] = downloader
+        //将任务添加到队列中
+        movieOperations.downloadQueue.addOperation(downloader)
+    }
+    open func resumeAllOperationsAndloadImagesForOnscreenCells(type:ScrollType,scrollView:UIScrollView,arr:[GoodEntity]){
+        loadImagesForOnscreenCells(type:type,scrollView:scrollView,arr:arr)
+        resumeAllOperations()
+    }
+
+    //暂停所有队列
+    open func suspendAllOperations () {
+        movieOperations.downloadQueue.isSuspended = true
+        movieOperations.filtrationQueue.isSuspended = true
+    }
+
+    //恢复运行所有队列
+    private func resumeAllOperations () {
+        movieOperations.downloadQueue.isSuspended = false
+        movieOperations.filtrationQueue.isSuspended = false
+    }
+
+    //加载可见区域的单元格图片
+    private func loadImagesForOnscreenCells (type:ScrollType,scrollView:UIScrollView,arr:[GoodEntity]) {
+        var pathsArray:[IndexPath]?
+        var table:UITableView!
+        var collect:UICollectionView!
+        //开始将tableview/collectView可见行的index path放入数组中。
+        if type == .tableView{
+            table=scrollView as! UITableView
+            pathsArray = table.indexPathsForVisibleRows
+        }else{
+            collect=scrollView as! UICollectionView
+            pathsArray = collect.indexPathsForVisibleItems
+        }
+        //通过组合所有下载队列来创建一个包含所有等待任务的集合
+        let allMovieOperations = NSMutableSet()
+        for key in movieOperations.downloadsInProgress.keys{
+            allMovieOperations.add(key)
+        }
+
+        //构建一个需要撤销的任务的集合。从所有任务中除掉可见行的index path，
+        //剩下的就是屏幕外的行所代表的任务。
+        let toBeCancelled = allMovieOperations.mutableCopy() as? NSMutableSet
+        let visiblePaths = NSSet(array: pathsArray!)
+        toBeCancelled?.minus(visiblePaths as Set<NSObject>)
+
+        //创建一个需要执行的任务的集合。从所有可见index path的集合中除去那些已经在等待队列中的。
+        let toBeStarted = visiblePaths.mutableCopy() as! NSMutableSet
+        toBeStarted.minus(allMovieOperations as Set<NSObject>)
+
+        // 遍历需要撤销的任务，撤消它们，然后从 movieOperations 中去掉它们
+        for indexPath in toBeCancelled! {
+            let indexPath = indexPath as! IndexPath
+            if let movieDownload = movieOperations.downloadsInProgress[indexPath] {
+                movieDownload.cancel()
+            }
+            movieOperations.downloadsInProgress.removeValue(forKey: indexPath)
+        }
+        // 遍历需要开始的任务，调用 startOperationsForPhotoRecord
+        for indexPath in toBeStarted {
+            let indexPath = indexPath as? IndexPath
+            if indexPath != nil{
+                if type == .tableView{
+                    let entity = arr[indexPath!.row]
+                    startOperationsForMovieRecord(entity, indexPath: indexPath!){
+                        table.reloadRows(at:[indexPath!], with: UITableViewRowAnimation.fade)
+                    }
+                }else{
+                    let entity = arr[indexPath!.item]
+                    startOperationsForMovieRecord(entity, indexPath: indexPath!){
+                        collect.reloadItems(at:[indexPath!])
+                    }
+                }
+            }
+        }
     }
 }
 

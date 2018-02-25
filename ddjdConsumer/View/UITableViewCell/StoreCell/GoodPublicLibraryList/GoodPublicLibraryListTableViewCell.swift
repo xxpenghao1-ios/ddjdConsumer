@@ -39,8 +39,7 @@ class GoodPublicLibraryListTableViewCell: UITableViewCell {
         lblGoodName.text=entity.goodsName
         lblGoodsUnit.text="/\(entity.goodsUnit ?? "")"
         lblStoreGoodsPrice.text="￥\(entity.goodsPrice ?? 0.0)"
-        entity.goodsPic=entity.goodsPic ?? ""
-        goodImg.image=entity.image
+        self.goodImg.image=entity.image
         btnSelected.isSelected=entity.checkOrCance == 1 ? true:false
     }
     //是否选中
