@@ -53,8 +53,9 @@ class ToExamineGoodTableViewCell: UITableViewCell {
                 break
             }
         }
-        entity.goodsPic=entity.goodsPic ?? ""
-        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+//        entity.goodsPic=entity.goodsPic ?? ""
+//        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+        goodImg.image=entity.image
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

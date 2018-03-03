@@ -148,6 +148,7 @@ extension GoodsClassificationViewController:UITableViewDelegate,UITableViewDataS
 //        }
         if arr.count > 0{
             cell!.updateCell(entity: arr[indexPath.row])
+            
         }
         return cell!
     }

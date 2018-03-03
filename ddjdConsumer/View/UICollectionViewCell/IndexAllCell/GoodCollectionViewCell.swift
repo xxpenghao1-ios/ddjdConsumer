@@ -37,9 +37,9 @@ class GoodCollectionViewCell: UICollectionViewCell {
     }
     //更新数据
     func updateCell(entity:GoodEntity){
-        entity.goodsPic=entity.goodsPic ?? ""
+//        entity.goodsPic=entity.goodsPic ?? ""
         entity.salesCount=entity.salesCount ?? 0
-        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+        goodImg.image=entity.image
         lblGoodName.text=entity.goodsName
         if entity.storeGoodsPrice != nil{
             lblPrice.text="￥\(entity.storeGoodsPrice!)"

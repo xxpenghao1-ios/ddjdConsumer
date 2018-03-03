@@ -38,8 +38,9 @@ class MyCollectGoodTableViewCell: UITableViewCell {
         entity.storeGoodsPrice=entity.storeGoodsPrice ?? 0.0
         lblGoodPrice.text="￥\(entity.storeGoodsPrice!)"
         lblUnit.text="/\(entity.goodsUnit ?? "")"
-        entity.goodsPic=entity.goodsPic ?? ""
-        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+//        entity.goodsPic=entity.goodsPic ?? ""
+//        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+        goodImg.image=entity.image
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

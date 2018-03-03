@@ -384,7 +384,11 @@ extension BaseViewController{
                 }else{
                     let entity = arr[indexPath!.item]
                     startOperationsForMovieRecord(entity, indexPath: indexPath!){
-                        collect.reloadItems(at:[indexPath!])
+                        UIView.performWithoutAnimation({
+                            UIView.animate(withDuration:1, delay:0, options:.transitionCrossDissolve, animations: {
+                                collect.reloadItems(at:[indexPath!])
+                            }, completion: nil)
+                        })
                     }
                 }
             }

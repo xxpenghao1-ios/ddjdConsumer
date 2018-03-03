@@ -428,7 +428,7 @@ extension GoodPublicLibraryListViewController:UITableViewDataSource,UITableViewD
         if arr.count > 0{
             let entity=arr[indexPath.row]
             cell!.updateCell(entity:entity)
-            //检查图片状态。设置适当的activity indicator 和文本，然后开始执行任务
+            //检查图片状态
             switch (entity.state){
             case .new, .downloaded:
                 //只有停止拖动的时候才加载

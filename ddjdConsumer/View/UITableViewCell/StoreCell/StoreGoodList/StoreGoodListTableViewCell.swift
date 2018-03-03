@@ -41,8 +41,9 @@ class StoreGoodListTableViewCell: UITableViewCell {
         if entity.goodsFlag != nil{
             lblGoodsFlag.text=entity.goodsFlag == 1 ? "已上架" : "已下架"
         }
-        entity.goodsPic=entity.goodsPic ?? ""
-        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+//        entity.goodsPic=entity.goodsPic ?? ""
+//        goodImg.kf.setImage(with:URL(string:urlImg+entity.goodsPic!), placeholder:UIImage(named:goodDefaultImg), options:[.transition(ImageTransition.fade(1))])
+        goodImg.image=entity.image
         if entity.goodsStutas == 1{//普通商品
             hotGoodImg.image=UIImage.init(named:"good_tj")
             if entity.indexGoodsId == nil{

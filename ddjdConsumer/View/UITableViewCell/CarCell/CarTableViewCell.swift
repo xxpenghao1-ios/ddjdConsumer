@@ -71,14 +71,14 @@ class CarTableViewCell: UITableViewCell {
     }
     //更新购物车
     func updateCell(entity:GoodEntity){
-        entity.goodsPic=entity.goodsPic ?? ""
+//        entity.goodsPic=entity.goodsPic ?? ""
         entity.goodsCount=entity.goodsCount ?? 1
         entity.checkOrCance=entity.checkOrCance ?? 2
         lblGoodName.text=entity.goodsName
         if entity.storeGoodsPrice != nil{
             lblPrice.text="￥\(entity.storeGoodsPrice!)"
         }
-        goodImg.kf.setImage(with:URL.init(string:urlImg+entity.goodsPic!), placeholder:UIImage.init(named:goodDefaultImg),options:[.transition(ImageTransition.fade(1))])
+        goodImg.image=entity.image
         lblCount.text="\(entity.goodsCount!)"
         if entity.checkOrCance == 1{
             btnChecked.isSelected=true
