@@ -38,9 +38,6 @@ public enum CarApi{
     case removeOrder(orderId:Int,memberId:Int)
 }
 extension CarApi:TargetType{
-    public var baseURL: URL {
-        return URL(string:url)!
-    }
     public var path: String {
         switch self {
         case .getAllCarGood(_,_,_):

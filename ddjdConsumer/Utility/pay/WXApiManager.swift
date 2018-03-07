@@ -14,7 +14,7 @@ let SECRET="3a378e510cd7bcf81353ef497b913be1"
 //微信
 class WXApiManager:NSObject,WXApiDelegate {
     static let shared = WXApiManager()
-//    private override init() {}
+    private override init() {}
     // 用于弹出警报视图，显示成功或失败的信息
     fileprivate weak var sender: BaseViewController! //(UIViewController)
     // 支付成功的闭包

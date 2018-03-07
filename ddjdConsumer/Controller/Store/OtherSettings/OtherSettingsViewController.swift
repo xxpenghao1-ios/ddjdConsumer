@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 ///其他设置
 class OtherSettingsViewController:BaseViewController{
     

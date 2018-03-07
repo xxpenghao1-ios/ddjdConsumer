@@ -18,6 +18,7 @@ public enum IndexApi{
     ///成为VIP或众筹人资料
     case ddjdvip(storeId:Int)
 }
+
 extension IndexApi:TargetType{
     public var headers: [String : String]? {
         return nil

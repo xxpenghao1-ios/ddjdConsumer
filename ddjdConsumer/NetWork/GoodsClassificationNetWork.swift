@@ -8,7 +8,6 @@
 
 import Foundation
 import Moya
-
 /// 商品分类数据请求
 public enum GoodsClassifiationApi{
     //查询所有分类
@@ -17,10 +16,6 @@ public enum GoodsClassifiationApi{
 extension GoodsClassifiationApi:TargetType{
     public var headers: [String : String]? {
         return nil
-    }
-    ///请求URL
-    public var baseURL:URL{
-        return URL(string:url)!
     }
     ///URL详细路径
     public var path:String{

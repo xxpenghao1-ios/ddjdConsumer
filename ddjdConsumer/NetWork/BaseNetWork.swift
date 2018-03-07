@@ -11,7 +11,8 @@ import Moya
 import Result
 import ObjectMapper
 import SwiftyJSON
-/// 成功
+
+///成功
 typealias SuccessStringClosure = (_ result: String) -> Void
 typealias SuccessModelClosure = (_ result: Mappable?) -> Void
 typealias SuccessArrModelClosure = (_ result: [Mappable]?) -> Void
@@ -137,7 +138,12 @@ public class PHMoyaHttp{
         return requestTimeoutClosure
     }
 }
-
+extension TargetType{
+    //请求URL
+    public var baseURL:URL{
+        return URL(string:url)!
+    }
+}
 ///网络请求API(请求注册登录信息等)
 public enum RequestAPI{
     case mobileAdvertisingPromotion
@@ -146,11 +152,6 @@ public enum RequestAPI{
 extension RequestAPI:TargetType{
     public var headers: [String : String]? {
         return nil
-    }
-    
-    ///请求URL
-    public var baseURL:URL{
-        return URL(string:"http://www.cxh777.com/")!
     }
     ///URL详细路径
     public var path:String{

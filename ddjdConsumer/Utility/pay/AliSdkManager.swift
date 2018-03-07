@@ -10,6 +10,7 @@ import Foundation
 //支付宝
 class AliPayManager:NSObject{
     static let shared = AliPayManager()
+    private override init() {}
     // 用于弹出警报视图，显示成功或失败的信息
     fileprivate weak var sender: UIViewController!
     // 支付成功的闭包

@@ -23,9 +23,6 @@ public enum LoginWithRegistrApi{
     
 }
 extension LoginWithRegistrApi:TargetType{
-    public var baseURL: URL {
-        return URL(string:url)!
-    }
     public var path: String {
         switch self {
         case .duanxinValidate(_,_):
