@@ -13,11 +13,4 @@ class MovieOperations {
         queue.maxConcurrentOperationCount = 1
         return queue
         }()
-    //图片处理队列
-    lazy var filtrationQueue:OperationQueue = {
-        var queue = OperationQueue()
-        queue.name = "Image Filtration queue"
-        queue.maxConcurrentOperationCount = 1
-        return queue
-        }()
 }

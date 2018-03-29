@@ -14,9 +14,8 @@ let SECRET="3a378e510cd7bcf81353ef497b913be1"
 //微信
 class WXApiManager:NSObject,WXApiDelegate {
     static let shared = WXApiManager()
-    private override init() {}
     // 用于弹出警报视图，显示成功或失败的信息
-    fileprivate weak var sender: BaseViewController! //(UIViewController)
+    fileprivate weak var sender:UIViewController! //(UIViewController)
     // 支付成功的闭包
     fileprivate var paySuccessClosure: (() -> Void)?
     // 支付失败的闭包
@@ -26,7 +25,7 @@ class WXApiManager:NSObject,WXApiDelegate {
     //登录失败
     fileprivate var loginFailClosure:(() -> Void)?
     // 外部用这个方法调起微信支付
-    func payAlertController(_ sender:BaseViewController,
+    func payAlertController(_ sender:UIViewController,
                             request:PayReq,
                             paySuccess: @escaping () -> Void,
                             payFail:@escaping () -> Void) {
@@ -35,12 +34,12 @@ class WXApiManager:NSObject,WXApiDelegate {
         self.sender = sender
         self.paySuccessClosure = paySuccess
         self.payFailClosure = payFail
-        if checkWXInstallAndSupport(){
+        if checkWXInstallAndSupport(){//检查用户是否安装微信
             WXApi.send(request)
         }
     }
     //外部用这个方法调起微信登录
-    func login(_ sender:BaseViewController,loginSuccess: @escaping ( _ code:String) -> Void,
+    func login(_ sender:UIViewController,loginSuccess: @escaping ( _ code:String) -> Void,
                loginFail:@escaping () -> Void){
         // sender 是调用这个方法的控制器，
         // 用于提示用户微信支付结果，可以根据自己需求是否要此参数。
@@ -58,24 +57,7 @@ class WXApiManager:NSObject,WXApiDelegate {
 }
 extension WXApiManager {
     func onResp(_ resp: BaseResp!) {
-//        var strMsg: String
         if resp is PayResp {//支付
-//            switch resp.errCode {
-//            case 0:
-//                strMsg = "支付结果：成功！"
-//                break
-//            default:
-//                strMsg = "支付结果：失败！retcode = \(resp.errCode), retstr = \(resp.errStr)"
-//                break
-//            }
-//            UIAlertController.showAlertYes(sender, title:"", message: strMsg, okButtonTitle:"确定", okHandler: { (alert) in
-//                if resp.errCode == 0 {
-//                    self.paySuccessClosure?()
-//
-//                }else{
-//                    self.payFailClosure?()
-//                }
-//            })
             if resp.errCode == 0 {
                 self.paySuccessClosure?()
             }else{
@@ -109,35 +91,35 @@ extension WXApiManager {
             })
         }
     }
-    //获取凭证
-    private func getAccessToken(code:String){
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:PayApi.accessToken(code:code), successClosure: { (json) in
-            let errcode=json["errcode"].int
-            if errcode == nil{//如果没有错误
-                let access_token=json["access_token"].stringValue
-                let openid=json["openid"].stringValue
-                //获取用户信息
-                self.getUserInfo(access_token:access_token,openid:openid)
-            }else{
-                self.payFailClosure?()
-            }
-        }, failClosure: { (error) in
-            self.sender.showSVProgressHUD(status:error!,type:.error)
-        })
-    }
-    //获取用户信息
-    private func  getUserInfo(access_token:String,openid:String){
-        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: PayApi.getUserinfo(access_token:access_token, openid: openid), successClosure: { (json) in
-            let errcode=json["errcode"].int
-            if errcode == nil{//如果没有错误
-                self.paySuccessClosure?()
-            }else{
-                self.payFailClosure?()
-            }
-        }, failClosure: { (error) in
-            self.sender.showSVProgressHUD(status:error!,type:.error)
-        })
-    }
+//    //获取凭证
+//    private func getAccessToken(code:String){
+//        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:PayApi.accessToken(code:code), successClosure: { (json) in
+//            let errcode=json["errcode"].int
+//            if errcode == nil{//如果没有错误
+//                let access_token=json["access_token"].stringValue
+//                let openid=json["openid"].stringValue
+//                //获取用户信息
+//                self.getUserInfo(access_token:access_token,openid:openid)
+//            }else{
+//                self.payFailClosure?()
+//            }
+//        }, failClosure: { (error) in
+//            self.sender.showSVProgressHUD(status:error!,type:.error)
+//        })
+//    }
+//    //获取用户信息
+//    private func  getUserInfo(access_token:String,openid:String){
+//        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target: PayApi.getUserinfo(access_token:access_token, openid: openid), successClosure: { (json) in
+//            let errcode=json["errcode"].int
+//            if errcode == nil{//如果没有错误
+//                self.paySuccessClosure?()
+//            }else{
+//                self.payFailClosure?()
+//            }
+//        }, failClosure: { (error) in
+//            self.sender.showSVProgressHUD(status:error!,type:.error)
+//        })
+//    }
 }
 
 extension WXApiManager {

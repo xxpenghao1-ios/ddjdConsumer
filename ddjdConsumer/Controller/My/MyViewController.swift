@@ -19,7 +19,7 @@ class MyViewController:BaseViewController{
     //会员名称
     private var lblMemberName:UILabel!
     //名称数组
-    private let nameArr=["我的信息","余额明细","地址管理","我的收藏","购买历史","意见反馈","解绑门店","我的门店"]
+    private let nameArr=["我的信息","余额明细","地址管理","我的收藏","购买历史","意见反馈","解绑门店","我的门店"]//["门店授权"]  消费者登录的时候 如果已经获得门店授权storeAuthStatu=1 展示门店授权
     //图片数组
     private let imgArr=["my_info","my_balance_record","my_address","my_sc","my_history","my_opinion","my_relieve_store","my_store"]
     //订单名称
@@ -60,8 +60,10 @@ class MyViewController:BaseViewController{
             self.present(UINavigationController.init(rootViewController:app.returnLoginVC()), animated:true, completion:nil)
 
         }else{
+            ///查询会员信息
             getMember()
             if flag{
+                ///查询订单数量
                 queryOrderNum()
             }
             flag=true
@@ -166,15 +168,26 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
         cell!.textLabel!.textColor=UIColor.color333()
         cell!.textLabel!.font=UIFont.systemFont(ofSize:15)
         cell!.accessoryType = .disclosureIndicator
+        if indexPath.row == nameArr.count-1{
+            if memberEntity?.storeFlag == 2{//如果不是门店
+                if memberEntity?.storeAuthStatu == 2{ ///如果门店已经授权给消费者
+                    cell!.textLabel!.text="门店授权"
+                    cell!.imageView?.image=UIImage(named:"my_auth")!.reSizeImage(reSize:CGSize(width:25, height:25))
+                }
+            }
+        }
         return cell!
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if memberEntity?.storeFlag == 1{//如果是店铺
+        if memberEntity?.storeAuthStatu == 2{//如果已经授权
             return nameArr.count
         }else{
+            if memberEntity?.storeFlag == 1{
+                return nameArr.count
+            }
             return nameArr.count-1
         }
     }
@@ -224,8 +237,13 @@ extension MyViewController:UITableViewDataSource,UITableViewDelegate{
             })
             break
         case 7:
-            let vc=self.storyboardPushView(type:.store, storyboardId:"StoreIndexVC") as! StoreIndexViewController
-            self.pushVC(vc:vc)
+            if memberEntity?.storeFlag == 1{
+                let vc=self.storyboardPushView(type:.store, storyboardId:"StoreIndexVC") as! StoreIndexViewController
+                self.pushVC(vc:vc)
+            }else{///跳转到授权功能页面
+                let vc=MemberAuthViewController()
+                self.pushVC(vc: vc)
+            }
             break
         default:break
         }
@@ -349,6 +367,7 @@ extension MyViewController{
             }
             userDefaults.set(self.memberEntity!.vipStatu, forKey:"vipStatu")
             userDefaults.set(self.memberEntity!.partnerStatu, forKey:"partnerStatu")
+            userDefaults.set(self.memberEntity!.storeAuthStatu, forKey:"storeAuthStatu")
             userDefaults.synchronize()
             self.table.reloadData()
         }) { (error) in

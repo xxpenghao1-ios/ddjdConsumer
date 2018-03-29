@@ -28,6 +28,9 @@ class OrderDetailsEntity:Mappable {
     var goodsAmount:Int?
     ///发货时间
     var shipTime:String?
+    ///经纬度
+    var lat:String?
+    var lon:String?
     ///收货地址
     var shipaddress:String?
     ///1. 待付款 2-待发货，3 已发货，4-已经完成 5. 申请退货，6 已退货，7已取消，8.已失效
@@ -76,5 +79,7 @@ class OrderDetailsEntity:Mappable {
         tel <- map["tel"]
         payMessage <- map["payMessage"]
         orderOriginalPrice <- map["orderOriginalPrice"]
+        lat <- map["lat"]
+        lon <- map["lon"]
     }
 }

@@ -420,6 +420,74 @@
             </objects>
             <point key="canvasLocation" x="1788" y="6.6502463054187197"/>
         </scene>
+        <!--Order Payment Success View Controller-->
+        <scene sceneID="4Hq-iM-xv6">
+            <objects>
+                <viewController storyboardIdentifier="OrderPaymentSuccessVC" id="CQJ-ud-yea" customClass="OrderPaymentSuccessViewController" customModule="ddjdConsumer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W3D-In-omQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checked" translatesAutoresizingMaskIntoConstraints="NO" id="V9C-VD-K4R">
+                                <rect key="frame" x="157" y="64" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="1q1-s3-sMD"/>
+                                    <constraint firstAttribute="width" constant="60" id="NP0-JY-Gzc"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单付款成功" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaB-lZ-H2x">
+                                <rect key="frame" x="0.0" y="139" width="375" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Hdo-3L-eu7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X9k-dK-im3">
+                                <rect key="frame" x="0.0" y="175" width="375" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="TjX-Qd-9Lf"/>
+                                </constraints>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PsY-bO-Ofr">
+                                <rect key="frame" x="30" y="405" width="315" height="45"/>
+                                <color key="backgroundColor" red="0.89019607840000003" green="0.24313725489999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="ZsX-YC-XF0"/>
+                                </constraints>
+                                <state key="normal" title="查看订单">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.88132256269999998" green="0.87950366739999997" blue="0.88978022339999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XaB-lZ-H2x" firstAttribute="top" secondItem="V9C-VD-K4R" secondAttribute="bottom" constant="15" id="B1x-dW-Ld7"/>
+                            <constraint firstItem="xVL-k8-IkP" firstAttribute="trailing" secondItem="PsY-bO-Ofr" secondAttribute="trailing" constant="30" id="KZQ-ah-lA0"/>
+                            <constraint firstItem="X9k-dK-im3" firstAttribute="leading" secondItem="xVL-k8-IkP" secondAttribute="leading" id="TQh-VJ-bwi"/>
+                            <constraint firstItem="XaB-lZ-H2x" firstAttribute="leading" secondItem="xVL-k8-IkP" secondAttribute="leading" id="Xcl-Cn-ans"/>
+                            <constraint firstItem="xVL-k8-IkP" firstAttribute="trailing" secondItem="X9k-dK-im3" secondAttribute="trailing" id="a9W-A9-zeu"/>
+                            <constraint firstItem="X9k-dK-im3" firstAttribute="top" secondItem="XaB-lZ-H2x" secondAttribute="bottom" constant="15" id="dRO-HU-VP2"/>
+                            <constraint firstItem="xVL-k8-IkP" firstAttribute="trailing" secondItem="XaB-lZ-H2x" secondAttribute="trailing" id="fTf-py-xzI"/>
+                            <constraint firstItem="PsY-bO-Ofr" firstAttribute="leading" secondItem="xVL-k8-IkP" secondAttribute="leading" constant="30" id="kYm-4j-mZg"/>
+                            <constraint firstItem="V9C-VD-K4R" firstAttribute="top" secondItem="xVL-k8-IkP" secondAttribute="top" constant="20" id="pR9-WH-ecb"/>
+                            <constraint firstItem="V9C-VD-K4R" firstAttribute="centerX" secondItem="W3D-In-omQ" secondAttribute="centerX" id="rqJ-fG-yoH"/>
+                            <constraint firstItem="PsY-bO-Ofr" firstAttribute="top" secondItem="X9k-dK-im3" secondAttribute="bottom" constant="30" id="vo2-4S-4XG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xVL-k8-IkP"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnPushOrder" destination="PsY-bO-Ofr" id="STE-Nb-uBw"/>
+                        <outlet property="table" destination="X9k-dK-im3" id="fCn-zr-hnG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zes-Xm-LiC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2453.5999999999999" y="3.6945812807881775"/>
+        </scene>
         <!--Order Details View Controller-->
         <scene sceneID="7gk-I3-ma9">
             <objects>
@@ -833,7 +901,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="elD-gN-Qmj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2416.8000000000002" y="6.6502463054187197"/>
+            <point key="canvasLocation" x="3087" y="7"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yya-5I-c0B">
@@ -855,6 +923,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checked" width="64" height="64"/>
         <image name="next" width="64" height="64"/>
         <image name="order_confirm_bac" width="540" height="177"/>
         <image name="order_tel" width="64" height="64"/>

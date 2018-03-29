@@ -61,7 +61,6 @@ public enum MyApi{
     ///ios app 是否正在审核中。 默认1不在审核中； 2 正在审核中
     case queryIosExamineStatu()
 
-
 }
 extension MyApi:TargetType{
     

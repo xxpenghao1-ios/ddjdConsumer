@@ -78,6 +78,9 @@ var BINDSTOREID:Int{
 //店铺id
 var STOREID:Int{
     get{
+        if (userDefaults.object(forKey:"partnerStatu") as? Int) == 2{//如果是授权消费者功能  返回店铺绑定id
+            return BINDSTOREID
+        }
         return userDefaults.object(forKey:"storeId") as? Int ?? -1
     }
 }

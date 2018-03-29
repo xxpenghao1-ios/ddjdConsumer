@@ -13,7 +13,7 @@ class OtherSettingsViewController:BaseViewController{
     
     @IBOutlet weak var table: UITableView!
     
-    private var nameArr=["提现账户信息","订单起送金额","配送范围","联系方式","营业时间","会员折扣"]
+    private var nameArr=["提现账户信息","授权管理","红包管理","订单起送金额","配送范围","联系方式","营业时间","会员折扣"]
     
     private var entity=StoreEntity()
     
@@ -48,21 +48,21 @@ extension OtherSettingsViewController:UITableViewDataSource,UITableViewDelegate{
         cell!.textLabel!.font=UIFont.systemFont(ofSize:14)
         cell!.detailTextLabel!.font=UIFont.systemFont(ofSize:12)
         switch  indexPath.row{
-        case 1:
+        case 3:
             cell!.detailTextLabel!.text=(entity.lowestMoney ?? 0).description+"元"
             break
-        case 2:
+        case 4:
             cell!.detailTextLabel!.text=(entity.distributionScope ?? 0).description+"km"
             break
-        case 3:
+        case 5:
             cell!.detailTextLabel!.text=entity.tel
             break
-        case 4:
+        case 6:
             if entity.distributionStartTime != nil && entity.distributionEndTime != nil{
                 cell!.detailTextLabel!.text=(entity.distributionStartTime!)+"-"+(entity.distributionEndTime!)
             }
             break
-        case 5:
+        case 7:
             cell!.detailTextLabel!.text=entity.memberDiscount?.description
             break
         default:break
@@ -85,18 +85,26 @@ extension OtherSettingsViewController:UITableViewDataSource,UITableViewDelegate{
             self.navigationController?.pushViewController(vc, animated:true)
             break
         case 1:
-            pushUpdateInfoVC(type:1)
+            let vc = MemberAuthorizationManagementViewController()
+            self.navigationController?.pushViewController(vc, animated:true)
             break
         case 2:
-            pushUpdateInfoVC(type:2)
+            let vc=self.storyboardPushView(type:.store, storyboardId:"RedPackageManagementVC") as! RedPackageManagementViewController
+            self.navigationController?.pushViewController(vc, animated:true)
             break
         case 3:
-            pushUpdateInfoVC(type:3)
+            pushUpdateInfoVC(type:1)
             break
         case 4:
-            pushUpdateInfoVC(type:4)
+            pushUpdateInfoVC(type:2)
             break
         case 5:
+            pushUpdateInfoVC(type:3)
+            break
+        case 6:
+            pushUpdateInfoVC(type:4)
+            break
+        case 7:
             pushUpdateInfoVC(type:5)
             break
         default:

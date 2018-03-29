@@ -21,7 +21,7 @@ class BalanceMoneyRecordViewController:BaseViewController{
 
     private var flag=false
     ///筛选条件arr
-    private var memberBalanceRecordTypeArr=["余额充值","余额返还","订单扣除","提现扣除","全部"]
+    private var memberBalanceRecordTypeArr=["余额充值","余额返还","订单扣除","提现扣除","领取红包","全部"]
     private var memberBalanceRecordType:Int?
     ///筛选table
     private var screeningTable:UITableView!
@@ -187,7 +187,7 @@ extension BalanceMoneyRecordViewController:UITableViewDelegate,UITableViewDataSo
         //取消选中效果颜色
         tableView.deselectRow(at: indexPath, animated: true)
         if tableView.tag == 100{
-            if indexPath.row == 4{//全部
+            if indexPath.row == 5{//全部
                 self.memberBalanceRecordType=nil
             }else{
                 self.memberBalanceRecordType=indexPath.row+1

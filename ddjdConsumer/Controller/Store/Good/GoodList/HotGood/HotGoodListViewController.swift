@@ -178,6 +178,8 @@ extension HotGoodListViewController{
                         self.table.reloadData()
                     }
                 }else{
+                    self.arr.remove(at:row)
+                    self.table.deleteRows(at:[IndexPath.init(row:row, section:0)], with: UITableViewRowAnimation.fade)
                     self.getIndexGoodList(pageSize:10, pageNumber:self.pageNumber, isRefresh:false,index:IndexPath.init(row:row, section:0))
                 }
             }else if success == "notExist" {

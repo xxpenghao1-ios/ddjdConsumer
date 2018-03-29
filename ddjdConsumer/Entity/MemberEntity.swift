@@ -25,6 +25,7 @@ class MemberEntity:Mappable{
     var payPw:String? //用户支付密码
     var vipStatu:Int? //是否为vip; 默认1不是；2是； ‘,
     var partnerStatu:Int? // ‘是否为店铺众筹人；默认1不是；2是’,
+    var storeAuthStatu:Int? //  ‘是否已经被店铺授权； 默认1没有； 2有’,
     init(){}
     required init?(map: Map) {
         mapping(map:map)
@@ -45,6 +46,7 @@ class MemberEntity:Mappable{
         payPw <- map["payPw"]
         vipStatu <- map["vipStatu"]
         partnerStatu <- map["partnerStatu"]
+        storeAuthStatu <- map["storeAuthStatu"]
     }
     
 }

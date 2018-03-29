@@ -66,7 +66,7 @@ class OrderDetailsViewController:BaseViewController{
                     lblPayMode.text="余额支付"
                     ///计算优惠价
                     let preferentialTreatment=PriceComputationsUtil.decimalNumberWithString(multiplierValue:(newValue!.orderOriginalPrice ?? 0).description, multiplicandValue:(newValue!.orderPrice ?? 0).description, type: ComputationsType.subtraction, position:2)
-                    lblPreferentialTreatment.text="￥\(preferentialTreatment)"
+                    lblPreferentialTreatment.text="￥-\(preferentialTreatment)"
                 }else{
                     lblPayMode.text=newValue!.payType==1 ? "微信支付":"支付宝支付"
                     lblPreferentialTreatment.text="￥0.0"
@@ -150,9 +150,9 @@ extension OrderDetailsViewController{
         self.table.emptyDataSetSource=self
         self.table.emptyDataSetDelegate=self
         self.table.sectionFooterHeight=0
-//        if storeFlag != nil{//如果显示导航
-//            self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(image:UIImage.init(named:"order_mapNav")!.reSizeImage(reSize:CGSize.init(width:25, height:25)), style: UIBarButtonItemStyle.done, target:self, action:#selector(selectedMapNav))
-//        }
+        if storeFlag != nil{//如果显示导航
+            self.navigationItem.rightBarButtonItem=UIBarButtonItem.init(image:UIImage.init(named:"order_mapNav")!.reSizeImage(reSize:CGSize.init(width:25, height:25)), style: UIBarButtonItemStyle.done, target:self, action:#selector(selectedMapNav))
+        }
         ///打电话
         callMemberImg.isUserInteractionEnabled=true
         callMemberImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(self.callMember)))
@@ -269,28 +269,38 @@ extension OrderDetailsViewController{
     }
     ///选择地图导航 目前只有百度地图
     @objc private func selectedMapNav(){
-        let coordinate=CLLocationCoordinate2D.init(latitude: CLLocationDegrees.init(28.251691), longitude: CLLocationDegrees.init(113.087765))
-        self.openMapNativeNavi(coordinate:coordinate)
+        if self.orderEntity?.lat != nil && self.orderEntity?.lon != nil{
+            let coordinate=CLLocationCoordinate2D.init(latitude: CLLocationDegrees.init(self.orderEntity!.lat!)!, longitude: CLLocationDegrees.init(self.orderEntity!.lon!)!)
+            self.showAlert(coordinate:coordinate)
+        }else{
+            self.showSVProgressHUD(status:"没有获取到对应经纬度,不能导航", type: HUD.error)
+        }
 
     }
-    // 调启百度地图 APP 导航
-    private func openMapNativeNavi(coordinate:CLLocationCoordinate2D) {
-        // 初始化调启导航的参数管理类
-        let parameter = BMKNaviPara()
-        // 指定导航类型
-        //        parameter.naviType = BMK_NAVI_TYPE_NATIVE
-        // 初始化终点节点
-        let end = BMKPlanNode()
-        // 指定终点经纬度
-        end.pt = coordinate
-        // 指定终点名称
-        end.name = orderEntity?.shipaddress
-        // 指定终点
-        parameter.endPoint = end
-        //指定返回自定义 scheme
-        parameter.appScheme = "baidumapddjdconsumer://c.ddjd.com"
-        // 调启百度地图客户端导航
-        BMKNavigation.openBaiduMapNavigation(parameter)
+    ///弹出导航选项
+    private func showAlert(coordinate:CLLocationCoordinate2D){
+        let alert=UIAlertController.init(title:"导航到目的地", message:"", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let baiduAction=UIAlertAction.init(title:"百度地图", style: UIAlertActionStyle.default) { (action) in
+            if !MapNav.shared.openMapNav(coordinate:coordinate, name:self.orderEntity?.shipaddress ?? "", mapType:MapNavType.baidu){
+                self.showSVProgressHUD(status:"请检测是否安装百度地图", type: HUD.error)
+            }
+        }
+        let gaoDeAction=UIAlertAction.init(title:"高德地图", style: UIAlertActionStyle.default) { (action) in
+            if !MapNav.shared.openMapNav(coordinate:coordinate, name:self.orderEntity?.shipaddress ?? "", mapType:MapNavType.gaode){
+                self.showSVProgressHUD(status:"请检测是否安装高德地图", type: HUD.error)
+            }
+        }
+        let iphoneAction=UIAlertAction.init(title:"苹果地图", style: UIAlertActionStyle.default) { (action) in
+            if !MapNav.shared.openMapNav(coordinate:coordinate, name:self.orderEntity?.shipaddress ?? "", mapType:MapNavType.iPhone){
+                self.showSVProgressHUD(status:"请检测是否安装苹果地图", type: HUD.error)
+            }
+        }
+        let cancelAction=UIAlertAction.init(title:"取消", style: UIAlertActionStyle.cancel, handler: nil)
+        alert.addAction(baiduAction)
+        alert.addAction(gaoDeAction)
+        alert.addAction(iphoneAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated:true, completion:nil)
     }
 }
 ///网络请求
@@ -313,6 +323,7 @@ extension OrderDetailsViewController{
     ///查询店铺订单详情
     private func getStoreOrderDetails(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreOrderApi.queryStoreOrderInfoDetails(orderId:orderId ?? 0), successClosure: { (json) in
+            print(json)
             for(_,value) in json["orderInfoGoodsListDetails"]{
                 let entity=self.jsonMappingEntity(entity:GoodEntity.init(), object: value.object)
                 self.goodArr.append(entity!)

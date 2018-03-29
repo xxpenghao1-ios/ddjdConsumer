@@ -36,6 +36,8 @@ class BalanceMoneyRecordTableViewCell: UITableViewCell {
             lblBalanceMoneyType.text="订单扣除"
         }else if entity.memberBalanceRecordType == 4{
             lblBalanceMoneyType.text="提现扣除"
+        }else if entity.memberBalanceRecordType == 5{
+            lblBalanceMoneyType.text="领取红包"
         }else{
             lblBalanceMoneyType.text="其他"
         }

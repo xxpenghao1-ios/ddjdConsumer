@@ -184,6 +184,10 @@ extension BaseViewController{
     func jsonMappingEntity<N:Mappable>(entity:N,object:Any) -> N?{
         return Mapper<N>().map(JSONObject:object)
     }
+    func jsonMappingArrEntity<N:Mappable>(entity:N,object:Any) -> [N]{
+        return Mapper<N>().mapArray(JSONObject:object) ?? [N]()
+    }
+
 }
 // MARK: - 跳转页面
 extension BaseViewController{
@@ -326,13 +330,11 @@ extension BaseViewController{
     //暂停所有队列
     open func suspendAllOperations () {
         movieOperations.downloadQueue.isSuspended = true
-        movieOperations.filtrationQueue.isSuspended = true
     }
 
     //恢复运行所有队列
     private func resumeAllOperations () {
         movieOperations.downloadQueue.isSuspended = false
-        movieOperations.filtrationQueue.isSuspended = false
     }
 
     //加载可见区域的单元格图片

@@ -36,6 +36,8 @@ public enum CarApi{
     case updateMemberOrderInfoStatusThe4(orderId:Int,memberId:Int)
     //取消订单
     case removeOrder(orderId:Int,memberId:Int)
+    ///查询订单是否付款成功
+    case queryOrderStatu_2(orderId:Int)
 }
 extension CarApi:TargetType{
     public var path: String {
@@ -65,13 +67,15 @@ extension CarApi:TargetType{
         case .updateMemberOrderInfoStatusThe4(_,_):
             return "/front/order/updateMemberOrderInfoStatusThe4"
         case .removeOrder(_,_):
-            return "front/order/removeOrder"
+            return "/front/order/removeOrder"
+        case .queryOrderStatu_2(_):
+            return "/front/order/queryOrderStatu_2"
         }
     }
     
     public var method:Moya.Method {
         switch self {
-        case .getAllCarGood(_,_,_),.addCar(_,_,_,_),.clearCar(_),.removeCar(_,_),.changeCarNumForGoods(_,_),.chooseCarGoods(_,_),.queryCarSumMoney(_),.checkOrCanceAllShoppingCarGoods(_,_),.saveOrder(_,_,_,_,_,_),.pendingPaymentSubmit(_,_,_,_,_),.updateMemberOrderInfoStatusThe4(_,_),.removeOrder(_,_):
+        case .getAllCarGood(_,_,_),.addCar(_,_,_,_),.clearCar(_),.removeCar(_,_),.changeCarNumForGoods(_,_),.chooseCarGoods(_,_),.queryCarSumMoney(_),.checkOrCanceAllShoppingCarGoods(_,_),.saveOrder(_,_,_,_,_,_),.pendingPaymentSubmit(_,_,_,_,_),.updateMemberOrderInfoStatusThe4(_,_),.removeOrder(_,_),.queryOrderStatu_2(_):
             return .post
         case .queryShoppingCarGoodsSumCount(_,_):
             return .get
@@ -110,6 +114,8 @@ extension CarApi:TargetType{
             return .requestParameters(parameters:["orderId":orderId,"memberId":memberId], encoding: URLEncoding.default)
         case let .removeOrder(orderId, memberId):
             return .requestParameters(parameters:["orderId":orderId,"memberId":memberId], encoding: URLEncoding.default)
+        case let .queryOrderStatu_2(orderId):
+            return .requestParameters(parameters:["orderId":orderId], encoding: URLEncoding.default)
         }
     }
     

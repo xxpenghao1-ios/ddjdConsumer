@@ -74,14 +74,17 @@ extension MyCollectGoodViewController{
             if success == "success"{
                 let cell=self.table.cellForRow(at:index)
                 if cell != nil{
-                    self.showSVProgressHUD(status:"删除成功", type: HUD.error)
+                    self.showSVProgressHUD(status:"删除成功", type: HUD.success)
                     if self.arr.count == self.totalRow{
                         self.arr.remove(at:index.row)
                         self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
+                        self.totalRow-=1
                         if self.arr.count == 0{
                             self.table.reloadData()
                         }
                     }else{
+                        self.arr.remove(at:index.row)
+                        self.table.deleteRows(at:[index], with: UITableViewRowAnimation.fade)
                         self.getCollectGoodList(pageSize:10, pageNumber:self.pageNumber, index:index)
                     }
                 }

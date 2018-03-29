@@ -82,6 +82,7 @@ class OrderConfirmViewController:BaseViewController{
         self.title="确认订单"
         self.view.backgroundColor=UIColor.viewBackgroundColor()
         setUpView()
+
         
     }
     //点击table区域收起键盘
@@ -191,16 +192,17 @@ extension OrderConfirmViewController{
         vc.popFlag=1
         self.navigationController?.pushViewController(vc, animated:true)
     }
-    ///查看订单
-    private func checkOrder(){
-        UIAlertController.showAlertYesNo(self, title:"", message:"下单成功,我们尽快帮您送货上门", cancelButtonTitle: "返回", okButtonTitle:"查看订单", okHandler: { (action) in
-            //通知tab页面更新购物车角标
-            NotificationCenter.default.post(name:updateCarBadgeValue,object:nil)
-            self.pushOrderList(orderStatus:2)
-            
-        }, cancelHandler: { (action) in
-            self.navigationController?.popViewController(animated:true)
-        })
+    ///查看订单  storeRedPackSurplusCount店铺剩余红包
+    private func checkOrder(orderSN:String,price:String,payType:String,storeRedPackSurplusCount:Int,orderId:Int){
+        let vc=self.storyboardPushView(type:.shoppingCar, storyboardId:"OrderPaymentSuccessVC") as! OrderPaymentSuccessViewController
+        vc.orderId=orderId
+        vc.orderSN=orderSN
+        vc.price=price
+        vc.payType=payType
+        vc.storeRedPackSurplusCount=storeRedPackSurplusCount
+        self.navigationController?.pushViewController(vc, animated:true)
+        //通知tab页面更新购物车角标
+        NotificationCenter.default.post(name:updateCarBadgeValue,object:nil)
     }
 }
 ///网络请求
@@ -244,6 +246,12 @@ extension OrderConfirmViewController{
 
             let success=json["success"].stringValue
             if success == "success"{
+                ///店铺剩余红包
+                let storeRedPackSurplusCount=json["storeRedPackSurplusCount"].intValue
+                ///订单编号
+                let orderSN=json["orderSN"].stringValue
+//                ///订单id
+                let orderId=json["orderInfoId"].intValue
                 self.dismissHUD {
                     if payType == 1{
                         let charge=json["charge"]
@@ -255,7 +263,7 @@ extension OrderConfirmViewController{
                         req.sign=charge["sign"].stringValue
                         req.prepayId=charge["prepayid"].stringValue
                         WXApiManager.shared.payAlertController(self, request: req, paySuccess: {
-                           self.checkOrder()
+                            self.checkOrder(orderSN:orderSN, price: moblieSumPrice, payType:"微信支付", storeRedPackSurplusCount:storeRedPackSurplusCount, orderId: orderId)
                         }, payFail: {
                             UIAlertController.showAlertYesNo(self, title:"提示", message:"支付失败", cancelButtonTitle: "返回", okButtonTitle:"查看失败订单", okHandler: { (action) in
                                 self.pushOrderList(orderStatus:1)
@@ -266,7 +274,7 @@ extension OrderConfirmViewController{
                     }else if payType == 2{
                         let orderString=json["charge"]["orderString"].stringValue
                         AliPayManager.shared.payAlertController(self, request:orderString, paySuccess: {
-                            self.checkOrder()
+                            self.checkOrder(orderSN:orderSN, price: moblieSumPrice, payType:"支付宝支付", storeRedPackSurplusCount:storeRedPackSurplusCount, orderId: orderId)
                         }, payFail: {
                             UIAlertController.showAlertYesNo(self, title:"提示", message:"支付失败", cancelButtonTitle: "返回", okButtonTitle:"查看失败订单", okHandler: { (action) in
                                 self.pushOrderList(orderStatus:1)
@@ -275,7 +283,7 @@ extension OrderConfirmViewController{
                             })
                         })
                     }else if payType == 4{
-                        self.checkOrder()
+                        self.checkOrder(orderSN:orderSN, price: moblieSumPrice, payType:"余额支付", storeRedPackSurplusCount:storeRedPackSurplusCount, orderId:orderId)
                     }
                 }
             }else if success == "orderRepeat"{
@@ -317,6 +325,17 @@ extension OrderConfirmViewController{
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }
     }
+
+//    /// 验证用户是否支付成功
+//    ///
+//    /// - Parameter orderId: 订单id
+//    private func queryOrderStatu_2(orderId:Int){
+//        PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:CarApi.queryOrderStatu_2(orderId:orderId), successClosure: { (json) in
+//
+//        }) { (error) in
+//            self.showSVProgressHUD(status:error!, type: HUD.error)
+//        }
+//    }
     ///获取用户余额
     private func queryMemberBalanceMoney(){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:MyApi.queryMemberBalanceMoney(parameters:DDJDCSign.shared.getRequestParameters(timestamp:Int(Date().timeIntervalSince1970*1000).description)), successClosure: { (json) in

@@ -10,7 +10,6 @@ import Foundation
 //支付宝
 class AliPayManager:NSObject{
     static let shared = AliPayManager()
-    private override init() {}
     // 用于弹出警报视图，显示成功或失败的信息
     fileprivate weak var sender: UIViewController!
     // 支付成功的闭包
@@ -34,7 +33,7 @@ class AliPayManager:NSObject{
         AlipaySDK.defaultService().payOrder(request, fromScheme:"phddjdconsumer",callback:nil)
     }
     //外部用这个方法调起支付宝登录
-    func login(_ sender:BaseViewController,withInfo:String,loginSuccess: @escaping (_ str:String) -> Void,loginFail:@escaping () -> Void){
+    func login(_ sender:UIViewController,withInfo:String,loginSuccess: @escaping (_ str:String) -> Void,loginFail:@escaping () -> Void){
         // sender 是调用这个方法的控制器，
         // 用于提示用户微信支付结果，可以根据自己需求是否要此参数。
         self.sender = sender

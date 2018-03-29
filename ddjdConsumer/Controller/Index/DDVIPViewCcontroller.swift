@@ -47,6 +47,7 @@ class DDVIPViewCcontroller:BaseViewController {
     ///跳转到充值页面
     @IBAction func pushTopUpVC(_ sender: UIButton) {
         let vc=self.storyboardPushView(type:.my, storyboardId:"BalanceMoneyTopUpVC") as! BalanceMoneyTopUpViewController
+        vc.hidesBottomBarWhenPushed=true
         self.navigationController?.pushViewController(vc, animated:true)
     }
     ///联系店铺成为众筹人
