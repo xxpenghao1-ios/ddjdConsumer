@@ -154,22 +154,6 @@ extension IndexViewController:UICollectionViewDelegate,UICollectionViewDataSourc
             if goodArr.count > 0{
                 let entity=goodArr[indexPath.row]
                 cell.updateCell(entity:goodArr[indexPath.row])
-                //检查图片状态
-                switch (entity.state){
-                case .new, .downloaded:
-                    //只有停止拖动的时候才加载
-                    if (!scrollView.isDragging && !scrollView.isDecelerating) {
-                        self.startOperationsForMovieRecord(entity, indexPath: indexPath, completion:{
-                            UIView.performWithoutAnimation({
-                                UIView.animate(withDuration:1, delay:0, options:.transitionCrossDissolve, animations: {
-                                    self.goodCollectionView.reloadItems(at:[indexPath])
-                                }, completion: nil)
-                            })
-                        })
-                    }
-                case .failed:
-                    NSLog("do nothing")
-                }
                 cell.pushGoodDetailsVCClosure={
                     if MEMBERID == -1{
                         self.present(UINavigationController.init(rootViewController:app.returnLoginVC()), animated:true, completion:nil)
@@ -232,26 +216,7 @@ extension IndexViewController:UICollectionViewDelegate,UICollectionViewDataSourc
 }
 ///优化图片加载
 extension IndexViewController{
-    //视图开始滚动
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        //一旦用户开始滚动屏幕，你将挂起所有任务并留意用户想要看哪些行。
-        suspendAllOperations()
-    }
-
-    //视图停止拖动
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView,
-                                  willDecelerate decelerate: Bool) {
-        //如果减速（decelerate）是 false ，表示用户停止拖拽scrollView。
-        //此时你要继续执行之前挂起的任务，撤销不在屏幕中的cell的任务并开始在屏幕中的cell的任务。
-        if !decelerate {
-            resumeAllOperationsAndloadImagesForOnscreenCells(type:.collectView, scrollView: self.goodCollectionView, arr:goodArr)
-        }
-    }
-    //视图停止减速
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        //这个代理方法告诉你scrollView停止滚动，执行操作同上
-        resumeAllOperationsAndloadImagesForOnscreenCells(type:.collectView, scrollView:self.goodCollectionView,arr:goodArr)
-    }
+    
 }
 // MARK: - 幻灯片协议
 extension IndexViewController:WRCycleScrollViewDelegate{

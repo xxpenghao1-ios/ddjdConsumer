@@ -341,22 +341,6 @@ extension PromotionGoodDetailViewController:UICollectionViewDelegate,UICollectio
         if goodArr.count > 0{
             let entity=goodArr[indexPath.row]
             cell.updateCell(entity:entity)
-            //检查图片状态
-            switch (entity.state){
-            case .new, .downloaded:
-                //只有停止拖动的时候才加载
-                if (!goodCollection.isDragging && !goodCollection.isDecelerating) {
-                    self.startOperationsForMovieRecord(entity, indexPath: indexPath, completion:{
-                        UIView.performWithoutAnimation({
-                            UIView.animate(withDuration:1, delay:0, options:.transitionCrossDissolve, animations: {
-                                self.goodCollection.reloadItems(at:[indexPath])
-                            }, completion: nil)
-                        })
-                    })
-                }
-            case .failed:
-                NSLog("do nothing")
-            }
             cell.pushGoodDetailsVCClosure={
                 self.pushGoodDetailsVC(entity:entity)
             }
