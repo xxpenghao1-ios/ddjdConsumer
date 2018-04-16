@@ -111,7 +111,8 @@ extension LoginViewController{
 
 // MARK: - 点击事件
 extension LoginViewController{
-    //普通登录
+
+
     @objc private func submit(){
         let memberName=txtMemberName.text
         let password=txtPassword.text
@@ -126,11 +127,13 @@ extension LoginViewController{
         let deviceToken=userDefaults.object(forKey:"deviceToken") as? String ?? "penghao"
         self.showSVProgressHUD(status:"登录中...", type: HUD.textClear)
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:LoginWithRegistrApi.memberLogin(account:memberName!, password: password!, deviceToken:deviceToken,deviceName:UIDevice().name), successClosure: { (json) in
-//            print(json)
+            print(json)
             let success=json["success"].stringValue
             
             if success == "success"{
                 let memberEntity=self.jsonMappingEntity(entity:MemberEntity(), object:json["member"].object)
+                //查询会员是否被授权订单管理 ; true已经授权； false 没有
+                let authOrderStatu=json["authOrderStatu"].boolValue
                 userDefaults.set(memberEntity!.memberId, forKey:"memberId")
                 userDefaults.set(memberEntity!.account, forKey:"account")
                 userDefaults.set(memberEntity!.storeId, forKey:"storeId")
@@ -142,9 +145,15 @@ extension LoginViewController{
                 self.dismissHUD {
                     //登录成功设置应用程序别名
                     JPUSHService.setAlias("m_\(memberEntity!.memberId ?? -1)", completion:nil,seq:22)
-//                    JPUSHService.setTags(["10"], completion:nil,seq: 11)
-                    //登录成功设置应用程序别名
                     if memberEntity!.bindstoreId != nil{//如果用户绑定了店铺
+                        if memberEntity!.storeFlag == 1{
+                            JPUSHService.setTags(["s_"+memberEntity!.bindstoreId!.description], completion:nil,seq: 11)
+                        }else{
+                            if authOrderStatu {//如果用户已经被授权了
+                                JPUSHService.setTags(["s_"+memberEntity!.bindstoreId!.description], completion:nil,seq: 11)
+                            }
+                        }
+
                         //跳转到主页面
                         app.jumpToIndexVC()
                     }else{

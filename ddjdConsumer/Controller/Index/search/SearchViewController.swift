@@ -178,7 +178,7 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
 extension SearchViewController:UITextFieldDelegate{
     ///跳转到扫码页面
     @objc private func pushSweepCodeVC(){
-        let camera: PrivateResource = .camera
+        let camera: PrivateResource = .cameraCode
         let propose: Propose = {
             proposeToAccess(camera, agreed: {
                 let vc=ScanCodeGetBarcodeViewController()

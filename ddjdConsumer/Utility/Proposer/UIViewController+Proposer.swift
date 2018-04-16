@@ -26,6 +26,8 @@ extension PrivateResource {
             return NSLocalizedString("申请人需要使用你的位置", comment: "")
         case .notifications:
             return NSLocalizedString("申请人想要发送通知", comment: "")
+        case .cameraCode:
+            return NSLocalizedString("申请人需要进入你的相机进行条形码扫描", comment: "")
         }
     }
 
@@ -33,7 +35,7 @@ extension PrivateResource {
         switch self {
         case .photos:
             return NSLocalizedString("请在设置中开启访问照片权限", comment: "")
-        case .camera:
+        case .camera,.cameraCode:
             return NSLocalizedString("请在设置中开启使用相机权限", comment: "")
         case .microphone:
             return NSLocalizedString("请在设置中开启使用麦克风权限", comment: "")

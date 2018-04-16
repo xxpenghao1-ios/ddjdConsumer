@@ -111,8 +111,10 @@ extension RedPackageManagementViewController{
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:RedPackageApi.queryStoreRedPacket(storeId:STOREID), successClosure: { (json) in
             print(json)
             let entity=self.jsonMappingEntity(entity:StoreRedPackInfoEntity(), object:json.object)
-            self.lblRemainingCount.text="红包还剩\(entity!.storeRedPackSurplusCount ?? 0)个"
+            if entity != nil{
+                self.lblRemainingCount.text="红包还剩\(entity!.storeRedPackSurplusCount ?? 0)个"
             self.lblRemainingPrice.text=entity?.storeRedPackMoney?.description
+            }
         }) { (error) in
             self.showSVProgressHUD(status:error!, type: HUD.error)
         }

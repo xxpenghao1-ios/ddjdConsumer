@@ -78,7 +78,7 @@ var BINDSTOREID:Int{
 //店铺id
 var STOREID:Int{
     get{
-        if (userDefaults.object(forKey:"partnerStatu") as? Int) == 2{//如果是授权消费者功能  返回店铺绑定id
+        if (userDefaults.object(forKey:"storeAuthStatu") as? Int) == 2{//如果是授权消费者功能  返回店铺绑定id
             return BINDSTOREID
         }
         return userDefaults.object(forKey:"storeId") as? Int ?? -1
@@ -117,6 +117,19 @@ func deleteUploadImgFile(){
             try! fileManager.removeItem(atPath: myDirectory + "/\(fn)")
         }
     }
+}
+///清除所有关键信息
+func cleanAllInfo(){
+    JPUSHService.deleteAlias(nil, seq:22)
+    JPUSHService.cleanTags(nil, seq: 11)
+    userDefaults.removeObject(forKey:"memberId")
+    userDefaults.removeObject(forKey:"storeId")
+    userDefaults.removeObject(forKey:"partnerStatu")
+    userDefaults.removeObject(forKey:"bindstoreId")
+    userDefaults.removeObject(forKey:"token")
+    userDefaults.removeObject(forKey:"payPw")
+    userDefaults.removeObject(forKey:"vipStatu")
+    userDefaults.synchronize()
 }
 extension CGFloat{
     /// ps字体大小转ios字体大小

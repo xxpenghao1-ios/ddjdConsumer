@@ -28,6 +28,7 @@ public enum PrivateResource {
     case contacts
     case reminders
     case calendar
+    case cameraCode
     public enum LocationUsage {
         case whenInUse
         case always
@@ -39,7 +40,7 @@ public enum PrivateResource {
         switch self {
         case .photos:
             return PHPhotoLibrary.authorizationStatus() == .notDetermined
-        case .camera:
+        case .camera,.cameraCode:
             return AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined
         case .microphone:
             return AVAudioSession.sharedInstance().recordPermission() == .undetermined
@@ -57,6 +58,7 @@ public enum PrivateResource {
             return CLLocationManager.authorizationStatus() == .notDetermined
         case .notifications:
             return UIApplication.shared.notificationAuthorizationStatus == .notDetermined
+
         }
     }
 
@@ -64,7 +66,7 @@ public enum PrivateResource {
         switch self {
         case .photos:
             return PHPhotoLibrary.authorizationStatus() == .authorized
-        case .camera:
+        case .camera,.cameraCode:
             return AVCaptureDevice.authorizationStatus(for: .video) == .authorized
         case .microphone:
             return AVAudioSession.sharedInstance().recordPermission() == .granted
@@ -98,7 +100,7 @@ public func proposeToAccess(_ resource: PrivateResource, agreed successAction: @
     switch resource {
     case .photos:
         proposeToAccessPhotos(agreed: successAction, rejected: failureAction)
-    case .camera:
+    case .camera,.cameraCode:
         proposeToAccessCamera(agreed: successAction, rejected: failureAction)
     case .microphone:
         proposeToAccessMicrophone(agreed: successAction, rejected: failureAction)

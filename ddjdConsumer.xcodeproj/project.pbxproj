@@ -1912,7 +1912,7 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 5A79UN6C3M;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2562,9 +2562,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ddjdConsumer/ddjdConsumer.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hunan Zonglan Tianxia network technology Co., Ltd. (5A79UN6C3M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hunan Zonglan Tianxia network technology Co., Ltd. (5A79UN6C3M)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5A79UN6C3M;
 				ENABLE_BITCODE = YES;
@@ -2592,8 +2592,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zltx.ddjdConsumer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "de78ce16-4f9d-47cc-8465-0c1548b6a25a";
-				PROVISIONING_PROFILE_SPECIFIER = DDJDC;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ddjdConsumer/ddjdConsumer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2607,9 +2607,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ddjdConsumer/ddjdConsumer.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hunan Zonglan Tianxia network technology Co., Ltd. (5A79UN6C3M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hunan Zonglan Tianxia network technology Co., Ltd. (5A79UN6C3M)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5A79UN6C3M;
 				ENABLE_BITCODE = YES;
@@ -2637,8 +2637,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zltx.ddjdConsumer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "de78ce16-4f9d-47cc-8465-0c1548b6a25a";
-				PROVISIONING_PROFILE_SPECIFIER = DDJDC;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ddjdConsumer/ddjdConsumer-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};

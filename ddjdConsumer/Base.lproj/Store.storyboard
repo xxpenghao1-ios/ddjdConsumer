@@ -369,7 +369,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="storeInfo_log" translatesAutoresizingMaskIntoConstraints="NO" id="PAN-fE-0RL">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="log" translatesAutoresizingMaskIntoConstraints="NO" id="PAN-fE-0RL">
                                 <rect key="frame" x="137.5" y="50" width="100" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PAN-fE-0RL" secondAttribute="height" multiplier="529:164" id="QAh-GO-ysz"/>
@@ -645,7 +645,7 @@
                                         <rect key="frame" x="0.0" y="208" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BSV-j8-En8" id="PDP-PE-if7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="188****7497" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLE-Ab-ttQ">
@@ -895,10 +895,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="log" width="264" height="82"/>
         <image name="member_info_bac" width="365" height="88"/>
         <image name="member_mg" width="440" height="345"/>
         <image name="member_mg_ts" width="367" height="47"/>
         <image name="red_packet" width="64" height="64"/>
-        <image name="storeInfo_log" width="264" height="82"/>
     </resources>
 </document>

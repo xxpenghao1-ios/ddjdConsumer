@@ -202,7 +202,7 @@ extension StoreOrderListViewController{
     ///查询订单数据
     private func queryStoreOrderInfo(pageSize:Int,pageNumber:Int,isRefresh:Bool){
         PHMoyaHttp.sharedInstance.requestDataWithTargetJSON(target:StoreOrderApi.queryStoreOrderInfo(storeId:STOREID, orderStatus: orderStatus!, pageSize: pageSize, pageNumber: pageNumber), successClosure: { (json) in
-            
+            print(STOREID)
             if isRefresh{
                 self.orderArr.removeAll()
             }

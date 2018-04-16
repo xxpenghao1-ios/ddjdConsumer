@@ -365,6 +365,20 @@ extension MyViewController{
             if self.memberEntity!.partnerStatu == 2{
                 self.vipImg.image=UIImage.init(named:"my_hhr")
             }
+
+            JPUSHService.getAllTags({ (c, setAll, q) in
+
+            if self.memberEntity!.storeAuthStatu == 2{
+                if setAll?.count == 0{//tags 为空写入tag
+                    JPUSHService.setTags(["s_"+self.memberEntity!.bindstoreId!.description], completion: nil, seq: 11)
+                }
+            }else{
+                ///清除tag
+                JPUSHService.cleanTags(nil, seq:11)
+            }
+
+            }, seq: 11)
+
             userDefaults.set(self.memberEntity!.vipStatu, forKey:"vipStatu")
             userDefaults.set(self.memberEntity!.partnerStatu, forKey:"partnerStatu")
             userDefaults.set(self.memberEntity!.storeAuthStatu, forKey:"storeAuthStatu")
